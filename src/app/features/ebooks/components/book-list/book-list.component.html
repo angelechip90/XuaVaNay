@@ -1,0 +1,10 @@
+<div class="book-list">
+  <ion-card *ngFor="let book of books" class="book-item">
+    <ion-card-header>
+      <ion-card-title>{{ book.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ book.description }}</p>
+    </ion-card-content>
+  </ion-card>
+</div>

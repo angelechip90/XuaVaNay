@@ -1,0 +1,27 @@
+<ion-content>
+    <div class="history-container">
+        <div class="page-header">
+            <h1>Xưa và Nay</h1>
+            <p>Khám phá lịch sử Việt Nam qua các thời kỳ</p>
+        </div>
+
+        <div class="history-grid">
+            <ion-card *ngFor="let item of historyItems" class="history-card" (click)="viewDetail(item)">
+                <img [src]="item.image" [alt]="item.title" class="card-image">
+
+                <ion-card-header>
+                    <ion-card-subtitle>{{ item.period }}</ion-card-subtitle>
+                    <ion-card-title>{{ item.title }}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <p>{{ item.description }}</p>
+                    <ion-button fill="outline" size="small">
+                        <ion-icon name="eye" slot="start"></ion-icon>
+                        Xem chi tiết
+                    </ion-button>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>

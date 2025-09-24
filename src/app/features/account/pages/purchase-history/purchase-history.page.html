@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Lịch sử mua gói đọc</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" aria-label="Tùy chọn">
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <!-- Greeting + Main title -->
+    <section class="intro">
+      <p class="hello">
+        Xin chào <strong>{{ displayName() }}</strong>,
+      </p>
+      <h1>Lịch sử mua gói LVAI</h1>
+    </section>
+
+    <!-- Cards -->
+    <section class="cards">
+      <ng-container *ngFor="let e of entries(); trackBy: trackById">
+        <div class="sub-card">
+          <div class="left">
+            <!-- Icon bubble -->
+            <div class="icon-bubble" [class.free]="e.theme==='free'" [class.pro]="e.theme==='pro'">
+              <ion-icon [name]="e.theme==='free' ? 'briefcase-outline' : 'diamond-outline'"></ion-icon>
+            </div>
+
+            <!-- Text block -->
+            <div class="text">
+              <div class="plan-title">{{ e.planName }}</div>
+              <div class="line">
+                <span class="muted">{{ e.labelLeft }}:</span>
+                <strong>{{ e.valueRight }}</strong>
+              </div>
+              <div class="line">
+                <span class="muted">Ngày bắt đầu:</span>
+                <strong>{{ e.startText }}</strong>
+              </div>
+              <div class="line">
+                <span class="muted">Ngày hết hạn:</span>
+                <strong>{{ e.endText }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status pill -->
+          <div class="status" [class.expired]="e.status==='expired'" [class.active]="e.status==='active'">
+            {{ e.status==='expired' ? 'Hết hạn' : 'Đang sử dụng' }}
+          </div>
+        </div>
+
+        <!-- Divider giữa 2 thẻ như thiết kế -->
+        <div class="section-divider"></div>
+      </ng-container>
+    </section>
+  </div>
+</ion-content>

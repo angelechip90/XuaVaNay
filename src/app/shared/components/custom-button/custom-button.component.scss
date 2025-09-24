@@ -1,0 +1,23 @@
+.custom-button {
+    --border-radius: 8px;
+    font-weight: 500;
+
+    .button-spinner {
+        width: 16px;
+        height: 16px;
+    }
+
+    &.button-small {
+        --padding-start: 12px;
+        --padding-end: 12px;
+        --padding-top: 8px;
+        --padding-bottom: 8px;
+    }
+
+    &.button-large {
+        --padding-start: 24px;
+        --padding-end: 24px;
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+    }
+}

@@ -1,0 +1,11 @@
+<ion-card *ngIf="geographyItem">
+    <ion-card-header>
+        <ion-card-title>{{ geographyItem.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <p>{{ geographyItem.description }}</p>
+        <ion-button fill="outline" size="small">
+            Xem trên bản đồ
+        </ion-button>
+    </ion-card-content>
+</ion-card>

@@ -1,0 +1,13 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>Cài đặt</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <p>Thông báo: {{ settings.notifications ? 'Bật' : 'Tắt' }}</p>
+        <p>Chế độ tối: {{ settings.darkMode ? 'Bật' : 'Tắt' }}</p>
+        <p>Ngôn ngữ: {{ settings.language }}</p>
+        <ion-button fill="solid" size="small">
+            Lưu cài đặt
+        </ion-button>
+    </ion-card-content>
+</ion-card>

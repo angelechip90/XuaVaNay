@@ -1,0 +1,116 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Thông tin hội viên</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <!-- Avatar + tên + trạng thái -->
+    <section class="hero">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <img [src]="member().avatarUrl" alt="Avatar" />
+          <div class="overlay"></div>
+        </div>
+      </div>
+
+      <div class="title-block">
+        <h1>{{ member().name }}</h1>
+        <p>
+          Bạn đang sử dụng {{ member().planCode }}, thời hạn đến ngày
+          {{ member().expireText }}.
+        </p>
+        <div class="ion-text-center">
+          <div class="plan-badge">
+            <div class="ion-align-items-center">
+              <ion-icon name="diamond-outline"></ion-icon>
+            </div>
+            <div class="badge-text">{{ member().planCode }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Items -->
+    <section class="list">
+      <!-- Email -->
+      <div class="row" (click)="openEmail()">
+        <div class="icon">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+        <div class="label">Email</div>
+        <div class="value accent">{{ member().email }}</div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Sách đã đọc -->
+      <div class="row" (click)="openReadBooks()">
+        <div class="icon">
+          <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <div class="label">Sách đã đọc</div>
+        <div class="value">{{ member().booksRead | number:'2.0' }}</div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Lịch sử Hỏi Đáp -->
+      <div class="row" (click)="openQaHistory()">
+        <div class="icon">
+          <ion-icon name="chatbubbles-outline"></ion-icon>
+        </div>
+        <div class="label">Lịch sử Hỏi Đáp</div>
+        <div class="value">{{ member().qaHistory }}</div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Lịch sử mua gói đọc -->
+      <div class="row" (click)="openPurchaseHistory()">
+        <div class="icon">
+          <ion-icon name="receipt-outline"></ion-icon>
+        </div>
+        <div class="label">Lịch sử mua gói đọc</div>
+        <div class="value"></div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Đổi mật khẩu -->
+      <div class="row" (click)="openChangePassword()">
+        <div class="icon">
+          <ion-icon name="key-outline"></ion-icon>
+        </div>
+        <div class="label">Đổi mật khẩu</div>
+        <div class="value"></div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Đăng xuất -->
+      <div class="row danger" (click)="signOut()">
+        <div class="icon">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </div>
+        <div class="label">Đăng xuất</div>
+        <div class="value"></div>
+        <div class="chev">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

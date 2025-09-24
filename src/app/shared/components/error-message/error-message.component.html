@@ -1,0 +1,7 @@
+<div class="error-container" *ngIf="message">
+    <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+    <p class="error-message">{{ message }}</p>
+    <ion-button *ngIf="showRetry" fill="outline" size="small" (click)="onRetry()" class="retry-button">
+        {{ retryText }}
+    </ion-button>
+</div>

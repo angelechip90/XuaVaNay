@@ -1,0 +1,299 @@
+<ion-content>
+  <!-- Header -->
+  <div class="demo-header">
+    <h1>🎯 Demo Showcase</h1>
+    <p>Tất cả components và features của XuaVaNay</p>
+  </div>
+
+  <!-- Segment Navigation -->
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChange($event)" class="demo-segment">
+    <ion-segment-button value="components">
+      <ion-label>Components</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="forms">
+      <ion-label>Forms</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="data">
+      <ion-label>Data</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="features">
+      <ion-label>Features</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Components Section -->
+  <div *ngIf="selectedSegment === 'components'" class="demo-section">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🔄 Shared Components</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Loading Spinner -->
+        <div class="component-demo">
+          <h3>Loading Spinner</h3>
+          <app-loading-spinner message="Đang tải demo..." size="medium">
+          </app-loading-spinner>
+          <ion-button fill="outline" size="small" (click)="showLoading()">
+            Show Loading
+          </ion-button>
+        </div>
+
+        <!-- Error Message -->
+        <div class="component-demo">
+          <h3>Error Message</h3>
+          <app-error-message *ngIf="hasError" [message]="errorMessage" [showRetry]="true" retryText="Thử lại">
+          </app-error-message>
+          <ion-button fill="outline" size="small" (click)="showError()">
+            Show Error
+          </ion-button>
+        </div>
+
+        <!-- Custom Button -->
+        <div class="component-demo">
+          <h3>Custom Button</h3>
+          <div class="button-group">
+            <app-custom-button text="Primary Button" type="primary" size="medium" (clicked)="onCustomButtonClick()">
+            </app-custom-button>
+
+            <app-custom-button text="Loading Button" type="secondary" size="medium" [loading]="isLoading"
+              (clicked)="onCustomButtonClick()">
+            </app-custom-button>
+
+            <app-custom-button text="Icon Button" type="success" size="small" icon="star" iconPosition="start"
+              (clicked)="onCustomButtonClick()">
+            </app-custom-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Ionic Components -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>⚡ Ionic Components</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Chips -->
+        <div class="component-demo">
+          <h3>Chips</h3>
+          <ion-chip color="primary">Primary</ion-chip>
+          <ion-chip color="secondary">Secondary</ion-chip>
+          <ion-chip color="success">Success</ion-chip>
+          <ion-chip color="warning">Warning</ion-chip>
+          <ion-chip color="danger">Danger</ion-chip>
+        </div>
+
+        <!-- Badges -->
+        <div class="component-demo">
+          <h3>Badges</h3>
+          <ion-badge color="primary">5</ion-badge>
+          <ion-badge color="secondary">12</ion-badge>
+          <ion-badge color="success">New</ion-badge>
+          <ion-badge color="warning">!</ion-badge>
+        </div>
+
+        <!-- Avatar -->
+        <div class="component-demo">
+          <h3>Avatar</h3>
+          <ion-avatar>
+            <img src="https://via.placeholder.com/50" alt="Avatar">
+          </ion-avatar>
+          <ion-avatar>
+            <img src="https://via.placeholder.com/50" alt="Avatar">
+          </ion-avatar>
+        </div>
+
+        <!-- Toggle -->
+        <div class="component-demo">
+          <h3>Toggle</h3>
+          <ion-item>
+            <ion-label>Notifications</ion-label>
+            <ion-toggle slot="end" [checked]="demoForm.get('notifications')?.value"
+              (ionChange)="demoForm.get('notifications')?.setValue($event.detail.checked)"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>Dark Mode</ion-label>
+            <ion-toggle slot="end" [checked]="demoForm.get('darkMode')?.value"
+              (ionChange)="demoForm.get('darkMode')?.setValue($event.detail.checked)"></ion-toggle>
+          </ion-item>
+        </div>
+
+        <!-- Range -->
+        <div class="component-demo">
+          <h3>Range</h3>
+          <ion-item>
+            <ion-label>Volume</ion-label>
+            <ion-range min="0" max="100" value="50" pin="true"></ion-range>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Forms Section -->
+  <div *ngIf="selectedSegment === 'forms'" class="demo-section">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>📝 Forms Demo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="demoForm" (ngSubmit)="onFormSubmit()">
+          <!-- Text Input -->
+          <ion-item>
+            <ion-label position="stacked">Tên</ion-label>
+            <ion-input formControlName="name" placeholder="Nhập tên của bạn">
+            </ion-input>
+          </ion-item>
+
+          <!-- Email Input -->
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input formControlName="email" type="email" placeholder="Nhập email">
+            </ion-input>
+          </ion-item>
+
+          <!-- Select -->
+          <ion-item>
+            <ion-label position="stacked">Danh mục</ion-label>
+            <ion-select formControlName="category" placeholder="Chọn danh mục">
+              <ion-select-option value="history">Lịch sử</ion-select-option>
+              <ion-select-option value="geography">Địa lý</ion-select-option>
+              <ion-select-option value="culture">Văn hóa</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Textarea -->
+          <ion-item>
+            <ion-label position="stacked">Mô tả</ion-label>
+            <ion-textarea formControlName="description" placeholder="Nhập mô tả">
+            </ion-textarea>
+          </ion-item>
+
+          <!-- Checkbox -->
+          <ion-item>
+            <ion-checkbox formControlName="notifications" slot="start"></ion-checkbox>
+            <ion-label>Nhận thông báo</ion-label>
+          </ion-item>
+
+          <!-- Submit Button -->
+          <ion-button type="submit" expand="block" [disabled]="demoForm.invalid" class="submit-button">
+            <ion-icon name="checkmark" slot="start"></ion-icon>
+            Submit Form
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Data Section -->
+  <div *ngIf="selectedSegment === 'data'" class="demo-section">
+    <!-- Books Data -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>📚 Books Data</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let book of sampleBooks">
+          <ion-label>
+            <h2>{{ book.title }}</h2>
+            <p>{{ book.author }} - {{ book.category }}</p>
+          </ion-label>
+          <ion-badge slot="end" color="primary">{{ book.id }}</ion-badge>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- History Data -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🏛️ History Data</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let item of sampleHistory">
+          <ion-label>
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.period }}</p>
+            <p>{{ item.description }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Geography Data -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🗺️ Geography Data</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let item of sampleGeography">
+          <ion-label>
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.type | titlecase }}</p>
+            <p>{{ item.description }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Features Section -->
+  <div *ngIf="selectedSegment === 'features'" class="demo-section">
+    <!-- Search -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🔍 Search Feature</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-searchbar placeholder="Tìm kiếm..." (ionInput)="onSearchChange($event)">
+        </ion-searchbar>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Date Pipe -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>📅 Date Pipe Demo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Ngày hiện tại:</ion-label>
+          <ion-label slot="end">{{ sampleDate | dateFormat:'dd/MM/yyyy' }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ngày giờ:</ion-label>
+          <ion-label slot="end">{{ sampleDate | dateFormat:'dd/MM/yyyy HH:mm' }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Năm:</ion-label>
+          <ion-label slot="end">{{ sampleDate | dateFormat:'yyyy' }}</ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Pull to Refresh -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🔄 Pull to Refresh</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <p>Kéo xuống để refresh</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Infinite Scroll -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>♾️ Infinite Scroll</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-infinite-scroll (ionInfinite)="onInfiniteScroll($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        <p>Cuộn xuống để load thêm</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,49 @@
+.search-container {
+    padding: 16px;
+
+    .search-card {
+        margin-bottom: 20px;
+
+        ion-card-title {
+            text-align: center;
+            color: var(--ion-color-primary);
+            font-weight: 600;
+        }
+
+        .search-actions {
+            margin-top: 16px;
+        }
+    }
+
+    .results-container {
+        .result-card {
+            margin-bottom: 12px;
+
+            ion-card-title {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            p {
+                color: var(--ion-color-medium);
+                line-height: 1.5;
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+
+            .no-results-icon {
+                font-size: 64px;
+                color: var(--ion-color-medium);
+                margin-bottom: 16px;
+            }
+
+            p {
+                color: var(--ion-color-medium);
+                font-size: 16px;
+            }
+        }
+    }
+}

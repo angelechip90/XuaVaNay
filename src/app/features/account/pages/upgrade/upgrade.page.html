@@ -1,0 +1,76 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Nâng cấp tài khoản</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" aria-label="Tùy chọn">
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content [fullscreen]="true">
+  <div class="page-container">
+    <!-- Chào + tiêu đề -->
+    <section class="intro">
+      <div class="hello">
+        <span>Xin chào </span><strong>{{ displayName() }},</strong>
+      </div>
+      <h1>Nâng cấp LVAI PRO</h1>
+    </section>
+
+    <!-- Grid 3 cột (stack trên mobile) -->
+    <section class="wrapper">
+      <!-- Hero khối trống mô phỏng card 460px -->
+      <ion-card class="hero-card" mode="ios">
+        <!-- Bạn có thể chèn ảnh/illustration/video tại đây -->
+      </ion-card>
+
+      <!-- Nút nâng cấp nổi bật -->
+      <div class="cta">
+        <button class="gradient-btn" (click)="onUpgrade()">Nâng cấp</button>
+      </div>
+
+      <!-- Card gói Pro -->
+      <ion-card class="plan-card" mode="ios">
+        <ion-card-header>
+          <div class="plan-head">
+            <div class="plan-name">{{ plan.name }}</div>
+
+            <div class="badge">
+              <div class="pixels">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="badge-text">{{ plan.badge }}</div>
+            </div>
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="price-row">
+            <div class="price">{{ plan.price }}</div>
+            <div class="period">{{ plan.period }}</div>
+          </div>
+
+          <p class="tagline">{{ plan.tagline }}</p>
+
+          <ul class="features">
+            <li *ngFor="let f of plan.features">
+              <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+              <span>{{ f }}</span>
+            </li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+    </section>
+  </div>
+</ion-content>

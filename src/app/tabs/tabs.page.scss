@@ -1,0 +1,48 @@
+.custom-tab-bar {
+    --background: #ffffff;
+    --border: 1px solid #E5E7EB;
+    padding: 8px 0 12px 0;
+
+    .tab-button {
+        --color: #6B7280;
+        --color-selected: #8B5CF6;
+        --background: transparent;
+        --background-selected: transparent;
+        min-height: 60px;
+
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .tab-label {
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        &.tab-selected {
+            .tab-icon {
+                color: #EC4899;
+            }
+
+            .tab-label {
+                color: #EC4899;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+// Custom styling for the first tab (AI Search) to match the design
+ion-tab-button[tab="tab1"] {
+    &.tab-selected {
+        .tab-icon {
+            color: #EC4899 !important;
+        }
+
+        .tab-label {
+            color: #EC4899 !important;
+        }
+    }
+}

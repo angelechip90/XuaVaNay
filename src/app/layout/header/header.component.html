@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start" *ngIf="showBackButton">
+            <ion-button>
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="start" *ngIf="showMenuButton">
+            <ion-button>
+                <ion-icon name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>{{ title }}</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="search"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>

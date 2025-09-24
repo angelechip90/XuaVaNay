@@ -1,0 +1,135 @@
+.demo-header {
+  text-align: center;
+  padding: 20px 16px;
+  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  color: white;
+  
+  h1 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+}
+
+.demo-segment {
+  margin: 16px;
+  --background: var(--ion-color-light);
+  border-radius: 8px;
+}
+
+.demo-section {
+  padding: 0 16px 16px 16px;
+}
+
+.component-demo {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--ion-color-light);
+  border-radius: 8px;
+  background: var(--ion-color-light-tint);
+  
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.submit-button {
+  margin-top: 16px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .demo-header {
+    padding: 16px 12px;
+    
+    h1 {
+      font-size: 24px;
+    }
+    
+    p {
+      font-size: 14px;
+    }
+  }
+  
+  .component-demo {
+    padding: 12px;
+    
+    .button-group {
+      flex-direction: column;
+      align-items: stretch;
+      
+      app-custom-button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .component-demo {
+    background: var(--ion-color-dark-tint);
+    border-color: var(--ion-color-medium);
+  }
+}
+
+// Animation for smooth transitions
+.demo-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Custom styling for demo elements
+ion-card {
+  margin-bottom: 16px;
+  
+  ion-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+  }
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+ion-chip {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+ion-badge {
+  margin-left: 8px;
+}
+
+ion-avatar {
+  margin-right: 12px;
+}

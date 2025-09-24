@@ -1,0 +1,11 @@
+<ion-card *ngIf="historyItem">
+    <ion-card-header>
+        <ion-card-title>{{ historyItem.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <p>{{ historyItem.description }}</p>
+        <ion-button fill="outline" size="small">
+            Đọc thêm
+        </ion-button>
+    </ion-card-content>
+</ion-card>
