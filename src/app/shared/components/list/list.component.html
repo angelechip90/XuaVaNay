@@ -1,0 +1,60 @@
+<ion-header translucent="true" class="ion-no-border">
+  <ion-toolbar>
+    <!-- Empty header - chỉ để tạo safe area -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <!-- Hero -->
+  <section class="hero ion-padding">
+    <h1 class="title">Tra cứu Lịch sử Văn hóa</h1>
+
+    <div class="title-row">
+      <span class="with-text">với</span>
+      <span class="brand">LẠC VIỆT AI</span>
+
+      <button class="ask-btn" (click)="ask()" aria-label="Hỏi đáp">
+        <ion-icon name="add-outline" aria-hidden="true"></ion-icon>
+        <span>Hỏi đáp</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Search -->
+  <app-search-box *ngIf="showSearchBox" (searchInput)="onSearchInput($event)"></app-search-box>
+
+  <!-- Filter row -->
+  <div class="ion-padding-horizontal filters" *ngIf="showYearFilter">
+    <button class="year-chip" (click)="chooseYear()">
+      <span>Năm {{ year }}</span>
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Masonry grid -->
+  <ion-grid class="masonry ion-padding-horizontal">
+    <ion-row>
+      <ion-col size="6">
+        <ng-container *ngFor="let it of leftItems">
+          <div class="poster" (click)="onItemClick(it)">
+            <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'"></ion-img>
+            <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ion-col>
+
+      <ion-col size="6">
+        <ng-container *ngFor="let it of rightItems">
+          <div class="poster" (click)="onItemClick(it)">
+            <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'"></ion-img>
+            <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

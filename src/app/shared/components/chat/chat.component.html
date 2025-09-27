@@ -1,0 +1,77 @@
+<ion-page>
+  <!-- Header -->
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title class="ion-text-center">
+        <span class="brand">LACVIET</span><span class="brand-accent">AI</span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Content -->
+  <ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="thin-divider"></div>
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <span class="text">{{ greeting() }}</span><span class="emoji"> 😊️</span>
+      </div>
+
+      <!-- Card: Bạn quan tâm chủ đề nào? -->
+      <ion-card class="topics-card" mode="ios">
+        <ion-card-content>
+          <div class="card-title">
+            <div class="dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="title">Bạn quan tâm chủ đề nào ?</div>
+          </div>
+
+          <div class="chips">
+            <ion-chip class="topic-chip" outline="true" (click)="pickTopic(t)" *ngFor="let t of topics()">
+              <ion-label>{{ t.label }}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Gợi ý hỏi nhanh -->
+      <div class="suggestions">
+        <div class="sugg-card" *ngFor="let s of suggestions()" (click)="useSuggestion(s)">
+          <div class="sugg-text">
+            <div class="sugg-title">{{ s.title }}</div>
+            <div class="sugg-sub">{{ s.subtitle }}</div>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="chev"></ion-icon>
+        </div>
+      </div>
+
+      <div class="bottom-spacer"></div>
+    </div>
+  </ion-content>
+
+  <!-- Composer -->
+  <ion-footer class="footer">
+    <div class="composer">
+      <div class="input">
+        <ion-textarea [value]="drafting()" (ionInput)="drafting.set($any($event.target).value)" autoGrow="true"
+          placeholder="Bạn cần hỗ trợ nội dung gì ?"></ion-textarea>
+        <div class="mic-hint">
+          <div class="mic-bars"></div>
+        </div>
+      </div>
+
+      <button class="send" (click)="send()" aria-label="Gửi">
+        <div class="send-grad"></div>
+        <ion-icon name="send-outline"></ion-icon>
+      </button>
+    </div>
+  </ion-footer>
+</ion-page>

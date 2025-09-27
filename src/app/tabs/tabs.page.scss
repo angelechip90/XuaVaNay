@@ -13,6 +13,10 @@
         .tab-icon {
             font-size: 24px;
             margin-bottom: 4px;
+            width: 24px;
+            height: 24px;
+            fill: #6B7280;
+            color: #6B7280;
         }
 
         .tab-label {
@@ -24,12 +28,51 @@
         &.tab-selected {
             .tab-icon {
                 color: #EC4899;
+                fill: #EC4899;
             }
 
             .tab-label {
                 color: #EC4899;
                 font-weight: 600;
             }
+        }
+    }
+}
+
+// Alternative approach using CSS variables
+ion-tab-button {
+    &.tab-selected {
+        .tab-icon {
+            --color: #FF0000;
+
+            svg {
+                fill: var(--color) !important;
+                color: var(--color) !important;
+            }
+
+            svg path {
+                fill: var(--color) !important;
+            }
+
+            svg path[stroke] {
+                stroke: var(--color) !important;
+                fill: none !important;
+            }
+
+            // More specific targeting
+            svg * {
+                fill: var(--color) !important;
+            }
+
+            svg *[stroke] {
+                stroke: var(--color) !important;
+                fill: none !important;
+            }
+        }
+
+        .tab-label {
+            color: #800080 !important;
+            font-weight: 600;
         }
     }
 }

@@ -1,0 +1,113 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Đọc sách</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" aria-label="Tùy chọn">
+        <ion-icon name="bookmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="thin-divider"></div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="shell">
+    <!-- LAYERS (theo mock: block mờ + ảnh + overlay trắng) -->
+    <section class="layers">
+      <div class="layer block"></div>
+      <img class="layer photo" [src]="backdrop" alt="Backdrop" />
+      <div class="layer veil"></div>
+    </section>
+
+    <!-- HERO: bìa + tiêu đề + NXB + rating -->
+    <section class="hero">
+      <div class="cover-card">
+        <img [src]="cover" [alt]="title" />
+      </div>
+
+      <div class="meta">
+        <h1 class="book-title">{{ title }}</h1>
+        <div class="publisher">
+          <u>{{ publisher }}</u>
+        </div>
+        <div class="rating">
+          <div class="stars">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-half-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+          <div class="count">({{ ratingCount }})</div>
+        </div>
+      </div>
+
+      <!-- CTA: ĐỌC SÁCH + nút tròn gradient -->
+      <div class="cta-row">
+        <button class="gradient-btn" (click)="readNow()">ĐỌC SÁCH</button>
+        <button class="round-btn" aria-label="Hành động phụ">
+          <span class="grad-dot"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TÓM TẮT -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Tóm tắt nội dung</h2>
+      </div>
+      <pre class="summary">{{ summary() }}</pre>
+      <button class="see-more" type="button" (click)="expanded.update(v => !v)">
+        {{ expanded() ? 'Thu gọn' : 'Xem tiếp...' }}
+      </button>
+    </section>
+
+    <!-- SỐ CÙNG TẠP CHÍ -->
+    <section class="section">
+      <div class="section-row">
+        <h2>Số cùng tạp chí</h2>
+        <button class="link" type="button">Tất cả</button>
+      </div>
+
+      <div class="issue-strip">
+        <div class="issue" *ngFor="let it of issues">
+          <div class="thumb">
+            <img [src]="it.cover" [alt]="it.title" />
+          </div>
+          <div class="issue-meta">
+            <div class="issue-title">{{ it.title }}</div>
+            <button class="read-chip" (click)="readIssue(it.id)">
+              <span>ĐỌC SÁCH</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÌNH LUẬN -->
+    <section class="section">
+      <div class="section-row">
+        <h2>Bình luận bạn đọc</h2>
+        <button class="link" type="button">Tất cả</button>
+      </div>
+
+      <div class="comments">
+        <div class="comment-card" *ngFor="let c of comments">
+          <div class="c-head">
+            <img [src]="c.avatar" alt="" class="avatar" />
+            <div class="who">
+              <div class="name">{{ c.name }}</div>
+              <div class="time">{{ c.time }}</div>
+            </div>
+          </div>
+          <div class="c-body">{{ c.content }}</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

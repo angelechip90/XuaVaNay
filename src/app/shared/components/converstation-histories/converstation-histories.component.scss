@@ -1,0 +1,151 @@
+:host {
+    --ink: #0f172a;
+    /* gần text-blue-950 */
+    --muted: #6b7280;
+    /* stone-500 */
+    --line: rgba(120, 113, 108, .30);
+    --card-border: rgba(120, 113, 108, .30);
+    --shadow-a: 0 14px 64px -4px rgba(24, 39, 75, .12), 0 8px 22px -6px rgba(24, 39, 75, .12);
+}
+
+ion-header {
+    backdrop-filter: blur(12px);
+}
+
+.container {
+    max-width: 384px;
+    /* ~ w-96 */
+    margin: 0 auto;
+    padding: 92px 12px 16px;
+    /* chừa header */
+}
+
+.thin-divider {
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 16px;
+}
+
+/* Ô hỏi (card trắng bóng, 14px cao ~ h-14) */
+.ask-card {
+    position: relative;
+    height: 56px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow-a);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.placeholder {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    color: #9ca3af;
+    font-size: 16px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.actions {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.icon-btn {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+}
+
+.icon-btn ion-icon {
+    font-size: 20px;
+    color: #64748b;
+}
+
+.icon-btn.send ion-icon {
+    transform: rotate(45deg);
+    color: #ef4444;
+}
+
+.ask-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: none;
+    padding: 16px 76px 16px 16px;
+    /* chừa chỗ icon */
+    background: transparent;
+    color: #111827;
+    font-size: 16px;
+}
+
+/* Lưới 2 cột */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.qa-card {
+    border-radius: 36px;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(8px);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.q {
+    color: var(--ink);
+    font: 600 16px "SF Pro Rounded", system-ui;
+    line-height: 1.2;
+}
+
+.a {
+    color: #6b7280;
+    font: 400 16px "SF Pro Rounded", system-ui;
+    line-height: 1.45;
+}
+
+.t {
+    color: #6b7280;
+    opacity: .7;
+    font: 400 13px "SF Pro Rounded", system-ui;
+    line-height: 1;
+}
+
+/* Greeting nhỏ ở cuối như mock */
+.hello {
+    margin-top: 8px;
+    color: #0b1b3a;
+    /* blue-950 gần tương đương */
+    font: 400 16px Roboto, system-ui;
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+/* Responsive: nếu màn hẹp, rút xuống 1 cột */
+@media (max-width: 360px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

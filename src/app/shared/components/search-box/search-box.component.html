@@ -1,0 +1,11 @@
+<ion-card class="search-card" mode="ios">
+  <ion-item lines="none">
+    <ion-icon name="search-outline" slot="start"></ion-icon>
+    <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" clear-input="true" inputmode="search"
+      (ionInput)="onSearchInput($event)">
+    </ion-input>
+    <ion-button fill="clear" slot="end">
+      <ion-icon name="options-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-card>

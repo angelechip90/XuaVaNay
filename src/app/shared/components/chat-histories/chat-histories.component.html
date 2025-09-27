@@ -1,0 +1,143 @@
+<ion-page>
+  <!-- Header -->
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title class="ion-text-center">
+        Xưa & Nay ( số Tết Canh Dần 349 + 350)
+      </ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button fill="clear" aria-label="Menu">
+          <div class="grad-square"></div>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <!-- Badge thông báo -->
+    <div class="notif-badge" *ngIf="notifCount() > 0">
+      {{ notifCount() }}
+    </div>
+  </ion-header>
+
+  <!-- Content -->
+  <ion-content [fullscreen]="true">
+    <div class="container">
+      <!-- Divider top -->
+      <div class="thin-divider"></div>
+
+      <!-- Thread -->
+      <ng-container *ngFor="let m of msgs()">
+        <!-- USER block -->
+        <section class="block user" *ngIf="m.role === 'user'">
+          <div class="chip">
+            <img class="avatar" [src]="m.avatar" alt="user" />
+            <span class="name">{{ m.author }}</span>
+          </div>
+
+          <div class="prompt" *ngIf="m.title">{{ m.title }}</div>
+
+          <!-- Thẻ nguồn tham khảo -->
+          <div class="refs" *ngIf="m.refs?.length">
+            <div class="ref-card" *ngFor="let r of m.refs">
+              <div class="ref-icon" [class.yellow]="r.iconColor==='yellow'" [class.pink]="r.iconColor==='pink'">
+                <div class="dot"></div>
+              </div>
+              <div class="ref-texts">
+                <div class="ref-summary">{{ r.summary }}</div>
+                <div class="ref-source">{{ r.source }}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ASSISTANT block -->
+        <section class="block bot" *ngIf="m.role === 'assistant'">
+          <div class="bot-chip">
+            <div class="grad-circle">
+              <div class="shine"></div>
+            </div>
+            <span class="name">LACVIET AI</span>
+          </div>
+
+          <div class="answer" *ngIf="m.text">
+            <pre>{{ m.text }}</pre>
+          </div>
+
+          <!-- Actions (text) -->
+          <div class="actions" *ngIf="m.kind !== 'image'">
+            <button class="act left" (click)="copy(m)">
+              <ion-icon name="copy-outline"></ion-icon><span>Copy</span>
+            </button>
+            <button class="act" (click)="share(m)">
+              <ion-icon name="share-social-outline"></ion-icon><span>Share</span>
+            </button>
+            <button class="act right" (click)="regenerate(m)">
+              <ion-icon name="refresh-outline"></ion-icon><span>Regenerate</span>
+            </button>
+          </div>
+
+          <!-- Actions (image) -->
+          <div class="actions" *ngIf="m.kind === 'image'">
+            <button class="act left" (click)="download(m)">
+              <ion-icon name="download-outline"></ion-icon><span>Download</span>
+            </button>
+            <button class="act" (click)="share(m)">
+              <ion-icon name="share-social-outline"></ion-icon><span>Share</span>
+            </button>
+            <button class="act right" (click)="regenerate(m)">
+              <ion-icon name="refresh-outline"></ion-icon><span>Regenerate</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="thin-divider"></div>
+      </ng-container>
+    </div>
+  </ion-content>
+
+  <!-- Footer: Input + Bottom nav -->
+  <ion-footer class="footer">
+    <div class="composer">
+      <div class="input">
+        <span class="placeholder" *ngIf="!drafting()">Câu hỏi của bạn...</span>
+        <ion-textarea autoGrow="true" [value]="drafting()"
+          (ionInput)="drafting.set($any($event.target).value)"></ion-textarea>
+        <div class="mic"></div>
+      </div>
+      <button class="send" (click)="send()" aria-label="Gửi">
+        <div class="send-grad"></div>
+        <ion-icon name="send-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="tab" (click)="navTo('home')">
+        <ion-icon name="home-outline"></ion-icon>
+        <span>Trang chủ</span>
+      </button>
+      <button class="tab active" (click)="navTo('xuanay')">
+        <div class="tab-grad"></div>
+        <div class="tab-grad-mini"></div>
+        <span class="active-text">Xưa và Nay</span>
+      </button>
+      <button class="tab" (click)="navTo('sudia')">
+        <ion-icon name="library-outline"></ion-icon>
+        <span>Sử Địa</span>
+      </button>
+      <button class="tab" (click)="navTo('docs')">
+        <ion-icon name="book-outline"></ion-icon>
+        <span>Đọc sách</span>
+      </button>
+      <button class="tab" (click)="navTo('account')">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Tài khoản</span>
+      </button>
+    </div>
+  </ion-footer>
+</ion-page>

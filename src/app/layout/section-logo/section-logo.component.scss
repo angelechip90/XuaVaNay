@@ -1,0 +1,74 @@
+/* Logo section */
+.logo-section {
+    padding: 20px 16px;
+    margin: 20px 0 0 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: nowrap;
+}
+
+.logo-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: flex-start;
+    white-space: nowrap;
+}
+
+.logo-years {
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+    line-height: 1.2;
+}
+
+.logo-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+}
+
+.logo-ai {
+    font-size: 12px;
+    font-weight: 600;
+    color: #7c3aed;
+    line-height: 1.2;
+}
+
+/* Specific styling for each logo */
+.logo-item:nth-child(2) .logo-years {
+    color: #371f1f;
+    /* Dark for Xưa và Nay */
+}
+
+.logo-item:nth-child(2) .xuavanay {
+    background: linear-gradient(225deg, #E3395C 0%, #C72389 48.1%, #741BCF 100%);
+    border-radius: 10px;
+    padding-top: 4px;
+    /* Dark for Xưa và Nay */
+}
+
+.logo-item:nth-child(3) .logo-name {
+    color: #2563eb;
+    /* Blue for LẠC VIỆT */
+}

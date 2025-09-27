@@ -1,0 +1,62 @@
+<ion-page>
+  <!-- Header -->
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title class="ion-text-center">
+        Xưa & Nay ( số Tết Canh Dần 349 + 350)
+      </ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="more()" aria-label="Tùy chọn">
+          <ion-icon name="ellipsis-horizontal"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Content -->
+  <ion-content [fullscreen]="true" class="reader">
+    <div class="stack">
+      <div class="top-divider"></div>
+
+      <!-- Danh sách trang (dùng id page-1..page-N để có thể scrollTo) -->
+      <ng-container *ngFor="let src of pages; let i = index">
+        <img #pageEl class="page" [id]="'page-' + (i+1)" [src]="src" [alt]="'Page ' + (i+1)" />
+      </ng-container>
+    </div>
+
+    <!-- Fade đáy -->
+    <div class="bottom-fade"></div>
+
+    <!-- Controls nổi -->
+    <div class="controls">
+      <div class="left">
+        <button class="btn square" aria-label="Trang trước" (click)="prev()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+
+        <button class="btn wide" aria-label="Mục lục" (click)="openToc()">
+          <ion-icon name="list-outline"></ion-icon>
+        </button>
+
+        <button class="chip" aria-label="Chế độ xem" (click)="toggleView()"></button>
+
+        <div class="counter">
+          <strong>{{ current() }}</strong><span>/{{ totalPages }}</span>
+        </div>
+      </div>
+
+      <button class="btn square" aria-label="Trang sau" (click)="next()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+
+      <div class="accent"></div>
+    </div>
+  </ion-content>
+</ion-page>

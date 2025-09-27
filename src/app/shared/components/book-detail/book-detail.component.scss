@@ -1,0 +1,308 @@
+:host {
+    --ink: #1e1b4b;
+    /* violet-950 gần tương đương */
+    --muted: #6b7280;
+    /* neutral/stone-500 */
+    --line: rgba(120, 113, 108, .30);
+    --card: #ffffff;
+    --shadow-a: 0 0 20px rgba(0, 0, 0, .20);
+    --grad: linear-gradient(225deg, #ef4444, #ec4899, #6d28d9);
+}
+
+ion-header {
+    backdrop-filter: blur(12px);
+}
+
+.thin-divider {
+    height: 1px;
+    background: var(--line);
+}
+
+.shell {
+    max-width: 384px;
+    /* ~ w-96 */
+    margin: 0 auto;
+    padding-bottom: 16px;
+}
+
+/* ===== LAYERS (mô phỏng 3 block trong mock) ===== */
+.layers {
+    position: relative;
+    width: 100%;
+    height: 564px;
+    /* lớp đầu */
+}
+
+.layer {
+    position: absolute;
+    inset: 0;
+}
+
+.layer.block {
+    background: #d4d4d8;
+}
+
+/* zinc-300 */
+.layer.photo {
+    object-fit: cover;
+    width: 100%;
+    height: 621px;
+    top: 564px;
+    position: absolute;
+}
+
+.layer.veil {
+    position: absolute;
+    top: 564px + 621px;
+    height: 563px;
+    inset-inline: 0;
+    background: rgba(255, 255, 255, .90);
+    backdrop-filter: blur(2px);
+}
+
+/* ===== HERO ===== */
+.hero {
+    position: relative;
+    margin-top: -360px;
+    /* kéo card lên trên lớp nền để giống mock */
+    padding: 32px 10px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 16px;
+}
+
+.cover-card {
+    width: 208px;
+    height: 288px;
+    /* w-52 h-72 */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-a);
+}
+
+.cover-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.meta {
+    display: grid;
+    gap: 8px;
+    place-items: center;
+    text-align: center;
+    padding: 0 12px;
+}
+
+.book-title {
+    color: var(--ink);
+    font: 700 28px/1.2 "Roboto Slab", system-ui;
+}
+
+.publisher {
+    color: #6b7280;
+    font: 400 14px Roboto, system-ui;
+    text-decoration: underline;
+}
+
+.rating {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.stars ion-icon {
+    font-size: 16px;
+    color: #f59e0b;
+}
+
+.count {
+    color: #000;
+    opacity: .3;
+    font: 500 16px Roboto, system-ui;
+}
+
+.cta-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px 0;
+}
+
+.gradient-btn {
+    height: 48px;
+    border: 0;
+    border-radius: 12px;
+    background-image: var(--grad);
+    box-shadow: 0 4px 15px rgba(202, 58, 250, .25), 14px 17px 40px 4px rgba(112, 144, 176, .10);
+    color: #fff;
+    font: 600 16px Roboto, system-ui;
+    letter-spacing: .2px;
+}
+
+.round-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    display: grid;
+    place-items: center;
+}
+
+.grad-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-image: linear-gradient(225deg, #ef4444, #d946ef);
+}
+
+/* ===== SECTION COMMON ===== */
+.section {
+    padding: 16px 10px;
+}
+
+.section-head h2,
+.section-row h2 {
+    color: #1f2937;
+    font: 600 18px Roboto, system-ui;
+    margin: 0 0 8px;
+}
+
+.section-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.link {
+    background: transparent;
+    border: 0;
+    color: #6b7280;
+    font: 400 14px Roboto, system-ui;
+}
+
+.summary {
+    white-space: pre-wrap;
+    color: #6b7280;
+    font: 400 18px/1.45 Roboto, system-ui;
+    padding-right: 2px;
+}
+
+.see-more {
+    margin-top: 6px;
+    border: 0;
+    background: transparent;
+    color: #6b7280;
+    font: 600 14px Roboto, system-ui;
+}
+
+/* ===== ISSUE STRIP ===== */
+.issue-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(160px, 1fr);
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scroll-snap-type: x mandatory;
+}
+
+.issue {
+    scroll-snap-align: start;
+    display: grid;
+    gap: 12px;
+}
+
+.thumb {
+    width: 112px;
+    height: 160px;
+    position: relative;
+    border-left: 4px solid #e5e7eb;
+    border-bottom: 4px solid #e5e7eb;
+    border-radius: 0 12px 12px 0;
+    overflow: hidden;
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.issue-meta {
+    display: grid;
+    gap: 8px;
+}
+
+.issue-title {
+    width: 180px;
+    color: var(--ink);
+    font: 600 16px Roboto, system-ui;
+}
+
+.read-chip {
+    width: fit-content;
+    padding: 6px 10px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #6d28d9;
+    color: #0b1b3a;
+    font: 500 14px Roboto, system-ui;
+}
+
+/* ===== COMMENTS ===== */
+.comments {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 240px;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.comment-card {
+    background: #fff;
+    border-radius: 0 12px 12px 0;
+    padding: 12px;
+    display: grid;
+    gap: 12px;
+    border-right: 1px solid #f1f5f9;
+    min-height: 176px;
+}
+
+.c-head {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+}
+
+.who {
+    display: grid;
+    gap: 2px;
+}
+
+.name {
+    color: #0f172a;
+    font: 600 14px Roboto, system-ui;
+}
+
+.time {
+    color: #6b7280;
+    font: 400 12px Roboto, system-ui;
+}
+
+.c-body {
+    color: #1f2937;
+    font: 400 13px/1.35 Roboto, system-ui;
+}

@@ -1,0 +1,19 @@
+/* Search card */
+.search-card {
+    margin: 10px 16px 2px;
+    border-radius: 14px;
+    box-shadow:
+        0 14px 64px -4px rgba(24, 39, 75, 0.12),
+        0 8px 22px -6px rgba(24, 39, 75, 0.12);
+}
+
+.search-card ion-item {
+    --background: #fff;
+    --padding-start: 12px;
+    --inner-padding-end: 8px;
+    border-radius: 14px;
+}
+
+.search-card ion-icon[slot='start'] {
+    opacity: 0.6;
+}

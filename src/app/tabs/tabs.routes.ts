@@ -8,11 +8,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('../features/ai-search/ai-search.module').then(m => m.AiSearchModule),
+        loadChildren: () => import('../features/home/home.module').then(m => m.HomeModule),
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../features/history/history.module').then(m => m.HistoryModule),
+        loadChildren: () => import('../features/thenandnow/thenandnow-module').then(m => m.ThenandnowModule),
       },
       {
         path: 'tab3',

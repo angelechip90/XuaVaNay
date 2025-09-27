@@ -1,0 +1,134 @@
+:host {
+    --ink: #1f2937;
+    --line: rgba(0, 0, 0, .08);
+    --shadow: 0 10px 10px rgba(0, 0, 0, .10), inset 0 1px 3px rgba(0, 0, 0, .50);
+}
+
+ion-header {
+    backdrop-filter: blur(12px);
+}
+
+.reader {
+    --padding-start: 0;
+    --padding-end: 0;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 100px;
+    padding-bottom: 140px;
+    /* chừa vùng controls */
+}
+
+.top-divider {
+    height: 1px;
+    align-self: stretch;
+    background: rgba(120, 113, 108, .3);
+}
+
+.page {
+    width: 100%;
+    max-width: 392px;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    /* theo mockup là full-bleed */
+}
+
+/* Fade ở đáy giống gradient trong mock */
+.bottom-fade {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 96px;
+    width: 100%;
+    max-width: 384px;
+    height: 80px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .10), inset 0 1px 3px rgba(0, 0, 0, .50);
+    border-bottom-left-radius: 10px;
+}
+
+/* Controls nổi */
+.controls {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
+    width: 100%;
+    max-width: 384px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    padding: 0 20px;
+    gap: 14px;
+}
+
+.left {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    border: 0;
+    display: grid;
+    place-items: center;
+}
+
+.btn.square ion-icon {
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.btn.wide {
+    width: 96px;
+}
+
+.btn.wide ion-icon {
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.chip {
+    width: 36px;
+    height: 32px;
+    border-radius: 8px;
+    background: #fae8ff;
+    border: 0;
+}
+
+.counter {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+
+    strong {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    span {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111827;
+        opacity: .8;
+    }
+}
+
+/* nút bên phải */
+.accent {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background-image: linear-gradient(225deg, #ef4444, #c026d3);
+}

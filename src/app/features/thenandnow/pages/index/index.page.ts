@@ -1,0 +1,55 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ListComponent, PosterItem } from 'src/app/shared/components/list/list.component';
+
+@Component({
+  selector: 'app-index',
+  templateUrl: './index.page.html',
+  styleUrls: ['./index.page.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ListComponent]
+})
+export class IndexPage implements OnInit {
+  // Demo data - có thể thay bằng API call
+  items: PosterItem[] = [
+    { id: 1, src: 'https://placehold.co/201x273', title: 'Số 560' },
+    { id: 2, src: 'https://placehold.co/201x299', title: 'Số 561' },
+    { id: 3, src: 'https://placehold.co/201x273', title: 'Số 562' },
+    { id: 4, src: 'https://placehold.co/201x273', title: 'Số 563' },
+    { id: 5, src: 'https://placehold.co/201x273', title: 'Số 564' },
+    { id: 6, src: 'https://placehold.co/201x299', title: 'Số 565' },
+    { id: 7, src: 'https://placehold.co/201x273', title: 'Số 566' },
+    { id: 8, src: 'https://placehold.co/201x273', title: 'Số 567' },
+  ];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  onItemClick(item: PosterItem) {
+    console.log('Item clicked:', item);
+    // TODO: Navigate to detail page or open modal
+  }
+
+  onBookmarkClick(item: PosterItem) {
+    console.log('Bookmark clicked:', item);
+    // TODO: Add/remove bookmark
+  }
+
+  onSearchInput(query: string) {
+    console.log('Search query:', query);
+    // TODO: Filter items based on search query
+  }
+
+  onYearChange(year: number) {
+    console.log('Year changed:', year);
+    // TODO: Filter items based on year
+  }
+
+  onAskClick() {
+    console.log('Ask button clicked');
+    // TODO: Navigate to ask/chat page
+  }
+}

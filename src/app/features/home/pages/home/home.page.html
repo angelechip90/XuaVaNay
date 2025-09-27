@@ -1,0 +1,71 @@
+<!-- Content -->
+<ion-content fullscreen>
+  <!-- Logo -->
+  <app-section-logo></app-section-logo>
+  <!-- Hero -->
+  <section class="hero ion-padding-horizontal ion-padding-top">
+    <h1 class="hero-title">
+      Kết nối Quá khứ & Hiện tại<br />Soi chiếu Tương lai
+    </h1>
+    <p class="hero-subtitle">
+      Connecting the Past and Present<br />Illuminating the Future
+    </p>
+  </section>
+
+  <!-- Search -->
+  <ion-card class="search-card" mode="ios">
+    <ion-item lines="none">
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" inputmode="search" clear-input="true"
+        (ionInput)="onSearchInput($event)">
+      </ion-input>
+      <ion-button fill="clear" slot="end" aria-label="Gợi ý" (click)="onSuggestClick()">
+        <ion-icon name="sparkles-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+
+  <!-- Data sources -->
+  <section class="ion-padding-horizontal section">
+    <ion-text class="section-title">
+      <h2>Ứng dụng khai thác các dữ liệu sau:</h2>
+    </ion-text>
+    <ion-text class="section-subtitle">
+      <p>(This Apps exploits the following data)</p>
+    </ion-text>
+
+    <ion-list class="sources">
+      <ion-item>
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        <ion-label>
+          <h3>Tập san Sử Địa.</h3>
+          <p>The History and Geography Journal (1966 - 1975).</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        <ion-label>
+          <h3>Tạp chí Xưa và Nay</h3>
+          <p>The Past and Present Magazine (1994 - present).</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        <ion-label>
+          <h3>Sách được cấp phép xuất bản</h3>
+          <p>Books licensed for publication.</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        <ion-label>
+          <h3>Tài liệu có bản quyền</h3>
+          <p>Copyrighted documents (videos, images).</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </section>
+</ion-content>
