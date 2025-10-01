@@ -36,7 +36,8 @@ ion-toolbar {
     padding-top: 10px;
     padding-bottom: 0;
     /* Add safe area padding for devices with notch */
-    padding-top: max(10px, env(safe-area-inset-top));
+    padding-top: max(30px, env(safe-area-inset-top));
+    padding-bottom: max(30px, env(safe-area-inset-bottom));
 }
 
 .title {
@@ -78,14 +79,16 @@ ion-toolbar {
     margin-left: auto;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 36px;
+    gap: 10px;
+    padding: 10px 20px;
     background: linear-gradient(135deg, #6d28d9, #ec4899);
     color: #fff;
     font-weight: 700;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
     border: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 45px;
 }
 
 .ask-btn ion-icon {
@@ -96,10 +99,12 @@ ion-toolbar {
 /* Filters */
 .filters {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-top: 6px;
     padding-bottom: 8px;
+    margin-bottom: 10px;
+    background: #ffffff;
 }
 
 .year-chip {
@@ -121,23 +126,48 @@ ion-toolbar {
     color: #374151;
 }
 
-/* Masonry grid */
-.masonry {
-    padding-bottom: 8px;
+/* Grid with equal height columns */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding-bottom: 80px;
+    /* Thêm padding để tránh bị footer che */
 }
 
-.poster {
+.grid-item {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 8px;
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    /* Đảm bảo có chiều cao tối thiểu */
 }
 
-.poster ion-img {
+.grid-item ion-img {
     width: 100%;
     height: auto;
     display: block;
+    flex: 1;
+    object-fit: cover;
+    min-height: 200px;
+    /* Đảm bảo ảnh có chiều cao tối thiểu */
+}
+
+/* Fallback cho khi ảnh không load được */
+.grid-item ion-img:not([src]) {
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-item ion-img:not([src])::after {
+    content: 'No Image';
+    color: #999;
+    font-size: 14px;
 }
 
 .floating-btn {
@@ -157,7 +187,8 @@ ion-toolbar {
 }
 
 .floating-btn ion-icon {
-    font-size: 18px;
+    font-size: 24px;
+    rotate: 310deg
 }
 
 /* Bottom nav */

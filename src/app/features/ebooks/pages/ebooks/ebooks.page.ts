@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
+import { bookOutline, downloadOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-ebooks',
   templateUrl: './ebooks.page.html',
   styleUrls: ['./ebooks.page.scss'],
   imports: [
-    IonContent, 
-    IonCard, 
-    IonCardHeader, 
-    IonCardTitle, 
-    IonCardSubtitle, 
-    IonCardContent, 
-    IonButton, 
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonButton,
     IonIcon,
     CommonModule
   ],
@@ -50,9 +52,14 @@ export class EbooksPage implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor() {
+    addIcons({
+      downloadOutline,
+      bookOutline
+    });
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   readBook(book: any) {
     console.log('Read book:', book);

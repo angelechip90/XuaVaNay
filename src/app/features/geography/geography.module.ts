@@ -5,8 +5,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { GeographyRoutingModule } from './geography-routing.module';
 import { GeographyPage } from './pages/geography/geography.page';
-import { GeographyDetailComponent } from './components/geography-detail/geography-detail.component';
-import { GeographyListComponent } from './components/geography-list/geography-list.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -17,8 +15,6 @@ import { SharedModule } from '../../shared/shared.module';
         SharedModule,
         GeographyRoutingModule,
         GeographyPage,
-        GeographyDetailComponent,
-        GeographyListComponent
     ]
 })
 export class GeographyModule { }

@@ -1,27 +1,4 @@
-<ion-content>
-    <div class="geography-container">
-        <div class="page-header">
-            <h1>Sử Địa</h1>
-            <p>Khám phá địa lý và lịch sử các vùng miền Việt Nam</p>
-        </div>
-
-        <div class="geography-grid">
-            <ion-card *ngFor="let item of geographyItems" class="geography-card" (click)="viewDetail(item)">
-                <img [src]="item.image" [alt]="item.name" class="card-image">
-
-                <ion-card-header>
-                    <ion-card-subtitle>{{ item.type | titlecase }}</ion-card-subtitle>
-                    <ion-card-title>{{ item.name }}</ion-card-title>
-                </ion-card-header>
-
-                <ion-card-content>
-                    <p>{{ item.description }}</p>
-                    <ion-button fill="outline" size="small">
-                        <ion-icon name="location" slot="start"></ion-icon>
-                        Xem chi tiết
-                    </ion-button>
-                </ion-card-content>
-            </ion-card>
-        </div>
-    </div>
-</ion-content>
+<app-list [items]="items" [title]="'Xưa và Nay'" [year]="2025" [showSearchBox]="true" [showYearFilter]="true"
+    (itemClick)="onItemClick($event)" (bookmarkClick)="onBookmarkClick($event)" (searchInput)="onSearchInput($event)"
+    (yearChange)="onYearChange($event)" (askClick)="onAskClick()">
+</app-list>

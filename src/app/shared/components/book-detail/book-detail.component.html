@@ -62,7 +62,7 @@
         <h2>Tóm tắt nội dung</h2>
       </div>
       <pre class="summary">{{ summary() }}</pre>
-      <button class="see-more" type="button" (click)="expanded.update(v => !v)">
+      <button class="see-more" type="button" (click)="toggleExpanded()">
         {{ expanded() ? 'Thu gọn' : 'Xem tiếp...' }}
       </button>
     </section>

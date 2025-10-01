@@ -31,30 +31,15 @@
     </button>
   </div>
 
-  <!-- Masonry grid -->
-  <ion-grid class="masonry ion-padding-horizontal">
-    <ion-row>
-      <ion-col size="6">
-        <ng-container *ngFor="let it of leftItems">
-          <div class="poster" (click)="onItemClick(it)">
-            <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'"></ion-img>
-            <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
-              <ion-icon name="bookmark-outline"></ion-icon>
-            </button>
-          </div>
-        </ng-container>
-      </ion-col>
-
-      <ion-col size="6">
-        <ng-container *ngFor="let it of rightItems">
-          <div class="poster" (click)="onItemClick(it)">
-            <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'"></ion-img>
-            <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
-              <ion-icon name="bookmark-outline"></ion-icon>
-            </button>
-          </div>
-        </ng-container>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <!-- Grid with equal height columns -->
+  <div class="grid-container ion-padding-horizontal">
+    <div class="grid-item" *ngFor="let it of items; trackBy: trackByFn" (click)="onItemClick(it)">
+      <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'" (ionError)="onImageError($event)"
+        (ionImgDidLoad)="onImageLoad($event)">
+      </ion-img>
+      <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
 </ion-content>

@@ -1,11 +1,13 @@
 <ion-card class="search-card" mode="ios">
   <ion-item lines="none">
-    <ion-icon name="search-outline" slot="start"></ion-icon>
-    <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" clear-input="true" inputmode="search"
+    <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" clear-input="true" inputmode="search" [(ngModel)]="searchText"
       (ionInput)="onSearchInput($event)">
     </ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon name="options-outline"></ion-icon>
+    <ion-button fill="clear" slot="end" (click)="toggleVoiceInput()" [class.recording]="isRecording">
+      <ion-icon [name]="isRecording ? 'mic-off-outline' : 'mic-outline'"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" slot="end" class="send-button" (click)="onSend()" [disabled]="!searchText">
+      <ion-icon name="send-outline"></ion-icon>
     </ion-button>
   </ion-item>
 </ion-card>

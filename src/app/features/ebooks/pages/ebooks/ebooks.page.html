@@ -6,27 +6,25 @@
     </div>
 
     <div class="books-grid">
-      <ion-card 
-        *ngFor="let book of books" 
-        class="book-card">
+      <ion-card *ngFor="let book of books" class="book-card">
         <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
-        
+
         <ion-card-header>
           <ion-card-subtitle>{{ book.category }}</ion-card-subtitle>
           <ion-card-title>{{ book.title }}</ion-card-title>
         </ion-card-header>
-        
+
         <ion-card-content>
           <p class="author">Tác giả: {{ book.author }}</p>
           <p class="description">{{ book.description }}</p>
-          
+
           <div class="book-actions">
             <ion-button fill="solid" size="small" (click)="readBook(book)">
-              <ion-icon name="book" slot="start"></ion-icon>
+              <ion-icon name="book-outline" slot="start"></ion-icon>
               Đọc
             </ion-button>
             <ion-button fill="outline" size="small" (click)="downloadBook(book)">
-              <ion-icon name="download" slot="start"></ion-icon>
+              <ion-icon name="download-outline" slot="start"></ion-icon>
               Tải về
             </ion-button>
           </div>

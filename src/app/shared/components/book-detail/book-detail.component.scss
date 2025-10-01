@@ -53,7 +53,7 @@ ion-header {
 
 .layer.veil {
     position: absolute;
-    top: 564px + 621px;
+    top: calc(564px + 621px);
     height: 563px;
     inset-inline: 0;
     background: rgba(255, 255, 255, .90);

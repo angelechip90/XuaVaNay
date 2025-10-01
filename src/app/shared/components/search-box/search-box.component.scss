@@ -1,6 +1,6 @@
 /* Search card */
 .search-card {
-    margin: 10px 16px 2px;
+    margin: 20px 16px 20px;
     border-radius: 14px;
     box-shadow:
         0 14px 64px -4px rgba(24, 39, 75, 0.12),
@@ -9,11 +9,57 @@
 
 .search-card ion-item {
     --background: #fff;
-    --padding-start: 12px;
+    --padding-start: 16px;
     --inner-padding-end: 8px;
     border-radius: 14px;
 }
 
-.search-card ion-icon[slot='start'] {
-    opacity: 0.6;
+.search-card ion-input {
+    --placeholder-color: #999;
+    --placeholder-opacity: 1;
+    font-style: italic;
+}
+
+/* Voice input button */
+.search-card ion-button[slot='end']:not(.send-button) {
+    --color: #666;
+    margin-right: 8px;
+
+    &.recording {
+        --color: #ff4444;
+        animation: pulse 1s infinite;
+    }
+}
+
+/* Send button with gradient */
+.send-button {
+    --color: linear-gradient(135deg, #ff6b6b 0%, #8b5cf6 100%);
+    --padding-start: 8px;
+    --padding-end: 8px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+
+    &:disabled {
+        --color: #999;
+    }
+
+    ion-icon {
+        font-size: 18px;
+    }
+}
+
+/* Pulse animation for recording */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

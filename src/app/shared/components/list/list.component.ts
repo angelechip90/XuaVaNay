@@ -23,7 +23,8 @@ import {
   searchOutline,
   optionsOutline,
   chevronDownOutline,
-  bookmarkOutline
+  bookmarkOutline,
+  arrowForwardOutline
 } from 'ionicons/icons';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 
@@ -74,19 +75,12 @@ export class ListComponent implements OnInit {
       searchOutline,
       optionsOutline,
       chevronDownOutline,
-      bookmarkOutline
+      bookmarkOutline,
+      arrowForwardOutline
     });
   }
 
   ngOnInit() { }
-
-  get leftItems() {
-    return this.items.filter((_, i) => i % 2 === 0);
-  }
-
-  get rightItems() {
-    return this.items.filter((_, i) => i % 2 === 1);
-  }
 
   onSearchInput(query: string) {
     this.query = query;
@@ -121,5 +115,27 @@ export class ListComponent implements OnInit {
 
   onItemClick(item: PosterItem) {
     this.itemClick.emit(item);
+  }
+
+  // TrackBy function để tối ưu performance
+  trackByFn(index: number, item: PosterItem): number {
+    return item.id;
+  }
+
+  // Xử lý lỗi khi load ảnh
+  onImageError(event: any) {
+    console.warn('Image load error:', event);
+    // Có thể set placeholder image hoặc ẩn element
+    if (event.target) {
+      event.target.style.display = 'none';
+    }
+  }
+
+  // Xử lý khi ảnh load thành công
+  onImageLoad(event: any) {
+    // Ảnh đã load thành công
+    if (event.target) {
+      event.target.style.display = 'block';
+    }
   }
 }
