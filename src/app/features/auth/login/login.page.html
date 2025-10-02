@@ -1,46 +1,8 @@
 <!-- Header (iOS style) -->
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">LACVIET<span class="brand-accent">AI</span></ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div class="container">
     <!-- Status bar divider mimic -->
-    <div class="thin-divider"></div>
-
-    <!-- Hero badges (the 3 cụm phía trên trong mockup) -->
-    <section class="hero-row">
-      <div class="cluster">
-        <div class="circle grad-pink"></div>
-        <img class="logo" src="https://placehold.co/40x40" alt="logo" />
-        <div class="meta">
-          <div class="years">1966-1975</div>
-          <div class="tag blue"></div>
-        </div>
-      </div>
-
-      <div class="cluster">
-        <div class="square grad-rose"></div>
-        <div class="shine big"></div>
-        <div class="shine tall"></div>
-        <div class="meta">
-          <div class="years wide">1994-Nay</div>
-        </div>
-      </div>
-
-      <div class="cluster small">
-        <div class="icon-mosaic"></div>
-        <div class="chip grad-rose"></div>
-      </div>
-    </section>
-
+    <app-section-logo></app-section-logo>
     <!-- Title -->
     <h1 class="title">Đăng nhập hội viên</h1>
 
@@ -49,14 +11,14 @@
       <!-- Username -->
       <div class="field-card" [class.invalid]="form.controls.username.touched && form.controls.username.invalid">
         <ion-icon name="person-outline" class="field-icon"></ion-icon>
-        <ion-input formControlName="username" type="text" placeholder="Tên truy cập hoặc email"
+        <ion-input size="10" formControlName="username" type="text" placeholder="Tên truy cập hoặc email"
           aria-label="Tên truy cập hoặc email"></ion-input>
       </div>
 
       <!-- Password -->
       <div class="field-card" [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
         <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
-        <ion-input formControlName="password" [type]="showPw() ? 'text' : 'password'" placeholder="Mật khẩu"
+        <ion-input size="10" formControlName="password" [type]="showPw() ? 'text' : 'password'" placeholder="Mật khẩu"
           aria-label="Mật khẩu"></ion-input>
         <ion-button fill="clear" size="small" class="eye" (click)="togglePw()" type="button"
           aria-label="Hiện/ẩn mật khẩu">
@@ -66,7 +28,7 @@
 
       <!-- Options row -->
       <div class="opts">
-        <ion-checkbox formControlName="remember" justify="start">Lưu mật khẩu</ion-checkbox>
+        <ion-checkbox formControlName="remember" labelPlacement="end">Lưu mật khẩu</ion-checkbox>
         <ion-button fill="clear" size="small" class="link" type="button" (click)="forgotPw()">
           Quên mật khẩu?
         </ion-button>

@@ -22,143 +22,90 @@ ion-header {
     max-width: 384px;
     /* ~ w-96 */
     margin: 0 auto;
-    padding-bottom: 16px;
+    padding: 16px 0;
 }
 
 /* ===== LAYERS (mô phỏng 3 block trong mock) ===== */
 .layers {
     position: relative;
-    width: 100%;
-    height: 564px;
-    /* lớp đầu */
-}
-
-.layer {
-    position: absolute;
-    inset: 0;
-}
-
-.layer.block {
-    background: #d4d4d8;
-}
-
-/* zinc-300 */
-.layer.photo {
-    object-fit: cover;
-    width: 100%;
-    height: 621px;
-    top: 564px;
-    position: absolute;
-}
-
-.layer.veil {
-    position: absolute;
-    top: calc(564px + 621px);
-    height: 563px;
-    inset-inline: 0;
-    background: rgba(255, 255, 255, .90);
-    backdrop-filter: blur(2px);
-}
-
-/* ===== HERO ===== */
-.hero {
-    position: relative;
-    margin-top: -360px;
-    /* kéo card lên trên lớp nền để giống mock */
-    padding: 32px 10px 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
-    gap: 16px;
-}
-
-.cover-card {
-    width: 208px;
-    height: 288px;
-    /* w-52 h-72 */
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow-a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    /* làm mờ background */
 }
 
 .cover-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 160px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    margin-bottom: 15px;
 }
 
 .meta {
-    display: grid;
-    gap: 8px;
-    place-items: center;
     text-align: center;
-    padding: 0 12px;
+    margin-bottom: 15px;
 }
 
 .book-title {
-    color: var(--ink);
-    font: 700 28px/1.2 "Roboto Slab", system-ui;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1b1464;
+    /* xanh đậm */
+    margin: 8px 0;
 }
 
 .publisher {
-    color: #6b7280;
-    font: 400 14px Roboto, system-ui;
-    text-decoration: underline;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
 }
 
 .rating {
-    display: inline-flex;
-    gap: 8px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .stars ion-icon {
-    font-size: 16px;
-    color: #f59e0b;
+    color: #ffb400;
+    /* màu vàng sao */
+    font-size: 1.1rem;
 }
 
 .count {
-    color: #000;
-    opacity: .3;
-    font: 500 16px Roboto, system-ui;
+    font-size: 0.85rem;
+    color: #666;
 }
 
 .cta-row {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    padding: 8px 14px 0;
+    margin-top: 20px;
 }
 
+/* Nút gradient ĐỌC SÁCH */
 .gradient-btn {
-    height: 48px;
-    border: 0;
-    border-radius: 12px;
-    background-image: var(--grad);
-    box-shadow: 0 4px 15px rgba(202, 58, 250, .25), 14px 17px 40px 4px rgba(112, 144, 176, .10);
+    background: linear-gradient(90deg, #fc2d67, #8e1fbb);
     color: #fff;
-    font: 600 16px Roboto, system-ui;
-    letter-spacing: .2px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 60px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.round-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    display: grid;
-    place-items: center;
-}
-
-.grad-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-image: linear-gradient(225deg, #ef4444, #d946ef);
+.gradient-btn:hover {
+    transform: scale(1.05);
 }
 
 /* ===== SECTION COMMON ===== */
@@ -216,6 +163,7 @@ ion-header {
     scroll-snap-align: start;
     display: grid;
     gap: 12px;
+    padding-bottom: 10px;
 }
 
 .thumb {
@@ -249,11 +197,18 @@ ion-header {
 .read-chip {
     width: fit-content;
     padding: 6px 10px;
-    border-radius: 12px;
-    background: #fff;
-    border: 1px solid #6d28d9;
-    color: #0b1b3a;
+    background: linear-gradient(90deg, #7E1CC7, #E03762);
+    padding: 2px;
+    border-radius: 15px;
+    display: inline-block;
     font: 500 14px Roboto, system-ui;
+}
+
+.read-chip .content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2px 10px;
+    text-align: center;
 }
 
 /* ===== COMMENTS ===== */
@@ -271,7 +226,6 @@ ion-header {
     padding: 12px;
     display: grid;
     gap: 12px;
-    border-right: 1px solid #f1f5f9;
     min-height: 176px;
 }
 

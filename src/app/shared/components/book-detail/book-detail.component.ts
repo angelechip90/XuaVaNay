@@ -22,6 +22,7 @@ import {
   shareOutline,
   chatbubbleOutline
 } from 'ionicons/icons';
+import { Router } from '@angular/router';
 
 interface Issue {
   id: string;
@@ -53,6 +54,7 @@ interface Comment {
   standalone: true
 })
 export class BookDetailComponent implements OnInit {
+  id = '562';
   title = 'XƯA & NAY SỐ 562 (THÁNG 4.2024)';
   publisher = 'Tạp chí Xưa và Nay';
   ratingCount = 25;
@@ -85,9 +87,9 @@ Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX 
 
   // số cùng tạp chí
   issues: Issue[] = [
-    { id: '562', title: 'XƯA & NAY SỐ 562 (THÁNG 4.2024)', cover: 'https://placehold.co/120x163' },
-    { id: '563', title: 'XƯA & NAY SỐ 563 (THÁNG 5.2024)', cover: 'https://placehold.co/120x163' },
-    { id: '564', title: 'XƯA & NAY SỐ 564 (THÁNG 6.2024)', cover: 'https://placehold.co/120x163' },
+    { id: '562', title: 'XƯA & NAY SỐ 562 (THÁNG 4.2024)', cover: '../../../assets/imgs/demo/1.png' },
+    { id: '563', title: 'XƯA & NAY SỐ 563 (THÁNG 5.2024)', cover: '../../../assets/imgs/demo/2.png' },
+    { id: '564', title: 'XƯA & NAY SỐ 564 (THÁNG 6.2024)', cover: '../../../assets/imgs/demo/3.png' },
   ];
 
   // bình luận
@@ -95,19 +97,19 @@ Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX 
     {
       name: 'Middle Kien',
       time: '1 ngày trước',
-      avatar: 'https://placehold.co/26x26',
+      avatar: '../../../assets/imgs/demo/4.png',
       content:
         '“Nội dung bình luận Nội dung bình luậnNội dung bình luậnNội dung bình luậnNội dung bình luậnNội dung bình luận…”',
     },
     {
       name: 'Hồ Đắc Huy',
       time: '08:30 25/07/2025',
-      avatar: 'https://placehold.co/26x26',
+      avatar: '../../../assets/imgs/demo/5.png',
       content: '“Nội dung bình luận Nội dung bình luậnNội dung bình luậnNội dung bình luận”',
     },
   ];
 
-  constructor(private toast: ToastController) {
+  constructor(private toast: ToastController, private router: Router) {
     addIcons({
       chevronBackOutline,
       bookmarkOutline,
@@ -127,8 +129,7 @@ Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX 
 
   async readNow() {
     // TODO: điều hướng tới viewer đọc sách
-    const t = await this.toast.create({ message: 'Mở chế độ đọc…', duration: 900, position: 'bottom' });
-    t.present();
+    this.router.navigate(['/book-content', this.id]);
   }
 
   async readIssue(id: string) {

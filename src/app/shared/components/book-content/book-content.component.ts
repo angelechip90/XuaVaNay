@@ -40,9 +40,14 @@ export class BookContentComponent implements OnInit, AfterViewInit {
 
   // Demo pages (gắn ảnh thật của bạn vào đây)
   pages: string[] = [
-    'https://placehold.co/392x528?text=Page+1',
-    'https://placehold.co/400x588?text=Page+2',
-    // ...thêm các url khác
+    '../../../assets/imgs/demo/1.png',
+    '../../../assets/imgs/demo/2.png',
+    '../../../assets/imgs/demo/3.png',
+    '../../../assets/imgs/demo/4.png',
+    '../../../assets/imgs/demo/5.png',
+    '../../../assets/imgs/demo/6.png',
+    '../../../assets/imgs/demo/7.png',
+    '../../../assets/imgs/demo/8.png',
   ];
 
   // Giả định tổng 25 trang theo mockup (có thể = pages.length nếu đã đủ)

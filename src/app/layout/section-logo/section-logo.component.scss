@@ -68,7 +68,34 @@
     /* Dark for Xưa và Nay */
 }
 
-.logo-item:nth-child(3) .logo-name {
-    color: #2563eb;
-    /* Blue for LẠC VIỆT */
+.logo-item:nth-child(3) {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    gap: 0
+}
+
+.logo-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* khoảng cách giữa logo và AI */
+}
+
+.logo-name {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #7E1CC7, #E03762);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-company-name {
+    font-size: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: #0071BC;
+    font-style: italic;
+    text-transform: uppercase;
 }

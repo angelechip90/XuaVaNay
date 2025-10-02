@@ -21,6 +21,7 @@ import {
   eyeOutline,
   eyeOffOutline
 } from 'ionicons/icons';
+import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ import {
     IonCheckbox,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SectionLogoComponent
   ]
 })
 export class LoginPage implements OnInit {

@@ -44,5 +44,9 @@ export const routes: Routes = [
   {
     path: 'book-detail/:id',
     loadComponent: () => import('./shared/components/book-detail/book-detail.component').then(m => m.BookDetailComponent)
+  },
+  {
+    path: 'book-content/:id',
+    loadComponent: () => import('./shared/components/book-content/book-content.component').then(m => m.BookContentComponent)
   }
 ];

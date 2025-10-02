@@ -80,8 +80,7 @@ export class AccountPage implements OnInit {
 
   async signOut() {
     // TODO: tích hợp logic sign-out thực tế
-    const t = await this.toast.create({ message: 'Đã đăng xuất', duration: 1200, position: 'bottom' });
-    await t.present();
+    this.router.navigateByUrl('/login');
   }
 
   // Bottom nav (demo)
