@@ -132,6 +132,10 @@ Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX 
     this.router.navigate(['/book-content', this.id]);
   }
 
+  async chat() {
+    this.router.navigate(['/chat-in-book', this.id]);
+  }
+
   async readIssue(id: string) {
     const t = await this.toast.create({ message: `Đọc số ${id}…`, duration: 900, position: 'bottom' });
     t.present();

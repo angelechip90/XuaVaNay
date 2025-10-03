@@ -73,9 +73,9 @@ export class AccountPage implements OnInit {
   ngOnInit() { }
 
   openEmail() { this.router.navigateByUrl('/tabs/tab5/email'); }
-  openReadBooks() { this.router.navigateByUrl('/tabs/tab5/readed-books'); }
-  openQaHistory() { this.router.navigateByUrl('/tabs/tab5/qa-history'); }
-  openPurchaseHistory() { this.router.navigateByUrl('/tabs/tab5/purchase-history'); }
+  openReadBooks() { this.router.navigateByUrl('/book-readed'); }
+  openQaHistory() { this.router.navigateByUrl('/chat-histories'); }
+  openPurchaseHistory() { this.router.navigateByUrl('/purchase-history'); }
   openChangePassword() { this.router.navigateByUrl('/tabs/tab5/change-password'); }
 
   async signOut() {

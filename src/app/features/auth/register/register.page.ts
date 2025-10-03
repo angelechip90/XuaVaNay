@@ -23,6 +23,7 @@ import {
   eyeOffOutline,
   refreshOutline
 } from 'ionicons/icons';
+import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 
 // Custom validator for password confirmation
 function matchValidator(controlName: string, matchingControlName: string) {
@@ -62,7 +63,8 @@ function matchValidator(controlName: string, matchingControlName: string) {
     IonCheckbox,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SectionLogoComponent
   ]
 })
 export class RegisterPage implements OnInit {

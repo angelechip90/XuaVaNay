@@ -43,10 +43,26 @@ export const routes: Routes = [
   },
   {
     path: 'book-detail/:id',
-    loadComponent: () => import('./shared/components/book-detail/book-detail.component').then(m => m.BookDetailComponent)
+    loadComponent: () => import('./shared/components/book/book-detail/book-detail.component').then(m => m.BookDetailComponent)
   },
   {
     path: 'book-content/:id',
-    loadComponent: () => import('./shared/components/book-content/book-content.component').then(m => m.BookContentComponent)
+    loadComponent: () => import('./shared/components/book/book-content/book-content.component').then(m => m.BookContentComponent)
+  },
+  {
+    path: 'book-readed',
+    loadComponent: () => import('./shared/components/book/book-readed/book-readed.component').then(m => m.BookReadedComponent)
+  },
+  {
+    path: 'chat-in-book/:id',
+    loadComponent: () => import('./shared/components/chat/chat-in-book/chat-in-book.component').then(m => m.ChatInBookComponent)
+  },
+  {
+    path: 'chat',
+    loadComponent: () => import('./shared/components/chat/chats/chats.component').then(m => m.ChatsComponent)
+  },
+  {
+    path: 'chat-histories',
+    loadComponent: () => import('./shared/components/chat/chat-histories/chat-histories.component').then(m => m.ChatHistoriesComponent)
   }
 ];

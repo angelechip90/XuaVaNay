@@ -11,11 +11,16 @@ import {
   IonContent,
   IonTextarea,
   IonFooter,
+  IonCard,
+  IonCardContent,
+  IonChip,
+  IonLabel,
   ToastController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
+  chevronForwardOutline,
   sendOutline,
   homeOutline,
   libraryOutline,
@@ -33,9 +38,9 @@ interface Suggestion {
 }
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: 'app-chats',
+  templateUrl: './chats.component.html',
+  styleUrls: ['./chats.component.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -46,12 +51,16 @@ interface Suggestion {
     IonContent,
     IonTextarea,
     IonFooter,
+    IonCard,
+    IonCardContent,
+    IonChip,
+    IonLabel,
     CommonModule,
     FormsModule
   ],
   standalone: true
 })
-export class ChatComponent implements OnInit {
+export class ChatsComponent implements OnInit {
   greeting = signal('Chào ngày mới, tôi có thể giúp gì cho bạn ?');
   topics = signal<QuickTopic[]>([
     { label: 'Lịch sử' },
@@ -79,6 +88,7 @@ export class ChatComponent implements OnInit {
   constructor(private toast: ToastController) {
     addIcons({
       chevronBackOutline,
+      chevronForwardOutline,
       sendOutline,
       homeOutline,
       libraryOutline,

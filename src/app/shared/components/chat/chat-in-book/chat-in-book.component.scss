@@ -80,26 +80,41 @@ ion-header {
 /* ref cards */
 .refs {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+.refs::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
 }
 
 .ref-card {
-    width: 240px;
-    padding: 6px 10px;
+    width: 280px;
+    min-width: 280px;
+    padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, .1);
     background: #fff;
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .ref-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 30px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .ref-icon.yellow {
@@ -111,25 +126,35 @@ ion-header {
 }
 
 .ref-icon .dot {
-    position: absolute;
-    left: 5px;
-    top: 6px;
-    width: 10px;
-    height: 8px;
-    border: 1px solid #111;
-    border-radius: 2px;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
 }
 
-.ref-texts .ref-summary {
+.ref-source-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ref-summary {
     color: #0b1b3a;
     font-size: 12px;
-    line-height: 1.1rem;
+    line-height: 1.2;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.ref-texts .ref-source {
+.ref-source {
     color: #000;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* bot chip */
@@ -177,7 +202,7 @@ ion-header {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #6b7280;
+    background-color: #fff;
     font-weight: 600;
 }
 

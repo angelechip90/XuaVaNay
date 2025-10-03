@@ -20,8 +20,13 @@ import {
   homeOutline,
   libraryOutline,
   bookOutline,
-  personOutline
+  personOutline,
+  downloadOutline,
+  refreshOutline,
+  shareSocialOutline,
+  copyOutline
 } from 'ionicons/icons';
+import { InputChatComponent } from '../input-chat/input-chat.component';
 
 type Role = 'user' | 'assistant';
 
@@ -44,9 +49,9 @@ interface Message {
 }
 
 @Component({
-  selector: 'app-chat-histories',
-  templateUrl: './chat-histories.component.html',
-  styleUrls: ['./chat-histories.component.scss'],
+  selector: 'app-chat-in-book',
+  templateUrl: './chat-in-book.component.html',
+  styleUrls: ['./chat-in-book.component.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -58,11 +63,12 @@ interface Message {
     IonTextarea,
     IonFooter,
     CommonModule,
-    FormsModule
+    FormsModule,
+    InputChatComponent
   ],
   standalone: true
 })
-export class ChatHistoriesComponent implements OnInit {
+export class ChatInBookComponent implements OnInit {
   constructor(private toast: ToastController) {
     addIcons({
       chevronBackOutline,
@@ -70,7 +76,11 @@ export class ChatHistoriesComponent implements OnInit {
       homeOutline,
       libraryOutline,
       bookOutline,
-      personOutline
+      personOutline,
+      copyOutline,
+      shareSocialOutline,
+      refreshOutline,
+      downloadOutline,
     });
   }
 
@@ -83,7 +93,7 @@ export class ChatHistoriesComponent implements OnInit {
       id: 'm1',
       role: 'user',
       author: 'MiddleKien',
-      avatar: 'https://placehold.co/24x28',
+      avatar: '../../../assets/imgs/demo/1.png',
       title: 'Giới thiệu về Áo dài phụ nữ Việt Nam qua các thời kỳ lịch sử',
       refs: [
         {
@@ -122,7 +132,7 @@ export class ChatHistoriesComponent implements OnInit {
       id: 'm3',
       role: 'user',
       author: 'MiddleKien',
-      avatar: 'https://placehold.co/24x28',
+      avatar: '../../../assets/imgs/demo/1.png',
       title: 'Hình dáng áo dài thay đổi như thế nào? Hình dáng áo dài thay đổi như thế nào?',
     },
     {
@@ -140,6 +150,9 @@ export class ChatHistoriesComponent implements OnInit {
   // Ô input
   drafting = signal('');
 
+  onSearchInput(query: string) {
+
+  }
 
   goBack() {
     history.back();
@@ -176,7 +189,7 @@ export class ChatHistoriesComponent implements OnInit {
     if (!q) return;
     this.msgs.update((arr) => [
       ...arr,
-      { id: crypto.randomUUID(), role: 'user', author: 'MiddleKien', title: q, avatar: 'https://placehold.co/24x28' },
+      { id: crypto.randomUUID(), role: 'user', author: 'MiddleKien', title: q, avatar: '../../../assets/imgs/demo/1.png' },
     ]);
     this.drafting.set('');
     // TODO: gọi API chat -> push assistant message
