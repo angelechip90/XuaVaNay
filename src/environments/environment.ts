@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  //apiUrl: 'https://api.xuavanay.ai/api',
+  severUrl: 'https://api.xuavanay.ai/',
   appName: 'XuaVaNay',
+  keyToken: 'tokenID',
   version: '1.0.0'
 };
 
