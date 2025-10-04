@@ -13,17 +13,7 @@
   </section>
 
   <!-- Search -->
-  <ion-card class="search-card" mode="ios">
-    <ion-item lines="none">
-      <ion-icon name="search-outline" slot="start"></ion-icon>
-      <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" inputmode="search" clear-input="true"
-        (ionInput)="onSearchInput($event)">
-      </ion-input>
-      <ion-button fill="clear" slot="end" aria-label="Gợi ý" (click)="onSuggestClick()">
-        <ion-icon name="sparkles-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-card>
+  <app-search-box></app-search-box>
 
   <!-- Data sources -->
   <section class="ion-padding-horizontal section">

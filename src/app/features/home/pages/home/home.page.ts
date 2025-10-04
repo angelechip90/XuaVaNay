@@ -29,6 +29,7 @@ import {
 } from 'ionicons/icons';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
+import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
 
 @Component({
   selector: 'app-home',
@@ -53,7 +54,8 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
     CommonModule,
     FormsModule,
     HeaderComponent,
-    SectionLogoComponent
+    SectionLogoComponent,
+    SearchBoxComponent
   ]
 })
 export class HomePage implements OnInit {
