@@ -3,19 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonCard,
-  IonItem,
-  IonIcon,
-  IonInput,
-  IonButton,
   IonText,
   IonList,
   IonLabel,
-  IonRow,
-  IonCol
+  IonIcon,
+  IonItem
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -27,8 +19,9 @@ import {
   imagesOutline,
   checkmarkCircleOutline
 } from 'ionicons/icons';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
+import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -37,29 +30,21 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonCard,
-    IonItem,
-    IonIcon,
-    IonInput,
-    IonButton,
     IonText,
     IonList,
     IonLabel,
-    IonRow,
-    IonCol,
+    IonIcon,
+    IonItem,
     CommonModule,
     FormsModule,
-    HeaderComponent,
-    SectionLogoComponent
-  ]
+    SectionLogoComponent,
+    SearchBoxComponent
+]
 })
 export class HomePage implements OnInit {
   query = '';
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({
       searchOutline,
       sparklesOutline,
@@ -74,11 +59,14 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  onSearchInput(ev: CustomEvent) {
-    const value = (ev.detail as any)?.value ?? '';
-    this.query = value;
+  onValueChange(query: string) {
+    this.query = query;
     // TODO: gọi API / điều hướng sang trang kết quả
     // console.log('search:', this.query);
+  }
+
+  onSendMessage(message: string) {
+   this.router.navigateByUrl(`/chat`);
   }
 
   onSuggestClick() {

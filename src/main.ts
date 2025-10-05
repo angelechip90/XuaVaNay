@@ -8,6 +8,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { NotificationService } from './app/core/services/notification.service';
 import { StorageService } from './app/core/services/storage.service';
 import { ApiService } from './app/core/services/api.service';
+import { AuthService } from './app/core/services/auth.service';
+import { LoadingService } from './app/core/services/loading.service';
+import { NavigationService } from './app/core/services/navigation.service';
 import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -20,6 +23,9 @@ bootstrapApplication(AppComponent, {
     NotificationService,
     StorageService,
     ApiService,
+    AuthService,
+    LoadingService,
+    NavigationService,
     importProvidersFrom(IonicStorageModule.forRoot()),
   ],
 });

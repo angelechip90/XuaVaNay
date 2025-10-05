@@ -25,9 +25,9 @@ type QAItem = {
 };
 
 @Component({
-  selector: 'app-converstation-histories',
-  templateUrl: './converstation-histories.component.html',
-  styleUrls: ['./converstation-histories.component.scss'],
+  selector: 'app-chat-histories',
+  templateUrl: './chat-histories.component.html',
+  styleUrls: ['./chat-histories.component.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -40,7 +40,7 @@ type QAItem = {
   ],
   standalone: true
 })
-export class ConverstationHistoriesComponent implements OnInit {
+export class ChatHistoriesComponent implements OnInit {
   query = signal('');
 
   // Dữ liệu mẫu bám sát mockup

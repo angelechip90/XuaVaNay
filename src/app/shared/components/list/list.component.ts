@@ -4,16 +4,8 @@ import { FormsModule } from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
-  IonCard,
-  IonItem,
   IonIcon,
-  IonInput,
-  IonButton,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonImg,
   IonList,
   IonInfiniteScroll,
@@ -50,9 +42,6 @@ export interface PosterItem {
     IonToolbar,
     IonContent,
     IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonImg,
     IonList,
     IonInfiniteScroll,
@@ -60,7 +49,7 @@ export interface PosterItem {
     CommonModule,
     FormsModule,
     SearchBoxComponent
-  ],
+],
   standalone: true
 })
 export class ListComponent extends BaseComponent{
@@ -135,7 +124,7 @@ export class ListComponent extends BaseComponent{
     }
   }
 
-  onSearchInput(query: string) {
+  onValueChange(query: string) {
     this.query = query;
     this.searchInput.emit(query);
   }

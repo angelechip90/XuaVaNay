@@ -1,0 +1,73 @@
+.search-card {
+    --background: transparent;
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px; // khoảng cách giữa group và nút send
+    padding: 0 6px 20px 6px;
+}
+
+/* Group bo tròn có border, chứa input + mic */
+.search-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 auto; // chiếm hết phần còn lại
+    height: 44px;
+    padding: 0 10px 0 14px;
+    background: #fff;
+    border: 1px solid rgba(116, 27, 207, 0.18); // tím nhạt
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(99, 140, 243, 0.10);
+
+    ion-input {
+        flex: 1 1 auto;
+    }
+
+    ion-input::part(native) {
+        font-size: 14px;
+        color: #4b5563; // gray-600
+    }
+
+    ion-input::part(placeholder) {
+        color: #9ca3af; // gray-400
+        opacity: 1;
+    }
+}
+
+/* Mic nằm trong group */
+.mic-button {
+    color: #741BCF; // tím
+    --padding-start: 6px;
+    --padding-end: 6px;
+    height: 32px;
+    width: 32px;
+    border-radius: 9999px;
+}
+
+.mic-button.recording {
+    color: #E3395C; // đỏ khi ghi âm
+}
+
+/* Nút send tách riêng, tròn + gradient */
+.send-button {
+    --background: linear-gradient(228.67deg, #E3395C 0%, #C72389 50%, #741BCF 100%);
+    --color: #fff;
+    --border-radius: 9999px;
+    --box-shadow: 0 6px 16px rgba(116, 27, 207, 0.35);
+    height: 36px;
+    width: 36px;
+    min-width: 36px;
+    padding: 0;
+}
+
+.send-button[disabled] {
+    --background: linear-gradient(228.67deg, #e3395ccc 0%, #c72389cc 50%, #741bcfcc 100%);
+    opacity: 0.6;
+}

@@ -9,19 +9,23 @@ import {
   IonIcon,
   IonTitle,
   IonContent,
-  IonTextarea,
-  IonFooter,
+  IonCard,
+  IonCardContent,
+  IonChip,
+  IonLabel,
   ToastController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
+  chevronForwardOutline,
   sendOutline,
   homeOutline,
   libraryOutline,
   bookOutline,
   personOutline
 } from 'ionicons/icons';
+import { InputChatComponent } from '../input-chat/input-chat.component';
 
 interface QuickTopic {
   label: string;
@@ -33,9 +37,9 @@ interface Suggestion {
 }
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: 'app-chats',
+  templateUrl: './chats.component.html',
+  styleUrls: ['./chats.component.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -44,14 +48,17 @@ interface Suggestion {
     IonIcon,
     IonTitle,
     IonContent,
-    IonTextarea,
-    IonFooter,
+    IonCard,
+    IonCardContent,
+    IonChip,
+    IonLabel,
     CommonModule,
-    FormsModule
-  ],
+    FormsModule,
+    InputChatComponent
+],
   standalone: true
 })
-export class ChatComponent implements OnInit {
+export class ChatsComponent implements OnInit {
   greeting = signal('Chào ngày mới, tôi có thể giúp gì cho bạn ?');
   topics = signal<QuickTopic[]>([
     { label: 'Lịch sử' },
@@ -79,6 +86,7 @@ export class ChatComponent implements OnInit {
   constructor(private toast: ToastController) {
     addIcons({
       chevronBackOutline,
+      chevronForwardOutline,
       sendOutline,
       homeOutline,
       libraryOutline,
@@ -106,5 +114,14 @@ export class ChatComponent implements OnInit {
     t.present();
     // TODO: gọi API chat của bạn
     this.drafting.set('');
+  }
+
+  onValueChange(value: string) {
+    this.drafting.set(value);
+  }
+
+  onSendMessage(message: string) {
+    this.drafting.set(message);
+    this.send();
   }
 }

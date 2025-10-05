@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { IonCard, IonItem, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,20 +6,19 @@ import { micOffOutline, micOutline, sendOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
-  selector: 'app-search-box',
-  templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.scss'],
+  selector: 'app-input-chat',
+  templateUrl: './input-chat.component.html',
+  styleUrls: ['./input-chat.component.scss'],
   standalone: true,
-  imports: [IonCard, IonItem, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
+  imports: [IonCard, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
 })
-export class SearchBoxComponent implements OnInit, OnDestroy {
+export class InputChatComponent implements OnInit {
   @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 
   searchText: string = '';
   isRecording: boolean = false;
   private recognition: any;
-  svgId: string = `send-gradient-${Math.random().toString(36).substr(2, 9)}`;
 
   constructor() {
     addIcons({
@@ -31,12 +30,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeSpeechRecognition();
-  }
-
-  ngOnDestroy() {
-    if (this.recognition && this.isRecording) {
-      this.recognition.stop();
-    }
   }
 
   private initializeSpeechRecognition() {
@@ -65,7 +58,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   }
 
   onValueChange(event: any) {
-    const value = event.target.value;
+    const value = event.detail?.value || event.target?.value || '';
     this.searchText = value;
     this.valueChange.emit(value);
   }

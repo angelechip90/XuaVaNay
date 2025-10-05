@@ -73,10 +73,10 @@ export class AccountPage implements OnInit {
   ngOnInit() { }
 
   openEmail() { this.router.navigateByUrl('/tabs/tab5/email'); }
-  openReadBooks() { this.router.navigateByUrl('/tabs/tab5/readed-books'); }
-  openQaHistory() { this.router.navigateByUrl('/tabs/tab5/qa-history'); }
-  openPurchaseHistory() { this.router.navigateByUrl('/tabs/tab5/purchase-history'); }
-  openChangePassword() { this.router.navigateByUrl('/tabs/tab5/change-password'); }
+  openReadBooks() { this.router.navigateByUrl('/book-readed'); }
+  openQaHistory() { this.router.navigateByUrl('/chat-histories'); }
+  openPurchaseHistory() { this.router.navigateByUrl('/purchase-history'); }
+  openChangePassword() { this.router.navigateByUrl('/change-password'); }
 
   async signOut() {
     // TODO: tích hợp logic sign-out thực tế

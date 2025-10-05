@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" fill="clear">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Sách đã đọc</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="ellipsis-horizontal-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="book-readed-content">
+
+  <!-- Book List -->
+  <div class="book-list">
+    <div *ngFor="let book of booksReaded; trackBy: trackByBookId" class="book-item" (click)="onBookClick(book)">
+
+      <!-- Book Image -->
+      <div class="book-image">
+        <img [src]="book.image" [alt]="book.title" />
+      </div>
+
+      <!-- Book Info -->
+      <div class="book-info">
+        <!-- Category Badge -->
+        <div class="category-badge">
+          <span class="category-text">{{ book.category }}</span>
+        </div>
+
+        <!-- Book Details -->
+        <div class="book-details">
+          <h3 class="book-title">{{ book.title }}</h3>
+          <p class="book-description">{{ book.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="booksReaded.length === 0" class="empty-state">
+    <ion-icon name="book-outline" size="large"></ion-icon>
+    <p>Chưa có sách nào được đọc</p>
+  </div>
+</ion-content>

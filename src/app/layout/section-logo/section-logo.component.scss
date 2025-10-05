@@ -83,19 +83,28 @@
     /* khoảng cách giữa logo và AI */
 }
 
-.logo-name {
+.text-name {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(90deg, #7E1CC7, #E03762);
+    color: #3151CE;
+}
+
+.text-ai {
+    background: linear-gradient(to right, #D9316C, #891DBE);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* Để áp dụng gradient lên chữ */
+    color: transparent;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 5px;
 }
 
 .logo-company-name {
     font-size: 10px;
-    text-align: center;
+    text-align: left;
     font-weight: 700;
     color: #0071BC;
     font-style: italic;
+    width: 100%;
     text-transform: uppercase;
 }

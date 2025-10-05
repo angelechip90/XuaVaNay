@@ -21,7 +21,7 @@
   </section>
 
   <!-- Search -->
-  <app-search-box *ngIf="showSearchBox" (searchInput)="onSearchInput($event)"></app-search-box>
+  <app-search-box *ngIf="showSearchBox" (valueChange)="onValueChange($event)"></app-search-box>
 
   <!-- Filter row -->
   <div class="ion-padding-horizontal filters" *ngIf="showYearFilter">

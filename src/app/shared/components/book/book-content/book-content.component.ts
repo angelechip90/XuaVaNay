@@ -16,6 +16,7 @@ import {
   listOutline,
   chevronForwardOutline
 } from 'ionicons/icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-content',
@@ -55,8 +56,9 @@ export class BookContentComponent implements OnInit, AfterViewInit {
 
   // Trang hiện hành (mockup là 10/25)
   current = signal(10);
+  id = '562';
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({
       chevronBackOutline,
       ellipsisHorizontal,
@@ -72,6 +74,10 @@ export class BookContentComponent implements OnInit, AfterViewInit {
   }
 
   goBack() { history.back(); }
+
+  chat() {
+    this.router.navigate(['/chat-in-book', this.id]);
+  }
 
   scrollTo(n: number) {
     const idx = Math.max(1, Math.min(n, this.totalPages));
