@@ -17,7 +17,7 @@ export class ApiService {
     ) {
     }
 
-    execByBody(controller: any, router: any, data: any = null,queryParams: any = null, showLoad: any = false) {
+    execApi(controller: any, router: any,method: 'GET' | 'POST' = 'POST', data: any = null,queryParams: any = null, showLoad: any = false) {
         return from(this.storage.get(environment.keyToken)).pipe(
             switchMap((authToken: string | null) => {
                 let headers = new HttpHeaders();
@@ -40,27 +40,40 @@ export class ApiService {
                     this.isLoad(true);
                 }
 
-                return this.httpClient
-                    .post(
+                let request$;
+                if (method === 'POST') {
+                    request$ = this.httpClient.post(
                         environment.severUrl + 'api/' + controller + '/' + router,
                         data,
-                        { headers: headers, params }
-                    )
-                    .pipe(
-                        delay(timeout),
-                        catchError(this.handleError),
-                        switchMap((response: any) => {
-                            if (showLoad) this.isLoad(false);
-                            if (response instanceof HttpErrorResponse) {
-                                this.notificationSV.showError(
-                                    'Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại',
-                                );
-                                return throwError(() => new Error(response.message));
-                            } else {
-                                return of(response);
-                            }
-                        })
+                        { headers, params }
                     );
+                } else {
+                    request$ = this.httpClient.get(
+                        environment.severUrl + 'api/' + controller + '/' + router,
+                        { headers, params }
+                    );
+                }
+
+                return request$.pipe(
+                    delay(timeout),
+                    catchError(this.handleError),
+                    switchMap((response: any) => {
+                        if (showLoad) this.isLoad(false);
+                        if (response instanceof HttpErrorResponse) {
+                            this.notificationSV.showError(
+                                'Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại',
+                            );
+                            return throwError(() => new Error(response.message));
+                        } else {
+                            if (response?.Succeeded) {
+                                return of(response);
+                            } else {
+                                this.notificationSV.showError(response?.Message || 'Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại');
+                                return of(null);
+                            }
+                        }
+                    })
+                );
             })
         );
     }

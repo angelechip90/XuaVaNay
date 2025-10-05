@@ -12,18 +12,6 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, ListComponent]
 })
 export class IndexPage implements OnInit {
-  // Demo data - có thể thay bằng API call
-  items: PosterItem[] = [
-    { id: 1, src: '../../../assets/imgs/demo/1.png', title: 'Số 560' },
-    { id: 2, src: '../../../assets/imgs/demo/2.png', title: 'Số 561' },
-    { id: 3, src: '../../../assets/imgs/demo/3.png', title: 'Số 562' },
-    { id: 4, src: '../../../assets/imgs/demo/4.png', title: 'Số 563' },
-    { id: 5, src: '../../../assets/imgs/demo/5.png', title: 'Số 564' },
-    { id: 6, src: '../../../assets/imgs/demo/6.png', title: 'Số 565' },
-    { id: 7, src: '../../../assets/imgs/demo/7.png', title: 'Số 566' },
-    { id: 8, src: '../../../assets/imgs/demo/8.png', title: 'Số 567' },
-  ];
-
   constructor(private router: Router) { }
 
   ngOnInit() {

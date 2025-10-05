@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -15,6 +15,10 @@ import {
   IonRow,
   IonCol,
   IonImg,
+  IonList,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  InfiniteScrollCustomEvent,
   ActionSheetController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -27,6 +31,8 @@ import {
   arrowForwardOutline
 } from 'ionicons/icons';
 import { SearchBoxComponent } from '../search-box/search-box.component';
+import { BaseComponent } from 'src/app/core/base/base.component';
+import { firstValueFrom } from 'rxjs';
 
 export interface PosterItem {
   id: number;
@@ -48,18 +54,22 @@ export interface PosterItem {
     IonRow,
     IonCol,
     IonImg,
+    IonList,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
     CommonModule,
     FormsModule,
     SearchBoxComponent
   ],
   standalone: true
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent{
   @Input() items: PosterItem[] = [];
   @Input() title: string = 'Xưa và Nay';
   @Input() year: number = 2025;
   @Input() showSearchBox: boolean = true;
   @Input() showYearFilter: boolean = true;
+  @Input() bookTypeID: any = 1;
 
   @Output() itemClick = new EventEmitter<PosterItem>();
   @Output() bookmarkClick = new EventEmitter<PosterItem>();
@@ -68,8 +78,16 @@ export class ListComponent implements OnInit {
   @Output() askClick = new EventEmitter<void>();
 
   query = '';
+  method:any = '';
+  lstData:any;
+  isLoad:any = true;
+  pageNum: any = 1;
 
-  constructor(private actionSheetCtrl: ActionSheetController) {
+  constructor(
+    injector: Injector,
+    private actionSheetCtrl: ActionSheetController
+  ) {
+    super(injector);
     addIcons({
       addOutline,
       searchOutline,
@@ -80,7 +98,42 @@ export class ListComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.loadItem();
+  }
+
+  loadItem(isScroll:any = false) : Promise<any>{
+    return new Promise(async resolve => {
+      if (!this.isLoad) resolve(false);
+      let obj = {
+        BookType:this.bookTypeID,
+        Year:this.year,
+        PageNumber:this.pageNum,
+      }
+      let result = await firstValueFrom(this.api.execApi('Book', 'get-paging','GET', null,obj, !isScroll));
+      if(result && result?.Data && result?.Data?.length){
+        if (!this.lstData) this.lstData = [];
+        if (!isScroll)
+          this.lstData = result?.Data;
+        else
+          this.lstData = [...this.lstData, ...result?.Data];
+        let totalRecord = result?.TotalRecords;
+        if(this.lstData?.length == totalRecord) this.isLoad = false;
+        this.changeDetectorRef.detectChanges();
+      }
+      console.log(result);
+    });
+  }
+
+  async onIonInfinite(event: any) {
+    if(this.isLoad){
+      this.pageNum = this.pageNum + 1;
+      await this.loadItem(true);
+      setTimeout(() => {
+        (event as InfiniteScrollCustomEvent).target.complete();
+      }, 200);
+    }
+  }
 
   onSearchInput(query: string) {
     this.query = query;

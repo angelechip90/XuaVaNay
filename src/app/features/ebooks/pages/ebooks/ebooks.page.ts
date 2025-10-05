@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { Component, Injector, OnInit } from '@angular/core';
+import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon,IonList,IonInfiniteScroll,IonInfiniteScrollContent,
+  InfiniteScrollCustomEvent } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { bookOutline, downloadOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { BaseComponent } from 'src/app/core/base/base.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-ebooks',
@@ -17,49 +20,62 @@ import { addIcons } from 'ionicons';
     IonCardContent,
     IonButton,
     IonIcon,
+    IonList,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
     CommonModule
   ],
   standalone: true
 })
-export class EbooksPage implements OnInit {
-  books = [
-    {
-      id: 1,
-      title: 'Lịch sử Việt Nam',
-      author: 'Nguyễn Văn A',
-      description: 'Cuốn sách tổng hợp về lịch sử Việt Nam từ thời cổ đại đến hiện đại',
-      coverImage: 'assets/imgs/book-history.jpg',
-      category: 'Lịch sử',
-      isPublished: true
-    },
-    {
-      id: 2,
-      title: 'Địa lý Việt Nam',
-      author: 'Trần Thị B',
-      description: 'Khám phá địa lý tự nhiên và kinh tế của Việt Nam',
-      coverImage: 'assets/imgs/book-geography.jpg',
-      category: 'Địa lý',
-      isPublished: true
-    },
-    {
-      id: 3,
-      title: 'Văn hóa Việt Nam',
-      author: 'Lê Văn C',
-      description: 'Tìm hiểu về văn hóa truyền thống và hiện đại của Việt Nam',
-      coverImage: 'assets/imgs/book-culture.jpg',
-      category: 'Văn hóa',
-      isPublished: true
-    }
-  ];
-
-  constructor() {
+export class EbooksPage extends BaseComponent{
+  lstData:any;
+  isLoad:any = true;
+  pageNum: any = 1;
+  constructor(
+    injector: Injector,
+  ) {
+    super(injector);
     addIcons({
       downloadOutline,
       bookOutline
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadItem();
+  }
+  
+  loadItem(isScroll: any = false): Promise<any> {
+    return new Promise(async resolve => {
+      if (!this.isLoad) resolve(false);
+      let obj = {
+        BookType: 3,
+        PageNumber: this.pageNum,
+      }
+      let result = await firstValueFrom(this.api.execApi('Book', 'get-paging', 'GET', null, obj, !isScroll));
+      if (result && result?.Data && result?.Data?.length) {
+        if (!this.lstData) this.lstData = [];
+        if (!isScroll)
+          this.lstData = result?.Data;
+        else
+          this.lstData = [...this.lstData, ...result?.Data];
+        let totalRecord = result?.TotalRecords;
+        if (this.lstData?.length == totalRecord) this.isLoad = false;
+        this.changeDetectorRef.detectChanges();
+      }
+      console.log(result);
+    });
+  }
+
+  async onIonInfinite(event: any) {
+    if(this.isLoad){
+      this.pageNum = this.pageNum + 1;
+      await this.loadItem(true);
+      setTimeout(() => {
+        (event as InfiniteScrollCustomEvent).target.complete();
+      }, 200);
+    }
+  }
 
   readBook(book: any) {
     console.log('Read book:', book);

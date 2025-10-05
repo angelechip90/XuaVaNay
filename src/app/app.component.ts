@@ -15,9 +15,9 @@ export class AppComponent extends BaseComponent{
   ) {
     super(injector);
   }
-
+                                           
   async ngOnInit() {
-    let result = await firstValueFrom(this.api.execByBody('Book', 'get-types', null,null, true));
+    let result = await firstValueFrom(this.api.execApi('Book', 'get-types','GET', null,null));
     console.log(result);
   }
 }

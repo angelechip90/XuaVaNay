@@ -32,14 +32,28 @@
   </div>
 
   <!-- Grid with equal height columns -->
-  <div class="grid-container ion-padding-horizontal">
-    <div class="grid-item" *ngFor="let it of items; trackBy: trackByFn" (click)="onItemClick(it)">
-      <ion-img [src]="it.src" [alt]="it.title || 'ấn phẩm'" (ionError)="onImageError($event)"
-        (ionImgDidLoad)="onImageLoad($event)">
-      </ion-img>
-      <button class="floating-btn" (click)="bookmark(it); $event.stopPropagation()" aria-label="Lưu">
-        <ion-icon name="arrow-forward-outline"></ion-icon>
-      </button>
-    </div>
+  <div style="padding-bottom: 80px;">
+    <ng-container *ngIf="lstData && lstData?.length">
+      <ion-list class="ion-bg-color-none">
+        <div class="grid-container ion-padding-horizontal" style="padding-bottom: 0 !important;">
+          <ng-container *ngFor="let item of lstData; trackBy: trackByFn">
+            <div class="grid-item" (click)="onItemClick(item)">
+              <ion-img [src]="item?.AvatarPath" [alt]="item.Title" (ionError)="onImageError($event)"
+                (ionImgDidLoad)="onImageLoad($event)">
+              </ion-img>
+              <button class="floating-btn" (click)="bookmark(item); $event.stopPropagation()" aria-label="Lưu">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </ion-list>
+      <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+    <ng-container *ngIf="!lstData || lstData?.length == 0">
+      <!-- de tam neu du lieu ko co se hien thi cai gi -->
+    </ng-container>
   </div>
 </ion-content>

@@ -5,31 +5,43 @@
       <p>Thư viện sách điện tử về lịch sử và văn hóa Việt Nam</p>
     </div>
 
-    <div class="books-grid">
-      <ion-card *ngFor="let book of books" class="book-card">
-        <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
-
-        <ion-card-header>
-          <ion-card-subtitle>{{ book.category }}</ion-card-subtitle>
-          <ion-card-title>{{ book.title }}</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <p class="author">Tác giả: {{ book.author }}</p>
-          <p class="description">{{ book.description }}</p>
-
-          <div class="book-actions">
-            <ion-button fill="solid" size="small" (click)="readBook(book)">
-              <ion-icon name="book-outline" slot="start"></ion-icon>
-              Đọc
-            </ion-button>
-            <ion-button fill="outline" size="small" (click)="downloadBook(book)">
-              <ion-icon name="download-outline" slot="start"></ion-icon>
-              Tải về
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
+    <ng-container *ngIf="lstData && lstData?.length">
+      <ion-list class="ion-bg-color-none">
+        <div class="books-grid">
+          <ng-container *ngFor="let item of lstData">
+            <ion-card class="book-card">
+              <img [src]="item?.AvatarPath" [alt]="item?.Title" class="book-cover">
+            
+              <ion-card-header>
+                <ion-card-subtitle>{{ item.category }}</ion-card-subtitle>
+                <ion-card-title>{{ item?.Title }}</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                <!-- <p class="author">Tác giả: {{ item.author }}</p> -->
+                <!-- <p class="description">{{ item.description }}</p> -->
+            
+                <div class="book-actions">
+                  <ion-button fill="solid" size="small" (click)="readBook(item)">
+                    <ion-icon name="book-outline" slot="start"></ion-icon>
+                    Đọc
+                  </ion-button>
+                  <ion-button fill="outline" size="small" (click)="downloadBook(item)">
+                    <ion-icon name="download-outline" slot="start"></ion-icon>
+                    Tải về
+                  </ion-button>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ng-container>
+        </div>
+      </ion-list>
+      <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+    <ng-container *ngIf="!lstData || lstData?.length == 0">
+      <!-- de tam neu du lieu ko co se hien thi cai gi -->
+    </ng-container>
   </div>
 </ion-content>
