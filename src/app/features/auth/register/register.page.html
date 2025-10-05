@@ -1,71 +1,51 @@
-<ion-header class="ion-no-border">
-
-</ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!-- Hero row (3 cụm trên) -->
   <app-section-logo></app-section-logo>
-
-  <!-- Title -->
+  
   <h1 class="title">Đăng ký hội viên</h1>
 
-  <!-- Form -->
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <!-- Name -->
     <div class="field-card" [class.invalid]="form.controls.name.touched && form.controls.name.invalid">
       <ion-icon name="person-outline" class="field-icon"></ion-icon>
-      <ion-input formControlName="name" type="text" placeholder="Tên của bạn"></ion-input>
-      <div class="right-pad"></div>
-    </div>
-    <div class="err" *ngIf="form.controls.name.touched && form.controls.name.invalid">
-      Vui lòng nhập tên (tối thiểu 2 ký tự).
+      <ion-input size="10" formControlName="name" type="text" placeholder="Tên của bạn"
+        aria-label="Tên của bạn"></ion-input>
     </div>
 
     <!-- Email -->
     <div class="field-card" [class.invalid]="form.controls.email.touched && form.controls.email.invalid">
       <ion-icon name="mail-outline" class="field-icon"></ion-icon>
-      <ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
-      <div class="right-pad"></div>
-    </div>
-    <div class="err" *ngIf="form.controls.email.touched && form.controls.email.invalid">
-      Email không hợp lệ.
+      <ion-input size="10" formControlName="email" type="email" placeholder="Email"
+        aria-label="Email"></ion-input>
     </div>
 
     <!-- Password -->
     <div class="field-card" [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
-      <ion-input [type]="showPw() ? 'text' : 'password'" formControlName="password" placeholder="Mật khẩu"></ion-input>
-      <ion-button fill="clear" size="small" class="eye" type="button" (click)="togglePw()">
+      <ion-input size="10" formControlName="password" [type]="showPw() ? 'text' : 'password'" placeholder="Mật khẩu"
+        aria-label="Mật khẩu"></ion-input>
+      <ion-button fill="clear" size="small" class="eye" (click)="togglePw()" type="button"
+        aria-label="Hiện/ẩn mật khẩu">
         <ion-icon [name]="showPw() ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
       </ion-button>
     </div>
-    <div class="err" *ngIf="form.controls.password.touched && form.controls.password.invalid">
-      Mật khẩu tối thiểu 6 ký tự.
-    </div>
 
     <!-- Confirm Password -->
-    <div class="field-card"
-      [class.invalid]="(form.controls.confirm.touched && form.controls.confirm.invalid) || form.errors?.['mismatch']">
+    <div class="field-card" [class.invalid]="(form.controls.confirm.touched && form.controls.confirm.invalid) || form.errors?.['mismatch']">
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
-      <ion-input [type]="showPw2() ? 'text' : 'password'" formControlName="confirm"
-        placeholder="Nhập lại mật khẩu"></ion-input>
-      <ion-button fill="clear" size="small" class="eye" type="button" (click)="togglePw2()">
+      <ion-input size="10" formControlName="confirm" [type]="showPw2() ? 'text' : 'password'" placeholder="Nhập lại mật khẩu"
+        aria-label="Nhập lại mật khẩu"></ion-input>
+      <ion-button fill="clear" size="small" class="eye" (click)="togglePw2()" type="button"
+        aria-label="Hiện/ẩn mật khẩu">
         <ion-icon [name]="showPw2() ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
       </ion-button>
-    </div>
-    <div class="err" *ngIf="form.controls.confirm.touched && form.controls.confirm.invalid">
-      Vui lòng nhập lại mật khẩu.
-    </div>
-    <div class="err" *ngIf="!form.controls.confirm.invalid && form.errors?.['mismatch']">
-      Mật khẩu nhập lại chưa khớp.
     </div>
 
     <!-- Captcha row -->
     <div class="captcha-row">
       <div class="field-card" [class.invalid]="form.controls.captcha.touched && form.controls.captcha.invalid">
         <ion-icon name="shield-checkmark-outline" class="field-icon"></ion-icon>
-        <ion-input formControlName="captcha" type="text" placeholder="Mã bảo mật"></ion-input>
-        <div class="right-pad"></div>
+        <ion-input size="10" formControlName="captcha" type="text" placeholder="Mã bảo mật"
+          aria-label="Mã bảo mật"></ion-input>
       </div>
 
       <div class="captcha-box">
@@ -75,27 +55,20 @@
         </ion-button>
       </div>
     </div>
-    <div class="err" *ngIf="form.controls.captcha.touched && form.controls.captcha.invalid">
-      Vui lòng nhập mã bảo mật.
-    </div>
 
     <!-- Policy -->
-    <div class="policy">
-      <ion-checkbox formControlName="policy"></ion-checkbox>
-      <div class="policy-text">Đồng ý chính sách bảo mật thông tin cá nhân.</div>
-    </div>
-    <div class="err" *ngIf="form.controls.policy.touched && form.controls.policy.invalid">
-      Bạn cần đồng ý chính sách để tiếp tục.
+    <div class="form-checkbox">
+      <ion-checkbox formControlName="policy" labelPlacement="end">Đồng ý chính sách bảo mật thông tin cá nhân</ion-checkbox>
     </div>
 
     <!-- Submit -->
-    <button class="gradient-btn" type="submit">
+    <button class="gradient-btn" type="submit" aria-label="Đăng ký">
       <span>ĐĂNG KÝ</span>
     </button>
   </form>
 
-  <!-- Footer link -->
-  <div class="footer-line">
+  <!-- Register -->
+  <div class="register-line">
     <span>Bạn đã có tài khoản? </span>
     <button class="link underline" type="button" (click)="goLogin()">Đăng nhập</button>
   </div>

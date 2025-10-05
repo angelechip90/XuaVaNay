@@ -107,4 +107,4 @@
   </ng-container>
 </ion-content>
 
-<app-input-chat (searchInput)="onSearchInput($event)"></app-input-chat>
+<app-input-chat (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>

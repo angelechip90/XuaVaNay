@@ -17,7 +17,7 @@
     grid-template-columns: 24px 1fr 32px;
     align-items: center;
     gap: 8px;
-    padding: 14px 12px;
+    padding: 5px 12px;
     border: 1px solid #cbd5e1;
     border-radius: 10px;
     background: #fff;
@@ -65,10 +65,8 @@ ion-input {
 .captcha-box {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
     border-radius: 10px;
     padding: 6px;
-    border: 1px dashed #6366f1;
 }
 
 .captcha-box img {
@@ -138,4 +136,33 @@ ion-input {
 .round-btn svg {
     width: 30px;
     height: 30px;
+}
+
+.form-checkbox{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ion-checkbox {
+        --size: 28px;
+        --checkbox-background-checked: #4d4c4e;
+      }
+      
+      ion-checkbox::part(container) {
+        border-radius: 6px;
+        border: 2px solid #4d4c4e;
+      }
+}
+
+.register-line{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    .underline{
+        text-decoration: underline;
+        color: #111;
+        font-weight: 600;
+        margin-left: 5px;
+        font-size: 14px;
+    }
 }

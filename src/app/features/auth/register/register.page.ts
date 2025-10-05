@@ -1,50 +1,28 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
   IonButton,
   IonIcon,
   IonInput,
   IonCheckbox,
+  IonHeader,
   ToastController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {
-  chevronBackOutline,
-  personOutline,
-  mailOutline,
-  lockClosedOutline,
-  eyeOutline,
+import { 
+  chevronBackOutline, 
+  personOutline, 
+  lockClosedOutline, 
+  eyeOutline, 
   eyeOffOutline,
+  mailOutline,
+  shieldCheckmarkOutline,
   refreshOutline
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
-
-// Custom validator for password confirmation
-function matchValidator(controlName: string, matchingControlName: string) {
-  return (abstractControl: AbstractControl): ValidationErrors | null => {
-    const control = abstractControl.get(controlName);
-    const matchingControl = abstractControl.get(matchingControlName);
-
-    if (matchingControl?.errors && !matchingControl.errors['mismatch']) {
-      return null;
-    }
-
-    if (control?.value !== matchingControl?.value) {
-      const error = { mismatch: true };
-      matchingControl?.setErrors(error);
-      return error;
-    } else {
-      matchingControl?.setErrors(null);
-      return null;
-    }
-  };
-}
+import { NavigationService } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-register',
@@ -53,10 +31,6 @@ function matchValidator(controlName: string, matchingControlName: string) {
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
     IonButton,
     IonIcon,
     IonInput,
@@ -65,73 +39,107 @@ function matchValidator(controlName: string, matchingControlName: string) {
     FormsModule,
     ReactiveFormsModule,
     SectionLogoComponent
-  ]
+]
 })
 export class RegisterPage implements OnInit {
-
   showPw = signal(false);
   showPw2 = signal(false);
+  captchaUrl = signal('');
 
-  captchaUrl = signal(this.makeCaptchaUrl());
-
-  form = this.fb.group(
-    {
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirm: ['', [Validators.required]],
-      captcha: ['', [Validators.required, Validators.minLength(4)]],
-      policy: [false, Validators.requiredTrue],
-    },
-    { validators: matchValidator('password', 'confirm') }
-  );
+  form = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirm: ['', [Validators.required]],
+    captcha: ['', [Validators.required]],
+    policy: [false, [Validators.requiredTrue]]
+  }, { validators: this.passwordMatchValidator });
 
   constructor(
     private fb: FormBuilder,
-    private toast: ToastController
+    private toast: ToastController,
+    private navigationService: NavigationService
   ) {
     addIcons({
       chevronBackOutline,
       personOutline,
-      mailOutline,
       lockClosedOutline,
       eyeOutline,
       eyeOffOutline,
+      mailOutline,
+      shieldCheckmarkOutline,
       refreshOutline
     });
   }
 
   ngOnInit() {
+    this.refreshCaptcha();
   }
 
-  goBack() { history.back(); }
+  passwordMatchValidator(formGroup: any) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirm')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
 
-  togglePw() { this.showPw.update(v => !v); }
-  togglePw2() { this.showPw2.update(v => !v); }
+  togglePw() {
+    this.showPw.update(v => !v);
+  }
 
-  makeCaptchaUrl() {
-    const ts = Date.now();
-    return `https://placehold.co/126x56?text=CAPTCHA&cb=${ts}`;
-    // TODO: đổi thành endpoint CAPTCHA thật của bạn
+  togglePw2() {
+    this.showPw2.update(v => !v);
   }
 
   refreshCaptcha() {
-    this.captchaUrl.set(this.makeCaptchaUrl());
+    // Generate a simple captcha URL (you can replace with actual captcha service)
+    const timestamp = Date.now();
+    this.captchaUrl.set(`../../../assets/imgs/1.png?text=${timestamp.toString().slice(-4)}`);
+  }
+
+  goLogin() {
+    this.navigationService.navigateToLogin();
   }
 
   async submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      const t = await this.toast.create({ message: 'Vui lòng kiểm tra các trường bắt buộc', duration: 1200, position: 'bottom' });
-      return t.present();
+      const toast = await this.toast.create({
+        message: 'Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp',
+        duration: 2000,
+        color: 'warning'
+      });
+      return toast.present();
     }
-    // TODO: gọi API đăng ký
-    const t = await this.toast.create({ message: 'Đăng ký thành công', duration: 1000, position: 'bottom' });
-    t.present();
-  }
 
-  goLogin() {
-    // TODO: điều hướng sang trang đăng nhập (router.navigateByUrl('/login'))
-    console.log('Đi tới trang đăng nhập');
+    if (this.form.value.password !== this.form.value.confirm) {
+      const toast = await this.toast.create({
+        message: 'Mật khẩu xác nhận không khớp',
+        duration: 2000,
+        color: 'danger'
+      });
+      return toast.present();
+    }
+
+    if (!this.form.value.policy) {
+      const toast = await this.toast.create({
+        message: 'Bạn cần đồng ý chính sách để tiếp tục',
+        duration: 2000,
+        color: 'warning'
+      });
+      return toast.present();
+    }
+
+    // Simulate registration process
+    const toast = await this.toast.create({
+      message: 'Đăng ký thành công! Vui lòng đăng nhập',
+      duration: 2000,
+      color: 'success'
+    });
+    await toast.present();
+    
+    // Navigate to login after success
+    setTimeout(() => {
+      this.navigationService.navigateToLogin();
+    }, 2000);
   }
 }

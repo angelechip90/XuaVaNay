@@ -15,10 +15,7 @@
   </ion-header>
 
   <!-- Content -->
-  <ion-content [fullscreen]="true">
-    <div class="container">
-      <div class="thin-divider"></div>
-
+  <ion-content [fullscreen]="true" class="ion-padding">
       <!-- Greeting -->
       <div class="greeting">
         <span class="text">{{ greeting() }}</span><span class="emoji"> 😊️</span>
@@ -54,24 +51,8 @@
       </div>
 
       <div class="bottom-spacer"></div>
-    </div>
   </ion-content>
 
   <!-- Composer -->
-  <ion-footer class="footer">
-    <div class="composer">
-      <div class="input">
-        <ion-textarea [value]="drafting()" (ionInput)="drafting.set($any($event.target).value)" autoGrow="true"
-          placeholder="Bạn cần hỗ trợ nội dung gì ?"></ion-textarea>
-        <div class="mic-hint">
-          <div class="mic-bars"></div>
-        </div>
-      </div>
-
-      <button class="send" (click)="send()" aria-label="Gửi">
-        <div class="send-grad"></div>
-        <ion-icon name="send-outline"></ion-icon>
-      </button>
-    </div>
-  </ion-footer>
+ <app-input-chat (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>
 </div>

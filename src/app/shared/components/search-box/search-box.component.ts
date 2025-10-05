@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { IonCard, IonItem, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,13 +12,14 @@ import { addIcons } from 'ionicons';
   standalone: true,
   imports: [IonCard, IonItem, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
 })
-export class SearchBoxComponent implements OnInit {
-  @Output() searchInput = new EventEmitter<string>();
+export class SearchBoxComponent implements OnInit, OnDestroy {
+  @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 
   searchText: string = '';
   isRecording: boolean = false;
   private recognition: any;
+  svgId: string = `send-gradient-${Math.random().toString(36).substr(2, 9)}`;
 
   constructor() {
     addIcons({
@@ -32,6 +33,12 @@ export class SearchBoxComponent implements OnInit {
     this.initializeSpeechRecognition();
   }
 
+  ngOnDestroy() {
+    if (this.recognition && this.isRecording) {
+      this.recognition.stop();
+    }
+  }
+
   private initializeSpeechRecognition() {
     if ('webkitSpeechRecognition' in window) {
       this.recognition = new (window as any).webkitSpeechRecognition();
@@ -42,7 +49,7 @@ export class SearchBoxComponent implements OnInit {
       this.recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         this.searchText = transcript;
-        this.searchInput.emit(transcript);
+        this.valueChange.emit(transcript);
         this.isRecording = false;
       };
 
@@ -57,10 +64,10 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
-  onSearchInput(event: any) {
+  onValueChange(event: any) {
     const value = event.target.value;
     this.searchText = value;
-    this.searchInput.emit(value);
+    this.valueChange.emit(value);
   }
 
   toggleVoiceInput() {

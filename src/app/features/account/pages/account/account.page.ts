@@ -76,7 +76,7 @@ export class AccountPage implements OnInit {
   openReadBooks() { this.router.navigateByUrl('/book-readed'); }
   openQaHistory() { this.router.navigateByUrl('/chat-histories'); }
   openPurchaseHistory() { this.router.navigateByUrl('/purchase-history'); }
-  openChangePassword() { this.router.navigateByUrl('/tabs/tab5/change-password'); }
+  openChangePassword() { this.router.navigateByUrl('/change-password'); }
 
   async signOut() {
     // TODO: tích hợp logic sign-out thực tế

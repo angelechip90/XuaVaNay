@@ -9,8 +9,6 @@ import {
   IonIcon,
   IonTitle,
   IonContent,
-  IonTextarea,
-  IonFooter,
   IonCard,
   IonCardContent,
   IonChip,
@@ -27,6 +25,7 @@ import {
   bookOutline,
   personOutline
 } from 'ionicons/icons';
+import { InputChatComponent } from '../input-chat/input-chat.component';
 
 interface QuickTopic {
   label: string;
@@ -49,15 +48,14 @@ interface Suggestion {
     IonIcon,
     IonTitle,
     IonContent,
-    IonTextarea,
-    IonFooter,
     IonCard,
     IonCardContent,
     IonChip,
     IonLabel,
     CommonModule,
-    FormsModule
-  ],
+    FormsModule,
+    InputChatComponent
+],
   standalone: true
 })
 export class ChatsComponent implements OnInit {
@@ -116,5 +114,14 @@ export class ChatsComponent implements OnInit {
     t.present();
     // TODO: gọi API chat của bạn
     this.drafting.set('');
+  }
+
+  onValueChange(value: string) {
+    this.drafting.set(value);
+  }
+
+  onSendMessage(message: string) {
+    this.drafting.set(message);
+    this.send();
   }
 }

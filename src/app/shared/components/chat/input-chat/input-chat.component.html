@@ -3,7 +3,7 @@
     <!-- Group có border: chứa input + nút mic -->
     <div class="search-group">
       <ion-input placeholder="Câu hỏi của bạn..." clear-input="true" inputmode="search" [(ngModel)]="searchText"
-        (ionInput)="onSearchInput($event)">
+        (ionInput)="onValueChange($event)">
       </ion-input>
 
       <ion-button fill="clear" class="mic-button" aria-label="Voice input" (click)="toggleVoiceInput()"

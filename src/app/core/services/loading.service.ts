@@ -1,40 +1,22 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class LoadingService {
-    private loadingElement: HTMLIonLoadingElement | null = null;
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
 
-    constructor(private loadingController: LoadingController) { }
+  show(): void {
+    this.loadingSubject.next(true);
+  }
 
-    async show(message: string = 'Đang tải...'): Promise<void> {
-        if (this.loadingElement) {
-            return;
-        }
+  hide(): void {
+    this.loadingSubject.next(false);
+  }
 
-        this.loadingElement = await this.loadingController.create({
-            message,
-            spinner: 'crescent',
-            translucent: true,
-            backdropDismiss: false
-        });
-
-        await this.loadingElement.present();
-    }
-
-    async hide(): Promise<void> {
-        if (this.loadingElement) {
-            await this.loadingElement.dismiss();
-            this.loadingElement = null;
-        }
-    }
-
-    async showWithDuration(message: string, duration: number): Promise<void> {
-        await this.show(message);
-        setTimeout(() => {
-            this.hide();
-        }, duration);
-    }
+  isLoading(): boolean {
+    return this.loadingSubject.value;
+  }
 }

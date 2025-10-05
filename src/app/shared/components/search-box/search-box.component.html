@@ -1,13 +1,21 @@
 <ion-card class="search-card" mode="ios">
   <ion-item lines="none">
     <ion-input placeholder="Bạn cần hỏi về vấn đề gì ?" clear-input="true" inputmode="search" [(ngModel)]="searchText"
-      (ionInput)="onSearchInput($event)">
+      (ionInput)="onValueChange($event)">
     </ion-input>
     <ion-button fill="clear" slot="end" (click)="toggleVoiceInput()" [class.recording]="isRecording">
       <ion-icon [name]="isRecording ? 'mic-off-outline' : 'mic-outline'"></ion-icon>
     </ion-button>
     <ion-button fill="clear" slot="end" class="send-button" (click)="onSend()" [disabled]="!searchText">
-      <ion-icon name="send-outline"></ion-icon>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.9639 9.96362L4.70388 9.96362M18.9639 9.96362L1.46298 18.39L4.70388 9.96362M18.9639 9.96362L1.46298 1.53727L4.70388 9.96362" [attr.stroke]="'url(#' + svgId + ')'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+        <linearGradient [attr.id]="svgId" x1="12.4821" y1="3.48181" x2="-0.481567" y2="16.4454" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ED1C24"/>
+        <stop offset="1" stop-color="#821EFB"/>
+        </linearGradient>
+        </defs>
+        </svg>
     </ion-button>
   </ion-item>
 </ion-card>

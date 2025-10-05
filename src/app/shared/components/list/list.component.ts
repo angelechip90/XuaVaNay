@@ -4,16 +4,8 @@ import { FormsModule } from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
-  IonCard,
-  IonItem,
   IonIcon,
-  IonInput,
-  IonButton,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonImg,
   ActionSheetController
 } from '@ionic/angular/standalone';
@@ -44,14 +36,11 @@ export interface PosterItem {
     IonToolbar,
     IonContent,
     IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonImg,
     CommonModule,
     FormsModule,
     SearchBoxComponent
-  ],
+],
   standalone: true
 })
 export class ListComponent implements OnInit {
@@ -82,7 +71,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() { }
 
-  onSearchInput(query: string) {
+  onValueChange(query: string) {
     this.query = query;
     this.searchInput.emit(query);
   }

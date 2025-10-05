@@ -13,7 +13,7 @@
   </section>
 
   <!-- Search -->
-  <app-search-box></app-search-box>
+  <app-search-box (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-search-box>
 
   <!-- Data sources -->
   <section class="ion-padding-horizontal section">

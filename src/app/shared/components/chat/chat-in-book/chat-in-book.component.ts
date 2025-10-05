@@ -9,8 +9,6 @@ import {
   IonIcon,
   IonTitle,
   IonContent,
-  IonTextarea,
-  IonFooter,
   ToastController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -60,12 +58,10 @@ interface Message {
     IonIcon,
     IonTitle,
     IonContent,
-    IonTextarea,
-    IonFooter,
     CommonModule,
     FormsModule,
     InputChatComponent
-  ],
+],
   standalone: true
 })
 export class ChatInBookComponent implements OnInit {
@@ -150,8 +146,13 @@ export class ChatInBookComponent implements OnInit {
   // Ô input
   drafting = signal('');
 
-  onSearchInput(query: string) {
+  onValueChange(value: string) {
+    this.drafting.set(value);
+  }
 
+  onSendMessage(message: string) {
+    this.drafting.set(message);
+    this.send();
   }
 
   goBack() {

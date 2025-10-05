@@ -26,7 +26,7 @@
     </div>
 
     <!-- Options row -->
-    <div class="opts">
+    <div class="form-checkbox">
       <ion-checkbox formControlName="remember" labelPlacement="end">Lưu mật khẩu</ion-checkbox>
       <ion-button fill="clear" size="small" class="link" type="button" (click)="forgotPw()">
         Quên mật khẩu?
@@ -34,8 +34,9 @@
     </div>
 
     <!-- Submit -->
-    <button class="gradient-btn" type="submit" aria-label="Đăng nhập">
-      <span>ĐĂNG NHẬP</span>
+    <button class="gradient-btn" type="submit" aria-label="Đăng nhập" [disabled]="isLoading()">
+      <span *ngIf="!isLoading()">ĐĂNG NHẬP</span>
+      <span *ngIf="isLoading()">ĐANG XỬ LÝ...</span>
     </button>
   </form>
 

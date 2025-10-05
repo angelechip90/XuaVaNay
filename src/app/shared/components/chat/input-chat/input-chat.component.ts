@@ -10,10 +10,10 @@ import { addIcons } from 'ionicons';
   templateUrl: './input-chat.component.html',
   styleUrls: ['./input-chat.component.scss'],
   standalone: true,
-  imports: [IonCard, IonItem, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
+  imports: [IonCard, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
 })
 export class InputChatComponent implements OnInit {
-  @Output() searchInput = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 
   searchText: string = '';
@@ -42,7 +42,7 @@ export class InputChatComponent implements OnInit {
       this.recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         this.searchText = transcript;
-        this.searchInput.emit(transcript);
+        this.valueChange.emit(transcript);
         this.isRecording = false;
       };
 
@@ -57,10 +57,10 @@ export class InputChatComponent implements OnInit {
     }
   }
 
-  onSearchInput(event: any) {
-    const value = event.target.value;
+  onValueChange(event: any) {
+    const value = event.detail?.value || event.target?.value || '';
     this.searchText = value;
-    this.searchInput.emit(value);
+    this.valueChange.emit(value);
   }
 
   toggleVoiceInput() {

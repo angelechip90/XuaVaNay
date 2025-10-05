@@ -3,15 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
   IonButton,
   IonIcon,
   IonInput,
   IonCheckbox,
-  ToastController
+  ToastController,
+  LoadingController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -22,6 +19,9 @@ import {
   eyeOffOutline
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
+import { NavigationService } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +30,6 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
     IonButton,
     IonIcon,
     IonInput,
@@ -42,19 +38,25 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
     FormsModule,
     ReactiveFormsModule,
     SectionLogoComponent
-  ]
+]
 })
 export class LoginPage implements OnInit {
   showPw = signal(false);
+  isLoading = signal(false);
 
   form = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     remember: [true],
   });
+
   constructor(
     private fb: FormBuilder,
-    private toast: ToastController
+    private toast: ToastController,
+    private loadingController: LoadingController,
+    private authService: AuthService,
+    private loadingService: LoadingService,
+    private navigationService: NavigationService
   ) {
     addIcons({
       chevronBackOutline,
@@ -66,30 +68,63 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    // Subscribe to loading state
+    this.loadingService.loading$.subscribe(loading => {
+      this.isLoading.set(loading);
+    });
   }
 
-  goBack() { history.back(); }
+  goBack() { 
+    this.navigationService.goBack(); 
+  }
 
-  togglePw() { this.showPw.update(v => !v); }
+  togglePw() { 
+    this.showPw.update(v => !v); 
+  }
 
   async submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      const t = await this.toast.create({ message: 'Vui lòng nhập đầy đủ thông tin', duration: 1200 });
-      return t.present();
+      await this.showToast('Vui lòng nhập đầy đủ thông tin', 'warning');
+      return;
     }
-    // TODO: gọi API đăng nhập của bạn
-    const t = await this.toast.create({ message: 'Đăng nhập thành công', duration: 1000, position: 'bottom' });
-    t.present();
+
+    this.loadingService.show();
+    
+    try {
+      const result = await this.authService.login(
+        this.form.value.username || '',
+        this.form.value.password || ''
+      );
+
+      if (result.Succeeded) {
+        await this.showToast('Đăng nhập thành công', 'success');
+        this.navigationService.navigateToHome();
+      } else {
+        await this.showToast(result.Message || 'Đăng nhập thất bại', 'danger');
+      }
+    } catch (error) {
+      await this.showToast('Có lỗi xảy ra, vui lòng thử lại', 'danger');
+    } finally {
+      this.loadingService.hide();
+    }
   }
 
   forgotPw() {
-    // TODO: điều hướng trang quên mật khẩu
-    console.log('Forgot password');
+    this.navigationService.navigateToForgotPassword();
   }
 
   register() {
-    // TODO: điều hướng trang đăng ký
-    console.log('Go to register');
+    this.navigationService.navigateToRegister();
+  }
+
+  private async showToast(message: string, color: 'success' | 'warning' | 'danger' = 'success'): Promise<void> {
+    const toast = await this.toast.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color
+    });
+    await toast.present();
   }
 }
