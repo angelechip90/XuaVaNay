@@ -5,7 +5,7 @@ import {
   IonToolbar,
   IonTitle,
   IonIcon,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -18,45 +18,27 @@ import {
   receiptOutline,
   keyOutline,
   logOutOutline,
-  diamondOutline
+  diamondOutline,
 } from 'ionicons/icons';
-
-interface MemberInfo {
-  name: string;
-  email: string;
-  planCode: string;   // "LVAI PRO"
-  expireText: string; // "30/6/2026"
-  avatarUrl: string;
-  booksRead: number;
-  qaHistory: number;
-}
+import { IUserInfo } from 'src/app/models/IUser.model';
+import { ApiService } from 'src/app/core/services/api.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
-  imports: [
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonIcon,
-    CommonModule
-  ],
-  standalone: true
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule],
+  standalone: true,
 })
 export class AccountPage implements OnInit {
-  member = signal<MemberInfo>({
-    name: 'Middle Kiên',
-    email: 'middlekien@email.com',
-    planCode: 'LVAI PRO',
-    expireText: '30/6/2026',
-    avatarUrl: 'https://placehold.co/130x130',
-    booksRead: 9,
-    qaHistory: 12,
-  });
+  userInfo = signal<IUserInfo>({} as IUserInfo);
 
-  constructor(private router: Router, private toast: ToastController) {
+  constructor(
+    private router: Router,
+    private toast: ToastController,
+    private api: ApiService
+  ) {
     addIcons({
       mailOutline,
       chevronForwardOutline,
@@ -65,18 +47,36 @@ export class AccountPage implements OnInit {
       receiptOutline,
       keyOutline,
       logOutOutline,
-      diamondOutline
+      diamondOutline,
     });
   }
 
+  ngOnInit() {
+    this.loadUserInfo();
+  }
 
-  ngOnInit() { }
+  async loadUserInfo() {
+    let result = await firstValueFrom(this.api.execApi('auth', 'me', 'GET'));
+    if (result && result?.Succeeded) {
+      this.userInfo.set(result.Data);
+    }
+  }
 
-  openEmail() { this.router.navigateByUrl('/tabs/tab5/email'); }
-  openReadBooks() { this.router.navigateByUrl('/book-readed'); }
-  openQaHistory() { this.router.navigateByUrl('/chat-histories'); }
-  openPurchaseHistory() { this.router.navigateByUrl('/purchase-history'); }
-  openChangePassword() { this.router.navigateByUrl('/change-password'); }
+  openEmail() {
+    this.router.navigateByUrl('/tabs/tab5/email');
+  }
+  openReadBooks() {
+    this.router.navigateByUrl('/book-readed');
+  }
+  openQaHistory() {
+    this.router.navigateByUrl('/chat-histories');
+  }
+  openPurchaseHistory() {
+    this.router.navigateByUrl('/purchase-history');
+  }
+  openChangePassword() {
+    this.router.navigateByUrl('/change-password');
+  }
 
   async signOut() {
     // TODO: tích hợp logic sign-out thực tế

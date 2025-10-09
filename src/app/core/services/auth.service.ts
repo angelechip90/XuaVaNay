@@ -1,70 +1,39 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface IUser {
-  id: string;
-  username: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  FullName?: string;
-  Email?: string;
-  PhoneNumber?: string;
-  Gender?: string;
-  Birthday?: string;
-  Address?: string;
-  Job?: string;
-  Avatar?: string;
-  IsVerify?: boolean;
-  Ugroups?: any[];
-}
-
-export interface LoginRequest {
-  identifier: string;
-  password: string;
-}
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { IUser } from 'src/app/models/IUser.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<IUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {
+  constructor(private api: ApiService) {
     // Load user from storage on init
     this.loadUserFromStorage();
   }
 
-  async login(identifier: string, password: string): Promise<{ Succeeded: boolean; Message?: string; Data?: IUser }> {
+  async login(
+    identifier: string,
+    password: string
+  ): Promise<{ Succeeded: boolean; Message?: string; Data?: IUser }> {
     try {
       // Mock login - replace with actual API call
-      if (identifier && password) {
-        const user: IUser = {
-          id: '1',
-          username: identifier,
-          email: identifier.includes('@') ? identifier : `${identifier}@example.com`,
-          FullName: 'Test User',
-          Email: identifier.includes('@') ? identifier : `${identifier}@example.com`,
-          PhoneNumber: '0123456789',
-          Gender: '1',
-          Birthday: '1990-01-01',
-          Address: 'Test Address',
-          Job: 'Developer',
-          Avatar: '',
-          IsVerify: true,
-          Ugroups: []
-        };
-
+      let result = await firstValueFrom(
+        this.api.execApi('Auth', 'login', 'POST', { identifier, password })
+      );
+      if (result && result?.Succeeded) {
+        let user = result?.Data;
         this.currentUserSubject.next(user);
         this.saveUserToStorage(user);
-        
         return { Succeeded: true, Data: user };
       } else {
-        return { Succeeded: false, Message: 'Vui lòng nhập đầy đủ thông tin' };
+        return { Succeeded: false, Message: result?.Message };
       }
     } catch (error) {
-      return { Succeeded: false, Message: 'Đăng nhập thất bại' };
+      return { Succeeded: false };
     }
   }
 
@@ -78,7 +47,18 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return this.currentUserSubject.value !== null;
+    var user = this.currentUserSubject.value;
+    const currentTime: number = Math.floor(Date.now() / 1000);
+    if (
+      user &&
+      user.Token &&
+      user.Token.AccessToken &&
+      user.Token.ExpiresIn > currentTime
+    ) {
+      return true;
+    }
+    this.logout();
+    return false;
   }
 
   private loadUserFromStorage(): void {

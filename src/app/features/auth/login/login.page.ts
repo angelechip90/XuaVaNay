@@ -1,6 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import {
   IonContent,
   IonButton,
@@ -8,7 +13,7 @@ import {
   IonInput,
   IonCheckbox,
   ToastController,
-  LoadingController
+  LoadingController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -16,7 +21,7 @@ import {
   personOutline,
   lockClosedOutline,
   eyeOutline,
-  eyeOffOutline
+  eyeOffOutline,
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -37,8 +42,8 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SectionLogoComponent
-]
+    SectionLogoComponent,
+  ],
 })
 export class LoginPage implements OnInit {
   showPw = signal(false);
@@ -53,7 +58,6 @@ export class LoginPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toast: ToastController,
-    private loadingController: LoadingController,
     private authService: AuthService,
     private loadingService: LoadingService,
     private navigationService: NavigationService
@@ -63,23 +67,23 @@ export class LoginPage implements OnInit {
       personOutline,
       lockClosedOutline,
       eyeOutline,
-      eyeOffOutline
+      eyeOffOutline,
     });
   }
 
   ngOnInit() {
     // Subscribe to loading state
-    this.loadingService.loading$.subscribe(loading => {
+    this.loadingService.loading$.subscribe((loading) => {
       this.isLoading.set(loading);
     });
   }
 
-  goBack() { 
-    this.navigationService.goBack(); 
+  goBack() {
+    this.navigationService.goBack();
   }
 
-  togglePw() { 
-    this.showPw.update(v => !v); 
+  togglePw() {
+    this.showPw.update((v) => !v);
   }
 
   async submit() {
@@ -90,7 +94,7 @@ export class LoginPage implements OnInit {
     }
 
     this.loadingService.show();
-    
+
     try {
       const result = await this.authService.login(
         this.form.value.username || '',
@@ -100,8 +104,6 @@ export class LoginPage implements OnInit {
       if (result.Succeeded) {
         await this.showToast('Đăng nhập thành công', 'success');
         this.navigationService.navigateToHome();
-      } else {
-        await this.showToast(result.Message || 'Đăng nhập thất bại', 'danger');
       }
     } catch (error) {
       await this.showToast('Có lỗi xảy ra, vui lòng thử lại', 'danger');
@@ -118,12 +120,15 @@ export class LoginPage implements OnInit {
     this.navigationService.navigateToRegister();
   }
 
-  private async showToast(message: string, color: 'success' | 'warning' | 'danger' = 'success'): Promise<void> {
+  private async showToast(
+    message: string,
+    color: 'success' | 'warning' | 'danger' = 'success'
+  ): Promise<void> {
     const toast = await this.toast.create({
       message,
       duration: 2000,
       position: 'bottom',
-      color
+      color,
     });
     await toast.present();
   }

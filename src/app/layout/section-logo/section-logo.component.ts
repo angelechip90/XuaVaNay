@@ -5,12 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './section-logo.component.html',
   styleUrls: ['./section-logo.component.scss'],
   standalone: true,
-  imports: []
+  imports: [],
 })
 export class SectionLogoComponent implements OnInit {
+  svgId: string = `logo-gradient-${Math.random().toString(36).substr(2, 9)}`;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

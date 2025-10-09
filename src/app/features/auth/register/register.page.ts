@@ -1,6 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Injector, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import {
   IonContent,
   IonButton,
@@ -8,21 +13,23 @@ import {
   IonInput,
   IonCheckbox,
   IonHeader,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { 
-  chevronBackOutline, 
-  personOutline, 
-  lockClosedOutline, 
-  eyeOutline, 
+import {
+  chevronBackOutline,
+  personOutline,
+  lockClosedOutline,
+  eyeOutline,
   eyeOffOutline,
   mailOutline,
   shieldCheckmarkOutline,
-  refreshOutline
+  refreshOutline,
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { BaseComponent } from 'src/app/core/base/base.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -38,28 +45,33 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SectionLogoComponent
-]
+    SectionLogoComponent,
+  ],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage extends BaseComponent {
   showPw = signal(false);
   showPw2 = signal(false);
   captchaUrl = signal('');
 
-  form = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirm: ['', [Validators.required]],
-    captcha: ['', [Validators.required]],
-    policy: [false, [Validators.requiredTrue]]
-  }, { validators: this.passwordMatchValidator });
+  form = this.fb.group(
+    {
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirm: ['', [Validators.required]],
+      captcha: ['', [Validators.required]],
+      policy: [false, [Validators.requiredTrue]],
+    },
+    { validators: this.passwordMatchValidator }
+  );
 
   constructor(
+    injector: Injector,
     private fb: FormBuilder,
     private toast: ToastController,
     private navigationService: NavigationService
   ) {
+    super(injector);
     addIcons({
       chevronBackOutline,
       personOutline,
@@ -68,7 +80,7 @@ export class RegisterPage implements OnInit {
       eyeOffOutline,
       mailOutline,
       shieldCheckmarkOutline,
-      refreshOutline
+      refreshOutline,
     });
   }
 
@@ -83,17 +95,19 @@ export class RegisterPage implements OnInit {
   }
 
   togglePw() {
-    this.showPw.update(v => !v);
+    this.showPw.update((v) => !v);
   }
 
   togglePw2() {
-    this.showPw2.update(v => !v);
+    this.showPw2.update((v) => !v);
   }
 
   refreshCaptcha() {
     // Generate a simple captcha URL (you can replace with actual captcha service)
     const timestamp = Date.now();
-    this.captchaUrl.set(`../../../assets/imgs/1.png?text=${timestamp.toString().slice(-4)}`);
+    this.captchaUrl.set(
+      `../../../assets/imgs/1.png?text=${timestamp.toString().slice(-4)}`
+    );
   }
 
   goLogin() {
@@ -106,7 +120,7 @@ export class RegisterPage implements OnInit {
       const toast = await this.toast.create({
         message: 'Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp',
         duration: 2000,
-        color: 'warning'
+        color: 'warning',
       });
       return toast.present();
     }
@@ -115,7 +129,7 @@ export class RegisterPage implements OnInit {
       const toast = await this.toast.create({
         message: 'Mật khẩu xác nhận không khớp',
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
       });
       return toast.present();
     }
@@ -124,19 +138,39 @@ export class RegisterPage implements OnInit {
       const toast = await this.toast.create({
         message: 'Bạn cần đồng ý chính sách để tiếp tục',
         duration: 2000,
-        color: 'warning'
+        color: 'warning',
       });
       return toast.present();
     }
 
-    // Simulate registration process
-    const toast = await this.toast.create({
-      message: 'Đăng ký thành công! Vui lòng đăng nhập',
-      duration: 2000,
-      color: 'success'
-    });
-    await toast.present();
-    
+    var obj = {
+      FullName: this.form.value.name,
+      Email: this.form.value.email,
+      Password: this.form.value.password,
+      ConfirmPassword: this.form.value.confirm,
+      Captcha: this.form.value.captcha,
+    };
+
+    let result = await firstValueFrom(
+      this.api.execApi('account', 'register-email', 'POST', obj)
+    );
+    if (result && result?.Succeeded) {
+      // Simulate registration process
+      const toast = await this.toast.create({
+        message: result.Message,
+        duration: 2000,
+        color: 'success',
+      });
+      await toast.present();
+    } else {
+      const toast = await this.toast.create({
+        message: result?.Message,
+        duration: 2000,
+        color: 'danger',
+      });
+      await toast.present();
+    }
+
     // Navigate to login after success
     setTimeout(() => {
       this.navigationService.navigateToLogin();

@@ -11,23 +11,23 @@
     <section class="hero">
       <div class="avatar-wrap">
         <div class="avatar">
-          <img [src]="member().avatarUrl" alt="Avatar" />
+          <img [src]="userInfo().Avatar" alt="Avatar" />
           <div class="overlay"></div>
         </div>
       </div>
 
       <div class="title-block">
-        <h1>{{ member().name }}</h1>
+        <h1>{{ userInfo().FullName }}</h1>
         <p>
-          Bạn đang sử dụng {{ member().planCode }}, thời hạn đến ngày
-          {{ member().expireText }}.
+          Bạn đang sử dụng {{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}, thời hạn đến ngày
+          {{ userInfo().ActiveSubscription?.EndDate }}.
         </p>
         <div class="ion-text-center">
           <div class="plan-badge">
             <div class="ion-align-items-center">
               <ion-icon name="diamond-outline"></ion-icon>
             </div>
-            <div class="badge-text">{{ member().planCode }}</div>
+            <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}</div>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
           <ion-icon name="mail-outline"></ion-icon>
         </div>
         <div class="label">Email</div>
-        <div class="value accent">{{ member().email }}</div>
+        <div class="value accent">{{ userInfo().Email }}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
@@ -54,7 +54,7 @@
           <ion-icon name="book-outline"></ion-icon>
         </div>
         <div class="label">Sách đã đọc</div>
-        <div class="value">{{ member().booksRead | number:'2.0' }}</div>
+        <div class="value">{{ userInfo().ActiveSubscription?.UsedChatQuota | number:'2.0' }}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
@@ -67,7 +67,7 @@
           <ion-icon name="chatbubbles-outline"></ion-icon>
         </div>
         <div class="label">Lịch sử Hỏi Đáp</div>
-        <div class="value">{{ member().qaHistory }}</div>
+        <div class="value">{{ userInfo().ActiveSubscription?.UsedChatQuota }}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
