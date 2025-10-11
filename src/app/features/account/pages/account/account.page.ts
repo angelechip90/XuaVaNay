@@ -23,6 +23,7 @@ import {
 import { IUserInfo } from 'src/app/models/IUser.model';
 import { ApiService } from 'src/app/core/services/api.service';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -36,8 +37,8 @@ export class AccountPage implements OnInit {
 
   constructor(
     private router: Router,
-    private toast: ToastController,
-    private api: ApiService
+    private api: ApiService,
+    private authService: AuthService
   ) {
     addIcons({
       mailOutline,
@@ -56,10 +57,11 @@ export class AccountPage implements OnInit {
   }
 
   async loadUserInfo() {
-    let result = await firstValueFrom(this.api.execApi('auth', 'me', 'GET'));
-    if (result && result?.Succeeded) {
-      this.userInfo.set(result.Data);
-    }
+    let result = await this.authService.getUserInfo().then((result) => {
+      if (result) {
+        this.userInfo.set(result as unknown as IUserInfo);
+      }
+    });
   }
 
   openEmail() {
@@ -79,8 +81,9 @@ export class AccountPage implements OnInit {
   }
 
   async signOut() {
-    // TODO: tích hợp logic sign-out thực tế
-    this.router.navigateByUrl('/login');
+    this.authService.logout().then(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 
   // Bottom nav (demo)

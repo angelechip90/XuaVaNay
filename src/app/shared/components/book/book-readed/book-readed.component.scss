@@ -4,6 +4,38 @@
 
 // Header styling handled by Ionic components
 
+.book-type-segment {
+    padding: 16px;
+    padding-bottom: 8px;
+    background-color: transparent;
+
+    /* Let Ionic handle the horizontal scroll internally */
+    ion-segment-button {
+
+        font-size: 14px;
+        min-height: 40px;
+        min-width: fit-content;
+        text-transform: none;
+        box-shadow: 0 2px 8px #638CF333;
+        border-radius: 12px;
+        margin-right: 10px;
+        flex-shrink: 0;
+
+        ion-label {
+            font-weight: 500;
+            white-space: nowrap;
+        }
+    }
+
+    .segment-button-checked {
+        --color: #ED1C24;
+    }
+
+    ion-segment-button:last-child {
+        margin-right: 0;
+    }
+}
+
 .book-list {
     padding: 16px;
 }

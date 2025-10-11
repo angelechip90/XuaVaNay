@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { IUser } from 'src/app/models/IUser.model';
+import { IUser, IUserInfo } from 'src/app/models/IUser.model';
+import { AuthStorageService } from './auth.storeage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<IUser | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-
-  constructor(private api: ApiService) {
-    // Load user from storage on init
-    this.loadUserFromStorage();
-  }
+  constructor(
+    private api: ApiService,
+    private authStorageService: AuthStorageService
+  ) {}
 
   async login(
     identifier: string,
@@ -26,8 +24,7 @@ export class AuthService {
       );
       if (result && result?.Succeeded) {
         let user = result?.Data;
-        this.currentUserSubject.next(user);
-        this.saveUserToStorage(user);
+        this.authStorageService.saveUser(user);
         return { Succeeded: true, Data: user };
       } else {
         return { Succeeded: false, Message: result?.Message };
@@ -38,16 +35,54 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    this.currentUserSubject.next(null);
-    this.clearUserFromStorage();
+    var user = this.authStorageService.getCurrentUser();
+    if (user) {
+      this.api
+        .execApi('Auth', 'logout', 'POST', {
+          RefreshToken: user.Token.RefreshToken,
+        })
+        .subscribe((result) => {
+          if (result && result?.Succeeded) {
+            this.authStorageService.clearUser();
+          }
+        });
+    }
+  }
+
+  async refreshToken(): Promise<void> {
+    var user = this.authStorageService.getCurrentUser();
+    if (user) {
+      this.api
+        .execApi('Auth', 'refresh-token', 'POST', {
+          RefreshToken: user.Token.RefreshToken,
+        })
+        .subscribe((result) => {
+          if (result && result?.Succeeded) {
+            this.authStorageService.saveUser(result.Data);
+          }
+        });
+    }
+  }
+
+  async getUserInfo(): Promise<IUserInfo | null> {
+    const user = this.authStorageService.getCurrentUser();
+    if (user) {
+      const result = await firstValueFrom(
+        this.api.execApi('Auth', 'me', 'GET')
+      );
+      if (result && result?.Succeeded) {
+        return result.Data;
+      }
+    }
+    return null;
   }
 
   getCurrentUser(): IUser | null {
-    return this.currentUserSubject.value;
+    return this.authStorageService.getCurrentUser();
   }
 
   isAuthenticated(): boolean {
-    var user = this.currentUserSubject.value;
+    var user = this.authStorageService.getCurrentUser();
     const currentTime: number = Math.floor(Date.now() / 1000);
     if (
       user &&
@@ -59,33 +94,5 @@ export class AuthService {
     }
     this.logout();
     return false;
-  }
-
-  private loadUserFromStorage(): void {
-    try {
-      const userStr = localStorage.getItem('currentUser');
-      if (userStr) {
-        const user = JSON.parse(userStr);
-        this.currentUserSubject.next(user);
-      }
-    } catch (error) {
-      console.error('Error loading user from storage:', error);
-    }
-  }
-
-  private saveUserToStorage(user: IUser): void {
-    try {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-    } catch (error) {
-      console.error('Error saving user to storage:', error);
-    }
-  }
-
-  private clearUserFromStorage(): void {
-    try {
-      localStorage.removeItem('currentUser');
-    } catch (error) {
-      console.error('Error clearing user from storage:', error);
-    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
@@ -7,15 +7,22 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
-  IonTitle
+  IonTitle,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   ellipsisHorizontalOutline,
-  bookOutline
+  bookOutline,
 } from 'ionicons/icons';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/models/Book.model';
+import { ApiService } from 'src/app/core/services/api.service';
 
 interface BookReaded {
   id: string;
@@ -39,68 +46,251 @@ interface BookReaded {
     IonButtons,
     IonButton,
     IonTitle,
-    CommonModule
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+    CommonModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class BookReadedComponent implements OnInit {
+  booksReaded: Book[] = [];
+  filteredBooks: Book[] = [];
+  totalPages: number = 1;
+  pageNum: number = 1;
+  selectedBookType: number = 0; // 0 = All
 
-  booksReaded: BookReaded[] = [];
+  // infinite scroll state
+  isLoading = false;
+  isEnd = false;
+  readonly pageSize = 20;
 
-  constructor(private router: Router) {
+  bookTypes = [
+    { BookTypeId: 0, Title: 'Tất cả', IsActive: true },
+    { BookTypeId: 1, Title: 'Tạp Chí Xưa và Nay', IsActive: true },
+    { BookTypeId: 2, Title: 'Tập san Sử Địa', IsActive: true },
+    { BookTypeId: 3, Title: 'E-Books', IsActive: true },
+  ];
+
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     addIcons({
       chevronBackOutline,
       ellipsisHorizontalOutline,
-      bookOutline
+      bookOutline,
     });
   }
 
   ngOnInit() {
-    this.loadBooksReaded();
+    this.getBookTypes();
   }
 
-  loadBooksReaded() {
-    this.booksReaded = [
-      {
-        id: '1',
-        title: 'XƯA & NAY SỐ 559 XUÂN GIÁP THÌN',
-        description: 'Lịch sử Việt Nam từ khởi thủy đến Cách mạng tháng Tám 1945 - Phan Huy Lê...',
-        category: 'Bộ tạp chí',
-        categoryColor: 'orange-50',
-        image: '../../../assets/imgs/demo/1.png',
-        issue: '559'
-      },
-      {
-        id: '2',
-        title: 'XƯA & NAY SỐ 554 (THÁNG 8.2023)',
-        description: 'Công lao, sự nghiệp của các chúa Nguyễn trong tiến trình lịch sử dân tộc Việt Nam...',
-        category: 'Bộ tạp chí',
-        categoryColor: 'orange-50',
-        image: '../../../assets/imgs/demo/2.png',
-        issue: '554'
-      },
-      {
-        id: '3',
-        title: 'XƯA & NAY SỐ 555 (THÁNG 9.2023)',
-        description: 'Nghiên cứu về văn hóa và truyền thống dân tộc qua các thời đại...',
-        category: 'Bộ tạp chí',
-        categoryColor: 'orange-50',
-        image: '../../../assets/imgs/demo/3.png',
-        issue: '555'
-      }
+  private getBookTypes() {
+    this.apiService
+      .execApi('Book', 'get-types', 'GET', null, null)
+      .subscribe((result: any) => {
+        this.bookTypes = result?.Data || [];
+        if (!this.bookTypes.length) this.sampleBookTypes();
+        this.fetchPage(1);
+      });
+  }
+
+  private fetchPage(page: number) {
+    this.isLoading = true;
+    this.apiService
+      .execApi(
+        'ReadBook',
+        'get-paging',
+        'GET',
+        null,
+        {
+          PageNumber: page,
+          PageSize: this.pageSize,
+        },
+        true
+      )
+      .subscribe(
+        (result: any) => {
+          const data: Book[] = result?.Data || [];
+          this.totalPages = result?.TotalPages ?? this.totalPages;
+          this.pageNum = result?.PageNumber ?? page;
+
+          // merge
+          this.booksReaded = page === 1 ? data : [...this.booksReaded, ...data];
+          this.isEnd =
+            this.pageNum >= this.totalPages || data.length < this.pageSize;
+
+          this.filterBooks();
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+
+          if (this.booksReaded.length === 0) this.sampleBooksReaded();
+        },
+        () => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        }
+      );
+  }
+
+  loadMore(ev: any) {
+    if (this.isLoading || this.isEnd) {
+      ev?.target?.complete?.();
+      return;
+    }
+    const next = this.pageNum + 1;
+    this.fetchPage(next);
+    // complete after fetchPage updates; add small delay to ensure UI completes
+    setTimeout(() => ev?.target?.complete?.(), 300);
+  }
+
+  onSegmentChange(event: any) {
+    this.selectedBookType = parseInt(event.detail.value);
+    this.filterBooks();
+  }
+
+  filterBooks() {
+    if (this.selectedBookType === 0) {
+      this.filteredBooks = this.booksReaded;
+    } else {
+      this.filteredBooks = this.booksReaded.filter(
+        (book) => book.BookType === this.selectedBookType
+      );
+    }
+  }
+
+  sampleBookTypes() {
+    this.bookTypes = [
+      { BookTypeId: 0, Title: 'Tất cả', IsActive: true },
+      { BookTypeId: 1, Title: 'Tạp Chí Xưa và Nay', IsActive: true },
+      { BookTypeId: 2, Title: 'Tập san Sử Địa', IsActive: true },
+      { BookTypeId: 3, Title: 'E-Books', IsActive: true },
     ];
   }
 
-  onBookClick(book: BookReaded) {
+  sampleBooksReaded() {
+    this.booksReaded = [
+      {
+        BookId: '1',
+        Title: 'Tạp chí Xưa và Nay - Số 1',
+        AvatarPath: '../../../assets/imgs/demo/1.png',
+        BookTypeAsString: 'Tạp Chí Xưa và Nay',
+        Description: 'Tạp chí nghiên cứu lịch sử và văn hóa',
+        Slug: 'tap-chi-xua-va-nay-1',
+        FileName: 'tap-chi-1.pdf',
+        Link: '../../../assets/imgs/demo/1.png',
+        ExternalId: 1,
+        ExternalEncryptId: '1',
+        TotalPage: 100,
+        PublicationYear: 2020,
+        Summary: 'Tạp chí Xưa và Nay',
+        BookType: 1,
+        CreatedDate: '2020-01-01',
+      },
+      {
+        BookId: '2',
+        Title: 'Tạp chí Xưa và Nay - Số 2',
+        AvatarPath: '../../../assets/imgs/demo/2.png',
+        BookTypeAsString: 'Tạp Chí Xưa và Nay',
+        Description: 'Tạp chí nghiên cứu lịch sử và văn hóa',
+        Slug: 'tap-chi-xua-va-nay-2',
+        FileName: 'tap-chi-2.pdf',
+        Link: '../../../assets/imgs/demo/2.png',
+        ExternalId: 2,
+        ExternalEncryptId: '2',
+        TotalPage: 120,
+        PublicationYear: 2021,
+        Summary: 'Tạp chí Xưa và Nay số 2',
+        BookType: 1,
+        CreatedDate: '2021-01-01',
+      },
+      {
+        BookId: '3',
+        Title: 'Tập san Sử Địa - Số 1',
+        AvatarPath: '../../../assets/imgs/demo/3.png',
+        BookTypeAsString: 'Tập san Sử Địa',
+        Description: 'Tập san chuyên về sử địa Việt Nam',
+        Slug: 'tap-san-su-dia-1',
+        FileName: 'su-dia-1.pdf',
+        Link: '../../../assets/imgs/demo/3.png',
+        ExternalId: 3,
+        ExternalEncryptId: '3',
+        TotalPage: 150,
+        PublicationYear: 2020,
+        Summary: 'Tập san Sử Địa',
+        BookType: 2,
+        CreatedDate: '2020-06-01',
+      },
+      {
+        BookId: '4',
+        Title: 'Tập san Sử Địa - Số 2',
+        AvatarPath: '../../../assets/imgs/demo/4.png',
+        BookTypeAsString: 'Tập san Sử Địa',
+        Description: 'Tập san chuyên về sử địa Việt Nam',
+        Slug: 'tap-san-su-dia-2',
+        FileName: 'su-dia-2.pdf',
+        Link: '../../../assets/imgs/demo/4.png',
+        ExternalId: 4,
+        ExternalEncryptId: '4',
+        TotalPage: 140,
+        PublicationYear: 2021,
+        Summary: 'Tập san Sử Địa số 2',
+        BookType: 2,
+        CreatedDate: '2021-06-01',
+      },
+      {
+        BookId: '5',
+        Title: 'Lịch sử Việt Nam',
+        AvatarPath: '../../../assets/imgs/demo/5.png',
+        BookTypeAsString: 'E-Books',
+        Description: 'Sách điện tử về lịch sử Việt Nam',
+        Slug: 'lich-su-viet-nam',
+        FileName: 'lich-su-viet-nam.pdf',
+        Link: '../../../assets/imgs/demo/5.png',
+        ExternalId: 5,
+        ExternalEncryptId: '5',
+        TotalPage: 300,
+        PublicationYear: 2022,
+        Summary: 'E-Book Lịch sử Việt Nam',
+        BookType: 3,
+        CreatedDate: '2022-01-01',
+      },
+      {
+        BookId: '6',
+        Title: 'Văn hóa Việt Nam',
+        AvatarPath: '../../../assets/imgs/demo/6.png',
+        BookTypeAsString: 'E-Books',
+        Description: 'Sách điện tử về văn hóa Việt Nam',
+        Slug: 'van-hoa-viet-nam',
+        FileName: 'van-hoa-viet-nam.pdf',
+        Link: '../../../assets/imgs/demo/1.png',
+        ExternalId: 6,
+        ExternalEncryptId: '6',
+        TotalPage: 250,
+        PublicationYear: 2022,
+        Summary: 'E-Book Văn hóa Việt Nam',
+        BookType: 3,
+        CreatedDate: '2022-03-01',
+      },
+    ];
+    this.filterBooks();
+  }
+
+  onBookClick(book: Book) {
     console.log('Book selected:', book);
-    this.router.navigate(['/book-detail', book.id]);
+    this.router.navigate(['/book-detail', book.BookId]);
   }
 
   goBack() {
     history.back();
   }
 
-  trackByBookId(index: number, book: BookReaded): string {
-    return book.id;
+  trackByBookId(index: number, book: Book): string {
+    return book.BookId;
   }
 }

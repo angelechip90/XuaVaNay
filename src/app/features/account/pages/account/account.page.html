@@ -20,15 +20,20 @@
         <h1>{{ userInfo().FullName }}</h1>
         <p>
           Bạn đang sử dụng {{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}, thời hạn đến ngày
-          {{ userInfo().ActiveSubscription?.EndDate }}.
+          {{(userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy'}}.
         </p>
         <div class="ion-text-center">
-          <div class="plan-badge">
+          <div class="plan-badge" *ngIf="userInfo().ActiveSubscription?.SubscriptionPlan?.PlanType !== 0; else upgrade">
             <div class="ion-align-items-center">
               <ion-icon name="diamond-outline"></ion-icon>
             </div>
             <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}</div>
           </div>
+          <ng-template #upgrade>
+            <div class="plan-badge">
+              <div class="badge-text">Nâng cấp</div>
+            </div>
+          </ng-template>
         </div>
       </div>
     </section>

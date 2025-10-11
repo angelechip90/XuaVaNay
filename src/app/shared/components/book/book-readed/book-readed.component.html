@@ -16,34 +16,55 @@
 
 <ion-content class="book-readed-content">
 
+  <!-- Tabs/Segment -->
+  <ion-segment [scrollable]="true" [value]="selectedBookType.toString()" (ionChange)="onSegmentChange($event)"
+    class="book-type-segment">
+    @for (type of bookTypes; track type.BookTypeId) {
+    @if (type.IsActive) {
+    <ion-segment-button [value]="type.BookTypeId.toString()">
+      <ion-label>{{ type.Title }}</ion-label>
+    </ion-segment-button>
+    }
+    }
+  </ion-segment>
+
   <!-- Book List -->
   <div class="book-list">
-    <div *ngFor="let book of booksReaded; trackBy: trackByBookId" class="book-item" (click)="onBookClick(book)">
+    @for (book of filteredBooks; track book.BookId) {
+    <div class="book-item" (click)="onBookClick(book)">
 
       <!-- Book Image -->
       <div class="book-image">
-        <img [src]="book.image" [alt]="book.title" />
+        <img [src]="book.AvatarPath" [alt]="book.Title" />
       </div>
 
       <!-- Book Info -->
       <div class="book-info">
         <!-- Category Badge -->
         <div class="category-badge">
-          <span class="category-text">{{ book.category }}</span>
+          <span class="category-text">{{ book.BookTypeAsString }}</span>
         </div>
 
         <!-- Book Details -->
         <div class="book-details">
-          <h3 class="book-title">{{ book.title }}</h3>
-          <p class="book-description">{{ book.description }}</p>
+          <h3 class="book-title">{{ book.Title }}</h3>
+          <p class="book-description">{{ book.Description }}</p>
         </div>
       </div>
     </div>
+    }
   </div>
 
   <!-- Empty State -->
-  <div *ngIf="booksReaded.length === 0" class="empty-state">
+  @if (filteredBooks.length === 0) {
+  <div class="empty-state">
     <ion-icon name="book-outline" size="large"></ion-icon>
-    <p>Chưa có sách nào được đọc</p>
+    <p>{{ selectedBookType === 0 ? 'Chưa có sách nào được đọc' : 'Không có sách trong danh mục này' }}</p>
   </div>
+  }
+
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll [disabled]="isEnd || isLoading" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

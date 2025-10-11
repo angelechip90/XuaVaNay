@@ -11,93 +11,83 @@ import {
   IonIcon,
   IonCard,
   IonCardHeader,
-  IonCardContent
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   ellipsisHorizontal,
   bagRemoveOutline,
-  diamondOutline
+  diamondOutline,
+  briefcaseOutline,
 } from 'ionicons/icons';
-
-type Status = 'expired' | 'active';
-type Theme = 'free' | 'pro';
-
-interface SubscriptionEntry {
-  id: string;
-  planName: string;      // KHỞI ĐẦU | LVAI PRO
-  labelLeft: string;     // Miễn phí | Hội viên
-  valueRight: string;    // 30 ngày | 1 năm
-  status: Status;        // Hết hạn | Đang sử dụng
-  startText: string;     // "9:28 20/08/2024"
-  endText: string;       // "9:28 20/10/2024"
-  theme: Theme;          // free | pro (để đổi icon/gradient)
-}
-
+import { IUserInfo, UserSubscription } from '../../../../models/IUser.model';
+import { firstValueFrom } from 'rxjs';
+import { ApiService } from 'src/app/core/services/api.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.page.html',
   styleUrls: ['./purchase-history.page.scss'],
   standalone: true,
-  imports: [IonContent,
+  imports: [
+    IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,
     IonButtons,
     IonButton,
     IonIcon,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
     CommonModule,
-    FormsModule]
+    FormsModule,
+  ],
 })
-
 export class PurchaseHistoryPage implements OnInit {
-
-  constructor() {
+  entries = signal<UserSubscription[]>([]);
+  userInfo = signal<IUserInfo>({} as IUserInfo);
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {
     addIcons({
       chevronBackOutline,
       ellipsisHorizontal,
       bagRemoveOutline,
-      diamondOutline
+      diamondOutline,
+      briefcaseOutline,
     });
   }
 
   ngOnInit() {
+    this.authService.getUserInfo().then((result) => {
+      if (result) {
+        this.userInfo.set(result as unknown as IUserInfo);
+        this.loadSubscriptionPlans();
+      } else {
+        this.authService.refreshToken().then(() => {
+          if (result) this.loadSubscriptionPlans();
+        });
+      }
+    });
   }
 
-  displayName = signal('MiddleKien');
-
-  entries = signal<SubscriptionEntry[]>([
-    {
-      id: 'starter',
-      planName: 'KHỞI ĐẦU',
-      labelLeft: 'Miễn phí',
-      valueRight: '30 ngày',
-      status: 'expired',
-      startText: '9:28 20/08/2024',
-      endText: '9:28 20/10/2024',
-      theme: 'free',
-    },
-    {
-      id: 'pro-2025',
-      planName: 'LVAI PRO',
-      labelLeft: 'Hội viên',
-      valueRight: '1 năm',
-      status: 'active',
-      startText: '08:00 16/3/2025',
-      endText: '08:00 16/3/2026',
-      theme: 'pro',
-    },
-  ]);
+  async loadSubscriptionPlans() {
+    let result = await firstValueFrom(
+      this.apiService.execApi('UserSubscription', 'get-paging', 'GET', null, {
+        SortYearDesc: true,
+        PageNumber: 1,
+        PageSize: 10,
+      })
+    );
+    if (result && result?.Data && result?.Data?.length) {
+      this.entries.set(result?.Data);
+    }
+  }
 
   goBack() {
     history.back();
   }
 
-  trackById = (_: number, e: SubscriptionEntry) => e.id;
-
+  trackById = (_: number, e: UserSubscription) => e.UserSubscriptionId;
 }
