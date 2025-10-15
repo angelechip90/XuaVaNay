@@ -22,53 +22,37 @@
     <!-- Chào + tiêu đề -->
     <section class="intro">
       <div class="hello">
-        <span>Xin chào </span><strong>{{ displayName() }},</strong>
+        <span>Xin chào </span><strong>{{ displayName }},</strong>
       </div>
       <h1>Nâng cấp LVAI PRO</h1>
     </section>
 
     <!-- Grid 3 cột (stack trên mobile) -->
     <section class="wrapper">
-      <!-- Hero khối trống mô phỏng card 460px -->
-      <ion-card class="hero-card" mode="ios">
-        <!-- Bạn có thể chèn ảnh/illustration/video tại đây -->
-      </ion-card>
-
-      <!-- Nút nâng cấp nổi bật -->
-      <div class="cta">
-        <button class="gradient-btn" (click)="onUpgrade()">Nâng cấp</button>
-      </div>
-
       <!-- Card gói Pro -->
-      <ion-card class="plan-card" mode="ios">
+      <ion-card class="plan-card" mode="ios" *ngFor="let plan of plans()">
         <ion-card-header>
           <div class="plan-head">
-            <div class="plan-name">{{ plan.name }}</div>
-
-            <div class="badge">
-              <div class="pixels">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="badge-text">{{ plan.badge }}</div>
-            </div>
+            <div class="plan-title">{{ plan.Name }}</div>
+            <div class="plan-subtitle">{{ plan.Description }}</div>
           </div>
         </ion-card-header>
 
         <ion-card-content>
           <div class="price-row">
-            <div class="price">{{ plan.price }}</div>
-            <div class="period">{{ plan.period }}</div>
+            <div class="price">{{ plan.Price | number:'1.0-0' }}đ</div>
+            <div class="per">/ năm</div>
           </div>
 
-          <p class="tagline">{{ plan.tagline }}</p>
-
           <ul class="features">
-            <li *ngFor="let f of plan.features">
+            <li *ngFor="let item of plan.Items">
               <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
-              <span>{{ f }}</span>
+              <span>{{ item.Description || item }}</span>
             </li>
           </ul>
+          <div class="cta">
+            <button class="gradient-btn" (click)="onUpgrade(plan.SubscriptionPlanId)">Thanh toán</button>
+          </div>
         </ion-card-content>
       </ion-card>
     </section>

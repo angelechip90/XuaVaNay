@@ -1,16 +1,16 @@
-export interface IUser {
+export interface User {
   User: IUserLoginResponse;
-  Token: IUserToken;
+  Token: UserToken;
 }
 
-export interface IUserToken {
+export interface UserToken {
   AccessToken: string;
   RefreshToken: string;
   ExpiresIn: number;
   TokenType: string;
 }
 
-export interface IUserInfo {
+export interface UserInfo {
   UserId: string;
   Email: string;
   PhoneNumber: string;

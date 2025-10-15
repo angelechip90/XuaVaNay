@@ -9,9 +9,6 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -20,8 +17,10 @@ import {
   bagRemoveOutline,
   diamondOutline,
   briefcaseOutline,
+  informationCircle,
+  bookOutline,
 } from 'ionicons/icons';
-import { IUserInfo, UserSubscription } from '../../../../models/IUser.model';
+import { UserInfo, UserSubscription } from '../../../../../models/User.model';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -45,7 +44,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class PurchaseHistoryPage implements OnInit {
   entries = signal<UserSubscription[]>([]);
-  userInfo = signal<IUserInfo>({} as IUserInfo);
+  userInfo = signal<UserInfo>({} as UserInfo);
   constructor(
     private apiService: ApiService,
     private authService: AuthService
@@ -56,13 +55,15 @@ export class PurchaseHistoryPage implements OnInit {
       bagRemoveOutline,
       diamondOutline,
       briefcaseOutline,
+      informationCircle,
+      bookOutline,
     });
   }
 
   ngOnInit() {
     this.authService.getUserInfo().then((result) => {
       if (result) {
-        this.userInfo.set(result as unknown as IUserInfo);
+        this.userInfo.set(result as unknown as UserInfo);
         this.loadSubscriptionPlans();
       } else {
         this.authService.refreshToken().then(() => {

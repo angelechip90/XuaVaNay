@@ -8,15 +8,18 @@ import {
   IonIcon,
   IonTitle,
   IonContent,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   ellipsisHorizontal,
   micOutline,
-  sendOutline
+  sendOutline,
 } from 'ionicons/icons';
+import { InputChatComponent } from '../input-chat/input-chat.component';
+import { ApiService } from 'src/app/core/services/api.service';
+import { Conversation } from 'src/app/models/Conversation.model';
 
 type QAItem = {
   question: string;
@@ -36,84 +39,79 @@ type QAItem = {
     IonIcon,
     IonTitle,
     IonContent,
-    CommonModule
+    CommonModule,
+    InputChatComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ChatHistoriesComponent implements OnInit {
   query = signal('');
 
   // Dữ liệu mẫu bám sát mockup
-  items = signal<QAItem[]>([
-    {
-      question: 'Lịch sử về Áo dài Việt Nam',
-      answer: 'Chiếc áo dài truyền thống của dân tộc Việt Nam từ trước đến ...',
-      time: '28 mins ago',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏiNội dung câu hỏiNội dung câu hỏi',
-      answer: 'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu...',
-      time: '08:30 18/05/2025',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏi',
-      answer: 'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu...',
-      time: '11:15 10/04/2025',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏiNội dung câu hỏiNội dung câu hỏi',
-      answer:
-        'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu trả lờiNội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu trả lời',
-      time: '20 days ago',
-    },
-    {
-      question: 'Tiểu sử Vua Đinh Tiên Hoàng',
-      answer: ' Đinh Tiên Hoàng là vị anh hùng dân tộc, mở đầu và đặt nền...',
-      time: '3 days ago',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏiNội dung câu hỏiNội dung câu hỏi',
-      answer: 'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu...',
-      time: '14:00 12/05/2025',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏi',
-      answer: 'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu...',
-      time: '09:15 06/02/2025',
-    },
-    {
-      question: 'Nội dung câu hỏi Nội dung câu hỏiNội dung câu hỏiNội dung câu hỏi',
-      answer:
-        'Nội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu trả lờiNội dung Câu trả lời Nội dung Câu trả lờiNội dung Câu trả lời',
-      time: '2 months ago',
-    },
-  ]);
+  conversations = signal<Conversation[]>([]);
 
-  constructor(private toast: ToastController) {
+  constructor(private toast: ToastController, private apiService: ApiService) {
     addIcons({
       chevronBackOutline,
       ellipsisHorizontal,
       micOutline,
-      sendOutline
+      sendOutline,
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadConversations();
+  }
 
-  filtered = computed(() => {
-    const q = this.query().toLowerCase().trim();
-    if (!q) return this.items();
-    return this.items().filter(
-      (it: QAItem) =>
-        it.question.toLowerCase().includes(q) ||
-        it.answer.toLowerCase().includes(q) ||
-        it.time.toLowerCase().includes(q),
-    );
-  });
+  loadConversations() {
+    this.apiService
+      .execApi('Chat', 'get-conversations', 'GET', null, {
+        pageSize: 10,
+        pageIndex: 0,
+      })
+      .subscribe((res: any) => {
+        if (res && res?.Data && res?.Data?.length) {
+          this.conversations.set(res.data);
+        } else this.sampleConversations();
+      });
+  }
 
-  // Chia làm 2 cột giống thiết kế
-  leftCol = computed(() => this.filtered().filter((_: QAItem, i: number) => i % 2 === 0));
-  rightCol = computed(() => this.filtered().filter((_: QAItem, i: number) => i % 2 === 1));
+  sampleConversations() {
+    this.conversations.set([
+      {
+        ConversationId: '1',
+        SubcriberId: '1',
+        CreatedBy: 'admin',
+        Title: 'Lịch sử về Áo dài Việt Nam',
+        CreatedDate: '2025-01-01',
+        TotalMessages: 1,
+      },
+      {
+        ConversationId: '2',
+        SubcriberId: '2',
+        CreatedBy: 'admin',
+        Title: 'Lịch sử về Áo dài Việt Nam',
+        CreatedDate: '2025-01-01',
+        TotalMessages: 2,
+      },
+      {
+        ConversationId: '3',
+        SubcriberId: '3',
+        CreatedBy: 'admin',
+        Title: 'Lịch sử về Áo dài Việt Nam',
+        CreatedDate: '2025-01-01',
+        TotalMessages: 3,
+      },
+      {
+        ConversationId: '4',
+        SubcriberId: '4',
+        CreatedBy: 'admin',
+        Title: 'Lịch sử về Áo dài Việt Nam',
+        CreatedDate: '2025-01-01',
+        TotalMessages: 4,
+      },
+    ]);
+  }
 
   goBack() {
     history.back();
@@ -132,8 +130,11 @@ export class ChatHistoriesComponent implements OnInit {
     this.query.set('');
   }
 
-  voice() {
-    // TODO: tích hợp Web Speech / native plugin
-    console.log('Voice input…');
+  onValueChange(event: any) {
+    this.query.set(event);
+  }
+
+  onSendMessage(event: any) {
+    this.send();
   }
 }

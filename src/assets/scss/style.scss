@@ -138,27 +138,29 @@ ion-input {
     height: 30px;
 }
 
-.form-checkbox{
+.form-checkbox {
     margin: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     ion-checkbox {
         --size: 28px;
         --checkbox-background-checked: #4d4c4e;
-      }
-      
-      ion-checkbox::part(container) {
+    }
+
+    ion-checkbox::part(container) {
         border-radius: 6px;
         border: 2px solid #4d4c4e;
-      }
+    }
 }
 
-.register-line{
+.register-line {
     display: flex;
     justify-content: center;
     margin-top: 15px;
-    .underline{
+
+    .underline {
         text-decoration: underline;
         color: #111;
         font-weight: 600;

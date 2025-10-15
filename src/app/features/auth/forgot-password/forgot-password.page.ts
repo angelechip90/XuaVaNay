@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import {
   IonContent,
   IonIcon,
   IonInput,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronBackOutline, mailOutline } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -24,8 +30,8 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SectionLogoComponent
-]
+    SectionLogoComponent,
+  ],
 })
 export class ForgotPasswordPage {
   form = this.fb.group({
@@ -35,11 +41,12 @@ export class ForgotPasswordPage {
   constructor(
     private fb: FormBuilder,
     private toast: ToastController,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private apiService: ApiService
   ) {
     addIcons({
       chevronBackOutline,
-      mailOutline
+      mailOutline,
     });
   }
 
@@ -53,18 +60,32 @@ export class ForgotPasswordPage {
       const toast = await this.toast.create({
         message: 'Vui lòng nhập email hợp lệ',
         duration: 2000,
-        color: 'warning'
+        color: 'warning',
       });
       return toast.present();
     }
+    this.apiService
+      .execApi('account', 'forgot-password-email', 'POST', {
+        email: this.form.value.email,
+      })
+      .subscribe(async (res: any) => {
+        if (res.Succeeded) {
+          const toast = await this.toast.create({
+            message: res.Message,
+            duration: 2000,
+            color: 'success',
+          });
+          await toast.present();
+        } else {
+          const toast = await this.toast.create({
+            message: res.Message,
+            duration: 2000,
+            color: 'danger',
+          });
+          await toast.present();
+        }
+      });
 
-    const toast = await this.toast.create({
-      message: 'Email khôi phục mật khẩu đã được gửi',
-      duration: 2000,
-      color: 'success'
-    });
-    await toast.present();
-    
     // Navigate back after success
     setTimeout(() => {
       this.navigationService.goBack();

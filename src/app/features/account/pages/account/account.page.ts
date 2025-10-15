@@ -20,7 +20,7 @@ import {
   logOutOutline,
   diamondOutline,
 } from 'ionicons/icons';
-import { IUserInfo } from 'src/app/models/IUser.model';
+import { UserInfo } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -33,7 +33,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   standalone: true,
 })
 export class AccountPage implements OnInit {
-  userInfo = signal<IUserInfo>({} as IUserInfo);
+  userInfo = signal<UserInfo>({} as UserInfo);
 
   constructor(
     private router: Router,
@@ -59,7 +59,7 @@ export class AccountPage implements OnInit {
   async loadUserInfo() {
     let result = await this.authService.getUserInfo().then((result) => {
       if (result) {
-        this.userInfo.set(result as unknown as IUserInfo);
+        this.userInfo.set(result as unknown as UserInfo);
       }
     });
   }
@@ -79,7 +79,9 @@ export class AccountPage implements OnInit {
   openChangePassword() {
     this.router.navigateByUrl('/change-password');
   }
-
+  openUpgrade() {
+    this.router.navigateByUrl('/upgrade');
+  }
   async signOut() {
     this.authService.logout().then(() => {
       this.router.navigateByUrl('/login');

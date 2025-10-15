@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { IUser, IUserInfo } from 'src/app/models/IUser.model';
+import { User, UserInfo } from 'src/app/models/User.model';
 import { AuthStorageService } from './auth.storeage.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class AuthService {
   async login(
     identifier: string,
     password: string
-  ): Promise<{ Succeeded: boolean; Message?: string; Data?: IUser }> {
+  ): Promise<{ Succeeded: boolean; Message?: string; Data?: User }> {
     try {
       // Mock login - replace with actual API call
       let result = await firstValueFrom(
@@ -64,7 +64,7 @@ export class AuthService {
     }
   }
 
-  async getUserInfo(): Promise<IUserInfo | null> {
+  async getUserInfo(): Promise<UserInfo | null> {
     const user = this.authStorageService.getCurrentUser();
     if (user) {
       const result = await firstValueFrom(
@@ -77,7 +77,7 @@ export class AuthService {
     return null;
   }
 
-  getCurrentUser(): IUser | null {
+  getCurrentUser(): User | null {
     return this.authStorageService.getCurrentUser();
   }
 

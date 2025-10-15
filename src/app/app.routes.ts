@@ -37,7 +37,7 @@ export const routes: Routes = [
     path: 'upgrade',
     canActivate: [AuthGuard],
     loadComponent: () =>
-      import('./features/account/pages/upgrade/upgrade.page').then(
+      import('./features/account/pages/subscription/upgrade/upgrade.page').then(
         (m) => m.UpgradePage
       ),
   },
@@ -46,7 +46,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadComponent: () =>
       import(
-        './features/account/pages/purchase-history/purchase-history.page'
+        './features/account/pages/subscription/purchase-history/purchase-history.page'
       ).then((m) => m.PurchaseHistoryPage),
   },
   {
@@ -126,5 +126,13 @@ export const routes: Routes = [
       import(
         './shared/components/chat/chat-histories/chat-histories.component'
       ).then((m) => m.ChatHistoriesComponent),
+  },
+  {
+    path: 'order/:id',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./features/account/pages/subscription/order/order.page').then(
+        (m) => m.OrderPage
+      ),
   },
 ];
