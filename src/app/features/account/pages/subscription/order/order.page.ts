@@ -15,10 +15,10 @@ import {
   IonRadioGroup,
   IonItem,
 } from '@ionic/angular/standalone';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { addIcons } from 'ionicons';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   chevronBackOutline,
   ellipsisHorizontal,
@@ -30,6 +30,9 @@ import {
   cardOutline,
 } from 'ionicons/icons';
 import { Order } from 'src/app/models/Order.model';
+import { Browser } from '@capacitor/browser';
+import { PluginListenerHandle } from '@capacitor/core';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-order',
@@ -49,14 +52,17 @@ import { Order } from 'src/app/models/Order.model';
     IonRadio,
     IonRadioGroup,
     IonItem,
+    TranslateModule,
     CommonModule,
     FormsModule,
+    HeaderComponent,
   ],
 })
 export class OrderPage implements OnInit {
   promoCode: string = '';
   selectedMethod: string | null = null;
   order: Order | null = null;
+  browserCloseListener?: PluginListenerHandle;
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
@@ -136,8 +142,27 @@ export class OrderPage implements OnInit {
       )
       .subscribe((res: any) => {
         if (res && res?.Succeeded && res?.Data) {
-          this.router.navigateByUrl(res.Data.PaymentUrl);
+          this.openPayment(res.Data.PaymentUrl);
         }
       });
+  }
+
+  async openPayment(url: string) {
+    this.browserCloseListener = await Browser.addListener(
+      'browserFinished',
+      () => {
+        console.log('✅ Trình duyệt đã đóng, xử lý tiếp tại đây...');
+        this.afterBrowserClosed();
+      }
+    );
+    await Browser.open({
+      url: url,
+      presentationStyle: 'popover', // tùy chọn
+    });
+  }
+
+  afterBrowserClosed() {
+    // ví dụ: gọi API, reload dữ liệu, hoặc điều hướng lại
+    console.log('Đang làm gì đó sau khi đóng trình duyệt...');
   }
 }

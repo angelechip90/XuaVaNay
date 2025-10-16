@@ -1,0 +1,28 @@
+:host {
+    background: #ffffff;
+    display: block;
+}
+
+.language-segment {
+    --background: #F9FAFB;
+    --color: #111827;
+    margin-top: 1em;
+    display: flex;
+
+    /* Style the segment container via shadow part */
+    &::part(container) {
+        background: #F9FAFB;
+        border: 1px solid #E5E7EB;
+        border-radius: 10px;
+    }
+
+    .language-button {
+        /* Segment button states */
+        --background: transparent;
+        --background-checked: #F9FAFB;
+        --color: #111827;
+        --color-checked: #111827;
+        width: 45px;
+        height: 45px;
+    }
+}

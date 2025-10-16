@@ -1,0 +1,12 @@
+ion-icon.field-icon {
+    font-size: 22px;
+}
+
+.field-card .eye ion-icon {
+    font-size: 26px;
+}
+
+ion-checkbox::part(label) {
+    white-space: normal;
+    overflow-wrap: break-word;
+}

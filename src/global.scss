@@ -41,15 +41,16 @@
 
 /* Global Font Family */
 * {
-    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
 }
 
 body {
-    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
 }
 
 /* Import custom styles */
 @import 'assets/scss/style.scss';
+
 .gradient-spinner {
   width: 50px;
   height: 50px;
@@ -60,6 +61,26 @@ body {
 
 /* Animation quay */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Language segment styling (global to pierce shadow DOM) */
+ion-segment.language-segment {
+  --background: #F9FAFB;
+}
+
+ion-segment.language-segment::part(container) {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+}
+
+ion-segment.language-segment::part(indicator) {
+  background: #F3F4F6;
 }

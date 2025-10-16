@@ -1,35 +1,29 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Nâng cấp tài khoản</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'order.title' | translate" [showBackButton]="true"></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
   <!-- Tóm tắt đơn hàng -->
   <div class="section">
-    <h2>Tóm tắt đơn hàng</h2>
+    <h2>{{ 'order.summary.title' | translate }}</h2>
 
     <div class="order-info">
-      <p class="note">Bạn đang chọn nâng cấp</p>
+      <p class="note">{{ 'order.summary.note' | translate }}</p>
       <div class="row">
         <div>
-          Gói
+          {{ 'order.summary.package' | translate }}
           <span class="highlight">{{order?.OrderDetails?.[0]?.ProductName}}</span>
         </div>
-        <div>{{order?.OrderDetails?.[0]?.TotalPrice}}</div>
+        <div>{{order?.OrderDetails?.[0]?.TotalPrice | number}}</div>
       </div>
     </div>
 
     <!-- Nhập mã khuyến mãi -->
     <div class="promo">
-      <label>Nhập mã khuyến mãi</label>
+      <label>{{ 'order.promo.label' | translate }}</label>
       <div class="promo-box">
-        <ion-input [(ngModel)]="promoCode" placeholder="Nhập mã"></ion-input>
-        <ion-button fill="outline" size="small" (click)="applyPromo()">Áp dụng</ion-button>
+        <ion-input [(ngModel)]="promoCode" [placeholder]="('order.promo.placeholder' | translate)"></ion-input>
+        <ion-button fill="outline" size="small" (click)="applyPromo()">{{ 'order.promo.apply' | translate
+          }}</ion-button>
       </div>
     </div>
 
@@ -37,25 +31,25 @@
 
     <!-- Tổng cộng -->
     <div class="row">
-      <div>Tổng tiền</div>
-      <div>{{order?.TotalAmount}}</div>
+      <div>{{ 'order.totals.total' | translate }}</div>
+      <div>{{order?.TotalAmount | number}}</div>
     </div>
     <div class="row">
-      <div>Khuyến mãi</div>
-      <div>{{order?.DiscountAmount}}</div>
+      <div>{{ 'order.totals.discount' | translate }}</div>
+      <div>{{order?.DiscountAmount | number}}</div>
     </div>
 
     <div class="thin-divider"></div>
 
     <div class="row total">
-      <div>Thành tiền</div>
-      <div class="total-price">{{order?.TotalAmount}}</div>
+      <div>{{ 'order.totals.payable' | translate }}</div>
+      <div class="total-price">{{order?.TotalAmount | number}}</div>
     </div>
   </div>
 
   <!-- Phương thức thanh toán -->
   <div class="section">
-    <h2>Phương thức thanh toán</h2>
+    <h2>{{ 'order.payment.title' | translate }}</h2>
     <ion-radio-group [(ngModel)]="selectedMethod">
       <ion-item button lines="none" class="payment-option" [class.selected]="selectedMethod === 'VCB'" detail="false">
         <div class="payment-content">
@@ -63,8 +57,8 @@
             <ion-icon name="card-outline"></ion-icon>
           </div>
           <div class="payment-text">
-            <div class="title">Thẻ ATM Nội địa</div>
-            <div class="subtitle">Hỗ trợ tất cả ngân hàng trong nước</div>
+            <div class="title">{{ 'order.payment.atm_domestic.title' | translate }}</div>
+            <div class="subtitle">{{ 'order.payment.atm_domestic.subtitle' | translate }}</div>
           </div>
         </div>
         <ion-radio slot="end" value="VCB"></ion-radio>
@@ -77,8 +71,8 @@
             <ion-icon name="card-outline"></ion-icon>
           </div>
           <div class="payment-text">
-            <div class="title">Thẻ Mastercard</div>
-            <div class="subtitle">Hỗ trợ tất cả ngân hàng nước ngoài</div>
+            <div class="title">{{ 'order.payment.mastercard.title' | translate }}</div>
+            <div class="subtitle">{{ 'order.payment.mastercard.subtitle' | translate }}</div>
           </div>
         </div>
         <ion-radio slot="end" value="VC"></ion-radio>
@@ -87,6 +81,6 @@
   </div>
 
   <ion-button expand="block" shape="round" class="pay-btn" (click)="checkout()">
-    Thanh toán
+    {{ 'order.pay' | translate }}
   </ion-button>
 </ion-content>

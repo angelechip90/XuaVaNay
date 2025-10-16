@@ -22,14 +22,14 @@ import {
 } from 'ionicons/icons';
 import { UserInfo } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
-import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { LanguageComponent } from 'src/app/shared/components/language/language.component';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
-  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule],
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule, LanguageComponent],
   standalone: true,
 })
 export class AccountPage implements OnInit {

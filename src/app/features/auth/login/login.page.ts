@@ -27,6 +27,7 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
 import { AuthService } from 'src/app/core/services/auth.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { LanguageComponent } from 'src/app/shared/components/language/language.component';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
     FormsModule,
     ReactiveFormsModule,
     SectionLogoComponent,
+    LanguageComponent,
   ],
 })
 export class LoginPage implements OnInit {

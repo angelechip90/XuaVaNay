@@ -1,0 +1,34 @@
+{
+  "order": {
+    "title": "Upgrade Account",
+    "summary": {
+      "title": "Order Summary",
+      "note": "You are upgrading",
+      "package": "Package"
+    },
+    "promo": {
+      "label": "Promo code",
+      "placeholder": "Enter code",
+      "apply": "Apply"
+    },
+    "totals": {
+      "total": "Subtotal",
+      "discount": "Discount",
+      "payable": "Total"
+    },
+    "payment": {
+      "title": "Payment Methods",
+      "atm_domestic": {
+        "title": "Domestic ATM card",
+        "subtitle": "Supports all local banks"
+      },
+      "mastercard": {
+        "title": "Mastercard",
+        "subtitle": "Supports international banks"
+      }
+    },
+    "pay": "Pay"
+  }
+}
+
+

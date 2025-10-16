@@ -1,0 +1,34 @@
+{
+  "order": {
+    "title": "Nâng cấp tài khoản",
+    "summary": {
+      "title": "Tóm tắt đơn hàng",
+      "note": "Bạn đang chọn nâng cấp",
+      "package": "Gói"
+    },
+    "promo": {
+      "label": "Nhập mã khuyến mãi",
+      "placeholder": "Nhập mã",
+      "apply": "Áp dụng"
+    },
+    "totals": {
+      "total": "Tổng tiền",
+      "discount": "Khuyến mãi",
+      "payable": "Thành tiền"
+    },
+    "payment": {
+      "title": "Phương thức thanh toán",
+      "atm_domestic": {
+        "title": "Thẻ ATM Nội địa",
+        "subtitle": "Hỗ trợ tất cả ngân hàng trong nước"
+      },
+      "mastercard": {
+        "title": "Thẻ Mastercard",
+        "subtitle": "Hỗ trợ tất cả ngân hàng nước ngoài"
+      }
+    },
+    "pay": "Thanh toán"
+  }
+}
+
+
