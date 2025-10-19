@@ -34,7 +34,7 @@ import { firstValueFrom } from 'rxjs';
   standalone: true,
 })
 export class AccountPage implements OnInit {
-  userInfo = signal<IUserInfo>({} as IUserInfo);
+  userInfo = signal<UserInfo>({} as UserInfo);
   totalBookRead:any = 0;
   totalHistory:any = 0;
 

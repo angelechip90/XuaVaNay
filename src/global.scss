@@ -237,14 +237,7 @@ sup {
     text-overflow: ellipsis;
 }
 .accordion-noborder{
-    border: unset !important;
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+  border: unset !important;
 }
 
 /* Language segment styling (global to pierce shadow DOM) */
