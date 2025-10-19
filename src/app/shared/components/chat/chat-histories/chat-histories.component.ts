@@ -18,7 +18,7 @@ import {
   chevronBackOutline,
   ellipsisHorizontal,
   micOutline,
-  sendOutline
+  sendOutline,
 } from 'ionicons/icons';
 import { firstValueFrom } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
@@ -51,7 +51,7 @@ type QAItem = {
     TimeagoPipe,
     InputChatComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ChatHistoriesComponent extends BaseComponent{
   query = signal('');
@@ -118,11 +118,13 @@ export class ChatHistoriesComponent extends BaseComponent{
       chevronBackOutline,
       ellipsisHorizontal,
       micOutline,
-      sendOutline
+      sendOutline,
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    //this.loadConversations();
+  }
 
   ionViewWillEnter() {
     this.loadItem();
@@ -198,10 +200,13 @@ export class ChatHistoriesComponent extends BaseComponent{
     }
   }
 
-  voice() {
-    // TODO: tích hợp Web Speech / native plugin
-    console.log('Voice input…');
+  onValueChange(event: any) {
+    this.query.set(event);
   }
+
+  // onSendMessage(event: any) {
+  //   this.send();
+  // }
 
   goConversation(item:any){
     if(!item) return;

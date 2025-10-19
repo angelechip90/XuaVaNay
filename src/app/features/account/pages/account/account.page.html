@@ -30,7 +30,7 @@
             <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}</div>
           </div>
           <ng-template #upgrade>
-            <div class="plan-badge">
+            <div class="plan-badge" (click)="openUpgrade()">
               <div class="badge-text">Nâng cấp</div>
             </div>
           </ng-template>
@@ -40,6 +40,8 @@
 
     <!-- Items -->
     <section class="list">
+      <app-language></app-language>
+      <div class="divider"></div>
       <!-- Email -->
       <div class="row" (click)="openEmail()">
         <div class="icon">

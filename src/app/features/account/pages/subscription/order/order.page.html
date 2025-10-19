@@ -1,0 +1,86 @@
+<app-header [title]="'order.title' | translate" [showBackButton]="true"></app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Tóm tắt đơn hàng -->
+  <div class="section">
+    <h2>{{ 'order.summary.title' | translate }}</h2>
+
+    <div class="order-info">
+      <p class="note">{{ 'order.summary.note' | translate }}</p>
+      <div class="row">
+        <div>
+          {{ 'order.summary.package' | translate }}
+          <span class="highlight">{{order?.OrderDetails?.[0]?.ProductName}}</span>
+        </div>
+        <div>{{order?.OrderDetails?.[0]?.TotalPrice | number}}</div>
+      </div>
+    </div>
+
+    <!-- Nhập mã khuyến mãi -->
+    <div class="promo">
+      <label>{{ 'order.promo.label' | translate }}</label>
+      <div class="promo-box">
+        <ion-input [(ngModel)]="promoCode" [placeholder]="('order.promo.placeholder' | translate)"></ion-input>
+        <ion-button fill="outline" size="small" (click)="applyPromo()">{{ 'order.promo.apply' | translate
+          }}</ion-button>
+      </div>
+    </div>
+
+    <div class="thin-divider"></div>
+
+    <!-- Tổng cộng -->
+    <div class="row">
+      <div>{{ 'order.totals.total' | translate }}</div>
+      <div>{{order?.TotalAmount | number}}</div>
+    </div>
+    <div class="row">
+      <div>{{ 'order.totals.discount' | translate }}</div>
+      <div>{{order?.DiscountAmount | number}}</div>
+    </div>
+
+    <div class="thin-divider"></div>
+
+    <div class="row total">
+      <div>{{ 'order.totals.payable' | translate }}</div>
+      <div class="total-price">{{order?.TotalAmount | number}}</div>
+    </div>
+  </div>
+
+  <!-- Phương thức thanh toán -->
+  <div class="section">
+    <h2>{{ 'order.payment.title' | translate }}</h2>
+    <ion-radio-group [(ngModel)]="selectedMethod">
+      <ion-item button lines="none" class="payment-option" [class.selected]="selectedMethod === 'VCB'" detail="false">
+        <div class="payment-content">
+          <div class="payment-icon">
+            <ion-icon name="card-outline"></ion-icon>
+          </div>
+          <div class="payment-text">
+            <div class="title">{{ 'order.payment.atm_domestic.title' | translate }}</div>
+            <div class="subtitle">{{ 'order.payment.atm_domestic.subtitle' | translate }}</div>
+          </div>
+        </div>
+        <ion-radio slot="end" value="VCB"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-radio-group [(ngModel)]="selectedMethod">
+      <ion-item button lines="none" class="payment-option" [class.selected]="selectedMethod === 'VC'" detail="false">
+        <div class="payment-content">
+          <div class="payment-icon">
+            <ion-icon name="card-outline"></ion-icon>
+          </div>
+          <div class="payment-text">
+            <div class="title">{{ 'order.payment.mastercard.title' | translate }}</div>
+            <div class="subtitle">{{ 'order.payment.mastercard.subtitle' | translate }}</div>
+          </div>
+        </div>
+        <ion-radio slot="end" value="VC"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </div>
+
+  <ion-button expand="block" shape="round" class="pay-btn" (click)="checkout()">
+    {{ 'order.pay' | translate }}
+  </ion-button>
+</ion-content>

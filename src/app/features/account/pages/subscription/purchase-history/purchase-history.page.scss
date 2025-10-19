@@ -81,12 +81,23 @@ ion-header {
     display: grid;
     place-items: center;
     align-self: center;
-    &.pro, &.premium {
-        background: linear-gradient(225deg,#E32A7A, #A222AC);
+
+    &.pro,
+    &.premium {
+        background: linear-gradient(225deg, #E32A7A, #A222AC);
     }
 
     &.super {
-        background: linear-gradient(225deg,#E19A88,#6D3476);
+        background: linear-gradient(225deg, #E19A88, #6D3476);
+    }
+
+    &.default {
+        color: #2e6bff;
+    }
+
+    .icon-bubble-inner {
+        padding: 7px 10px;
+        background: #bfcdee;
     }
 }
 

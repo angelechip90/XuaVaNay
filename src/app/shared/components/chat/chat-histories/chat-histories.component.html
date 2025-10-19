@@ -59,12 +59,10 @@
         
     </div>
     <div class="grid">
-      <div class="col">
-        <div class="qa-card" *ngFor="let item of leftCol()">
-          <div class="q">{{ item.question }}</div>
-          <div class="a">{{ item.answer }}</div>
-          <div class="t">{{ item.time }}</div>
-        </div>
+      <div class="qa-card" *ngFor="let item of conversations()">
+        <div class="q">{{ item.Title }}</div>
+        <div class="a">{{ item.CreatedDate }}</div>
+        <div class="t">{{ item.TotalMessages }}</div>
       </div>
 
       <div class="col">

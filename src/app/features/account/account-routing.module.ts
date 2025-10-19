@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from './pages/account/account.page';
-import { UpgradePage } from './pages/upgrade/upgrade.page';
-import { PurchaseHistoryPage } from './pages/purchase-history/purchase-history.page';
+import { UpgradePage } from './pages/subscription/upgrade/upgrade.page';
+import { PurchaseHistoryPage } from './pages/subscription/purchase-history/purchase-history.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AccountPage
+    component: AccountPage,
   },
   {
     path: 'upgrade',
-    component: UpgradePage
-  }, {
+    component: UpgradePage,
+  },
+  {
     path: 'purchase-history',
-    component: PurchaseHistoryPage
-  }
+    component: PurchaseHistoryPage,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AccountRoutingModule { }
+export class AccountRoutingModule {}

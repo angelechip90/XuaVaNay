@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IUser } from 'src/app/models/IUser.model';
 import { StorageService } from './storage.service';
+import { User } from 'src/app/models/User.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthStorageService {
-  private currentUserSubject = new BehaviorSubject<IUser | null>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(
@@ -28,12 +29,12 @@ export class AuthStorageService {
     }
   }
 
-  public saveUser(user: IUser): void {
+  public saveUser(user: User): void {
     this.currentUserSubject.next(user);
     this.saveUserToStorage(user);
   }
 
-  private saveUserToStorage(user: IUser): void {
+  private saveUserToStorage(user: User): void {
     try {
       localStorage.setItem('currentUser', JSON.stringify(user));
     } catch (error) {
@@ -54,7 +55,7 @@ export class AuthStorageService {
     }
   }
 
-  public getCurrentUser(): IUser | null {
+  public getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
 }

@@ -20,16 +20,17 @@ import {
   logOutOutline,
   diamondOutline,
 } from 'ionicons/icons';
-import { IUserInfo } from 'src/app/models/IUser.model';
+import { UserInfo } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
-import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { LanguageComponent } from 'src/app/shared/components/language/language.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
-  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule],
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule, LanguageComponent],
   standalone: true,
 })
 export class AccountPage implements OnInit {
@@ -69,7 +70,7 @@ export class AccountPage implements OnInit {
   async loadUserInfo() {
     let result = await this.authService.getUserInfo().then((result) => {
       if (result) {
-        this.userInfo.set(result as unknown as IUserInfo);
+        this.userInfo.set(result as unknown as UserInfo);
       }
     });
   }
@@ -105,7 +106,9 @@ export class AccountPage implements OnInit {
   openChangePassword() {
     this.router.navigateByUrl('/change-password');
   }
-
+  openUpgrade() {
+    this.router.navigateByUrl('/upgrade');
+  }
   async signOut() {
     this.authService.logout().then(() => {
       this.router.navigateByUrl('/login');

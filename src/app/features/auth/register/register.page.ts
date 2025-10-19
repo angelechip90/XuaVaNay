@@ -49,8 +49,8 @@ import { firstValueFrom } from 'rxjs';
   ],
 })
 export class RegisterPage extends BaseComponent {
-  showPw = signal(false);
-  showPw2 = signal(false);
+  showPw = false;
+  showPw2 = false;
   captchaUrl = signal('');
 
   form = this.fb.group(
@@ -59,7 +59,7 @@ export class RegisterPage extends BaseComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirm: ['', [Validators.required]],
-      captcha: ['', [Validators.required]],
+      // captcha: ['', [Validators.required]],
       policy: [false, [Validators.requiredTrue]],
     },
     { validators: this.passwordMatchValidator }
@@ -95,11 +95,11 @@ export class RegisterPage extends BaseComponent {
   }
 
   togglePw() {
-    this.showPw.update((v) => !v);
+    this.showPw = !this.showPw;
   }
 
   togglePw2() {
-    this.showPw2.update((v) => !v);
+    this.showPw2 = !this.showPw2;
   }
 
   refreshCaptcha() {
@@ -148,7 +148,7 @@ export class RegisterPage extends BaseComponent {
       Email: this.form.value.email,
       Password: this.form.value.password,
       ConfirmPassword: this.form.value.confirm,
-      Captcha: this.form.value.captcha,
+      // Captcha: this.form.value.captcha,
     };
 
     let result = await firstValueFrom(
