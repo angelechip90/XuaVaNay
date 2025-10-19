@@ -13,7 +13,10 @@ import {
   IonCardContent,
   IonChip,
   IonLabel,
-  ToastController
+  ToastController,
+  IonList,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -37,6 +40,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { InfiniteScrollCustomEvent } from '@ionic/core';
 
 interface QuickTopic {
   label: string;
@@ -91,6 +95,9 @@ interface ThinkingStep {
     FormsModule,
     InputChatComponent,
     MarkdownComponent,
+    IonList,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
   ],
   standalone: true
 })
@@ -105,29 +112,8 @@ export class ChatsComponent extends BaseComponent {
   type:any;
   bookID:any;
   user:any;
-  // greeting = signal('Chào ngày mới, tôi có thể giúp gì cho bạn ?');
-  // topics = signal<QuickTopic[]>([
-  //   { label: 'Lịch sử' },
-  //   { label: 'Nghệ thuật' },
-  //   { label: 'Cảnh đẹp ba miền' },
-  //   { label: 'Các trận chiến trong lịch sử' },
-  //   { label: 'Xây dựng đất nước' },
-  // ]);
-
-  // suggestions = signal<Suggestion[]>([
-  //   {
-  //     title: 'Tên gọi sài gòn từ khi nào?',
-  //     subtitle:
-  //       'Thành phố Hồ Chí Minh là tên gọi chính thức từ tháng 7 năm 1976 khi được Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam đổi tên từ Sài Gòn – Gia Định...',
-  //   },
-  //   {
-  //     title: 'Thảo Cầm Viên có từ bao giờ?',
-  //     subtitle:
-  //       'Thảo Cầm Viên Sài Gòn tròn 160 tuổi. Công trình rộng 20 ha, được người Pháp xây dựng ...',
-  //   },
-  // ]);
-
-  // drafting = signal('');
+  isLoad:any = true;
+  pageNum: any = 1;
 
   constructor(
     injector: Injector,
@@ -161,7 +147,7 @@ export class ChatsComponent extends BaseComponent {
     this.type = this.route.snapshot.queryParams['type'];
     this.bookID = this.route.snapshot.queryParams['bookID'];
     if(this.conversationId){
-      await this.loadHistoryChat();
+      await this.loadItem();
     }
     if (message) this.startChat(message);
   }
@@ -184,6 +170,7 @@ export class ChatsComponent extends BaseComponent {
   }
 
   async startChat(message:any) {
+    this.smoothScroll(100);
     if (!(this.lstConversation?.length > 0 && this.lstConversation[this.lstConversation.length - 1].role === 'user')) {
       let newMess = {
         role: 'user',
@@ -257,59 +244,77 @@ export class ChatsComponent extends BaseComponent {
     newMessage['isShowResourceRefs'] = true;
   }
 
-  async loadHistoryChat(){
-    let obj:any = {
-      ConversationId:this.conversationId
-    }
+  loadItem(isScroll: any = false): Promise<any> {
+    return new Promise(async resolve => {
+      if (!this.isLoad) resolve(false);
+      let obj: any = {
+        ConversationId: this.conversationId,
+        PageNumber: this.pageNum,
+      }
 
-    let url = '';
-    if(this.type == 'conversation'){
-      url = 'get-conversation-messages';
-    }else{
-      obj['BookId'] = this.bookID;
-      url = 'get-book-conversation-messages';
-    }
+      let url = '';
+      if (this.type == 'conversation') {
+        url = 'get-conversation-messages';
+      } else {
+        obj['BookId'] = this.bookID;
+        url = 'get-book-conversation-messages';
+      }
 
-    let result = await firstValueFrom(this.api.execApi('Chat', url,'GET', null,obj, true));
-    if(result && result?.Data?.length){
-      let lstData = result?.Data;
-      lstData.reverse();
-      for(let item of lstData){
-        if(item?.Role === 'user'){
-          let newMess = {
-            role:'user',
-            content:item?.Content
-          }
-          this.lstConversation.push(newMess);
-        }else{
-          let lstJSON:any = [];
-          let json = item?.MetadataAsJson;
-          if(json){
-            try {
-              let jsParse = JSON.parse(json);
-              if(jsParse && jsParse?.length) lstJSON = [...lstJSON,jsParse];
-            } catch (error) {
-              
+      let result = await firstValueFrom(this.api.execApi('Chat', url, 'GET', null, obj, true));
+      if (result && result?.Data?.length) {
+        if (!this.lstConversation) this.lstConversation = [];
+        let lstData = result?.Data;
+        lstData.reverse();
+        let totalRecord = result?.TotalRecords;
+        if(this.lstConversation?.length == totalRecord) this.isLoad = false;
+        this.changeDetectorRef.detectChanges();
+        for (let item of lstData) {
+          if (item?.Role === 'user') {
+            let newMess = {
+              role: 'user',
+              content: item?.Content
             }
-          }
-          if (item?.Content) {
-            let newJS = {
-              ThinkMessage: item?.Content,
-              Type: 'text'
+            this.lstConversation.push(newMess);
+          } else {
+            let lstJSON: any = [];
+            let json = item?.MetadataAsJson;
+            if (json) {
+              try {
+                let jsParse = JSON.parse(json);
+                if (jsParse && jsParse?.length) lstJSON = [...lstJSON, jsParse];
+              } catch (error) {
+
+              }
             }
-            lstJSON.push(newJS);
-          }
-          let newMessage: any = {
-            showResearch: false,
-            role: 'assistant',
-          };
-          this.lstConversation.push(newMessage);
-          for (let js of lstJSON) {
-            newMessage = this.convertMessage(newMessage, js);
+            if (item?.Content) {
+              let newJS = {
+                ThinkMessage: item?.Content,
+                Type: 'text'
+              }
+              lstJSON.push(newJS);
+            }
+            let newMessage: any = {
+              showResearch: false,
+              role: 'assistant',
+            };
+            this.lstConversation.push(newMessage);
+            for (let js of lstJSON) {
+              newMessage = this.convertMessage(newMessage, js);
+            }
           }
         }
       }
-    } 
+    })
+  }
+
+  async onIonInfinite(event: any) {
+    if (this.isLoad) {
+      this.pageNum = this.pageNum + 1;
+      await this.loadItem(true);
+      setTimeout(() => {
+        (event as InfiniteScrollCustomEvent).target.complete();
+      }, 200);
+    }
   }
 
   convertMessage(newMessage:any,jsonParse:any,isShowResourceRefs:any = true){
@@ -379,7 +384,7 @@ export class ChatsComponent extends BaseComponent {
               currentItem['isDetailedAnalysis'] = true;
             }
           }
-          this.smoothScroll(100);
+          //this.smoothScroll(100);
           break;
         case 'resource_reference':
           try {
@@ -397,7 +402,7 @@ export class ChatsComponent extends BaseComponent {
           if (questionRelateds && Array.isArray(questionRelateds)) {
             newMessage['questionRelateds'] = questionRelateds;
           }
-          this.smoothScroll(100);
+          //this.smoothScroll(100);
           break;
         case 'text':
           newMessage['isShowAnswer'] = true;
@@ -406,7 +411,7 @@ export class ChatsComponent extends BaseComponent {
           msgAns = marked.parse(msgAns, { breaks: false });
           message = this.sanitizer.bypassSecurityTrustHtml(msgAns);
           newMessage['answer'] = message;
-          this.smoothScroll(100);
+          //this.smoothScroll(100);
           break;
         case 'error':
           newMessage['isShowAnswerError'] = true;
@@ -415,7 +420,7 @@ export class ChatsComponent extends BaseComponent {
           msg = marked.parse(msg, { breaks: false });
           message = this.sanitizer.bypassSecurityTrustHtml(msg);
           newMessage['answerError'] = message;
-          this.smoothScroll(100);
+          //this.smoothScroll(100);
           break;
       }
 
@@ -442,7 +447,6 @@ export class ChatsComponent extends BaseComponent {
 
   query(query:any){
     if(query){
-      this.smoothScroll(100);
       this.startChat(query);
     }
   }
