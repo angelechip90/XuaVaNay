@@ -20,6 +20,7 @@ export class BaseComponent {
   platform:Platform;
   navCtrl:NavController;
   severUrl:string = '';
+  severImg:string = '';
   storage:StorageService;
   constructor(
     protected injector: Injector
@@ -33,5 +34,6 @@ export class BaseComponent {
     this.navCtrl = this.injector.get(NavController);
     this.storage = this.injector.get(StorageService);
     this.severUrl = environment.severUrl;
+    this.severImg = environment.severImg;
   }
 }

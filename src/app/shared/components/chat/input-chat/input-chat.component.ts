@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { IonCard, IonItem, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,8 @@ import { addIcons } from 'ionicons';
   imports: [IonCard, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
 })
 export class InputChatComponent implements OnInit {
+  @Input() placeholder: any = 'Câu hỏi của bạn...';
+  
   @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 

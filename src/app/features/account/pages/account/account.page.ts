@@ -34,6 +34,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class AccountPage implements OnInit {
   userInfo = signal<IUserInfo>({} as IUserInfo);
+  totalBookRead:any = 0;
+  totalHistory:any = 0;
 
   constructor(
     private router: Router,
@@ -53,7 +55,15 @@ export class AccountPage implements OnInit {
   }
 
   ngOnInit() {
+    // this.loadUserInfo();
+    // this.loadBookRead();
+    // this.loadHistoryConversations();
+  }
+
+  ionViewWillEnter() {
     this.loadUserInfo();
+    this.loadBookRead();
+    this.loadHistoryConversations();
   }
 
   async loadUserInfo() {
@@ -62,6 +72,22 @@ export class AccountPage implements OnInit {
         this.userInfo.set(result as unknown as IUserInfo);
       }
     });
+  }
+
+  loadBookRead(){
+    firstValueFrom(this.api.execApi('ReadBook', 'get-paging','GET', null,null)).then((res:any) =>{
+      if(res){
+        this.totalBookRead = res?.TotalRecords;
+      }
+    })
+  }
+
+  loadHistoryConversations(){
+    firstValueFrom(this.api.execApi('Chat', 'get-conversations','GET', null,null)).then((res:any) =>{
+      if(res){
+        this.totalHistory = res?.TotalRecords;
+      }
+    })
   }
 
   openEmail() {

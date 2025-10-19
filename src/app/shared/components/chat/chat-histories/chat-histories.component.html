@@ -17,12 +17,34 @@
 </ion-header>
 
 <!-- Content -->
-<ion-content [fullscreen]="true">
-  <div class="container">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-input-chat [placeholder]="'Bạn cần hỏi về vấn đề gì ?'" (sendMessage)="send($event)"></app-input-chat>
+  <ng-container *ngIf="lstData && lstData?.length">
+    <ion-list class="ion-bg-color-none">
+      <div class="row mt-3">
+        <ng-container *ngFor="let item of lstData">
+          <div class="col-6" (click)="goConversation(item)">
+            <div class="qa-card">
+              <div class="q">{{ item.Title }}</div>
+              <!-- <div class="a">{{ item.answer }}</div> -->
+              <div class="t">Ngày tạo: {{ item.CreatedDate | date : 'hh:mm dd/MM/yyyy' }}</div>
+              <div class="t">{{ item.CreatedDate | timeago }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  <ng-container *ngIf="!lstData || lstData?.length == 0">
+    <!-- de tam neu du lieu ko co se hien thi cai gi -->
+  </ng-container>
+  <!-- <div class="container">
     <div class="thin-divider"></div>
-
-    <!-- Ô hỏi -->
     <div class="ask-card">
+      <div class="placeholder">Bạn cần hỏi về vấn đề gì ?</div>
       <div class="placeholder">Bạn cần hỏi về vấn đề gì ?</div>
       <div class="actions">
         <button class="icon-btn" aria-label="Ghi âm" (click)="voice()">
@@ -32,12 +54,10 @@
           <ion-icon name="send-outline"></ion-icon>
         </button>
       </div>
-      <!-- Input (ẩn viền để giữ đúng visual) -->
       <input class="ask-input" [value]="query()" (input)="query.set(($any($event.target).value || '').toString())"
         placeholder="Bạn cần hỏi về vấn đề gì ?" aria-label="Nhập câu hỏi" />
+        
     </div>
-
-    <!-- Lưới 2 cột -->
     <div class="grid">
       <div class="col">
         <div class="qa-card" *ngFor="let item of leftCol()">
@@ -55,10 +75,8 @@
         </div>
       </div>
     </div>
-
-    <!-- Greeting nhỏ theo mock -->
     <div class="hello">
       <span>Xin chào </span><strong>MiddleKien,</strong>
     </div>
-  </div>
+  </div> -->
 </ion-content>

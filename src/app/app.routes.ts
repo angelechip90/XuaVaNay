@@ -90,6 +90,7 @@ export const routes: Routes = [
       ),
   },
   {
+    canActivate: [AuthGuard],
     path: 'book-content/:id',
     loadComponent: () =>
       import(

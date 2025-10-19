@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -22,6 +22,8 @@ import {
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { BaseComponent } from 'src/app/core/base/base.component';
 
 @Component({
   selector: 'app-home',
@@ -39,12 +41,15 @@ import { Router } from '@angular/router';
     FormsModule,
     SectionLogoComponent,
     SearchBoxComponent
-]
+  ]
 })
-export class HomePage implements OnInit {
+export class HomePage extends BaseComponent{
   query = '';
 
-  constructor(private router: Router) {
+  constructor(
+    injector: Injector,
+  ) {
+    super(injector);
     addIcons({
       searchOutline,
       sparklesOutline,
@@ -65,8 +70,28 @@ export class HomePage implements OnInit {
     // console.log('search:', this.query);
   }
 
-  onSendMessage(message: string) {
-   this.router.navigateByUrl(`/chat`);
+  async onSendMessage(message: string) {
+    if(!message){
+      this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
+      return;
+    }
+    let result = await firstValueFrom(this.api.execApi('UserSubscription', 'check-chat-eligibility','GET', null,null));
+    if(result && result?.Data){
+      let data = result?.Data;
+      if(!data?.CanChat){
+        this.notificationSV.showError(data?.Reason);
+        return;
+      }else{
+        let obj = {
+          Message: message
+        }
+        let result = await firstValueFrom(this.api.execApi('Chat', 'create-conversation', 'POST', obj, null, true));
+        if (result && result?.Data) {
+          let conversationId = result?.Data?.ConversationId;
+          this.navCtrl.navigateForward('chat', { queryParams: { conversationId: conversationId, message: message, type: 'conversation' } });
+        }
+      }
+    }
   }
 
   onSuggestClick() {

@@ -1,0 +1,7 @@
+<ion-grid>
+  <ion-row class="rating-container" [class.disabled]="readonly || disabled">
+    <ion-icon *ngFor="let star of getStars()" [name]="star <= value ? 'star' : 'star-outline'" color="warning"
+      (click)="rate(star)">
+    </ion-icon>
+  </ion-row>
+</ion-grid>

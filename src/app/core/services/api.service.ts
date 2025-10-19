@@ -96,7 +96,7 @@ export class ApiService {
     return user?.Token?.AccessToken || null;
   }
 
-  private isLoad(show: boolean = false): void {
+  isLoad(show: boolean = false): void {
     const loader = document.getElementById('loader-icon');
     if (loader) {
       loader.style.visibility = show ? 'visible' : 'hidden';

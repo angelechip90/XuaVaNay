@@ -13,12 +13,15 @@ import { LoadingService } from './app/core/services/loading.service';
 import { NavigationService } from './app/core/services/navigation.service';
 import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { MarkdownModule } from 'ngx-markdown';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideHttpClient(),
+    provideAnimations(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     NotificationService,
     StorageService,
@@ -27,5 +30,6 @@ bootstrapApplication(AppComponent, {
     LoadingService,
     NavigationService,
     importProvidersFrom(IonicStorageModule.forRoot()),
+    importProvidersFrom(MarkdownModule.forRoot()),
   ],
 });

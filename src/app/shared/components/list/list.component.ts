@@ -155,8 +155,10 @@ export class ListComponent extends BaseComponent{
     this.bookmarkClick.emit(item);
   }
 
-  onItemClick(item: PosterItem) {
-    this.itemClick.emit(item);
+  onItemClick(item: any) {
+    console.log(item);
+    //this.itemClick.emit(item);
+    this.router.navigate(['/book-detail', item?.BookId]);
   }
 
   // TrackBy function để tối ưu performance

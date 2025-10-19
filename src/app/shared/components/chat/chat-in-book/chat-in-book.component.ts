@@ -25,6 +25,7 @@ import {
   copyOutline
 } from 'ionicons/icons';
 import { InputChatComponent } from '../input-chat/input-chat.component';
+import { AuthStorageService } from 'src/app/core/services/auth.storeage.service';
 
 type Role = 'user' | 'assistant';
 
@@ -65,7 +66,10 @@ interface Message {
   standalone: true
 })
 export class ChatInBookComponent implements OnInit {
-  constructor(private toast: ToastController) {
+  constructor(
+    private toast: ToastController,
+    private authStorageService: AuthStorageService,
+  ) {
     addIcons({
       chevronBackOutline,
       sendOutline,
@@ -80,7 +84,10 @@ export class ChatInBookComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    let user = this.authStorageService.getCurrentUser();
+    console.log(user);
+  }
   notifCount = signal(26);
 
   // Thread demo theo mockup

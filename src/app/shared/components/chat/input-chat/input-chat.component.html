@@ -2,7 +2,7 @@
   <div class="search-row">
     <!-- Group có border: chứa input + nút mic -->
     <div class="search-group">
-      <ion-input placeholder="Câu hỏi của bạn..." clear-input="true" inputmode="search" [(ngModel)]="searchText"
+      <ion-input [placeholder]="placeholder" clear-input="true" inputmode="search" [(ngModel)]="searchText"
         (ionInput)="onValueChange($event)">
       </ion-input>
 
