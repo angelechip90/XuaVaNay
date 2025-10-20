@@ -30,25 +30,25 @@
 
   <!-- Book List -->
   <div class="book-list">
-    @for (book of filteredBooks; track book.BookId) {
-    <div class="book-item" (click)="onBookClick(book)">
+    @for (book of filteredBooks; track book.ReadBookId) {
+    <div class="book-item" (click)="onBookClick(book.Book)">
 
       <!-- Book Image -->
       <div class="book-image">
-        <img [src]="book.AvatarPath" [alt]="book.Title" />
+        <img [src]="'https://api.xuavanay.ai/File/avatar/' + book.Book.AvatarPath" [alt]="book.Book.Title" />
       </div>
 
       <!-- Book Info -->
       <div class="book-info">
         <!-- Category Badge -->
         <div class="category-badge">
-          <span class="category-text">{{ book.BookTypeAsString }}</span>
+          <span class="category-text">{{ book.Book.BookTypeAsString }}</span>
         </div>
 
         <!-- Book Details -->
         <div class="book-details">
-          <h3 class="book-title">{{ book.Title }}</h3>
-          <p class="book-description">{{ book.Description }}</p>
+          <h3 class="book-title">{{ book.Book.Title }}</h3>
+          <p class="book-description">{{ book.Book.Description }}</p>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ import {
   bookOutline,
 } from 'ionicons/icons';
 import { Router } from '@angular/router';
-import { Book } from 'src/app/models/Book.model';
+import { Book, ReadBook } from 'src/app/models/Book.model';
 import { ApiService } from 'src/app/core/services/api.service';
 
 interface BookReaded {
@@ -56,8 +56,8 @@ interface BookReaded {
   standalone: true,
 })
 export class BookReadedComponent implements OnInit {
-  booksReaded: Book[] = [];
-  filteredBooks: Book[] = [];
+  booksReaded: ReadBook[] = [];
+  filteredBooks: ReadBook[] = [];
   totalPages: number = 1;
   pageNum: number = 1;
   selectedBookType: number = 0; // 0 = All
@@ -95,7 +95,6 @@ export class BookReadedComponent implements OnInit {
       .execApi('Book', 'get-types', 'GET', null, null)
       .subscribe((result: any) => {
         this.bookTypes = result?.Data || [];
-        if (!this.bookTypes.length) this.sampleBookTypes();
         this.fetchPage(1);
       });
   }
@@ -116,7 +115,7 @@ export class BookReadedComponent implements OnInit {
       )
       .subscribe(
         (result: any) => {
-          const data: Book[] = result?.Data || [];
+          const data: ReadBook[] = result?.Data || [];
           this.totalPages = result?.TotalPages ?? this.totalPages;
           this.pageNum = result?.PageNumber ?? page;
 
@@ -128,8 +127,6 @@ export class BookReadedComponent implements OnInit {
           this.filterBooks();
           this.isLoading = false;
           this.changeDetectorRef.detectChanges();
-
-          if (this.booksReaded.length === 0) this.sampleBooksReaded();
         },
         () => {
           this.isLoading = false;
@@ -159,7 +156,7 @@ export class BookReadedComponent implements OnInit {
       this.filteredBooks = this.booksReaded;
     } else {
       this.filteredBooks = this.booksReaded.filter(
-        (book) => book.BookType === this.selectedBookType
+        (item) => item.Book.BookType === this.selectedBookType
       );
     }
   }
@@ -171,114 +168,6 @@ export class BookReadedComponent implements OnInit {
       { BookTypeId: 2, Title: 'Tập san Sử Địa', IsActive: true },
       { BookTypeId: 3, Title: 'E-Books', IsActive: true },
     ];
-  }
-
-  sampleBooksReaded() {
-    this.booksReaded = [
-      {
-        BookId: '1',
-        Title: 'Tạp chí Xưa và Nay - Số 1',
-        AvatarPath: '../../../assets/imgs/demo/1.png',
-        BookTypeAsString: 'Tạp Chí Xưa và Nay',
-        Description: 'Tạp chí nghiên cứu lịch sử và văn hóa',
-        Slug: 'tap-chi-xua-va-nay-1',
-        FileName: 'tap-chi-1.pdf',
-        Link: '../../../assets/imgs/demo/1.png',
-        ExternalId: 1,
-        ExternalEncryptId: '1',
-        TotalPage: 100,
-        PublicationYear: 2020,
-        Summary: 'Tạp chí Xưa và Nay',
-        BookType: 1,
-        CreatedDate: '2020-01-01',
-      },
-      {
-        BookId: '2',
-        Title: 'Tạp chí Xưa và Nay - Số 2',
-        AvatarPath: '../../../assets/imgs/demo/2.png',
-        BookTypeAsString: 'Tạp Chí Xưa và Nay',
-        Description: 'Tạp chí nghiên cứu lịch sử và văn hóa',
-        Slug: 'tap-chi-xua-va-nay-2',
-        FileName: 'tap-chi-2.pdf',
-        Link: '../../../assets/imgs/demo/2.png',
-        ExternalId: 2,
-        ExternalEncryptId: '2',
-        TotalPage: 120,
-        PublicationYear: 2021,
-        Summary: 'Tạp chí Xưa và Nay số 2',
-        BookType: 1,
-        CreatedDate: '2021-01-01',
-      },
-      {
-        BookId: '3',
-        Title: 'Tập san Sử Địa - Số 1',
-        AvatarPath: '../../../assets/imgs/demo/3.png',
-        BookTypeAsString: 'Tập san Sử Địa',
-        Description: 'Tập san chuyên về sử địa Việt Nam',
-        Slug: 'tap-san-su-dia-1',
-        FileName: 'su-dia-1.pdf',
-        Link: '../../../assets/imgs/demo/3.png',
-        ExternalId: 3,
-        ExternalEncryptId: '3',
-        TotalPage: 150,
-        PublicationYear: 2020,
-        Summary: 'Tập san Sử Địa',
-        BookType: 2,
-        CreatedDate: '2020-06-01',
-      },
-      {
-        BookId: '4',
-        Title: 'Tập san Sử Địa - Số 2',
-        AvatarPath: '../../../assets/imgs/demo/4.png',
-        BookTypeAsString: 'Tập san Sử Địa',
-        Description: 'Tập san chuyên về sử địa Việt Nam',
-        Slug: 'tap-san-su-dia-2',
-        FileName: 'su-dia-2.pdf',
-        Link: '../../../assets/imgs/demo/4.png',
-        ExternalId: 4,
-        ExternalEncryptId: '4',
-        TotalPage: 140,
-        PublicationYear: 2021,
-        Summary: 'Tập san Sử Địa số 2',
-        BookType: 2,
-        CreatedDate: '2021-06-01',
-      },
-      {
-        BookId: '5',
-        Title: 'Lịch sử Việt Nam',
-        AvatarPath: '../../../assets/imgs/demo/5.png',
-        BookTypeAsString: 'E-Books',
-        Description: 'Sách điện tử về lịch sử Việt Nam',
-        Slug: 'lich-su-viet-nam',
-        FileName: 'lich-su-viet-nam.pdf',
-        Link: '../../../assets/imgs/demo/5.png',
-        ExternalId: 5,
-        ExternalEncryptId: '5',
-        TotalPage: 300,
-        PublicationYear: 2022,
-        Summary: 'E-Book Lịch sử Việt Nam',
-        BookType: 3,
-        CreatedDate: '2022-01-01',
-      },
-      {
-        BookId: '6',
-        Title: 'Văn hóa Việt Nam',
-        AvatarPath: '../../../assets/imgs/demo/6.png',
-        BookTypeAsString: 'E-Books',
-        Description: 'Sách điện tử về văn hóa Việt Nam',
-        Slug: 'van-hoa-viet-nam',
-        FileName: 'van-hoa-viet-nam.pdf',
-        Link: '../../../assets/imgs/demo/1.png',
-        ExternalId: 6,
-        ExternalEncryptId: '6',
-        TotalPage: 250,
-        PublicationYear: 2022,
-        Summary: 'E-Book Văn hóa Việt Nam',
-        BookType: 3,
-        CreatedDate: '2022-03-01',
-      },
-    ];
-    this.filterBooks();
   }
 
   onBookClick(book: Book) {
