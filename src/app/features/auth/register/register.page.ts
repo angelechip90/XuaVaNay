@@ -38,7 +38,6 @@ import { firstValueFrom } from 'rxjs';
   standalone: true,
   imports: [
     IonContent,
-    IonButton,
     IonIcon,
     IonInput,
     IonCheckbox,

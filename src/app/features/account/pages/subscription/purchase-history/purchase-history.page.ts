@@ -24,30 +24,23 @@ import { UserInfo, UserSubscription } from '../../../../../models/User.model';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.page.html',
   styleUrls: ['./purchase-history.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    CommonModule,
-    FormsModule,
-  ],
+  imports: [IonContent, IonIcon, CommonModule, FormsModule, HeaderComponent],
 })
 export class PurchaseHistoryPage implements OnInit {
   entries = signal<UserSubscription[]>([]);
   userInfo = signal<UserInfo>({} as UserInfo);
   constructor(
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     addIcons({
       chevronBackOutline,
@@ -84,6 +77,10 @@ export class PurchaseHistoryPage implements OnInit {
     if (result && result?.Data && result?.Data?.length) {
       this.entries.set(result?.Data);
     }
+  }
+
+  goToOrderDetail(id: string) {
+    this.router.navigate(['/order-detail', id]);
   }
 
   goBack() {

@@ -1,0 +1,105 @@
+<app-header [title]="'Chi tiết đơn hàng'" [showBackButton]="true"></app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="outline-card">
+    <div class="no-padding">
+      <div class="title-wrap">
+        <span class="title-primary">{{ order.planTitle }} </span>
+        <span class="title-accent">{{ order.planAccent }}</span>
+      </div>
+    </div>
+
+    <div>
+
+      <!-- Khối thông tin đơn hàng -->
+      <ion-list lines="none" class="kv-list">
+        <ion-item>
+          <ion-label class="kv-label">Thời gian</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.durationLabel }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Mã đơn hàng</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.orderCode }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Giá trị đơn hàng</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.orderValue | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Trạng thái</ion-label>
+          <ion-chip slot="end" [color]="statusColor" outline="true">
+            <ion-label>{{ statusText }}</ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Phương thức thanh toán</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.paymentMethod }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Thời gian cập nhật</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.updatedAt | date:'HH:mm dd/MM/yyyy':'vi-VN' }}
+          </ion-note>
+        </ion-item>
+      </ion-list>
+
+      <ion-item-divider class="hairline"></ion-item-divider>
+
+      <!-- Chi tiết thanh toán -->
+      <div class="section-title">Chi tiết</div>
+
+      <ion-list lines="none" class="kv-list">
+        <ion-item>
+          <ion-label class="kv-label">Giá trị</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.orderValue | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Giảm giá</ion-label>
+          <ion-note slot="end" class="kv-value">
+            {{ order.discount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="kv-label">Số tiền thanh toán</ion-label>
+          <ion-note slot="end" class="kv-total">
+            {{ order.totalPay | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+          </ion-note>
+        </ion-item>
+      </ion-list>
+
+    </div>
+  </div>
+
+  <!-- Skeleton khi loading -->
+  <ng-container *ngIf="loading">
+    <div class="outline-card">
+      <div class="no-padding">
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </div>
+      <div>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </div>
+    </div>
+  </ng-container>
+
+</ion-content>

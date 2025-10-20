@@ -27,6 +27,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { firstValueFrom } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { InfiniteScrollCustomEvent } from '@ionic/core';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 interface BookReaded {
   id: string;
@@ -44,16 +45,11 @@ interface BookReaded {
   styleUrls: ['./book-readed.component.scss'],
   imports: [
     IonContent,
-    IonIcon,
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonTitle,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     CommonModule,
     IonList,
+    HeaderComponent,
   ],
   standalone: true,
 })

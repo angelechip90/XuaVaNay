@@ -129,11 +129,14 @@ export const routes: Routes = [
       ).then((m) => m.ChatHistoriesComponent),
   },
   {
-    path: 'order/:id',
-    canActivate: [AuthGuard],
+    path: 'order-detail/:id',
     loadComponent: () =>
-      import('./features/account/pages/subscription/order/order.page').then(
-        (m) => m.OrderPage
-      ),
+      import(
+        './features/account/pages/subscription/order-detail/order-detail.page'
+      ).then((m) => m.OrderDetailPage),
+  },  {
+    path: 'my-orders',
+    loadComponent: () => import('./features/account/pages/subscription/my-orders/my-orders.page').then( m => m.MyOrdersPage)
   },
+
 ];

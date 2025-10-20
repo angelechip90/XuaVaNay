@@ -1,77 +1,67 @@
-import { Component, OnInit, QueryList, signal, ViewChild, ViewChildren, AfterViewInit, Injector, NgZone } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonIcon,
-  IonTitle,
-  IonContent
-} from '@ionic/angular/standalone';
+  Component,
+  OnInit,
+  QueryList,
+  signal,
+  ViewChild,
+  ViewChildren,
+  AfterViewInit,
+  Injector,
+  NgZone,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   ellipsisHorizontal,
   listOutline,
-  chevronForwardOutline
+  chevronForwardOutline,
 } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
 import { PDFDocumentProxy, PdfViewerModule } from 'ng2-pdf-viewer';
 import { environment } from 'src/environments/environment';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-book-content',
   templateUrl: './book-content.component.html',
   styleUrls: ['./book-content.component.scss'],
-  imports: [
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
-    IonContent,
-    CommonModule,
-    PdfViewerModule
-  ],
-  standalone: true
+  imports: [IonContent, CommonModule, PdfViewerModule, HeaderComponent],
+  standalone: true,
 })
-export class BookContentComponent extends BaseComponent{
+export class BookContentComponent extends BaseComponent {
   @ViewChild(IonContent) content!: IonContent;
   @ViewChildren('pageEl') pageEls!: QueryList<HTMLElement>;
-  id:any;
-  oData:any;
-  linkPDF:any;
-  page:any = 1;
+  id: any;
+  oData: any;
+  linkPDF: any;
+  page: any = 1;
   totalPages = 0;
   observer: IntersectionObserver | null = null;
 
-  constructor(
-    injector: Injector,
-    private zone: NgZone
-  ) {
+  constructor(injector: Injector, private zone: NgZone) {
     super(injector);
     addIcons({
       chevronBackOutline,
       ellipsisHorizontal,
       listOutline,
-      chevronForwardOutline
+      chevronForwardOutline,
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     let page = this.route.snapshot.queryParams['page'];
-    if(page != undefined) this.page = page;
-    if(this.id){
+    if (page != undefined) this.page = page;
+    if (this.id) {
       this.loadData();
     }
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.creatReadBook();
   }
 
@@ -79,14 +69,16 @@ export class BookContentComponent extends BaseComponent{
     //this.creatReadBook();
   }
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
     this.setupPageObserver();
     //setTimeout(() => this.scrollTo(this.current()), 0);
   }
 
-  async loadData(){
-    let result = await firstValueFrom(this.api.execApi('Book', `get/${this.id}`,'GET', null,null, true));
-    if(result && result?.Data){
+  async loadData() {
+    let result = await firstValueFrom(
+      this.api.execApi('Book', `get/${this.id}`, 'GET', null, null, true)
+    );
+    if (result && result?.Data) {
       this.oData = result?.Data;
       // let link= '';
       // switch(this.oData?.BookType){
@@ -102,19 +94,21 @@ export class BookContentComponent extends BaseComponent{
       // }
       // link += this.oData?.FileName;
       this.linkPDF = this.oData?.Link;
-      if(this.linkPDF) this.api.isLoad(true);
+      if (this.linkPDF) this.api.isLoad(true);
     }
     this.changeDetectorRef.detectChanges();
     console.log(result);
   }
 
-  creatReadBook(){
+  creatReadBook() {
     let obj = {
-      BookId:this.id,
-      ReadingStatus:'Reading',
-      CurrentPage:this.page
-    }
-    firstValueFrom(this.api.execApi('ReadBook', 'create', 'POST', obj, null)).then((res:any) =>{
+      BookId: this.id,
+      ReadingStatus: 'Reading',
+      CurrentPage: this.page,
+    };
+    firstValueFrom(
+      this.api.execApi('ReadBook', 'create', 'POST', obj, null)
+    ).then((res: any) => {
       console.log(res);
     });
   }
@@ -122,11 +116,14 @@ export class BookContentComponent extends BaseComponent{
   afterLoadComplete(pdf: PDFDocumentProxy) {
     this.api.isLoad(false);
     this.totalPages = pdf.numPages;
-    if(this.page == undefined) this.page = 0;
+    if (this.page == undefined) this.page = 0;
     setTimeout(() => {
-      const pageEl = document.querySelector(`.page[data-page-number="${this.page}"]`);
+      const pageEl = document.querySelector(
+        `.page[data-page-number="${this.page}"]`
+      );
       if (pageEl) {
-        if (this.page != 1) pageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (this.page != 1)
+          pageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       this.creatReadBook();
       this.setupPageObserver();
@@ -144,7 +141,9 @@ export class BookContentComponent extends BaseComponent{
       (entries) => {
         let visiblePages = entries
           .filter((e) => e.isIntersecting)
-          .map((e) => Number((e.target as HTMLElement).getAttribute('data-page-number')));
+          .map((e) =>
+            Number((e.target as HTMLElement).getAttribute('data-page-number'))
+          );
 
         if (visiblePages.length > 0) {
           // Chọn trang giữa (hoặc trang nhỏ nhất nếu cuộn lên)
@@ -158,33 +157,56 @@ export class BookContentComponent extends BaseComponent{
     pages.forEach((p) => this.observer!.observe(p));
   }
 
-  onError(event:any){
+  onError(event: any) {
     console.log(event);
   }
 
-  async goBack() { 
+  async goBack() {
     await this.creatReadBook();
-    history.back(); 
+    history.back();
   }
 
   async chat() {
-    let result = await firstValueFrom(this.api.execApi('UserSubscription', 'check-chat-eligibility','GET', null,null));
-    if(result && result?.Data){
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'UserSubscription',
+        'check-chat-eligibility',
+        'GET',
+        null,
+        null
+      )
+    );
+    if (result && result?.Data) {
       let data = result?.Data;
-      if(!data?.CanChat){
+      if (!data?.CanChat) {
         this.notificationSV.showError(data?.Reason);
         return;
-      }else{
+      } else {
         let conversationId = null;
         let obj = {
-          BookId: this.id
-        }
-        let result2 = await firstValueFrom(this.api.execApi('Chat', 'get-book-conversations','GET', null,obj, true));
-        if(result2 && result2?.Data?.length){
+          BookId: this.id,
+        };
+        let result2 = await firstValueFrom(
+          this.api.execApi(
+            'Chat',
+            'get-book-conversations',
+            'GET',
+            null,
+            obj,
+            true
+          )
+        );
+        if (result2 && result2?.Data?.length) {
           let lstData = result2?.Data;
           conversationId = lstData[0]?.BookConversationId;
         }
-        this.navCtrl.navigateForward('chat',{queryParams:{conversationId:conversationId,type:'book',bookID:this.id}});
+        this.navCtrl.navigateForward('chat', {
+          queryParams: {
+            conversationId: conversationId,
+            type: 'book',
+            bookID: this.id,
+          },
+        });
       }
     }
   }

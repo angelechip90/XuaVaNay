@@ -1,9 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  Injector,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonHeader,
-  IonToolbar,
   IonContent,
   IonIcon,
   IonImg,
@@ -11,7 +16,9 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   InfiniteScrollCustomEvent,
-  ActionSheetController
+  ActionSheetController,
+  IonHeader,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -20,7 +27,7 @@ import {
   optionsOutline,
   chevronDownOutline,
   bookmarkOutline,
-  arrowForwardOutline
+  arrowForwardOutline,
 } from 'ionicons/icons';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { BaseComponent } from 'src/app/core/base/base.component';
@@ -38,8 +45,6 @@ export interface PosterItem {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
     IonContent,
     IonIcon,
     IonImg,
@@ -48,11 +53,13 @@ export interface PosterItem {
     IonInfiniteScrollContent,
     CommonModule,
     FormsModule,
-    SearchBoxComponent
-],
-  standalone: true
+    SearchBoxComponent,
+    IonHeader,
+    IonToolbar,
+  ],
+  standalone: true,
 })
-export class ListComponent extends BaseComponent{
+export class ListComponent extends BaseComponent {
   @Input() items: PosterItem[] = [];
   @Input() title: string = 'Xưa và Nay';
   @Input() year: number = 2025;
@@ -67,9 +74,9 @@ export class ListComponent extends BaseComponent{
   @Output() askClick = new EventEmitter<void>();
 
   query = '';
-  method:any = '';
-  lstData:any;
-  isLoad:any = true;
+  method: any = '';
+  lstData: any;
+  isLoad: any = true;
   pageNum: any = 1;
 
   constructor(
@@ -83,31 +90,31 @@ export class ListComponent extends BaseComponent{
       optionsOutline,
       chevronDownOutline,
       bookmarkOutline,
-      arrowForwardOutline
+      arrowForwardOutline,
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.loadItem();
   }
 
-  loadItem(isScroll:any = false) : Promise<any>{
-    return new Promise(async resolve => {
+  loadItem(isScroll: any = false): Promise<any> {
+    return new Promise(async (resolve) => {
       if (!this.isLoad) resolve(false);
       let obj = {
-        BookType:this.bookTypeID,
-        Year:this.year,
-        PageNumber:this.pageNum,
-      }
-      let result = await firstValueFrom(this.api.execApi('Book', 'get-paging','GET', null,obj, !isScroll));
-      if(result && result?.Data && result?.Data?.length){
+        BookType: this.bookTypeID,
+        Year: this.year,
+        PageNumber: this.pageNum,
+      };
+      let result = await firstValueFrom(
+        this.api.execApi('Book', 'get-paging', 'GET', null, obj, !isScroll)
+      );
+      if (result && result?.Data && result?.Data?.length) {
         if (!this.lstData) this.lstData = [];
-        if (!isScroll)
-          this.lstData = result?.Data;
-        else
-          this.lstData = [...this.lstData, ...result?.Data];
+        if (!isScroll) this.lstData = result?.Data;
+        else this.lstData = [...this.lstData, ...result?.Data];
         let totalRecord = result?.TotalRecords;
-        if(this.lstData?.length == totalRecord) this.isLoad = false;
+        if (this.lstData?.length == totalRecord) this.isLoad = false;
         this.changeDetectorRef.detectChanges();
       }
       console.log(result);
@@ -115,7 +122,7 @@ export class ListComponent extends BaseComponent{
   }
 
   async onIonInfinite(event: any) {
-    if(this.isLoad){
+    if (this.isLoad) {
       this.pageNum = this.pageNum + 1;
       await this.loadItem(true);
       setTimeout(() => {

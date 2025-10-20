@@ -3,11 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
-  IonButton,
   IonIcon,
   IonCard,
   IonCardHeader,
@@ -23,6 +18,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { SubscriptionPlan } from 'src/app/models/User.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-upgrade',
@@ -31,17 +27,13 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
-    IonButton,
     IonIcon,
     IonCard,
     IonCardHeader,
     IonCardContent,
     CommonModule,
     FormsModule,
+    HeaderComponent,
   ],
 })
 export class UpgradePage implements OnInit {

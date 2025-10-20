@@ -1,20 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title class="ion-text-center">Lịch sử mua gói đọc</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button fill="clear" aria-label="Tùy chọn">
-        <ion-icon name="ellipsis-horizontal"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Lịch sử mua gói đọc'" [showBackButton]="true"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true">
@@ -30,7 +14,7 @@
     <!-- Cards -->
     <section class="cards">
       <ng-container *ngFor="let e of entries(); let i = index; trackBy: trackById">
-        <div class="sub-card">
+        <div class="sub-card" (click)="goToOrderDetail(e.UserSubscriptionId)">
           <div class="left">
             <!-- Icon bubble -->
             @switch (e.SubscriptionPlan.PlanType) {

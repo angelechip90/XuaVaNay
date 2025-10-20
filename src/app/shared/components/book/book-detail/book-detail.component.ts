@@ -1,15 +1,6 @@
 import { Component, OnInit, signal, computed, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonIcon,
-  IonTitle,
-  IonContent,
-  ToastController
-} from '@ionic/angular/standalone';
+import { IonContent, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
@@ -20,7 +11,7 @@ import {
   playOutline,
   heartOutline,
   shareOutline,
-  chatbubbleOutline
+  chatbubbleOutline,
 } from 'ionicons/icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs';
@@ -29,6 +20,7 @@ import { AuthStorageService } from 'src/app/core/services/auth.storeage.service'
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InputChatComponent } from '../../chat/input-chat/input-chat.component';
 import { RatingStartComponent } from '../../rating-start/rating-start.component';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 interface Issue {
   id: string;
@@ -48,46 +40,41 @@ interface Comment {
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
     IonContent,
     CommonModule,
     InputChatComponent,
-    RatingStartComponent
+    RatingStartComponent,
+    HeaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class BookDetailComponent extends BaseComponent {
-  id:any;
-  oData:any;
-  rate:any = 0;
-//   title = 'XƯA & NAY SỐ 562 (THÁNG 4.2024)';
-//   publisher = 'Tạp chí Xưa và Nay';
-//   ratingCount = 25;
-//   cover = 'https://placehold.co/201x273';
-//   backdrop = 'https://placehold.co/439x621';
+  id: any;
+  oData: any;
+  rate: any = 0;
+  //   title = 'XƯA & NAY SỐ 562 (THÁNG 4.2024)';
+  //   publisher = 'Tạp chí Xưa và Nay';
+  //   ratingCount = 25;
+  //   cover = 'https://placehold.co/201x273';
+  //   backdrop = 'https://placehold.co/439x621';
 
-//   // tóm tắt (rút gọn / đầy đủ)
-//   fullSummary = `Trong số này:
-// Sự hình thành đường 1C và lực lượng thanh niên xung phong - Huỳnh Thị Gấm
-// Khảo sát Binh thư yếu lược (A.476) của Trần Quốc Tuấn qua góc độ lịch sử - Sun Laichen
-// Luận về danh xưng và quốc hiệu Việt Nam - Võ Vinh Quang
-// Sông Bạch Đằng và chiến thắng Bạch Đằng lịch sử: từ tên gọi đến thực địa - Lý Tùng Hiếu
-// Giọng Quảng Nam có tự bao giờ? - Hồ Trung Tú
-// Di sản lịch sử - văn hóa các đô thị Nam Bộ - Nhìn từ Gia Định thành thông chí - Nguyễn Thị Hậu
-// Anh hùng dân tộc Nguyễn Trung Trực - Lê Công Lý
-// Một số hình ảnh về thượng tướng Trần Văn Trà
-// Sự phát triển tôn giáo và triết lý mới ở Sài Gòn và Nam Kỳ trong thập niên 1920 và 1930 - Nguyễn Đức Hiệp
-// Kiến trúc sư Auguste Delaval và các công trình trong thời kỳ thuộc địa Pháp - Stefan Hell
-// Những người Nhật đầu tiên đến phương Tây - Trần Thanh Ái
-// Mệnh danh tự quy định việc đặt họ, tên trong hoàng tộc nhà Nguyễn - Tôn Thất Thọ
-// Về một bài phú của Ngô Thì Nhậm viết về Thái Nguyên - Nguyễn Đình Hưng
-// Nguyễn Thiệu Lâu, nhà địa lý học, sử học (1916-1967) - Ngô Thế Long
-// Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX - Nguyễn Đắc Thái`;
+  //   // tóm tắt (rút gọn / đầy đủ)
+  //   fullSummary = `Trong số này:
+  // Sự hình thành đường 1C và lực lượng thanh niên xung phong - Huỳnh Thị Gấm
+  // Khảo sát Binh thư yếu lược (A.476) của Trần Quốc Tuấn qua góc độ lịch sử - Sun Laichen
+  // Luận về danh xưng và quốc hiệu Việt Nam - Võ Vinh Quang
+  // Sông Bạch Đằng và chiến thắng Bạch Đằng lịch sử: từ tên gọi đến thực địa - Lý Tùng Hiếu
+  // Giọng Quảng Nam có tự bao giờ? - Hồ Trung Tú
+  // Di sản lịch sử - văn hóa các đô thị Nam Bộ - Nhìn từ Gia Định thành thông chí - Nguyễn Thị Hậu
+  // Anh hùng dân tộc Nguyễn Trung Trực - Lê Công Lý
+  // Một số hình ảnh về thượng tướng Trần Văn Trà
+  // Sự phát triển tôn giáo và triết lý mới ở Sài Gòn và Nam Kỳ trong thập niên 1920 và 1930 - Nguyễn Đức Hiệp
+  // Kiến trúc sư Auguste Delaval và các công trình trong thời kỳ thuộc địa Pháp - Stefan Hell
+  // Những người Nhật đầu tiên đến phương Tây - Trần Thanh Ái
+  // Mệnh danh tự quy định việc đặt họ, tên trong hoàng tộc nhà Nguyễn - Tôn Thất Thọ
+  // Về một bài phú của Ngô Thì Nhậm viết về Thái Nguyên - Nguyễn Đình Hưng
+  // Nguyễn Thiệu Lâu, nhà địa lý học, sử học (1916-1967) - Ngô Thế Long
+  // Nghệ thuật trang trí lăng hoàng gia tại Gò Công đầu thế kỷ XX - Nguyễn Đắc Thái`;
   fullSummary = signal('');
   expanded = signal(false);
   summary = computed(() => {
@@ -100,12 +87,12 @@ export class BookDetailComponent extends BaseComponent {
   issues: any;
 
   // bình luận
-  comments:any;
-  user:any;
+  comments: any;
+  user: any;
 
   constructor(
     injector: Injector,
-    private toast: ToastController, 
+    private toast: ToastController,
     private authService: AuthService
   ) {
     super(injector);
@@ -118,17 +105,15 @@ export class BookDetailComponent extends BaseComponent {
       playOutline,
       heartOutline,
       shareOutline,
-      chatbubbleOutline
+      chatbubbleOutline,
     });
   }
 
-  ngOnInit() {
-   
-  }
+  ngOnInit() {}
 
   async ionViewWillEnter() {
     let user = await this.authService.getUserInfo();
-    if(user) this.user = user;
+    if (user) this.user = user;
     console.log(user);
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
@@ -136,26 +121,33 @@ export class BookDetailComponent extends BaseComponent {
     }
   }
 
-  async loadData(){
+  async loadData() {
     let obj = {
-      BookId : this.id,
-    }
+      BookId: this.id,
+    };
     const result = await firstValueFrom(
       forkJoin({
-        books: this.api.execApi('Book', `get/${this.id}`,'GET', null,null, true),
-        issues: this.api.execApi('Book', 'get-relateds','GET', null,obj),
-        comments: this.api.execApi('Comment', 'get-paging','GET', null,obj),
+        books: this.api.execApi(
+          'Book',
+          `get/${this.id}`,
+          'GET',
+          null,
+          null,
+          true
+        ),
+        issues: this.api.execApi('Book', 'get-relateds', 'GET', null, obj),
+        comments: this.api.execApi('Comment', 'get-paging', 'GET', null, obj),
       })
     );
-    if(result){
-      if(result?.books){
+    if (result) {
+      if (result?.books) {
         this.oData = result?.books?.Data;
         this.fullSummary.set(this.oData?.Description);
       }
-      if(result?.comments){
+      if (result?.comments) {
         this.comments = result?.comments?.Data;
       }
-      if(result?.issues){
+      if (result?.issues) {
         this.issues = result?.issues?.Data;
       }
     }
@@ -169,7 +161,9 @@ export class BookDetailComponent extends BaseComponent {
     console.log(result);
   }
 
-  goBack() { history.back(); }
+  goBack() {
+    history.back();
+  }
 
   async readNow() {
     // TODO: điều hướng tới viewer đọc sách
@@ -177,23 +171,46 @@ export class BookDetailComponent extends BaseComponent {
   }
 
   async chat() {
-    let result = await firstValueFrom(this.api.execApi('UserSubscription', 'check-chat-eligibility','GET', null,null));
-    if(result && result?.Data){
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'UserSubscription',
+        'check-chat-eligibility',
+        'GET',
+        null,
+        null
+      )
+    );
+    if (result && result?.Data) {
       let data = result?.Data;
-      if(!data?.CanChat){
+      if (!data?.CanChat) {
         this.notificationSV.showError(data?.Reason);
         return;
-      }else{
+      } else {
         let conversationId = null;
         let obj = {
-          BookId: this.id
-        }
-        let result2 = await firstValueFrom(this.api.execApi('Chat', 'get-book-conversations','GET', null,obj, true));
-        if(result2 && result2?.Data?.length){
+          BookId: this.id,
+        };
+        let result2 = await firstValueFrom(
+          this.api.execApi(
+            'Chat',
+            'get-book-conversations',
+            'GET',
+            null,
+            obj,
+            true
+          )
+        );
+        if (result2 && result2?.Data?.length) {
           let lstData = result2?.Data;
           conversationId = lstData[0]?.BookConversationId;
         }
-        this.navCtrl.navigateForward('chat',{queryParams:{conversationId:conversationId,type:'book',bookID:this.id}});
+        this.navCtrl.navigateForward('chat', {
+          queryParams: {
+            conversationId: conversationId,
+            type: 'book',
+            bookID: this.id,
+          },
+        });
       }
     }
   }
@@ -204,23 +221,25 @@ export class BookDetailComponent extends BaseComponent {
   }
 
   toggleExpanded() {
-    this.expanded.update(v => !v);
+    this.expanded.update((v) => !v);
   }
 
   async send(message: string) {
-    if(!message){
+    if (!message) {
       this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
       return;
     }
     let obj = {
       BookId: this.id,
-      CommentText:message,
-      Rating:this.rate
-    }
-    let result = await firstValueFrom(this.api.execApi('Comment', 'create','POST', obj,null));
-    if(result && result?.Errors?.length){
+      CommentText: message,
+      Rating: this.rate,
+    };
+    let result = await firstValueFrom(
+      this.api.execApi('Comment', 'create', 'POST', obj, null)
+    );
+    if (result && result?.Errors?.length) {
       this.notificationSV.showError(result?.Errors[0]);
-    }else{
+    } else {
       this.loadData();
     }
     // if(result && result?.Data){
@@ -241,7 +260,7 @@ export class BookDetailComponent extends BaseComponent {
     // }
   }
 
-  valueChangeRate(event:any){
+  valueChangeRate(event: any) {
     this.rate = event;
   }
 }

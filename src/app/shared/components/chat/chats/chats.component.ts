@@ -1,18 +1,17 @@
-import { Component, ElementRef, Injector, OnInit, Renderer2, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  Renderer2,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonButton,
   IonIcon,
-  IonTitle,
   IonContent,
-  IonCard,
-  IonCardContent,
-  IonChip,
-  IonLabel,
   ToastController,
   IonList,
   IonInfiniteScroll,
@@ -27,13 +26,12 @@ import {
   libraryOutline,
   bookOutline,
   personOutline,
-  settings
+  settings,
 } from 'ionicons/icons';
 import { InputChatComponent } from '../input-chat/input-chat.component';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom, retry } from 'rxjs';
 import { AuthStorageService } from 'src/app/core/services/auth.storeage.service';
-import { MarkdownComponent } from 'ngx-markdown';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { v4 as uuidv4 } from 'uuid';
@@ -41,6 +39,7 @@ import { environment } from 'src/environments/environment';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InfiniteScrollCustomEvent } from '@ionic/core';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 interface QuickTopic {
   label: string;
@@ -75,31 +74,24 @@ interface ThinkingStep {
     trigger('messageAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(30px)' }),
-        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+        animate(
+          '400ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
       ]),
     ]),
   ],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
     IonContent,
-    IonCard,
-    IonCardContent,
-    IonChip,
-    IonLabel,
     CommonModule,
     FormsModule,
     InputChatComponent,
-    MarkdownComponent,
     IonList,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    HeaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ChatsComponent extends BaseComponent {
   @ViewChild(IonContent) chatContent!: IonContent;
@@ -108,11 +100,11 @@ export class ChatsComponent extends BaseComponent {
   decoder = new TextDecoder();
   buffer = '';
   scrollTimeout: any;
-  isRender:any = false;
-  type:any;
-  bookID:any;
-  user:any;
-  isLoad:any = true;
+  isRender: any = false;
+  type: any;
+  bookID: any;
+  user: any;
+  isLoad: any = true;
   pageNum: any = 1;
 
   constructor(
@@ -132,21 +124,19 @@ export class ChatsComponent extends BaseComponent {
       homeOutline,
       libraryOutline,
       bookOutline,
-      personOutline
+      personOutline,
     });
   }
-  async ngOnInit() {
-    
-  }
+  async ngOnInit() {}
 
   async ionViewWillEnter() {
     let user = await this.authService.getUserInfo();
-    if(user) this.user = user;
+    if (user) this.user = user;
     this.conversationId = this.route.snapshot.queryParams['conversationId'];
     let message = this.route.snapshot.queryParams['message'];
     this.type = this.route.snapshot.queryParams['type'];
     this.bookID = this.route.snapshot.queryParams['bookID'];
-    if(this.conversationId){
+    if (this.conversationId) {
       await this.loadItem();
     }
     if (message) this.startChat(message);
@@ -169,33 +159,38 @@ export class ChatsComponent extends BaseComponent {
     });
   }
 
-  async startChat(message:any) {
+  async startChat(message: any) {
     this.smoothScroll(100);
-    if (!(this.lstConversation?.length > 0 && this.lstConversation[this.lstConversation.length - 1].role === 'user')) {
+    if (
+      !(
+        this.lstConversation?.length > 0 &&
+        this.lstConversation[this.lstConversation.length - 1].role === 'user'
+      )
+    ) {
       let newMess = {
         role: 'user',
-        content: message
-      }
+        content: message,
+      };
       this.lstConversation.push(newMess);
     }
-    let newMessage:any = {
+    let newMessage: any = {
       showResearch: false,
-      role:'assistant',
-      isNew:true
+      role: 'assistant',
+      isNew: true,
     };
     this.lstConversation.push(newMessage);
     this.isRender = true;
 
     let user = this.authStorageService.getCurrentUser();
     let token = user?.Token?.AccessToken;
-    let obj:any = {
+    let obj: any = {
       ConversationId: this.conversationId,
       Message: message,
     };
     let url = '';
-    if(this.type == 'conversation'){
+    if (this.type == 'conversation') {
       url = `${this.severUrl}api/Chat/completion/chat-search/stream`;
-    }else{
+    } else {
       obj['BookId'] = this.bookID;
       url = `${this.severUrl}api/Chat/completion/chat-book/stream`;
     }
@@ -203,13 +198,15 @@ export class ChatsComponent extends BaseComponent {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(obj),
     });
 
-    if (!response.ok){
-      this.notificationSV.showError('Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại');
+    if (!response.ok) {
+      this.notificationSV.showError(
+        'Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại'
+      );
       return;
     }
     const reader: any = response?.body?.getReader();
@@ -218,7 +215,7 @@ export class ChatsComponent extends BaseComponent {
       const { value, done } = await reader.read();
       const chunk = decoder.decode(value);
       const lines = chunk.split('\n');
-      if (done){
+      if (done) {
         this.isRender = false;
         newMessage['isNew'] = false;
         break;
@@ -234,9 +231,9 @@ export class ChatsComponent extends BaseComponent {
             if (parsed.error) {
               console.log(data);
             }
-            newMessage = this.convertMessage(newMessage,parsed,false);
+            newMessage = this.convertMessage(newMessage, parsed, false);
           } catch (error) {
-            console.log(error);         
+            console.log(error);
           }
         }
       }
@@ -245,12 +242,12 @@ export class ChatsComponent extends BaseComponent {
   }
 
   loadItem(isScroll: any = false): Promise<any> {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
       if (!this.isLoad) resolve(false);
       let obj: any = {
         ConversationId: this.conversationId,
         PageNumber: this.pageNum,
-      }
+      };
 
       let url = '';
       if (this.type == 'conversation') {
@@ -260,20 +257,22 @@ export class ChatsComponent extends BaseComponent {
         url = 'get-book-conversation-messages';
       }
 
-      let result = await firstValueFrom(this.api.execApi('Chat', url, 'GET', null, obj, true));
+      let result = await firstValueFrom(
+        this.api.execApi('Chat', url, 'GET', null, obj, true)
+      );
       if (result && result?.Data?.length) {
         if (!this.lstConversation) this.lstConversation = [];
         let lstData = result?.Data;
         lstData.reverse();
         let totalRecord = result?.TotalRecords;
-        if(this.lstConversation?.length == totalRecord) this.isLoad = false;
+        if (this.lstConversation?.length == totalRecord) this.isLoad = false;
         this.changeDetectorRef.detectChanges();
         for (let item of lstData) {
           if (item?.Role === 'user') {
             let newMess = {
               role: 'user',
-              content: item?.Content
-            }
+              content: item?.Content,
+            };
             this.lstConversation.push(newMess);
           } else {
             let lstJSON: any = [];
@@ -282,15 +281,13 @@ export class ChatsComponent extends BaseComponent {
               try {
                 let jsParse = JSON.parse(json);
                 if (jsParse && jsParse?.length) lstJSON = [...lstJSON, jsParse];
-              } catch (error) {
-
-              }
+              } catch (error) {}
             }
             if (item?.Content) {
               let newJS = {
                 ThinkMessage: item?.Content,
-                Type: 'text'
-              }
+                Type: 'text',
+              };
               lstJSON.push(newJS);
             }
             let newMessage: any = {
@@ -304,7 +301,7 @@ export class ChatsComponent extends BaseComponent {
           }
         }
       }
-    })
+    });
   }
 
   async onIonInfinite(event: any) {
@@ -317,7 +314,11 @@ export class ChatsComponent extends BaseComponent {
     }
   }
 
-  convertMessage(newMessage:any,jsonParse:any,isShowResourceRefs:any = true){
+  convertMessage(
+    newMessage: any,
+    jsonParse: any,
+    isShowResourceRefs: any = true
+  ) {
     if (newMessage) {
       if (!newMessage.currentStep) newMessage['currentStep'] = '';
       let message = jsonParse.Message || jsonParse?.ThinkMessage;
@@ -338,11 +339,13 @@ export class ChatsComponent extends BaseComponent {
               recID: uuidv4(),
               step,
               message,
-              expanded: true
-            }
+              expanded: true,
+            };
             newMessage['researchItems'].push(obj);
           } else {
-            let currentItem = newMessage['researchItems'].find((x: any) => x?.step === step);
+            let currentItem = newMessage['researchItems'].find(
+              (x: any) => x?.step === step
+            );
             if (!currentItem) return;
             switch (tag) {
               case 'search_react':
@@ -355,21 +358,27 @@ export class ChatsComponent extends BaseComponent {
                 try {
                   let query = JSON.parse(message);
                   if (query && Array.isArray(query)) {
-                    if (!currentItem['searchQueries']) currentItem['searchQueries'] = [];
-                    currentItem['searchQueries'] = [...currentItem['searchQueries'], ...query];
+                    if (!currentItem['searchQueries'])
+                      currentItem['searchQueries'] = [];
+                    currentItem['searchQueries'] = [
+                      ...currentItem['searchQueries'],
+                      ...query,
+                    ];
                   }
-                } catch (e) {
-                }
+                } catch (e) {}
                 break;
               case 'reading_sources':
                 try {
                   let readingSources = JSON.parse(message);
                   if (readingSources && Array.isArray(readingSources)) {
-                    if (!currentItem['readingSources']) currentItem['readingSources'] = [];
-                    currentItem['readingSources'] = [...currentItem['readingSources'], ...readingSources];
+                    if (!currentItem['readingSources'])
+                      currentItem['readingSources'] = [];
+                    currentItem['readingSources'] = [
+                      ...currentItem['readingSources'],
+                      ...readingSources,
+                    ];
                   }
-                } catch (e) {
-                }
+                } catch (e) {}
                 break;
             }
 
@@ -393,8 +402,7 @@ export class ChatsComponent extends BaseComponent {
               newMessage['resourceRefs'] = resourceRefs;
               newMessage['isShowResourceRefs'] = isShowResourceRefs;
             }
-          } catch (e) {
-          }
+          } catch (e) {}
           this.smoothScroll(100);
           break;
         case 'question_related':
@@ -423,7 +431,6 @@ export class ChatsComponent extends BaseComponent {
           //this.smoothScroll(100);
           break;
       }
-
     }
     return newMessage;
   }
@@ -439,32 +446,34 @@ export class ChatsComponent extends BaseComponent {
     this.scrollTimeout = setTimeout(() => this.scrollToBottom(duration), 20);
   }
 
-  readBook(item:any){
-    if(item && item?.BookId){
+  readBook(item: any) {
+    if (item && item?.BookId) {
       this.router.navigate(['/book-content', item?.BookId]);
     }
   }
 
-  query(query:any){
-    if(query){
+  query(query: any) {
+    if (query) {
       this.startChat(query);
     }
   }
 
-  readBookByPage(bookId:any,page:any){
+  readBookByPage(bookId: any, page: any) {
     let queryParams = null;
-    if(page != undefined) queryParams = {page:page};
-    if(bookId != undefined){
+    if (page != undefined) queryParams = { page: page };
+    if (bookId != undefined) {
       this.router.navigate(['/book-content', bookId], {
         queryParams: queryParams,
       });
     }
   }
 
-  goBack() { history.back(); }
+  goBack() {
+    history.back();
+  }
 
   prepareMathJax(content: any) {
-    return content.replace(/\\/g, "\\\\");
+    return content.replace(/\\/g, '\\\\');
   }
 
   renderTooltip() {
@@ -473,7 +482,6 @@ export class ChatsComponent extends BaseComponent {
     // var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     //   return new bootstrap.Tooltip(tooltipTriggerEl)
     // })
-
     // // Add click handlers for demonstration
     // document.querySelectorAll('.btn-toolbar-custom').forEach(button => {
     //   button.addEventListener('click', function () {
@@ -483,27 +491,36 @@ export class ChatsComponent extends BaseComponent {
     //   });
     // });
   }
-  
+
   onValueChange(value: string) {
     //this.drafting.set(value);
   }
 
   async onSendMessage(message: string) {
-    if(this.isRender) return;
-    if(message){
-      if(!this.conversationId){
-        if(this.type == 'book'){
+    if (this.isRender) return;
+    if (message) {
+      if (!this.conversationId) {
+        if (this.type == 'book') {
           let obj = {
             BookId: this.bookID,
-            Message:message
-          }
-          let result = await firstValueFrom(this.api.execApi('Chat', 'create-book-conversation', 'POST', obj, null, true));
+            Message: message,
+          };
+          let result = await firstValueFrom(
+            this.api.execApi(
+              'Chat',
+              'create-book-conversation',
+              'POST',
+              obj,
+              null,
+              true
+            )
+          );
           if (result && result?.Data) {
             this.conversationId = result?.Data?.ConversationId;
           }
         }
       }
-      if(!this.conversationId) return;
+      if (!this.conversationId) return;
       this.smoothScroll(100);
       this.startChat(message);
     }

@@ -1,18 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">Nâng cấp tài khoản</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" aria-label="Tùy chọn">
-        <ion-icon name="ellipsis-horizontal"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Nâng cấp tài khoản'" [showBackButton]="true"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true">

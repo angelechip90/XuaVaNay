@@ -1,12 +1,6 @@
 import { Component, OnInit, signal, computed, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonIcon,
-  IonTitle,
   IonContent,
   ToastController,
   IonList,
@@ -25,6 +19,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
 import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { TimeagoPipe } from 'src/app/shared/pipes/timeago-pipe';
 import { InputChatComponent } from '../input-chat/input-chat.component';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 type QAItem = {
   question: string;
@@ -37,12 +32,6 @@ type QAItem = {
   templateUrl: './chat-histories.component.html',
   styleUrls: ['./chat-histories.component.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
     IonContent,
     CommonModule,
     IonList,
@@ -50,10 +39,11 @@ type QAItem = {
     IonInfiniteScrollContent,
     TimeagoPipe,
     InputChatComponent,
+    HeaderComponent,
   ],
   standalone: true,
 })
-export class ChatHistoriesComponent extends BaseComponent{
+export class ChatHistoriesComponent extends BaseComponent {
   query = signal('');
 
   // Dữ liệu mẫu bám sát mockup
@@ -105,14 +95,11 @@ export class ChatHistoriesComponent extends BaseComponent{
   // Chia làm 2 cột giống thiết kế
   // leftCol = computed(() => this.filtered().filter((_: QAItem, i: number) => i % 2 === 0));
   // rightCol = computed(() => this.filtered().filter((_: QAItem, i: number) => i % 2 === 1));
-  lstData:any;
-  isLoad:any = true;
+  lstData: any;
+  isLoad: any = true;
   pageNum: any = 1;
 
-  constructor(
-    injector: Injector,
-    private toast: ToastController
-  ) {
+  constructor(injector: Injector, private toast: ToastController) {
     super(injector);
     addIcons({
       chevronBackOutline,
@@ -131,18 +118,25 @@ export class ChatHistoriesComponent extends BaseComponent{
   }
 
   loadItem(isScroll: any = false): Promise<any> {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
       if (!this.isLoad) resolve(false);
       let obj = {
         PageNumber: this.pageNum,
-      }
-      let result = await firstValueFrom(this.api.execApi('Chat', 'get-conversations', 'GET', null, obj, !isScroll));
+      };
+      let result = await firstValueFrom(
+        this.api.execApi(
+          'Chat',
+          'get-conversations',
+          'GET',
+          null,
+          obj,
+          !isScroll
+        )
+      );
       if (result && result?.Data && result?.Data?.length) {
         if (!this.lstData) this.lstData = [];
-        if (!isScroll)
-          this.lstData = result?.Data;
-        else
-          this.lstData = [...this.lstData, ...result?.Data];
+        if (!isScroll) this.lstData = result?.Data;
+        else this.lstData = [...this.lstData, ...result?.Data];
         let totalRecord = result?.TotalRecords;
         if (this.lstData?.length == totalRecord) this.isLoad = false;
         this.changeDetectorRef.detectChanges();
@@ -177,24 +171,47 @@ export class ChatHistoriesComponent extends BaseComponent{
   }
 
   async send(message: string) {
-    if(!message){
+    if (!message) {
       this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
       return;
     }
-    let result = await firstValueFrom(this.api.execApi('UserSubscription', 'check-chat-eligibility','GET', null,null));
-    if(result && result?.Data){
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'UserSubscription',
+        'check-chat-eligibility',
+        'GET',
+        null,
+        null
+      )
+    );
+    if (result && result?.Data) {
       let data = result?.Data;
-      if(!data?.CanChat){
+      if (!data?.CanChat) {
         this.notificationSV.showError(data?.Reason);
         return;
-      }else{
+      } else {
         let obj = {
-          Message: message
-        }
-        let result = await firstValueFrom(this.api.execApi('Chat', 'create-conversation', 'POST', obj, null, true));
+          Message: message,
+        };
+        let result = await firstValueFrom(
+          this.api.execApi(
+            'Chat',
+            'create-conversation',
+            'POST',
+            obj,
+            null,
+            true
+          )
+        );
         if (result && result?.Data) {
           let conversationId = result?.Data?.ConversationId;
-          this.navCtrl.navigateForward('chat', { queryParams: { conversationId: conversationId, message: message, type: 'conversation' } });
+          this.navCtrl.navigateForward('chat', {
+            queryParams: {
+              conversationId: conversationId,
+              message: message,
+              type: 'conversation',
+            },
+          });
         }
       }
     }
@@ -208,8 +225,13 @@ export class ChatHistoriesComponent extends BaseComponent{
   //   this.send();
   // }
 
-  goConversation(item:any){
-    if(!item) return;
-    this.navCtrl.navigateForward('chat', { queryParams: { conversationId: item?.ConversationId,type: 'conversation' } });
+  goConversation(item: any) {
+    if (!item) return;
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        conversationId: item?.ConversationId,
+        type: 'conversation',
+      },
+    });
   }
 }

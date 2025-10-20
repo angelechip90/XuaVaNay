@@ -1,19 +1,20 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import {
   IonContent,
   IonIcon,
   IonInput,
   IonButton,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { 
-  lockClosedOutline, 
-  eyeOutline, 
-  eyeOffOutline 
-} from 'ionicons/icons';
+import { lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { NavigationService } from 'src/app/core/services/navigation.service';
 
@@ -26,23 +27,25 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
     IonContent,
     IonIcon,
     IonInput,
-    IonButton,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SectionLogoComponent
-  ]
+    SectionLogoComponent,
+  ],
 })
 export class ChangePasswordPage {
   showCurrentPw = signal(false);
   showNewPw = signal(false);
   showConfirmPw = signal(false);
 
-  form = this.fb.group({
-    currentPassword: ['', [Validators.required]],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required]]
-  }, { validators: this.passwordMatchValidator });
+  form = this.fb.group(
+    {
+      currentPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: this.passwordMatchValidator }
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +55,7 @@ export class ChangePasswordPage {
     addIcons({
       lockClosedOutline,
       eyeOutline,
-      eyeOffOutline
+      eyeOffOutline,
     });
   }
 
@@ -63,15 +66,15 @@ export class ChangePasswordPage {
   }
 
   toggleCurrentPw() {
-    this.showCurrentPw.update(v => !v);
+    this.showCurrentPw.update((v) => !v);
   }
 
   toggleNewPw() {
-    this.showNewPw.update(v => !v);
+    this.showNewPw.update((v) => !v);
   }
 
   toggleConfirmPw() {
-    this.showConfirmPw.update(v => !v);
+    this.showConfirmPw.update((v) => !v);
   }
 
   goBack() {
@@ -84,7 +87,7 @@ export class ChangePasswordPage {
       const toast = await this.toast.create({
         message: 'Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp',
         duration: 2000,
-        color: 'warning'
+        color: 'warning',
       });
       return toast.present();
     }
@@ -93,7 +96,7 @@ export class ChangePasswordPage {
       const toast = await this.toast.create({
         message: 'Mật khẩu xác nhận không khớp',
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
       });
       return toast.present();
     }
@@ -102,7 +105,7 @@ export class ChangePasswordPage {
       const toast = await this.toast.create({
         message: 'Mật khẩu mới phải khác mật khẩu hiện tại',
         duration: 2000,
-        color: 'warning'
+        color: 'warning',
       });
       return toast.present();
     }
@@ -111,10 +114,10 @@ export class ChangePasswordPage {
     const toast = await this.toast.create({
       message: 'Đổi mật khẩu thành công!',
       duration: 2000,
-      color: 'success'
+      color: 'success',
     });
     await toast.present();
-    
+
     // Navigate back after success
     setTimeout(() => {
       this.navigationService.goBack();

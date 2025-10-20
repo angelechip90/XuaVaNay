@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -30,13 +31,19 @@ import { firstValueFrom } from 'rxjs';
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
-  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, CommonModule, LanguageComponent],
+  imports: [
+    IonContent,
+    IonIcon,
+    CommonModule,
+    LanguageComponent,
+    HeaderComponent,
+  ],
   standalone: true,
 })
 export class AccountPage implements OnInit {
   userInfo = signal<UserInfo>({} as UserInfo);
-  totalBookRead:any = 0;
-  totalHistory:any = 0;
+  totalBookRead: any = 0;
+  totalHistory: any = 0;
 
   constructor(
     private router: Router,
@@ -55,11 +62,7 @@ export class AccountPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // this.loadUserInfo();
-    // this.loadBookRead();
-    // this.loadHistoryConversations();
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.loadUserInfo();
@@ -75,20 +78,24 @@ export class AccountPage implements OnInit {
     });
   }
 
-  loadBookRead(){
-    firstValueFrom(this.api.execApi('ReadBook', 'get-paging','GET', null,null)).then((res:any) =>{
-      if(res){
+  loadBookRead() {
+    firstValueFrom(
+      this.api.execApi('ReadBook', 'get-paging', 'GET', null, null)
+    ).then((res: any) => {
+      if (res) {
         this.totalBookRead = res?.TotalRecords;
       }
-    })
+    });
   }
 
-  loadHistoryConversations(){
-    firstValueFrom(this.api.execApi('Chat', 'get-conversations','GET', null,null)).then((res:any) =>{
-      if(res){
+  loadHistoryConversations() {
+    firstValueFrom(
+      this.api.execApi('Chat', 'get-conversations', 'GET', null, null)
+    ).then((res: any) => {
+      if (res) {
         this.totalHistory = res?.TotalRecords;
       }
-    })
+    });
   }
 
   openEmail() {

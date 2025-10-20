@@ -1,20 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title class="ion-text-center">Lịch sử Hỏi Đáp</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button fill="clear" aria-label="Tùy chọn">
-        <ion-icon name="ellipsis-horizontal"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Lịch sử Hỏi Đáp'" [showBackButton]="true"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true" class="ion-padding">
@@ -35,7 +19,8 @@
       </div>
     </ion-list>
     <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingSpinner="crescent"
+        loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-container>
   <ng-container *ngIf="!lstData || lstData?.length == 0">

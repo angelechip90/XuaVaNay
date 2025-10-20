@@ -1,29 +1,11 @@
-<!-- Header -->
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title class="ion-text-center">
-      {{oData?.Title}}
-    </ion-title>
-
-    <!-- <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="more()" aria-label="Tùy chọn">
-        <ion-icon name="ellipsis-horizontal"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="oData?.Title || ''" [showBackButton]="true"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true" class="reader">
   <ng-container *ngIf="oData">
     <pdf-viewer [src]="linkPDF" [render-text]="true" style="display: block; height: 100vh;width: 100%;"
-      [original-size]="false" [fit-to-page]="true" [autoresize]="true" (after-load-complete)="afterLoadComplete($event)" (pdfLoadingFailed)="onError($event)">
+      [original-size]="false" [fit-to-page]="true" [autoresize]="true" (after-load-complete)="afterLoadComplete($event)"
+      (pdfLoadingFailed)="onError($event)">
     </pdf-viewer>
     <!-- Controls nổi -->
     <div class="controls">

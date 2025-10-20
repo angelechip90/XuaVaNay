@@ -19,10 +19,7 @@
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
       <ion-input size="10" formControlName="password" [type]="showPw() ? 'text' : 'password'" placeholder="Mật khẩu"
         aria-label="Mật khẩu"></ion-input>
-      <ion-button fill="clear" size="small" class="eye" (click)="togglePw()" type="button"
-        aria-label="Hiện/ẩn mật khẩu">
-        <ion-icon [name]="showPw() ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
-      </ion-button>
+      <ion-icon class="eye" (click)="togglePw()" [name]="showPw() ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
     </div>
 
     <!-- Options row -->

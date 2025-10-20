@@ -19,16 +19,24 @@ import { ApiService } from './app/core/services/api.service';
 import { AuthService } from './app/core/services/auth.service';
 import { LoadingService } from './app/core/services/loading.service';
 import { NavigationService } from './app/core/services/navigation.service';
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeVi from '@angular/common/locales/vi';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader,provideTranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG  } from '@ngx-translate/http-loader';
+import {
+  TranslateHttpLoader,
+  provideTranslateHttpLoader,
+  TRANSLATE_HTTP_LOADER_CONFIG,
+} from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader();
 }
+
+registerLocaleData(localeVi);
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -36,13 +44,13 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideHttpClient(),
     provideAnimations(),
-     provideTranslateHttpLoader(),
+    provideTranslateHttpLoader(),
     {
       provide: TRANSLATE_HTTP_LOADER_CONFIG,
       useValue: {
         prefix: '/assets/i18n/',
-        suffix: '.json'
-      }
+        suffix: '.json',
+      },
     },
     provideRouter(routes, withPreloading(PreloadAllModules)),
     NotificationService,
@@ -64,5 +72,6 @@ bootstrapApplication(AppComponent, {
         },
       })
     ),
+    { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
 });

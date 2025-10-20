@@ -9,7 +9,7 @@ import {
   IonIcon,
   IonTitle,
   IonContent,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -22,10 +22,11 @@ import {
   downloadOutline,
   refreshOutline,
   shareSocialOutline,
-  copyOutline
+  copyOutline,
 } from 'ionicons/icons';
 import { InputChatComponent } from '../input-chat/input-chat.component';
 import { AuthStorageService } from 'src/app/core/services/auth.storeage.service';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 type Role = 'user' | 'assistant';
 
@@ -41,9 +42,9 @@ interface Message {
   role: Role;
   author: string;
   avatar?: string;
-  title?: string;      // tiêu đề ngắn (prompt)
-  text?: string;       // nội dung dài
-  refs?: RefCard[];    // các thẻ nguồn tham khảo
+  title?: string; // tiêu đề ngắn (prompt)
+  text?: string; // nội dung dài
+  refs?: RefCard[]; // các thẻ nguồn tham khảo
   kind?: 'text' | 'image';
 }
 
@@ -52,23 +53,19 @@ interface Message {
   templateUrl: './chat-in-book.component.html',
   styleUrls: ['./chat-in-book.component.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
     IonContent,
+    IonIcon,
     CommonModule,
     FormsModule,
-    InputChatComponent
-],
-  standalone: true
+    InputChatComponent,
+    HeaderComponent,
+  ],
+  standalone: true,
 })
 export class ChatInBookComponent implements OnInit {
   constructor(
     private toast: ToastController,
-    private authStorageService: AuthStorageService,
+    private authStorageService: AuthStorageService
   ) {
     addIcons({
       chevronBackOutline,
@@ -84,7 +81,7 @@ export class ChatInBookComponent implements OnInit {
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     let user = this.authStorageService.getCurrentUser();
     console.log(user);
   }
@@ -102,19 +99,22 @@ export class ChatInBookComponent implements OnInit {
         {
           id: 'r1',
           iconColor: 'yellow',
-          summary: 'Áo dài Việt Nam - Ý nghĩa lịch sử của áo dài qua các giai đoạn...',
+          summary:
+            'Áo dài Việt Nam - Ý nghĩa lịch sử của áo dài qua các giai đoạn...',
           source: 'XƯA & NAY SỐ 571 (THÁNG 1.2025)',
         },
         {
           id: 'r2',
           iconColor: 'pink',
-          summary: 'Sự xuất hiện của áo dài bắt nguồn từ áo giao lĩnh (năm 1744) – là kiểu dáng ...',
+          summary:
+            'Sự xuất hiện của áo dài bắt nguồn từ áo giao lĩnh (năm 1744) – là kiểu dáng ...',
           source: 'BỘ TẠP CHÍ XƯA & NAY SỐ 2024',
         },
         {
           id: 'r3',
           iconColor: 'yellow',
-          summary: 'Trải qua nhiều thời kỳ lịch sử, chiếc áo dài truyền thống Việt Nam chính thức ...',
+          summary:
+            'Trải qua nhiều thời kỳ lịch sử, chiếc áo dài truyền thống Việt Nam chính thức ...',
           source: 'XƯA & NAY SỐ 571 (THÁNG 1.2025)',
         },
       ],
@@ -136,7 +136,8 @@ export class ChatInBookComponent implements OnInit {
       role: 'user',
       author: 'MiddleKien',
       avatar: '../../../assets/imgs/demo/1.png',
-      title: 'Hình dáng áo dài thay đổi như thế nào? Hình dáng áo dài thay đổi như thế nào?',
+      title:
+        'Hình dáng áo dài thay đổi như thế nào? Hình dáng áo dài thay đổi như thế nào?',
     },
     {
       id: 'm4',
@@ -169,7 +170,10 @@ export class ChatInBookComponent implements OnInit {
   async copy(msg: Message) {
     if (!msg.text) return;
     await navigator.clipboard.writeText(msg.text);
-    const t = await this.toast.create({ message: 'Đã copy nội dung', duration: 1000 });
+    const t = await this.toast.create({
+      message: 'Đã copy nội dung',
+      duration: 1000,
+    });
     t.present();
   }
 
@@ -197,7 +201,13 @@ export class ChatInBookComponent implements OnInit {
     if (!q) return;
     this.msgs.update((arr) => [
       ...arr,
-      { id: crypto.randomUUID(), role: 'user', author: 'MiddleKien', title: q, avatar: '../../../assets/imgs/demo/1.png' },
+      {
+        id: crypto.randomUUID(),
+        role: 'user',
+        author: 'MiddleKien',
+        title: q,
+        avatar: '../../../assets/imgs/demo/1.png',
+      },
     ]);
     this.drafting.set('');
     // TODO: gọi API chat -> push assistant message

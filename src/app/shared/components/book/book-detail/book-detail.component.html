@@ -1,19 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">Đọc sách</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" aria-label="Tùy chọn">
-        <ion-icon name="bookmark-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <div class="thin-divider"></div>
-</ion-header>
+<app-header [title]="'Đọc sách'" [showBackButton]="true"></app-header>
 
 <ion-content [fullscreen]="true">
   <div class="shell">

@@ -1,36 +1,23 @@
 <div class="ion-page">
-  <!-- Header -->
-  <ion-header class="ion-no-border">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button fill="clear" (click)="goBack()" aria-label="Quay lại">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <ion-title class="ion-text-center">
-        <span class="brand">LACVIET</span><span class="brand-accent">AI</span>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-header [title]="'LACVIETAI'" [showBackButton]="true"></app-header>
 
   <!-- Content -->
   <ion-content [fullscreen]="true" class="ion-padding" #chatContent>
-      <ng-container *ngIf="lstConversation && lstConversation?.length">
-        <ion-list class="ion-bg-color-none">
-          <ng-container *ngFor="let item of lstConversation; let j = index">
-            <ng-container *ngIf="item?.role === 'user'">
-              <section class="block user" @messageAnimation>
-                <div class="chip">
-                  <img *ngIf="user?.Avatar" class="avatar" [src]="user?.Avatar" alt="user" />
-                  <img *ngIf="!user?.Avatar" class="avatar" [src]="severImg+'img/avatar-default.jpg'" alt="user" />
-                  <span *ngIf="user?.FullName" class="name">{{ user?.FullName }}</span>
-                </div>
-      
-                <div class="prompt" *ngIf="item?.content">{{ item?.content }}</div>
-      
-                <!-- Thẻ nguồn tham khảo -->
-                <!-- <div class="refs" *ngIf="m.refs?.length">
+    <ng-container *ngIf="lstConversation && lstConversation?.length">
+      <ion-list class="ion-bg-color-none">
+        <ng-container *ngFor="let item of lstConversation; let j = index">
+          <ng-container *ngIf="item?.role === 'user'">
+            <section class="block user" @messageAnimation>
+              <div class="chip">
+                <img *ngIf="user?.Avatar" class="avatar" [src]="user?.Avatar" alt="user" />
+                <img *ngIf="!user?.Avatar" class="avatar" [src]="severImg+'img/avatar-default.jpg'" alt="user" />
+                <span *ngIf="user?.FullName" class="name">{{ user?.FullName }}</span>
+              </div>
+
+              <div class="prompt" *ngIf="item?.content">{{ item?.content }}</div>
+
+              <!-- Thẻ nguồn tham khảo -->
+              <!-- <div class="refs" *ngIf="m.refs?.length">
                       <div class="ref-card" *ngFor="let r of m.refs">
                         <div class="ref-summary">{{ r.summary }}</div>
                         <div class="ref-source-row">
@@ -41,228 +28,230 @@
                         </div>
                       </div>
                     </div> -->
-              </section>
-              <!-- <div class="d-flex justify-content-end align-items-center" [ngClass]="j > 0 ? 'mt-3' : ''">
+            </section>
+            <!-- <div class="d-flex justify-content-end align-items-center" [ngClass]="j > 0 ? 'mt-3' : ''">
                     <span class="badge p-2 rounded-pill bg-secondary fs-6 text-wrap text-dark" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;background-color: white !important;text-align: start;">{{item?.content}}</span>
                   </div> -->
-            </ng-container>
-            <ng-container *ngIf="item?.role === 'assistant'">
-              <div @messageAnimation>
-                <section class="block bot">
-                  <div class="bot-chip">
-                    <div class="grad-circle">
-                      <div class="shine"></div>
-                    </div>
-                    <span class="name">LACVIET AI</span>
+          </ng-container>
+          <ng-container *ngIf="item?.role === 'assistant'">
+            <div @messageAnimation>
+              <section class="block bot">
+                <div class="bot-chip">
+                  <div class="grad-circle">
+                    <div class="shine"></div>
                   </div>
-      
-                  <div class="answer">
-                    <ng-container *ngIf="item?.showResearch">
-                      <div class="accordion" id="accordionResearch">
-                        <div class="accordion-item">
-                          <h3 class="accordion-header m-0">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                              data-bs-target="#collapseResearch" aria-expanded="true" aria-controls="collapseResearch">
-                              <div class="w-100 d-flex align-items-center justify-content-between">
-                                <span class="text-dark me-2">Tìm kiếm sâu</span>
-                                <span class="text-dark me-2" *ngIf="item?.resourceRefs && item?.resourceRefs?.length">
-                                  ({{item?.resourceRefs?.length}}) nguồn
-                                </span>
-                              </div>
-                            </button>
-                          </h3>
-                          <div id="collapseResearch" class="accordion-collapse show" data-bs-parent="#accordionResearch">
-                            <div class="accordion-body clamp-text p-0">
-                              <ng-container *ngIf="item?.researchItems && item?.researchItems?.length">
-                                <ng-container *ngFor="let research of item?.researchItems">
-                                  <div class="research-item mb-1" [attr.data-step]="item?.recID">
-                                    <div class="accordion" [id]="'accordionResearchItems'+research?.recID">
-                                      <div class="accordion-item accordion-noborder">
-                                        <h3 class="accordion-header m-0">
-                                          <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                            [attr.data-bs-target]="'#collapseResearchItems'+research?.recID"
-                                            aria-expanded="true"
-                                            [attr.aria-controls]="'collapseResearchItems'+research?.recID"
-                                            (click)="research.expanded = !research.expanded">
-                                            <div class="d-flex gap-2 flex-column">
-                                              <span [ngClass]="research.expanded ? '' : 'line-clamp-1'"
-                                                class="lh-base text-dark" [innerHTML]="research?.message"></span>
-                                              <span *ngIf="research?.isWrappingUp"
-                                                class="badge rounded-pill text-bg-light text-wrap"
-                                                style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
-                                                wrapping_up
-                                              </span>
-                                              <span *ngIf="research?.isDetailedAnalysis"
-                                                class="badge rounded-pill text-bg-light text-wrap"
-                                                style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
-                                                detailed_analysis
-                                              </span>
-                                            </div>
-                                          </button>
-                                        </h3>
-                                        <div [id]="'collapseResearchItems'+research?.recID" class="accordion-collapse show"
-                                          [attr.data-bs-parent]="'accordionResearchItems'+research?.recID">
-                                          <div class="accordion-body clamp-text">
-                                            <ng-container *ngIf="research?.searchQueries && research?.searchQueries">
-                                              <div class="mt-2 d-flex flex-column gap-2">
-                                                <span class="fw-bold mb-2">
-                                                  Searching
-                                                </span>
-                                                <ng-container *ngFor="let queries of research?.searchQueries">
-                                                  <span (click)="query(queries)"
-                                                    style="width: fit-content;text-align: start;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-                                                    class="badge rounded-pill text-bg-light text-wrap">{{queries}}</span>
-                                                </ng-container>
-                                              </div>
-                                            </ng-container>
-                                            <ng-container *ngIf="research?.readingSources && research?.readingSources">
-                                              <div class="mt-2 d-flex flex-column gap-2">
-                                                <span class="fw-bold mb-2">
-                                                  Reading
-                                                </span>
-                                                <ng-container *ngFor="let reading of research?.readingSources">
-                                                  <span (click)="readBook(reading)"
-                                                    class="badge rounded-pill text-bg-light text-wrap"
-                                                    style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
-                                                    <div class="d-flex align-items-center">
-                                                      <img style="width: 16px;height: 16px;" class="me-2 rounded-circle"
-                                                        [src]="reading?.AvatarPath" [alt]="reading?.Title">
-                                                      <span class="fs-7" [innerHTML]="reading?.Title"></span>
-                                                    </div>
-                                                  </span>
-                                                </ng-container>
-                                              </div>
-                                            </ng-container>
+                  <span class="name">LACVIET AI</span>
+                </div>
+
+                <div class="answer">
+                  <ng-container *ngIf="item?.showResearch">
+                    <div class="accordion" id="accordionResearch">
+                      <div class="accordion-item">
+                        <h3 class="accordion-header m-0">
+                          <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseResearch" aria-expanded="true" aria-controls="collapseResearch">
+                            <div class="w-100 d-flex align-items-center justify-content-between">
+                              <span class="text-dark me-2">Tìm kiếm sâu</span>
+                              <span class="text-dark me-2" *ngIf="item?.resourceRefs && item?.resourceRefs?.length">
+                                ({{item?.resourceRefs?.length}}) nguồn
+                              </span>
+                            </div>
+                          </button>
+                        </h3>
+                        <div id="collapseResearch" class="accordion-collapse show" data-bs-parent="#accordionResearch">
+                          <div class="accordion-body clamp-text p-0">
+                            <ng-container *ngIf="item?.researchItems && item?.researchItems?.length">
+                              <ng-container *ngFor="let research of item?.researchItems">
+                                <div class="research-item mb-1" [attr.data-step]="item?.recID">
+                                  <div class="accordion" [id]="'accordionResearchItems'+research?.recID">
+                                    <div class="accordion-item accordion-noborder">
+                                      <h3 class="accordion-header m-0">
+                                        <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                                          [attr.data-bs-target]="'#collapseResearchItems'+research?.recID"
+                                          aria-expanded="true"
+                                          [attr.aria-controls]="'collapseResearchItems'+research?.recID"
+                                          (click)="research.expanded = !research.expanded">
+                                          <div class="d-flex gap-2 flex-column">
+                                            <span [ngClass]="research.expanded ? '' : 'line-clamp-1'"
+                                              class="lh-base text-dark" [innerHTML]="research?.message"></span>
+                                            <span *ngIf="research?.isWrappingUp"
+                                              class="badge rounded-pill text-bg-light text-wrap"
+                                              style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
+                                              wrapping_up
+                                            </span>
+                                            <span *ngIf="research?.isDetailedAnalysis"
+                                              class="badge rounded-pill text-bg-light text-wrap"
+                                              style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
+                                              detailed_analysis
+                                            </span>
                                           </div>
+                                        </button>
+                                      </h3>
+                                      <div [id]="'collapseResearchItems'+research?.recID"
+                                        class="accordion-collapse show"
+                                        [attr.data-bs-parent]="'accordionResearchItems'+research?.recID">
+                                        <div class="accordion-body clamp-text">
+                                          <ng-container *ngIf="research?.searchQueries && research?.searchQueries">
+                                            <div class="mt-2 d-flex flex-column gap-2">
+                                              <span class="fw-bold mb-2">
+                                                Searching
+                                              </span>
+                                              <ng-container *ngFor="let queries of research?.searchQueries">
+                                                <span (click)="query(queries)"
+                                                  style="width: fit-content;text-align: start;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                                                  class="badge rounded-pill text-bg-light text-wrap">{{queries}}</span>
+                                              </ng-container>
+                                            </div>
+                                          </ng-container>
+                                          <ng-container *ngIf="research?.readingSources && research?.readingSources">
+                                            <div class="mt-2 d-flex flex-column gap-2">
+                                              <span class="fw-bold mb-2">
+                                                Reading
+                                              </span>
+                                              <ng-container *ngFor="let reading of research?.readingSources">
+                                                <span (click)="readBook(reading)"
+                                                  class="badge rounded-pill text-bg-light text-wrap"
+                                                  style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;width: fit-content;">
+                                                  <div class="d-flex align-items-center">
+                                                    <img style="width: 16px;height: 16px;" class="me-2 rounded-circle"
+                                                      [src]="reading?.AvatarPath" [alt]="reading?.Title">
+                                                    <span class="fs-7" [innerHTML]="reading?.Title"></span>
+                                                  </div>
+                                                </span>
+                                              </ng-container>
+                                            </div>
+                                          </ng-container>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                </ng-container>
-                              </ng-container>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ng-container>
-                    <ng-container *ngIf="item?.isShowAnswer">
-                      <div class="mt-3">
-                        <div class="d-flex align-items-center gap-2" style="border-bottom: 1px solid #e5e7eb;">
-                          <h3 class="m-0 py-2">
-                            <svg style="height:20px; width:20px" width="26" height="26" viewBox="0 0 26 26" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M17.7235 17.3024C17.7235 19.2279 19.5087 20.3311 21.2737 20.3913C23.0588 20.4514 23.801 19.93 23.801 19.93V21.8154C23.801 21.9558 23.4399 23.5804 21.5144 23.6205C19.4284 23.6205 19.0273 21.5747 19.0273 21.5747H17.4026C17.4026 22.3369 17.9241 25.1048 21.7551 25.1048C25.5861 25.1048 25.3654 20.6119 25.3654 20.6119V13.1305H23.7608V17.7036C23.7608 17.844 23.3597 19.0474 21.374 19.0073C19.3081 19.0073 19.1877 17.0818 19.1877 17.0818V13.1305H17.6634C17.7035 13.1305 17.7235 15.3769 17.7235 17.3024ZM9.27935 12.5087C9.27935 12.5087 9.3997 13.9729 10.3023 14.6147V16.0187H8.57734V15.2164C8.57734 15.2164 8.43694 13.7924 9.27935 12.5087ZM12.5688 11.0646C16.0187 11.0044 16.1791 14.5947 16.1791 14.8755V23.2394C16.1791 23.2394 16.4399 23.8612 17.1018 23.9013C17.1218 25.0446 17.1018 25.4458 17.1018 25.4458C17.1018 25.4458 15.437 25.2452 14.4542 24.3025C14.4542 24.3025 13.5315 25.0647 12.2679 25.1048C11.265 25.1248 8.57734 24.8841 8.51717 21.1936C8.51717 19.1477 9.60027 16.7408 11.8467 16.6806C13.6719 16.6405 14.394 17.6434 14.5545 17.9643V14.695C14.5545 14.695 14.5946 12.8497 13.0301 12.8497C11.7264 12.8497 11.9671 11.4256 11.9671 11.0846L12.5688 11.0646ZM12.1877 18.4658C11.0244 18.4658 10.0616 19.6291 10.0616 21.0532C10.0616 22.4773 11.0043 23.6406 12.1877 23.6406C13.351 23.6406 14.2937 22.4773 14.2937 21.0532C14.2937 19.6291 13.351 18.4658 12.1877 18.4658ZM0.634583 13.0904V21.5145C0.634583 21.5145 0.514239 24.6033 2.33947 24.6033V16.119C2.33947 16.119 2.51999 14.1333 4.0243 14.1333C5.5286 14.1333 5.54866 15.5173 5.54866 15.5173V23.7409C5.54866 23.7409 5.2478 25.165 7.49424 25.165V15.6978C7.49424 15.6978 7.71487 12.4886 4.64608 12.4886C4.64608 12.4886 3.222 12.4285 2.31941 13.0904H0.634583ZM23.6004 8.73789C23.6004 10.162 22.6577 11.3253 21.4743 11.3253C20.2909 11.3253 19.3683 10.162 19.3683 8.73789C19.3683 7.31381 20.311 6.15047 21.4743 6.15047C22.6376 6.15047 23.6004 7.31381 23.6004 8.73789ZM21.8153 1.69772C23.5803 1.69772 23.7408 3.34243 23.7408 3.34243V5.58886C23.5803 5.4284 22.4571 4.62611 20.9929 4.62611C19.5287 4.62611 17.8238 6.35105 17.8238 8.85823C17.8238 11.3654 19.2279 12.7494 20.9127 12.7694C22.9987 12.8096 23.6405 11.7666 23.6405 11.7666L23.9815 12.5689H25.3855V3.58312C25.3855 3.20203 25.225 0.233521 21.9356 0.233521C18.225 0.233521 17.9041 3.74358 17.9041 3.74358H19.5488C19.5488 3.48283 20.0502 1.69772 21.8153 1.69772ZM13.8123 0.47421V1.53726H15.778C15.778 1.53726 16.6806 1.53726 16.6806 2.21921C16.6806 2.90116 16.1591 2.90116 15.8181 2.90116H14.7952V11.1047C14.7952 11.1047 16.1591 11.7666 16.6003 13.7723V3.543C16.6003 3.543 17.6834 3.64329 17.6834 2.15904C17.6834 0.674785 16.6003 0.454153 16.3998 0.454153H13.8123V0.47421ZM11.4054 0.47421H9.6805V11.1448C9.6805 11.1448 9.49998 15.2566 13.4112 15.2566C13.4112 15.2566 13.7522 15.2566 14.033 15.1763V14.374C14.033 14.374 14.0931 13.5517 13.0903 13.4714C12.0874 13.3712 11.4255 12.9299 11.4255 11.7264L11.4054 0.47421ZM8.61746 9.13904V12.5087H7.01286C7.01286 12.5087 6.9928 10.6233 7.01286 9.92128C7.05297 9.21927 6.8524 7.95565 4.64608 6.95277C4.62602 6.95277 4.62602 6.93271 4.60596 6.93271C2.76068 8.19634 2.76067 9.35967 2.74062 10.1419C2.72056 11.0846 2.72056 12.5087 2.72056 12.5087H1.01568V9.50007C1.01568 9.50007 0.674698 7.8353 3.06154 6.11036C0.97556 4.72639 1.11596 3.36249 1.11596 3.36249V0.454153H2.64033C2.64033 0.454153 2.64033 2.15904 2.66039 2.50001C2.72056 3.4026 3.06154 4.36536 4.50567 5.10749C6.29079 4.00432 7.37389 3.14185 7.37389 1.798V0.454153H8.97849V2.15904C8.97849 2.15904 9.13895 4.3453 6.17044 6.03013C8.71774 7.27369 8.61746 9.13904 8.61746 9.13904Z"
-                                fill="url(#paint0_linear_2395_1316)"></path>
-                              <defs>
-                                <linearGradient id="paint0_linear_2395_1316" x1="2.12904" y1="23.4602" x2="26.2491"
-                                  y2="1.89148" gradientUnits="userSpaceOnUse">
-                                  <stop stop-color="#801DFE"></stop>
-                                  <stop offset="0.225" stop-color="#B427BD"></stop>
-                                  <stop offset="0.675" stop-color="#ED1C24"></stop>
-                                </linearGradient>
-                              </defs>
-                            </svg>
-                            Trả lời
-                          </h3>
-                        </div>
-                        <div class="mt-3">
-                          <div [innerHTML]="item?.answer"></div>
-                        </div>
-                      </div>
-                    </ng-container>
-                    <ng-container *ngIf="item?.questionRelateds && item?.questionRelateds?.length">
-                      <div class="mt-3">
-                        <div class="d-flex justify-content-between align-items-center pb-3"
-                          style="border-bottom: 1px solid #e5e7eb;">
-                          <h3 class="m-0 py-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              color="currentColor" fill="currentColor" fill-rule="evenodd">
-                              <path
-                                d="M16.0799 4.39998H17.9999V6.31993H19.9201V8.23993H17.9999V10.16H16.0799V8.23993H14.1601V6.31993H16.0799V4.39998Z M3.60001 6.31993H12.24V8.23993H3.60001V6.31993Z M12.24 12.08H20.8799V14H12.2399L12.24 12.08Z M12.24 12.08H3.60001V10.16H12.24V12.08Z M12.2399 15.92H3.60001V14H12.2399V15.92Z M12.2399 15.92L20.8799 15.9199V17.8399H12.2399V15.92Z">
-                              </path>
-                            </svg>
-                            Câu hỏi liên quan:
-                          </h3>
-                        </div>
-                        <div class="mt-3">
-                          <ng-container *ngFor="let questionRelateds of item?.questionRelateds; let i = index">
-                            <p (click)="query(questionRelateds.Question)" class="lv_gpt_suggest mb-2">{{ i + 1 }}.
-                              {{questionRelateds.Question}}</p>
-                          </ng-container>
-                        </div>
-                      </div>
-                    </ng-container>
-                    <ng-container *ngIf="item?.resourceRefs && item?.resourceRefs?.length && item?.isShowResourceRefs">
-                      <div class="mt-3">
-                        <div class="source-ref__container">
-                          <div class="source-ref__pannel">
-                            <div class="d-flex justify-content-between align-items-center pb-3"
-                              style="border-bottom: 1px solid #e5e7eb;">
-                              <h3 class="m-0">Nguồn đọc <span
-                                  class="source-ref__counter-number">({{item?.resourceRefs?.length}})</span>
-                              </h3>
-                            </div>
-                            <div class="source-ref__list">
-                              <ng-container *ngFor="let resourceRefs of item?.resourceRefs">
-                                <div class="source-ref__item m-2 p-2" [attr.data-id]='resourceRefs?.BookId'>
-                                  <div class="mt-0 d-flex flex-column">
-                                    <a (click)="readBook(resourceRefs)" href="javascript:void(0)"
-                                      class="source-ref__item-tag text-decoration-none" [attr.data-id]='resourceRefs?.BookId'>
-                                      <img [src]="resourceRefs?.AvatarPath" [alt]="resourceRefs?.Title">
-                                      <span [innerHTML]="resourceRefs?.Title"></span>
-                                    </a>
-                                    <ng-container *ngIf="resourceRefs?.Pages && resourceRefs?.Pages?.length">
-                                      <span class="text-dark">
-                                        <ng-container *ngFor="let page of resourceRefs?.Pages">
-                                          <span (click)="readBookByPage(resourceRefs?.BookId,page?.PageIdx)"
-                                            class="mx-1 badge rounded-pill text-bg-light cursor-pointer source-ref__item-tag-page"
-                                            [attr.data-id]='resourceRefs?.BookId' [attr.data-page]='page?.PageIdx'>
-                                            Tr.{{page?.PageIdx}}
-                                          </span>
-                                        </ng-container>
-                                      </span>
-                                    </ng-container>
-                                  </div>
-                                  <div class="source-ref__item-title text-truncate">
-                                    <span [innerHTML]="resourceRefs?.Description"></span>
-                                  </div>
                                 </div>
                               </ng-container>
-                            </div>
+                            </ng-container>
                           </div>
                         </div>
                       </div>
-                    </ng-container>
-                    <ng-container *ngIf="item?.isShowAnswerError">
-                      <div class="mt-3">
-                        <div [innerHTML]="item?.answerError"></div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item?.isShowAnswer">
+                    <div class="mt-3">
+                      <div class="d-flex align-items-center gap-2" style="border-bottom: 1px solid #e5e7eb;">
+                        <h3 class="m-0 py-2">
+                          <svg style="height:20px; width:20px" width="26" height="26" viewBox="0 0 26 26" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M17.7235 17.3024C17.7235 19.2279 19.5087 20.3311 21.2737 20.3913C23.0588 20.4514 23.801 19.93 23.801 19.93V21.8154C23.801 21.9558 23.4399 23.5804 21.5144 23.6205C19.4284 23.6205 19.0273 21.5747 19.0273 21.5747H17.4026C17.4026 22.3369 17.9241 25.1048 21.7551 25.1048C25.5861 25.1048 25.3654 20.6119 25.3654 20.6119V13.1305H23.7608V17.7036C23.7608 17.844 23.3597 19.0474 21.374 19.0073C19.3081 19.0073 19.1877 17.0818 19.1877 17.0818V13.1305H17.6634C17.7035 13.1305 17.7235 15.3769 17.7235 17.3024ZM9.27935 12.5087C9.27935 12.5087 9.3997 13.9729 10.3023 14.6147V16.0187H8.57734V15.2164C8.57734 15.2164 8.43694 13.7924 9.27935 12.5087ZM12.5688 11.0646C16.0187 11.0044 16.1791 14.5947 16.1791 14.8755V23.2394C16.1791 23.2394 16.4399 23.8612 17.1018 23.9013C17.1218 25.0446 17.1018 25.4458 17.1018 25.4458C17.1018 25.4458 15.437 25.2452 14.4542 24.3025C14.4542 24.3025 13.5315 25.0647 12.2679 25.1048C11.265 25.1248 8.57734 24.8841 8.51717 21.1936C8.51717 19.1477 9.60027 16.7408 11.8467 16.6806C13.6719 16.6405 14.394 17.6434 14.5545 17.9643V14.695C14.5545 14.695 14.5946 12.8497 13.0301 12.8497C11.7264 12.8497 11.9671 11.4256 11.9671 11.0846L12.5688 11.0646ZM12.1877 18.4658C11.0244 18.4658 10.0616 19.6291 10.0616 21.0532C10.0616 22.4773 11.0043 23.6406 12.1877 23.6406C13.351 23.6406 14.2937 22.4773 14.2937 21.0532C14.2937 19.6291 13.351 18.4658 12.1877 18.4658ZM0.634583 13.0904V21.5145C0.634583 21.5145 0.514239 24.6033 2.33947 24.6033V16.119C2.33947 16.119 2.51999 14.1333 4.0243 14.1333C5.5286 14.1333 5.54866 15.5173 5.54866 15.5173V23.7409C5.54866 23.7409 5.2478 25.165 7.49424 25.165V15.6978C7.49424 15.6978 7.71487 12.4886 4.64608 12.4886C4.64608 12.4886 3.222 12.4285 2.31941 13.0904H0.634583ZM23.6004 8.73789C23.6004 10.162 22.6577 11.3253 21.4743 11.3253C20.2909 11.3253 19.3683 10.162 19.3683 8.73789C19.3683 7.31381 20.311 6.15047 21.4743 6.15047C22.6376 6.15047 23.6004 7.31381 23.6004 8.73789ZM21.8153 1.69772C23.5803 1.69772 23.7408 3.34243 23.7408 3.34243V5.58886C23.5803 5.4284 22.4571 4.62611 20.9929 4.62611C19.5287 4.62611 17.8238 6.35105 17.8238 8.85823C17.8238 11.3654 19.2279 12.7494 20.9127 12.7694C22.9987 12.8096 23.6405 11.7666 23.6405 11.7666L23.9815 12.5689H25.3855V3.58312C25.3855 3.20203 25.225 0.233521 21.9356 0.233521C18.225 0.233521 17.9041 3.74358 17.9041 3.74358H19.5488C19.5488 3.48283 20.0502 1.69772 21.8153 1.69772ZM13.8123 0.47421V1.53726H15.778C15.778 1.53726 16.6806 1.53726 16.6806 2.21921C16.6806 2.90116 16.1591 2.90116 15.8181 2.90116H14.7952V11.1047C14.7952 11.1047 16.1591 11.7666 16.6003 13.7723V3.543C16.6003 3.543 17.6834 3.64329 17.6834 2.15904C17.6834 0.674785 16.6003 0.454153 16.3998 0.454153H13.8123V0.47421ZM11.4054 0.47421H9.6805V11.1448C9.6805 11.1448 9.49998 15.2566 13.4112 15.2566C13.4112 15.2566 13.7522 15.2566 14.033 15.1763V14.374C14.033 14.374 14.0931 13.5517 13.0903 13.4714C12.0874 13.3712 11.4255 12.9299 11.4255 11.7264L11.4054 0.47421ZM8.61746 9.13904V12.5087H7.01286C7.01286 12.5087 6.9928 10.6233 7.01286 9.92128C7.05297 9.21927 6.8524 7.95565 4.64608 6.95277C4.62602 6.95277 4.62602 6.93271 4.60596 6.93271C2.76068 8.19634 2.76067 9.35967 2.74062 10.1419C2.72056 11.0846 2.72056 12.5087 2.72056 12.5087H1.01568V9.50007C1.01568 9.50007 0.674698 7.8353 3.06154 6.11036C0.97556 4.72639 1.11596 3.36249 1.11596 3.36249V0.454153H2.64033C2.64033 0.454153 2.64033 2.15904 2.66039 2.50001C2.72056 3.4026 3.06154 4.36536 4.50567 5.10749C6.29079 4.00432 7.37389 3.14185 7.37389 1.798V0.454153H8.97849V2.15904C8.97849 2.15904 9.13895 4.3453 6.17044 6.03013C8.71774 7.27369 8.61746 9.13904 8.61746 9.13904Z"
+                              fill="url(#paint0_linear_2395_1316)"></path>
+                            <defs>
+                              <linearGradient id="paint0_linear_2395_1316" x1="2.12904" y1="23.4602" x2="26.2491"
+                                y2="1.89148" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#801DFE"></stop>
+                                <stop offset="0.225" stop-color="#B427BD"></stop>
+                                <stop offset="0.675" stop-color="#ED1C24"></stop>
+                              </linearGradient>
+                            </defs>
+                          </svg>
+                          Trả lời
+                        </h3>
                       </div>
-                    </ng-container>
-                  </div>
-                </section>
-                <ng-container *ngIf="isRender && item?.isNew">
-                  <div class="ai_typing_dot"></div>
-                </ng-container>
-              </div>
-            </ng-container>
-            <div class="thin-divider"></div>
+                      <div class="mt-3">
+                        <div [innerHTML]="item?.answer"></div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item?.questionRelateds && item?.questionRelateds?.length">
+                    <div class="mt-3">
+                      <div class="d-flex justify-content-between align-items-center pb-3"
+                        style="border-bottom: 1px solid #e5e7eb;">
+                        <h3 class="m-0 py-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            color="currentColor" fill="currentColor" fill-rule="evenodd">
+                            <path
+                              d="M16.0799 4.39998H17.9999V6.31993H19.9201V8.23993H17.9999V10.16H16.0799V8.23993H14.1601V6.31993H16.0799V4.39998Z M3.60001 6.31993H12.24V8.23993H3.60001V6.31993Z M12.24 12.08H20.8799V14H12.2399L12.24 12.08Z M12.24 12.08H3.60001V10.16H12.24V12.08Z M12.2399 15.92H3.60001V14H12.2399V15.92Z M12.2399 15.92L20.8799 15.9199V17.8399H12.2399V15.92Z">
+                            </path>
+                          </svg>
+                          Câu hỏi liên quan:
+                        </h3>
+                      </div>
+                      <div class="mt-3">
+                        <ng-container *ngFor="let questionRelateds of item?.questionRelateds; let i = index">
+                          <p (click)="query(questionRelateds.Question)" class="lv_gpt_suggest mb-2">{{ i + 1 }}.
+                            {{questionRelateds.Question}}</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item?.resourceRefs && item?.resourceRefs?.length && item?.isShowResourceRefs">
+                    <div class="mt-3">
+                      <div class="source-ref__container">
+                        <div class="source-ref__pannel">
+                          <div class="d-flex justify-content-between align-items-center pb-3"
+                            style="border-bottom: 1px solid #e5e7eb;">
+                            <h3 class="m-0">Nguồn đọc <span
+                                class="source-ref__counter-number">({{item?.resourceRefs?.length}})</span>
+                            </h3>
+                          </div>
+                          <div class="source-ref__list">
+                            <ng-container *ngFor="let resourceRefs of item?.resourceRefs">
+                              <div class="source-ref__item m-2 p-2" [attr.data-id]='resourceRefs?.BookId'>
+                                <div class="mt-0 d-flex flex-column">
+                                  <a (click)="readBook(resourceRefs)" href="javascript:void(0)"
+                                    class="source-ref__item-tag text-decoration-none"
+                                    [attr.data-id]='resourceRefs?.BookId'>
+                                    <img [src]="resourceRefs?.AvatarPath" [alt]="resourceRefs?.Title">
+                                    <span [innerHTML]="resourceRefs?.Title"></span>
+                                  </a>
+                                  <ng-container *ngIf="resourceRefs?.Pages && resourceRefs?.Pages?.length">
+                                    <span class="text-dark">
+                                      <ng-container *ngFor="let page of resourceRefs?.Pages">
+                                        <span (click)="readBookByPage(resourceRefs?.BookId,page?.PageIdx)"
+                                          class="mx-1 badge rounded-pill text-bg-light cursor-pointer source-ref__item-tag-page"
+                                          [attr.data-id]='resourceRefs?.BookId' [attr.data-page]='page?.PageIdx'>
+                                          Tr.{{page?.PageIdx}}
+                                        </span>
+                                      </ng-container>
+                                    </span>
+                                  </ng-container>
+                                </div>
+                                <div class="source-ref__item-title text-truncate">
+                                  <span [innerHTML]="resourceRefs?.Description"></span>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item?.isShowAnswerError">
+                    <div class="mt-3">
+                      <div [innerHTML]="item?.answerError"></div>
+                    </div>
+                  </ng-container>
+                </div>
+              </section>
+              <ng-container *ngIf="isRender && item?.isNew">
+                <div class="ai_typing_dot"></div>
+              </ng-container>
+            </div>
           </ng-container>
-        </ion-list>
-        <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
-          <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ng-container>
-      <ng-container *ngIf="!lstConversation || lstConversation?.length == 0">
-        <!-- de tam neu du lieu ko co se hien thi cai gi -->
-      </ng-container>
-      <!-- Greeting -->
-      <!-- <div class="greeting">
+          <div class="thin-divider"></div>
+        </ng-container>
+      </ion-list>
+      <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+    <ng-container *ngIf="!lstConversation || lstConversation?.length == 0">
+      <!-- de tam neu du lieu ko co se hien thi cai gi -->
+    </ng-container>
+    <!-- Greeting -->
+    <!-- <div class="greeting">
         <span class="text">{{ greeting() }}</span><span class="emoji"> 😊️</span>
       </div> -->
 
-      <!-- Card: Bạn quan tâm chủ đề nào? -->
-      <!-- <ion-card class="topics-card" mode="ios">
+    <!-- Card: Bạn quan tâm chủ đề nào? -->
+    <!-- <ion-card class="topics-card" mode="ios">
         <ion-card-content>
           <div class="card-title">
             <div class="dots">
@@ -279,8 +268,8 @@
         </ion-card-content>
       </ion-card> -->
 
-      <!-- Gợi ý hỏi nhanh -->
-      <!-- <div class="suggestions">
+    <!-- Gợi ý hỏi nhanh -->
+    <!-- <div class="suggestions">
         <div class="sugg-card" *ngFor="let s of suggestions()" (click)="useSuggestion(s)">
           <div class="sugg-text">
             <div class="sugg-title">{{ s.title }}</div>
@@ -290,9 +279,9 @@
         </div>
       </div> -->
 
-      <div class="bottom-spacer"></div>
+    <div class="bottom-spacer"></div>
   </ion-content>
 
   <!-- Composer -->
- <app-input-chat (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>
+  <app-input-chat (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>
 </div>
