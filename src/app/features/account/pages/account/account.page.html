@@ -61,7 +61,7 @@
           <ion-icon name="book-outline"></ion-icon>
         </div>
         <div class="label">Sách đã đọc</div>
-        <div class="value">{{ userInfo().ActiveSubscription?.UsedChatQuota | number:'2.0' }}</div>
+        <div class="value">{{ totalBookRead}}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
@@ -74,7 +74,7 @@
           <ion-icon name="chatbubbles-outline"></ion-icon>
         </div>
         <div class="label">Lịch sử Hỏi Đáp</div>
-        <div class="value">{{ userInfo().ActiveSubscription?.UsedChatQuota }}</div>
+        <div class="value">{{ totalHistory}}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>

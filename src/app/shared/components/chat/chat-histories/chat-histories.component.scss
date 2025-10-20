@@ -63,7 +63,7 @@ ion-header {
 }
 
 .icon-btn.send ion-icon {
-    transform: rotate(45deg);
+    //transform: rotate(45deg);
     color: #ef4444;
 }
 
@@ -100,7 +100,7 @@ ion-header {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    min-height: 188px;
+    max-height: 188px;
     overflow: hidden;
 }
 

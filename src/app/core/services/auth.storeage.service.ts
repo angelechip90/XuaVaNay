@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from './storage.service';
 import { User } from 'src/app/models/User.model';
 
 @Injectable({
@@ -9,7 +10,9 @@ export class AuthStorageService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {
+  constructor(
+    private storage:StorageService
+  ) {
     this.loadUserFromStorage();
   }
 

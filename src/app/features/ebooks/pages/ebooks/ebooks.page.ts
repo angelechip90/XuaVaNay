@@ -6,6 +6,7 @@ import { bookOutline, downloadOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
+import { ListComponent } from 'src/app/shared/components/list/list.component';
 
 @Component({
   selector: 'app-ebooks',
@@ -23,7 +24,8 @@ import { firstValueFrom } from 'rxjs';
     IonList,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    CommonModule
+    CommonModule,
+    ListComponent
   ],
   standalone: true
 })
