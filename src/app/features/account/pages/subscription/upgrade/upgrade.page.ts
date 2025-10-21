@@ -71,7 +71,7 @@ export class UpgradePage implements OnInit {
   onUpgrade(id: string) {
     this.apiService
       .execApi('Order', 'create', 'POST', {
-        SubscriptionPlanId: '1c4a2214-9dbe-401a-9be6-83eed91d69a9', //Test id,
+        SubscriptionPlanId: id,
         Quantity: 1,
         CouponCode: '',
         Notes: '',

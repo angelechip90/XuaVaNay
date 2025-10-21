@@ -1,68 +1,80 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonNote,
+  IonChip,
+  IonItemDivider,
+  IonSkeletonText,
+  IonList,
+} from '@ionic/angular/standalone';
+import { Component, Injector } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
+import { BaseComponent } from 'src/app/core/base/base.component';
+import { Order } from 'src/app/models/Order.model';
+import {
+  checkmarkCircle,
+  chevronBackOutline,
+  ellipsisHorizontal,
+} from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
-type OrderStatus = 'processing' | 'paid' | 'failed';
-
-interface OrderSummary {
-  planTitle: string;
-  planAccent: string;
-  durationLabel: string;
-  orderCode: string;
-  orderValue: number; // VND
-  status: OrderStatus;
-  paymentMethod: string;
-  updatedAt: string | Date;
-  discount: number; // VND (âm nếu giảm)
-  totalPay: number; // VND
-}
 
 @Component({
   standalone: true,
   selector: 'app-order-detail-page',
-  imports: [IonicModule, CommonModule, RouterModule, HeaderComponent],
+  imports: [
+    ...BASE_IMPORTS,
+    IonContent,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonNote,
+    IonChip,
+    IonItemDivider,
+    IonSkeletonText,
+    HeaderComponent,
+  ],
   templateUrl: './order-detail.page.html',
   styleUrls: ['./order-detail.page.scss'],
 })
-export class OrderDetailPage {
-  private route = inject(ActivatedRoute);
-
+export class OrderDetailPage extends BaseComponent {
   id = this.route.snapshot.paramMap.get('id'); // nếu dùng /order/:id
   loading = false;
 
-  order: OrderSummary = {
-    planTitle: 'Gói',
-    planAccent: 'ĐỌC TOÀN VĂN VÀ CHAT VỚI AI',
-    durationLabel: '1 năm',
-    orderCode: '565JYWBKL',
-    orderValue: 1450000,
-    status: 'processing',
-    paymentMethod: 'Momo',
-    updatedAt: new Date('2025-10-02T09:30:00+07:00'),
-    discount: -50000,
-    totalPay: 1400000,
-  };
+  order: Order | null = null;
 
-  get statusColor(): string {
-    switch (this.order.status) {
-      case 'paid':
-        return 'success';
-      case 'failed':
-        return 'danger';
+  get statusText(): string {
+    switch (this.order?.Status) {
+      case 1:
+        return this.translate.instant('orderDetail.statusText.paid');
+      case 2:
+        return this.translate.instant('orderDetail.statusText.failed');
       default:
-        return 'primary';
+        return this.translate.instant('orderDetail.statusText.processing');
     }
   }
 
-  get statusText(): string {
-    switch (this.order.status) {
-      case 'paid':
-        return 'Đã thanh toán';
-      case 'failed':
-        return 'Thất bại';
-      default:
-        return 'Đang xử lý';
-    }
+  constructor(injector: Injector, private translate: TranslateService) {
+    super(injector);
+    addIcons({
+      chevronBackOutline,
+      ellipsisHorizontal,
+      checkmarkCircle,
+    });
+    this.id = this.route.snapshot.paramMap.get('id');
+  }
+  ngOnInit() {
+    this.loadOrder();
+  }
+
+  loadOrder() {
+    if (!this.id) return;
+    this.api
+      .execApi('Order', this.id ?? '', 'GET', null, null, true)
+      .subscribe((res: any) => {
+        this.order = res?.Data;
+      });
   }
 }

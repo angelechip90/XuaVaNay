@@ -32,6 +32,8 @@ import {
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 
 export interface PosterItem {
   id: number;
@@ -44,19 +46,7 @@ export interface PosterItem {
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  imports: [
-    IonContent,
-    IonIcon,
-    IonImg,
-    IonList,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
-    CommonModule,
-    FormsModule,
-    SearchBoxComponent,
-    IonHeader,
-    IonToolbar,
-  ],
+  imports: [...BASE_IMPORTS, IonImg, SearchBoxComponent, IonHeader, IonToolbar],
   standalone: true,
 })
 export class ListComponent extends BaseComponent {
@@ -81,7 +71,8 @@ export class ListComponent extends BaseComponent {
 
   constructor(
     injector: Injector,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private translate: TranslateService
   ) {
     super(injector);
     addIcons({
@@ -139,16 +130,19 @@ export class ListComponent extends BaseComponent {
   async chooseYear() {
     const years = [2025, 2024, 2023, 2022, 2021];
     const buttons: any[] = years.map((y) => ({
-      text: `Năm ${y}`,
+      text: this.translate.instant('list.yearOption', { year: y }),
       handler: () => {
         this.year = y;
         this.yearChange.emit(y);
         return true;
       },
     }));
-    buttons.push({ text: 'Hủy', role: 'cancel' });
+    buttons.push({
+      text: this.translate.instant('list.cancel'),
+      role: 'cancel',
+    });
     const sheet = await this.actionSheetCtrl.create({
-      header: 'Chọn năm',
+      header: this.translate.instant('list.chooseYear'),
       buttons,
     });
     await sheet.present();

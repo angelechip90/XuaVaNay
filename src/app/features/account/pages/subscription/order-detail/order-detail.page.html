@@ -1,12 +1,12 @@
-<app-header [title]="'Chi tiết đơn hàng'" [showBackButton]="true"></app-header>
+<app-header [title]="'orderDetail.title' | translate" [showBackButton]="true"></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
   <div class="outline-card">
     <div class="no-padding">
       <div class="title-wrap">
-        <span class="title-primary">{{ order.planTitle }} </span>
-        <span class="title-accent">{{ order.planAccent }}</span>
+        <span class="title-primary">{{ order?.OrderDetails?.[0]?.ProductName }} </span>
+        <span class="title-accent">{{ order?.OrderDetails?.[0]?.ProductDescription }}</span>
       </div>
     </div>
 
@@ -15,44 +15,44 @@
       <!-- Khối thông tin đơn hàng -->
       <ion-list lines="none" class="kv-list">
         <ion-item>
-          <ion-label class="kv-label">Thời gian</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.time' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.durationLabel }}
+            {{ order?.OrderDetails?.[0]?.DurationDays }} {{ 'days' | translate }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Mã đơn hàng</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.orderCode' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.orderCode }}
+            {{ order?.OrderNumber }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Giá trị đơn hàng</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.orderValue' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.orderValue | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+            {{ order?.TotalAmount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Trạng thái</ion-label>
-          <ion-chip slot="end" [color]="statusColor" outline="true">
+          <ion-label class="kv-label">{{ 'orderDetail.status' | translate }}</ion-label>
+          <ion-chip slot="end" [color]="order?.Status === 1 ? 'success' : 'danger'" outline="true">
             <ion-label>{{ statusText }}</ion-label>
           </ion-chip>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Phương thức thanh toán</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.paymentMethod' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.paymentMethod }}
+            {{ order?.PaymentMethod === 1 ? 'Momo' : 'ZaloPay' }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Thời gian cập nhật</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.updatedAt' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.updatedAt | date:'HH:mm dd/MM/yyyy':'vi-VN' }}
+            {{ order?.CreatedDate | date:'HH:mm dd/MM/yyyy':'vi-VN' }}
           </ion-note>
         </ion-item>
       </ion-list>
@@ -60,27 +60,27 @@
       <ion-item-divider class="hairline"></ion-item-divider>
 
       <!-- Chi tiết thanh toán -->
-      <div class="section-title">Chi tiết</div>
+      <div class="section-title">{{ 'orderDetail.sectionTitle' | translate }}</div>
 
       <ion-list lines="none" class="kv-list">
         <ion-item>
-          <ion-label class="kv-label">Giá trị</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.value' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.orderValue | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+            {{ order?.TotalAmount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Giảm giá</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.discount' | translate }}</ion-label>
           <ion-note slot="end" class="kv-value">
-            {{ order.discount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+            {{ order?.DiscountAmount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
           </ion-note>
         </ion-item>
 
         <ion-item>
-          <ion-label class="kv-label">Số tiền thanh toán</ion-label>
+          <ion-label class="kv-label">{{ 'orderDetail.totalPay' | translate }}</ion-label>
           <ion-note slot="end" class="kv-total">
-            {{ order.totalPay | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
+            {{ order?.TotalAmount | currency:'VND':'symbol':'1.0-0':'vi-VN' }}
           </ion-note>
         </ion-item>
       </ion-list>

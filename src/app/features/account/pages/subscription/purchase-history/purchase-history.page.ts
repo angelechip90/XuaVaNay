@@ -25,6 +25,8 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +34,7 @@ import { Router } from '@angular/router';
   templateUrl: './purchase-history.page.html',
   styleUrls: ['./purchase-history.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, FormsModule, HeaderComponent],
+  imports: [...BASE_IMPORTS, HeaderComponent],
 })
 export class PurchaseHistoryPage implements OnInit {
   entries = signal<UserSubscription[]>([]);

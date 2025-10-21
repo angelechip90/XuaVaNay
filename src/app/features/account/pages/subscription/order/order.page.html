@@ -30,21 +30,33 @@
     <div class="thin-divider"></div>
 
     <!-- Tổng cộng -->
-    <div class="row">
-      <div>{{ 'order.totals.total' | translate }}</div>
-      <div>{{order?.TotalAmount | number}}</div>
-    </div>
-    <div class="row">
-      <div>{{ 'order.totals.discount' | translate }}</div>
-      <div>{{order?.DiscountAmount | number}}</div>
-    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6">
+        {{ 'order.totals.total' | translate }}
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        {{ order?.TotalAmount | number }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6">
+        {{ 'order.totals.discount' | translate }}
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        {{ order?.DiscountAmount | number }}
+      </ion-col>
+    </ion-row>
 
     <div class="thin-divider"></div>
 
-    <div class="row total">
-      <div>{{ 'order.totals.payable' | translate }}</div>
-      <div class="total-price">{{order?.TotalAmount | number}}</div>
-    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6">
+        {{ 'order.totals.payable' | translate }}
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        <div class="total-price">{{order?.TotalAmount | number}}</div>
+      </ion-col>
+    </ion-row>
   </div>
 
   <!-- Phương thức thanh toán -->

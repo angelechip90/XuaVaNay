@@ -28,24 +28,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
 import { LanguageComponent } from 'src/app/shared/components/language/language.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    IonButton,
-    IonIcon,
-    IonInput,
-    IonCheckbox,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SectionLogoComponent,
-    LanguageComponent,
-  ],
+  imports: [...BASE_IMPORTS, SectionLogoComponent, LanguageComponent],
 })
 export class LoginPage implements OnInit {
   showPw = signal(false);
@@ -62,7 +53,8 @@ export class LoginPage implements OnInit {
     private toast: ToastController,
     private authService: AuthService,
     private loadingService: LoadingService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private translate: TranslateService
   ) {
     addIcons({
       chevronBackOutline,
@@ -91,7 +83,10 @@ export class LoginPage implements OnInit {
   async submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      await this.showToast('Vui lòng nhập đầy đủ thông tin', 'warning');
+      await this.showToast(
+        this.translate.instant('login.toast.incomplete'),
+        'warning'
+      );
       return;
     }
 
@@ -104,11 +99,17 @@ export class LoginPage implements OnInit {
       );
 
       if (result.Succeeded) {
-        await this.showToast('Đăng nhập thành công', 'success');
+        await this.showToast(
+          this.translate.instant('login.toast.success'),
+          'success'
+        );
         this.navigationService.navigateToHome();
       }
     } catch (error) {
-      await this.showToast('Có lỗi xảy ra, vui lòng thử lại', 'danger');
+      await this.showToast(
+        this.translate.instant('login.toast.error'),
+        'danger'
+      );
     } finally {
       this.loadingService.hide();
     }

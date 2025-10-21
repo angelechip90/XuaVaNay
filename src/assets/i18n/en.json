@@ -28,6 +28,84 @@
       }
     },
     "pay": "Pay"
+  },
+  "login": {
+    "title": "Member Login",
+    "usernamePlaceholder": "Username or email",
+    "passwordPlaceholder": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "submit": "LOGIN",
+    "processing": "PROCESSING...",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "toast": {
+      "incomplete": "Please fill in all required fields",
+      "success": "Login successful",
+      "error": "Something went wrong, please try again"
+    }
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "current": "Current password",
+    "new": "New password",
+    "confirm": "Confirm new password",
+    "submit": "CHANGE PASSWORD",
+    "backProfile": "Profile",
+    "back": "Back?",
+    "toast": {
+      "mismatchForm": "Please complete all fields and ensure passwords match",
+      "confirmNotMatch": "Confirmation password does not match",
+      "newSameOld": "New password must be different from current password",
+      "success": "Password changed successfully!"
+    }
+  },
+  "purchaseHistory": {
+    "title": "Reading package purchase history",
+    "heading": "LVAI purchase history",
+    "hello": "Hello",
+    "plan": {
+      "free": "Free",
+      "member": "Member"
+    },
+    "startDate": "Start date",
+    "endDate": "End date",
+    "status": {
+      "expired": "Expired",
+      "active": "Active"
+    }
+  },
+  "orderDetail": {
+    "title": "Order details",
+    "time": "Time",
+    "orderCode": "Order code",
+    "orderValue": "Order value",
+    "status": "Status",
+    "paymentMethod": "Payment method",
+    "updatedAt": "Updated at",
+    "sectionTitle": "Details",
+    "value": "Value",
+    "discount": "Discount",
+    "totalPay": "Total payable",
+    "statusText": {
+      "paid": "Paid",
+      "failed": "Failed",
+      "processing": "Processing"
+    }
+  },
+  "list": {
+    "title": "Explore Cultural History",
+    "with": "with",
+    "ask": "Ask",
+    "yearLabel": "Year {{year}}",
+    "chooseYear": "Choose year",
+    "cancel": "Cancel",
+    "yearOption": "Year {{year}}",
+    "save": "Save"
+  },
+  "common": {
+    "save": "Save",
+    "errorTryAgain": "An error occurred! Please try again"
   }
 }
 

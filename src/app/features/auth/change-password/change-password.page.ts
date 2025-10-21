@@ -17,21 +17,15 @@ import { addIcons } from 'ionicons';
 import { lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.page.html',
   styleUrls: ['./change-password.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    IonIcon,
-    IonInput,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SectionLogoComponent,
-  ],
+  imports: [...BASE_IMPORTS, SectionLogoComponent],
 })
 export class ChangePasswordPage {
   showCurrentPw = signal(false);
@@ -50,7 +44,8 @@ export class ChangePasswordPage {
   constructor(
     private fb: FormBuilder,
     private toast: ToastController,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private translate: TranslateService
   ) {
     addIcons({
       lockClosedOutline,
@@ -85,7 +80,7 @@ export class ChangePasswordPage {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       const toast = await this.toast.create({
-        message: 'Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp',
+        message: this.translate.instant('changePassword.toast.mismatchForm'),
         duration: 2000,
         color: 'warning',
       });
@@ -94,7 +89,7 @@ export class ChangePasswordPage {
 
     if (this.form.value.newPassword !== this.form.value.confirmPassword) {
       const toast = await this.toast.create({
-        message: 'Mật khẩu xác nhận không khớp',
+        message: this.translate.instant('changePassword.toast.confirmNotMatch'),
         duration: 2000,
         color: 'danger',
       });
@@ -103,7 +98,7 @@ export class ChangePasswordPage {
 
     if (this.form.value.currentPassword === this.form.value.newPassword) {
       const toast = await this.toast.create({
-        message: 'Mật khẩu mới phải khác mật khẩu hiện tại',
+        message: this.translate.instant('changePassword.toast.newSameOld'),
         duration: 2000,
         color: 'warning',
       });
@@ -112,7 +107,7 @@ export class ChangePasswordPage {
 
     // Simulate password change process
     const toast = await this.toast.create({
-      message: 'Đổi mật khẩu thành công!',
+      message: this.translate.instant('changePassword.toast.success'),
       duration: 2000,
       color: 'success',
     });

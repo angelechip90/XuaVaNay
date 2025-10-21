@@ -28,6 +28,84 @@
       }
     },
     "pay": "Thanh toán"
+  },
+  "login": {
+    "title": "Đăng nhập hội viên",
+    "usernamePlaceholder": "Tên truy cập hoặc email",
+    "passwordPlaceholder": "Mật khẩu",
+    "remember": "Lưu mật khẩu",
+    "forgot": "Quên mật khẩu?",
+    "submit": "ĐĂNG NHẬP",
+    "processing": "ĐANG XỬ LÝ...",
+    "noAccount": "Bạn chưa có tài khoản?",
+    "register": "Đăng ký",
+    "toast": {
+      "incomplete": "Vui lòng nhập đầy đủ thông tin",
+      "success": "Đăng nhập thành công",
+      "error": "Có lỗi xảy ra, vui lòng thử lại"
+    }
+  },
+  "changePassword": {
+    "title": "Đổi mật khẩu",
+    "current": "Mật khẩu hiện tại",
+    "new": "Mật khẩu mới",
+    "confirm": "Xác nhận mật khẩu mới",
+    "submit": "ĐỔI MẬT KHẨU",
+    "backProfile": "Hồ sơ cá nhân",
+    "back": "Quay lại?",
+    "toast": {
+      "mismatchForm": "Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp",
+      "confirmNotMatch": "Mật khẩu xác nhận không khớp",
+      "newSameOld": "Mật khẩu mới phải khác mật khẩu hiện tại",
+      "success": "Đổi mật khẩu thành công!"
+    }
+  },
+  "purchaseHistory": {
+    "title": "Lịch sử mua gói đọc",
+    "heading": "Lịch sử mua gói LVAI",
+    "hello": "Xin chào",
+    "plan": {
+      "free": "Miễn phí",
+      "member": "Hội viên"
+    },
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày hết hạn",
+    "status": {
+      "expired": "Hết hạn",
+      "active": "Đang sử dụng"
+    }
+  },
+  "orderDetail": {
+    "title": "Chi tiết đơn hàng",
+    "time": "Thời gian",
+    "orderCode": "Mã đơn hàng",
+    "orderValue": "Giá trị đơn hàng",
+    "status": "Trạng thái",
+    "paymentMethod": "Phương thức thanh toán",
+    "updatedAt": "Thời gian cập nhật",
+    "sectionTitle": "Chi tiết",
+    "value": "Giá trị",
+    "discount": "Giảm giá",
+    "totalPay": "Số tiền thanh toán",
+    "statusText": {
+      "paid": "Đã thanh toán",
+      "failed": "Thất bại",
+      "processing": "Đang xử lý"
+    }
+  },
+  "list": {
+    "title": "Tra cứu Lịch sử Văn hóa",
+    "with": "với",
+    "ask": "Hỏi đáp",
+    "yearLabel": "Năm {{year}}",
+    "chooseYear": "Chọn năm",
+    "cancel": "Hủy",
+    "yearOption": "Năm {{year}}",
+    "save": "Lưu"
+  },
+  "common": {
+    "save": "Lưu",
+    "errorTryAgain": "Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại"
   }
 }
 

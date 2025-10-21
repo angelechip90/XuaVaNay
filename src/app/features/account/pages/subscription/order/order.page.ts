@@ -3,17 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
-  IonBackButton,
   IonButton,
   IonInput,
   IonIcon,
   IonRadio,
   IonRadioGroup,
   IonItem,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/angular/standalone';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,17 +39,15 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
-    IonBackButton,
     IonButton,
     IonInput,
     IonIcon,
     IonRadio,
     IonRadioGroup,
     IonItem,
+    IonGrid,
+    IonRow,
+    IonCol,
     TranslateModule,
     CommonModule,
     FormsModule,
@@ -151,7 +147,6 @@ export class OrderPage implements OnInit {
     this.browserCloseListener = await Browser.addListener(
       'browserFinished',
       () => {
-        console.log('✅ Trình duyệt đã đóng, xử lý tiếp tại đây...');
         this.afterBrowserClosed();
       }
     );
@@ -162,7 +157,7 @@ export class OrderPage implements OnInit {
   }
 
   afterBrowserClosed() {
-    // ví dụ: gọi API, reload dữ liệu, hoặc điều hướng lại
-    console.log('Đang làm gì đó sau khi đóng trình duyệt...');
+    // Sau khi thanh toán thành công
+    this.router.navigateByUrl('/order-detail/' + this.order?.Id);
   }
 }

@@ -40,6 +40,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 
 interface QuickTopic {
   label: string;
@@ -81,16 +83,7 @@ interface ThinkingStep {
       ]),
     ]),
   ],
-  imports: [
-    IonContent,
-    CommonModule,
-    FormsModule,
-    InputChatComponent,
-    IonList,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
-    HeaderComponent,
-  ],
+  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent],
   standalone: true,
 })
 export class ChatsComponent extends BaseComponent {
@@ -114,7 +107,8 @@ export class ChatsComponent extends BaseComponent {
     private renderer: Renderer2,
     private sanitizer: DomSanitizer,
     private el: ElementRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {
     super(injector);
     addIcons({
@@ -205,7 +199,7 @@ export class ChatsComponent extends BaseComponent {
 
     if (!response.ok) {
       this.notificationSV.showError(
-        'Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại'
+        this.translate.instant('common.errorTryAgain')
       );
       return;
     }
