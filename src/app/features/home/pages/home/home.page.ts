@@ -7,7 +7,8 @@ import {
   IonList,
   IonLabel,
   IonIcon,
-  IonItem
+  IonItem,
+  IonCheckbox,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -17,7 +18,7 @@ import {
   newspaperOutline,
   bookOutline,
   imagesOutline,
-  checkmarkCircleOutline
+  checkmarkCircleOutline,
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
@@ -37,18 +38,17 @@ import { BaseComponent } from 'src/app/core/base/base.component';
     IonLabel,
     IonIcon,
     IonItem,
+    IonCheckbox,
     CommonModule,
     FormsModule,
     SectionLogoComponent,
-    SearchBoxComponent
-  ]
+    SearchBoxComponent,
+  ],
 })
-export class HomePage extends BaseComponent{
+export class HomePage extends BaseComponent {
   query = '';
 
-  constructor(
-    injector: Injector,
-  ) {
+  constructor(injector: Injector) {
     super(injector);
     addIcons({
       searchOutline,
@@ -57,12 +57,11 @@ export class HomePage extends BaseComponent{
       newspaperOutline,
       bookOutline,
       imagesOutline,
-      checkmarkCircleOutline
+      checkmarkCircleOutline,
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onValueChange(query: string) {
     this.query = query;
@@ -71,24 +70,47 @@ export class HomePage extends BaseComponent{
   }
 
   async onSendMessage(message: string) {
-    if(!message){
+    if (!message) {
       this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
       return;
     }
-    let result = await firstValueFrom(this.api.execApi('UserSubscription', 'check-chat-eligibility','GET', null,null));
-    if(result && result?.Data){
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'UserSubscription',
+        'check-chat-eligibility',
+        'GET',
+        null,
+        null
+      )
+    );
+    if (result && result?.Data) {
       let data = result?.Data;
-      if(!data?.CanChat){
+      if (!data?.CanChat) {
         this.notificationSV.showError(data?.Reason);
         return;
-      }else{
+      } else {
         let obj = {
-          Message: message
-        }
-        let result = await firstValueFrom(this.api.execApi('Chat', 'create-conversation', 'POST', obj, null, true));
+          Message: message,
+        };
+        let result = await firstValueFrom(
+          this.api.execApi(
+            'Chat',
+            'create-conversation',
+            'POST',
+            obj,
+            null,
+            true
+          )
+        );
         if (result && result?.Data) {
           let conversationId = result?.Data?.ConversationId;
-          this.navCtrl.navigateForward('chat', { queryParams: { conversationId: conversationId, message: message, type: 'conversation' } });
+          this.navCtrl.navigateForward('chat', {
+            queryParams: {
+              conversationId: conversationId,
+              message: message,
+              type: 'conversation',
+            },
+          });
         }
       }
     }

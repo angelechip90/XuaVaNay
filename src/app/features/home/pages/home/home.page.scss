@@ -143,6 +143,17 @@
     margin: 0;
 }
 
+.sources .checkbox-label {
+    margin: 0;
+    text-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 /* Bottom nav (footer version) */
 .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom);
