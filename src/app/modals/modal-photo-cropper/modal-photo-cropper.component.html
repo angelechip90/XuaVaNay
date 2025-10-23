@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    @if(file){
+    <ng-container>
+      <div>
+        <image-cropper [imageFile]="file" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [format]="croppedImageFormat" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+      </div>
+    </ng-container>
+    }
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="container px-2 py-3 d-flex align-items-stretch justify-content-around">
+    <div class="flex-grow-1 mx-1">
+      <ion-button color="medium" shape="round" fill="outline" expand="block" (click)="close()">
+        <ion-label>{{'Cancel'|translate}}</ion-label>
+      </ion-button>
+    </div>
+    <div class="flex-grow-1 mx-1">
+      <ion-button color="primary" shape="round" expand="block" (click)="submit()">
+        <ion-label>{{'Finish'|translate}}</ion-label>
+      </ion-button>
+    </div>
+  </div>
+</ion-footer>

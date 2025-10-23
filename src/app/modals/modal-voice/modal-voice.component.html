@@ -1,0 +1,52 @@
+<div class="px-3 pt-3 pb-4">
+	<div class="d-flex align-items-center justify-content-between">
+		<div class="flex-grow-1 text-center">
+			<b>{{ 'SearchByVoice' | translate }}</b>
+		</div>
+		<ion-icon
+			class="fs-24 cursor-pointer"
+			color="dark"
+			name="close-outline"
+			(click)="modalClose()"></ion-icon>
+	</div>
+
+	<div
+		class="text-center"
+		[style]="isrunning ? 'visibility:visible' : 'visibility:hidden'">
+		<div>
+			<ion-img src="../../../assets/image/voice/voice.gif"></ion-img>
+		</div>
+
+		<div class="text-primary">
+			<b>{{ message }}</b>
+		</div>
+
+		<div class="text-center mt-4">
+			<ion-button
+				mode="ios"
+				color="primary"
+				size="small"
+				shape="round"
+				fill="outline"
+				(click)="tryAgain()">
+				{{ 'TryAgain' | translate }}
+			</ion-button>
+			<ion-button
+				mode="ios"
+				color="primary"
+				size="small"
+				shape="round"
+				(click)="modalSubmit()">
+				{{ 'Finish' | translate }}
+			</ion-button>
+		</div>
+	</div>
+
+	<div class="text-center mt-4">
+		<b>{{ 'SearchByVoiceSuggest' | translate }}</b>
+		<br />
+		<small [innerHTML]="'SearchByVoiceSuggest1' | translate"></small>
+		<br />
+		<small [innerHTML]="'SearchByVoiceSuggest2' | translate"></small>
+	</div>
+</div>
