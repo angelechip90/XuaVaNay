@@ -9,7 +9,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "generate-icon": "npm install --save-dev @capacitor/assets && npx @capacitor/assets generate"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@capacitor/browser": "^7.0.2",
     "@capacitor/core": "7.4.3",
     "@capacitor/haptics": "7.0.2",
+    "@capacitor/ios": "7.4.3",
     "@capacitor/keyboard": "7.0.3",
     "@capacitor/status-bar": "7.0.3",
     "@capgo/capacitor-native-biometric": "^7.1.13",
@@ -54,6 +56,7 @@
     "@angular/cli": "^20.3.4",
     "@angular/compiler-cli": "^20.3.3",
     "@angular/language-service": "^20.0.0",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "7.4.3",
     "@ionic/angular-toolkit": "^12.0.0",
     "@types/jasmine": "~5.1.0",
