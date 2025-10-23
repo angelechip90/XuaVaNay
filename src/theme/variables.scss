@@ -1,23 +1,24 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
-// Roboto Font Family Variables
+/** Ionic CSS Variables **/
 :root {
-    --ion-font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  --ion-font-family: Inter, "Helvetica Neue", sans-serif;
+  --ion-font-size: 16px;
 }
 
 // Apply Roboto to all Ionic components
-ion-app {
-    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
-}
+// ion-app {
+//     font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+// }
 
-ion-content,
-ion-header,
-ion-footer,
-ion-toolbar,
-ion-tab-bar,
-ion-item,
-ion-button,
-ion-label {
-    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
-}
+// ion-content,
+// ion-header,
+// ion-footer,
+// ion-toolbar,
+// ion-tab-bar,
+// ion-item,
+// ion-button,
+// ion-label {
+//     font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+// }
