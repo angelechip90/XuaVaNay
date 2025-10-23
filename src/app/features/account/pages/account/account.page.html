@@ -7,7 +7,7 @@
     <section class="hero">
       <div class="avatar-wrap">
         <div class="avatar">
-          <img [src]="userInfo().Avatar" alt="Avatar" />
+          <img [src]="userInfo().Avatar || '/assets/image/default-avatar.png'" alt="Avatar" />
           <div class="overlay"></div>
         </div>
       </div>
