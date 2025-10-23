@@ -1,6 +1,6 @@
 /* Logo section */
 .logo-section {
-    padding: 20px 16px;
+    padding: 20px 0;
     margin: 20px 0 0 0;
 }
 
@@ -8,14 +8,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: nowrap;
 }
 
 .logo-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
     flex-shrink: 0;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .text-name {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     color: #3151CE;
 }
