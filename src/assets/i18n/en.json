@@ -106,6 +106,32 @@
   "common": {
     "save": "Save",
     "errorTryAgain": "An error occurred! Please try again"
+  },
+  "account": {
+    "title": "Member information",
+    "usingPlan": "You are using {{plan}}",
+    "until": ", valid until {{date}}.",
+    "upgrade": "Upgrade",
+    "email": "Email",
+    "readBooks": "Books read",
+    "qaHistory": "Q&A history",
+    "purchaseHistory": "Reading package purchase history",
+    "changePassword": "Change password",
+    "logout": "Log out"
+  },
+  "upgrade": {
+    "title": "Upgrade account",
+    "hello": "Hello",
+    "heading": "Upgrade to LVAI PRO",
+    "perYear": "/ year",
+    "cta": "Upgrade"
+  },
+  "tabs": {
+    "aiSearch": "AI Search",
+    "xuaVaNay": "Past & Present",
+    "suDia": "History & Geography",
+    "ebooks": "E-Books",
+    "account": "Account"
   }
 }
 

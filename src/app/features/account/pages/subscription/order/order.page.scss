@@ -25,25 +25,14 @@
     }
 
     .note {
-        color: #312e81;
+        color: #231D4F;
         font-weight: 500;
         margin-bottom: 0.5rem;
     }
 
-    .row {
-        padding: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: #1e1b4b;
-        font-size: 16px;
-        font-weight: 500;
-        margin-top: 0.3rem;
-
-        .highlight {
-            color: #db2777;
-            font-weight: 700;
-        }
+    .highlight {
+        color: #db2777;
+        font-weight: 700;
     }
 
     .promo {
@@ -67,24 +56,19 @@
             padding: 0px 8px;
             background: #fff;
             margin-bottom: 10px;
+        }
 
-            button {
-                padding: 5px 0;
-            }
+        .promo-btn {
+            --border-radius: 10px;
+            --border-color: #000000;
+            color: #000000;
         }
     }
 
-    .total {
-        font-size: 18px;
-        color: #0b165f;
-        font-weight: 600;
-
-        .total-price {
-            color: #ea580c;
-            font-size: 20px;
-            font-weight: 600;
-        }
+    .total-container {
+        padding: 10px 0;
     }
+
 }
 
 .payment-option {
@@ -153,9 +137,13 @@ ion-radio.ios::part(container) {
     border-color: #6815ec;
 }
 
-.pay-btn {
-    margin-top: 2rem;
-    --background: linear-gradient(135deg, #ec4899, #db2777, #7e22ce);
-    color: white;
-    font-weight: 500;
+.gradient-btn {
+    background: linear-gradient(135deg, #9333ea, #ec4899);
+    color: #ffffff;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 18px;
+    width: 100%;
+    font-weight: 800;
+    cursor: pointer;
 }

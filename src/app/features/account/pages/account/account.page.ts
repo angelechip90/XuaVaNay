@@ -20,6 +20,7 @@ import {
   keyOutline,
   logOutOutline,
   diamondOutline,
+  cameraOutline,
 } from 'ionicons/icons';
 import { UserInfo } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -28,6 +29,7 @@ import { LanguageComponent } from 'src/app/shared/components/language/language.c
 import { firstValueFrom } from 'rxjs';
 import { APP_GetPhoto } from 'src/app/utils/appGetPhoto';
 import { ModalPhotoCropperComponent } from 'src/app/modals/modal-photo-cropper/modal-photo-cropper.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account',
@@ -39,6 +41,7 @@ import { ModalPhotoCropperComponent } from 'src/app/modals/modal-photo-cropper/m
     CommonModule,
     LanguageComponent,
     HeaderComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -63,6 +66,7 @@ export class AccountPage implements OnInit {
       keyOutline,
       logOutOutline,
       diamondOutline,
+      cameraOutline,
     });
   }
 
@@ -132,62 +136,54 @@ export class AccountPage implements OnInit {
   }
 
   async changeAvatar(ev: any) {
-		APP_GetPhoto(
-			{
-				modalController: this.modalController,
-				toastController: this.toastController,
-			},
-			async (files: any) => {
-				if (files.length) {
-					let modal = await this.modalController.create({
-						component: ModalPhotoCropperComponent,
-						componentProps: {
-							file: files[0],
-						},
-						backdropDismiss: true,
-						keyboardClose: true,
-					});
+    APP_GetPhoto(
+      {
+        modalController: this.modalController,
+        toastController: this.toastController,
+      },
+      async (files: any) => {
+        if (files.length) {
+          let modal = await this.modalController.create({
+            component: ModalPhotoCropperComponent,
+            componentProps: {
+              file: files[0],
+            },
+            backdropDismiss: true,
+            keyboardClose: true,
+          });
 
-					modal.onDidDismiss().then(async (e) => {
-						if (e.role == 'submit' && e.data) {
-							var file = e.data;
+          modal.onDidDismiss().then(async (e) => {
+            if (e.role == 'submit' && e.data) {
+              var file = e.data;
 
-							// this.fileService
-							// 	.upload({
-							// 		file: file,
-							// 		fileType: 'image',
-							// 		subFolder: 'avatar',
-							// 	})
-							// 	.then((resUpload) => {
-							// 		if (resUpload?.ReturnCode == 0) {
-							// 			this.accountService
-							// 				.updateAvatar({
-							// 					Avatar: `${resUpload.path}/${resUpload.file.name}`,
-							// 				})
-							// 				.then((res) => {
-							// 					if (res?.Succeeded) {
-							// 						this.refreshData();
-							// 					} else {
-							// 						APP_COMPONENT_IonToast(
-							// 							this.toastController,
-							// 							{},
-							// 							res
-							// 						).then((toast) => toast.present());
-							// 					}
-							// 				});
-							// 		} else {
-							// 			APP_COMPONENT_IonToast(this.toastController, {
-							// 				message: resUpload.ReturnName,
-							// 				color: 'danger',
-							// 			}).then((toast) => toast.present());
-							// 		}
-							// 	});
-						}
-					});
+              const formData = new FormData();
+              const fileName = (file && (file.name || 'avatar.png')) as string;
+              formData.append('File', file as Blob, fileName);
 
-					modal.present();
-				}
-			}
-		);
-	}
+              this.api
+                .execApi(
+                  'Account',
+                  'upload-avatar',
+                  'POST',
+                  formData,
+                  {
+                    'api-version': '1.0',
+                  },
+                  true
+                )
+                .subscribe((res: any) => {
+                  if (res?.Succeeded) {
+                    this.userInfo.set({
+                      ...this.userInfo(),
+                      Avatar: res?.Data,
+                    });
+                  }
+                });
+            }
+          });
+          modal.present();
+        }
+      }
+    );
+  }
 }

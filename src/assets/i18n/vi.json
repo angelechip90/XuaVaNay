@@ -106,6 +106,32 @@
   "common": {
     "save": "Lưu",
     "errorTryAgain": "Đã có lỗi trong quá trình thực thi hệ thống! Vui lòng thử lại"
+  },
+  "account": {
+    "title": "Thông tin hội viên",
+    "usingPlan": "Bạn đang sử dụng {{plan}}",
+    "until": ", thời hạn đến ngày {{date}}.",
+    "upgrade": "Nâng cấp",
+    "email": "Email",
+    "readBooks": "Sách đã đọc",
+    "qaHistory": "Lịch sử Hỏi Đáp",
+    "purchaseHistory": "Lịch sử mua gói đọc",
+    "changePassword": "Đổi mật khẩu",
+    "logout": "Đăng xuất"
+  },
+  "upgrade": {
+    "title": "Nâng cấp tài khoản",
+    "hello": "Xin chào",
+    "heading": "Nâng cấp LVAI PRO",
+    "perYear": "/ năm",
+    "cta": "Nâng cấp"
+  },
+  "tabs": {
+    "aiSearch": "Tra cứu AI",
+    "xuaVaNay": "Xưa và Nay",
+    "suDia": "Sử Địa",
+    "ebooks": "E-Books",
+    "account": "Tài khoản"
   }
 }
 

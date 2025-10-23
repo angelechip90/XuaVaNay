@@ -43,9 +43,6 @@ ion-header {
 }
 
 .avatar img {
-  position: absolute;
-  left: -15px;
-  top: -6px;
   width: 130px;
   height: 130px;
   object-fit: cover;
@@ -53,11 +50,19 @@ ion-header {
 
 .avatar .overlay {
   position: absolute;
-  left: -31px;
-  top: 73px;
-  width: 160px;
-  height: 28px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(39, 39, 42, 0.3);
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.avatar .overlay ion-icon {
+  color: #ffffff;
+  font-size: 22px;
 }
 
 .title-block h1 {
@@ -152,7 +157,6 @@ ion-header {
 .row .value.accent {
   color: #8b5cf6;
   /* fuchsia-ish */
-  font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 .row .chev ion-icon {
@@ -207,7 +211,6 @@ ion-header {
   font-weight: 600;
   color: #1f2937;
   text-align: center;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 /* active tab “Tài khoản” với icon gradient */

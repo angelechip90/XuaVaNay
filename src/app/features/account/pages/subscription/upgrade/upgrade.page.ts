@@ -19,6 +19,7 @@ import { SubscriptionPlan } from 'src/app/models/User.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-upgrade',
@@ -34,6 +35,7 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
     CommonModule,
     FormsModule,
     HeaderComponent,
+    TranslateModule,
   ],
 })
 export class UpgradePage implements OnInit {

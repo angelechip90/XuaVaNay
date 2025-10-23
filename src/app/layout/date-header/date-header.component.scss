@@ -1,0 +1,30 @@
+.date-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin: 4px 0 10px;
+}
+
+.date-text {
+    color: #160A56;
+    /* tím đậm như hình */
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+}
+
+.chev {
+    color: #160A56;
+    font-size: 18px;
+}

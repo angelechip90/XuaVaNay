@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
+  IonHeader,
+  IonToolbar,
   IonText,
   IonList,
   IonLabel,
-  IonIcon,
   IonItem,
   IonCheckbox,
 } from '@ionic/angular/standalone';
@@ -21,6 +22,7 @@ import {
   checkmarkCircleOutline,
 } from 'ionicons/icons';
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
+import { DateHeaderComponent } from 'src/app/layout/date-header/date-header.component';
 import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -33,15 +35,17 @@ import { BaseComponent } from 'src/app/core/base/base.component';
   standalone: true,
   imports: [
     IonContent,
+    IonHeader,
+    IonToolbar,
     IonText,
     IonList,
     IonLabel,
-    IonIcon,
     IonItem,
     IonCheckbox,
     CommonModule,
     FormsModule,
     SectionLogoComponent,
+    DateHeaderComponent,
     SearchBoxComponent,
   ],
 })

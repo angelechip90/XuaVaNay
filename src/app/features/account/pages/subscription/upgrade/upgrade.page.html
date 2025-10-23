@@ -1,4 +1,4 @@
-<app-header [title]="'Nâng cấp tài khoản'" [showBackButton]="true"></app-header>
+<app-header [title]="'upgrade.title' | translate" [showBackButton]="true"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true">
@@ -6,9 +6,9 @@
     <!-- Chào + tiêu đề -->
     <section class="intro">
       <div class="hello">
-        <span>Xin chào </span><strong>{{ displayName }},</strong>
+        <span>{{ 'upgrade.hello' | translate }} </span><strong>{{ displayName }},</strong>
       </div>
-      <h1>Nâng cấp LVAI PRO</h1>
+      <h1>{{ 'upgrade.heading' | translate }}</h1>
     </section>
 
     <!-- Grid 3 cột (stack trên mobile) -->
@@ -25,7 +25,7 @@
         <ion-card-content>
           <div class="price-row">
             <div class="price">{{ plan.Price | number:'1.0-0' }}đ</div>
-            <div class="per">/ năm</div>
+            <div class="per">{{ 'upgrade.perYear' | translate }}</div>
           </div>
 
           <ul class="features">
@@ -35,7 +35,8 @@
             </li>
           </ul>
           <div class="cta">
-            <button class="gradient-btn" (click)="onUpgrade(plan.SubscriptionPlanId)">Thanh toán</button>
+            <button class="gradient-btn" (click)="onUpgrade(plan.SubscriptionPlanId)">
+              {{ 'upgrade.cta' | translate }}</button>
           </div>
         </ion-card-content>
       </ion-card>

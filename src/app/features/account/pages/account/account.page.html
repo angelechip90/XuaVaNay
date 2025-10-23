@@ -1,4 +1,4 @@
-<app-header [title]="'Thông tin hội viên'"></app-header>
+<app-header [title]="'account.title' | translate"></app-header>
 
 <!-- Content -->
 <ion-content [fullscreen]="true">
@@ -6,17 +6,19 @@
     <!-- Avatar + tên + trạng thái -->
     <section class="hero">
       <div class="avatar-wrap">
-        <div class="avatar">
-          <img [src]="userInfo().Avatar || '/assets/image/default-avatar.png'" alt="Avatar" (click)="changeAvatar($event)" />
-          <div class="overlay"></div>
+        <div class="avatar" (click)="changeAvatar($event)">
+          <img [src]="userInfo().Avatar || '/assets/image/default-avatar.png'" alt="Avatar" />
+          <div class="overlay">
+            <ion-icon name="camera-outline"></ion-icon>
+          </div>
         </div>
       </div>
 
       <div class="title-block">
         <h1>{{ userInfo().FullName }}</h1>
         <p>
-          Bạn đang sử dụng {{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}, thời hạn đến ngày
-          {{(userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy'}}.
+          {{ 'account.usingPlan' | translate:{ plan: (userInfo().ActiveSubscription?.SubscriptionPlan?.Name || '') } }}
+          {{ 'account.until' | translate:{ date: ((userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy') } }}
         </p>
         <div class="ion-text-center">
           <div class="plan-badge" *ngIf="userInfo().ActiveSubscription?.SubscriptionPlan?.PlanType !== 0; else upgrade">
@@ -27,7 +29,7 @@
           </div>
           <ng-template #upgrade>
             <div class="plan-badge" (click)="openUpgrade()">
-              <div class="badge-text">Nâng cấp</div>
+              <div class="badge-text">{{ 'account.upgrade' | translate }}</div>
             </div>
           </ng-template>
         </div>
@@ -43,7 +45,7 @@
         <div class="icon">
           <ion-icon name="mail-outline"></ion-icon>
         </div>
-        <div class="label">Email</div>
+        <div class="label">{{ 'account.email' | translate }}</div>
         <div class="value accent">{{ userInfo().Email }}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -56,7 +58,7 @@
         <div class="icon">
           <ion-icon name="book-outline"></ion-icon>
         </div>
-        <div class="label">Sách đã đọc</div>
+        <div class="label">{{ 'account.readBooks' | translate }}</div>
         <div class="value">{{ totalBookRead}}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -69,7 +71,7 @@
         <div class="icon">
           <ion-icon name="chatbubbles-outline"></ion-icon>
         </div>
-        <div class="label">Lịch sử Hỏi Đáp</div>
+        <div class="label">{{ 'account.qaHistory' | translate }}</div>
         <div class="value">{{ totalHistory}}</div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -82,7 +84,7 @@
         <div class="icon">
           <ion-icon name="receipt-outline"></ion-icon>
         </div>
-        <div class="label">Lịch sử mua gói đọc</div>
+        <div class="label">{{ 'account.purchaseHistory' | translate }}</div>
         <div class="value"></div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -95,7 +97,7 @@
         <div class="icon">
           <ion-icon name="key-outline"></ion-icon>
         </div>
-        <div class="label">Đổi mật khẩu</div>
+        <div class="label">{{ 'account.changePassword' | translate }}</div>
         <div class="value"></div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -108,7 +110,7 @@
         <div class="icon">
           <ion-icon name="log-out-outline"></ion-icon>
         </div>
-        <div class="label">Đăng xuất</div>
+        <div class="label">{{ 'account.logout' | translate }}</div>
         <div class="value"></div>
         <div class="chev">
           <ion-icon name="chevron-forward-outline"></ion-icon>
