@@ -18,6 +18,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+							"downloadjs"
+						],
             "outputPath": {
               "base": "www",
               "browser": ""
@@ -33,7 +36,18 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+              },
+							{
+								"glob": "apple-app-site-association",
+								"input": "src/assets/.well-known/",
+								"output": "/.well-known/"
+							},
+							{
+								"glob": "assetlinks.json",
+								"input": "src/assets/.well-known/",
+								"output": "/.well-known"
+							},
+							"src/manifest.webmanifest"
             ],
             "styles": [
               "src/global.scss",
