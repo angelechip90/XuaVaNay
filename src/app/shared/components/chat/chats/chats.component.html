@@ -1,5 +1,5 @@
 <div class="ion-page">
-  <app-header [title]="'LACVIETAI'" [showBackButton]="true"></app-header>
+  <app-header [title]="type == 'conversation' ? 'LACVIETAI' : bookName" [showBackButton]="true"></app-header>
 
   <!-- Content -->
   <ion-content [fullscreen]="true" class="ion-padding" #chatContent>
@@ -238,9 +238,9 @@
           <div class="thin-divider"></div>
         </ng-container>
       </ion-list>
-      <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+      <!-- <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
         <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+      </ion-infinite-scroll> -->
     </ng-container>
     <ng-container *ngIf="!lstConversation || lstConversation?.length == 0">
       <!-- de tam neu du lieu ko co se hien thi cai gi -->
@@ -283,5 +283,5 @@
   </ion-content>
 
   <!-- Composer -->
-  <app-input-chat (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>
+  <app-input-chat *ngIf="!isLoad" (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-input-chat>
 </div>

@@ -34,6 +34,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
+import { DateHeaderComponent } from 'src/app/layout/date-header/date-header.component';
 
 export interface PosterItem {
   id: number;
@@ -46,13 +47,13 @@ export interface PosterItem {
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  imports: [...BASE_IMPORTS, IonImg, SearchBoxComponent, IonHeader, IonToolbar],
+  imports: [...BASE_IMPORTS, IonImg, SearchBoxComponent, IonHeader, IonToolbar,DateHeaderComponent,],
   standalone: true,
 })
 export class ListComponent extends BaseComponent {
   @Input() items: PosterItem[] = [];
   @Input() title: string = 'Xưa và Nay';
-  @Input() year: number = 2025;
+  @Input() year:any = null;
   @Input() showSearchBox: boolean = true;
   @Input() showYearFilter: boolean = true;
   @Input() bookTypeID: any = 1;
@@ -60,7 +61,7 @@ export class ListComponent extends BaseComponent {
   @Output() itemClick = new EventEmitter<PosterItem>();
   @Output() bookmarkClick = new EventEmitter<PosterItem>();
   @Output() searchInput = new EventEmitter<string>();
-  @Output() yearChange = new EventEmitter<number>();
+  @Output() yearChange = new EventEmitter<any>();
   @Output() askClick = new EventEmitter<void>();
 
   query = '';
@@ -68,6 +69,8 @@ export class ListComponent extends BaseComponent {
   lstData: any;
   isLoad: any = true;
   pageNum: any = 1;
+  isLoadYear:any = false;
+  yearOptions:any;
 
   constructor(
     injector: Injector,
@@ -86,19 +89,41 @@ export class ListComponent extends BaseComponent {
   }
 
   ngOnInit() {
+    // this.year = null;
+    // this.loadItem();
+  }
+
+  onWillEnter() {
+    this.year = null;
+    this.lstData = null;
+    this.yearOptions = null;
+    this.isLoadYear = false; 
+    this.loadYear();
     this.loadItem();
+  }
+
+  async loadYear(){
+    let result = await firstValueFrom(
+      this.api.execApi('Book', `get-filter-year/${this.bookTypeID}`, 'GET', null,null)
+    );
+    if(result && result?.Data && result?.Data?.length){
+      this.yearOptions = result?.Data;
+      this.yearOptions.unshift('');
+      this.isLoadYear = true;
+    }
   }
 
   loadItem(isScroll: any = false): Promise<any> {
     return new Promise(async (resolve) => {
       if (!this.isLoad) resolve(false);
       let obj = {
-        BookType: this.bookTypeID,
+      BookType: this.bookTypeID,
         Year: this.year,
         PageNumber: this.pageNum,
+        SortYearDesc:true
       };
       let result = await firstValueFrom(
-        this.api.execApi('Book', 'get-paging', 'GET', null, obj, !isScroll)
+        this.api.execApi('Book', 'get-paging', 'GET', null, obj)
       );
       if (result && result?.Data && result?.Data?.length) {
         if (!this.lstData) this.lstData = [];
@@ -107,8 +132,10 @@ export class ListComponent extends BaseComponent {
         let totalRecord = result?.TotalRecords;
         if (this.lstData?.length == totalRecord) this.isLoad = false;
         this.changeDetectorRef.detectChanges();
+      }else{
+        this.lstData = [];
+        this.isLoad = false;
       }
-      console.log(result);
     });
   }
 
@@ -125,31 +152,40 @@ export class ListComponent extends BaseComponent {
   onValueChange(query: string) {
     this.query = query;
     this.searchInput.emit(query);
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        message: query,
+      },
+    });
   }
 
   async chooseYear() {
-    const years = [2025, 2024, 2023, 2022, 2021];
-    const buttons: any[] = years.map((y) => ({
-      text: this.translate.instant('list.yearOption', { year: y }),
-      handler: () => {
-        this.year = y;
-        this.yearChange.emit(y);
-        return true;
-      },
-    }));
-    buttons.push({
-      text: this.translate.instant('list.cancel'),
-      role: 'cancel',
-    });
-    const sheet = await this.actionSheetCtrl.create({
-      header: this.translate.instant('list.chooseYear'),
-      buttons,
-    });
-    await sheet.present();
+    if (this.yearOptions && this.yearOptions?.length) {
+      const years = this.yearOptions;
+      const buttons: any[] = years.map((y:any) => ({
+        text: this.translate.instant('list.yearOption', { year: y }),
+        handler: () => {
+          this.year = y;
+          this.yearChange.emit(y);
+          this.loadItem();
+          return true;
+        },
+      }));
+      buttons.push({
+        text: this.translate.instant('list.cancel'),
+        role: 'cancel',
+      });
+      const sheet = await this.actionSheetCtrl.create({
+        header: this.translate.instant('list.chooseYear'),
+        buttons,
+      });
+      await sheet.present();
+    }
   }
 
   ask() {
     this.askClick.emit();
+    this.navCtrl.navigateForward('chat');
   }
 
   bookmark(item: PosterItem) {

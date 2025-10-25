@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ListComponent, PosterItem } from 'src/app/shared/components/list/list.component';
@@ -22,6 +22,7 @@ import { ListComponent, PosterItem } from 'src/app/shared/components/list/list.c
     standalone: true
 })
 export class GeographyPage implements OnInit {
+    @ViewChild(ListComponent) listComponent!: ListComponent;
     items: PosterItem[] = [
         { id: 1, src: '../../../assets/imgs/demo/1.png', title: 'Số 560' },
         { id: 2, src: '../../../assets/imgs/demo/2.png', title: 'Số 561' },
@@ -36,6 +37,10 @@ export class GeographyPage implements OnInit {
     constructor() { }
 
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
+        this.listComponent.onWillEnter();
     }
 
     onItemClick(item: PosterItem) {

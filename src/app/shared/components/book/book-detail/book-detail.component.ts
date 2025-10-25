@@ -1,6 +1,6 @@
-import { Component, OnInit, signal, computed, Injector } from '@angular/core';
+import { Component, OnInit, signal, computed, Injector, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, ToastController } from '@ionic/angular/standalone';
+import { IonContent, ToastController,IonIcon,IonButton,IonButtons  } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
@@ -45,10 +45,14 @@ interface Comment {
     InputChatComponent,
     RatingStartComponent,
     HeaderComponent,
+    IonIcon,
+    IonButton,
+    IonButtons
   ],
   standalone: true,
 })
 export class BookDetailComponent extends BaseComponent {
+  @ViewChild('tmpToolbarEnd') tmpToolbarEnd: TemplateRef<any>;
   id: any;
   oData: any;
   rate: any = 0;
@@ -171,48 +175,74 @@ export class BookDetailComponent extends BaseComponent {
   }
 
   async chat() {
-    let result = await firstValueFrom(
+    let conversationId = null;
+    let obj = {
+      BookId: this.id,
+    };
+    let result2 = await firstValueFrom(
       this.api.execApi(
-        'UserSubscription',
-        'check-chat-eligibility',
+        'Chat',
+        'get-book-conversations',
         'GET',
         null,
-        null
+        obj,
+        true
       )
     );
-    if (result && result?.Data) {
-      let data = result?.Data;
-      if (!data?.CanChat) {
-        this.notificationSV.showError(data?.Reason);
-        return;
-      } else {
-        let conversationId = null;
-        let obj = {
-          BookId: this.id,
-        };
-        let result2 = await firstValueFrom(
-          this.api.execApi(
-            'Chat',
-            'get-book-conversations',
-            'GET',
-            null,
-            obj,
-            true
-          )
-        );
-        if (result2 && result2?.Data?.length) {
-          let lstData = result2?.Data;
-          conversationId = lstData[0]?.BookConversationId;
-        }
-        this.navCtrl.navigateForward('chat', {
-          queryParams: {
-            conversationId: conversationId,
-            type: 'book',
-            bookID: this.id,
-          },
-        });
-      }
+    if (result2 && result2?.Data?.length) {
+      let lstData = result2?.Data;
+      conversationId = lstData[0]?.BookConversationId;
     }
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        conversationId: conversationId,
+        type: 'book',
+        bookID: this.id,
+        bookName: this.oData?.Title,
+      },
+    });
+    // let result = await firstValueFrom(
+    //   this.api.execApi(
+    //     'UserSubscription',
+    //     'check-chat-eligibility',
+    //     'GET',
+    //     null,
+    //     null
+    //   )
+    // );
+    // if (result && result?.Data) {
+    //   let data = result?.Data;
+    //   if (!data?.CanChat) {
+    //     this.notificationSV.showError(data?.Reason);
+    //     return;
+    //   } else {
+    //     let conversationId = null;
+    //     let obj = {
+    //       BookId: this.id,
+    //     };
+    //     let result2 = await firstValueFrom(
+    //       this.api.execApi(
+    //         'Chat',
+    //         'get-book-conversations',
+    //         'GET',
+    //         null,
+    //         obj,
+    //         true
+    //       )
+    //     );
+    //     if (result2 && result2?.Data?.length) {
+    //       let lstData = result2?.Data;
+    //       conversationId = lstData[0]?.BookConversationId;
+    //     }
+    //     this.navCtrl.navigateForward('chat', {
+    //       queryParams: {
+    //         conversationId: conversationId,
+    //         type: 'book',
+    //         bookID: this.id,
+    //       },
+    //     });
+    //   }
+    // }
   }
 
   async readIssue(id: string) {

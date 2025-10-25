@@ -8,12 +8,12 @@
       (pdfLoadingFailed)="onError($event)">
     </pdf-viewer>
     <!-- Controls nổi -->
-    <div class="controls">
+    <div *ngIf="isLoadPdf" class="controls">
       <div class="left">
-        <!-- <button class="btn wide" aria-label="Mục lục">
+        <button class="btn wide" aria-label="Mục lục" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
           <ion-icon name="list-outline"></ion-icon>
-        </button> -->
-        <div class="counter">
+        </button>
+        <div class="counter rounded-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
           <span class="chip">{{ page }}</span><span>/{{ totalPages }}</span>
         </div>
       </div>

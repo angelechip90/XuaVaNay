@@ -42,6 +42,15 @@
 /* Import custom styles */
 @import 'assets/scss/style.scss';
 
+html.plt-android {
+  --ion-safe-area-top: 22px;
+  --ion-safe-area-bottom: 20px;
+}
+
+.padding-statusbar {
+    padding-top: var(--ion-safe-area-top, 0) !important;
+}
+
 .gradient-spinner {
   width: 50px;
   height: 50px;
@@ -249,4 +258,8 @@ ion-segment.language-segment::part(container) {
 
 ion-segment.language-segment::part(indicator) {
   background: #F3F4F6;
+}
+
+.text-xuavanay {
+  color: #130261 !important;
 }

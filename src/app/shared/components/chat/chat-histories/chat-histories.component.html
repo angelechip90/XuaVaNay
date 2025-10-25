@@ -2,16 +2,17 @@
 
 <!-- Content -->
 <ion-content [fullscreen]="true" class="ion-padding">
-  <app-input-chat [placeholder]="'Bạn cần hỏi về vấn đề gì ?'" (sendMessage)="send($event)"></app-input-chat>
+  <!-- <app-input-chat [placeholder]="'Bạn cần hỏi về vấn đề gì ?'" (sendMessage)="send($event)"></app-input-chat> -->
+  <app-search-box (valueChange)="send($event)"></app-search-box>
   <ng-container *ngIf="lstData && lstData?.length">
     <ion-list class="ion-bg-color-none">
       <div class="row mt-3">
         <ng-container *ngFor="let item of lstData">
           <div class="col-6 mb-3" (click)="goConversation(item)">
             <div class="qa-card">
-              <div class="q">{{ item.Title }}</div>
+              <div class="q text-xuavanay">{{ item.Title }}</div>
               <!-- <div class="a">{{ item.answer }}</div> -->
-              <div class="t">Ngày tạo: {{ item.CreatedDate | date : 'hh:mm dd/MM/yyyy' }}</div>
+              <div class="t">Ngày tạo: {{ item.CreatedDate | date : 'dd/MM/yyyy' }}</div>
               <div class="t">{{ item.CreatedDate | timeago }}</div>
             </div>
           </div>
