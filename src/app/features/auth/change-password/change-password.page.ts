@@ -12,6 +12,8 @@ import {
   IonInput,
   IonButton,
   ToastController,
+  IonHeader,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
@@ -25,7 +27,7 @@ import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
   templateUrl: './change-password.page.html',
   styleUrls: ['./change-password.page.scss'],
   standalone: true,
-  imports: [...BASE_IMPORTS, SectionLogoComponent],
+  imports: [...BASE_IMPORTS, SectionLogoComponent, IonHeader, IonToolbar],
 })
 export class ChangePasswordPage {
   showCurrentPw = signal(false);

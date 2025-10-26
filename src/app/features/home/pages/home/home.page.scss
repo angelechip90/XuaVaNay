@@ -43,7 +43,8 @@
     font-weight: 600;
     font-size: 22px;
     line-height: 1.4;
-    color: #20114d;
+    color: #130261;
+    font-style: italic;
     /* violet-950-ish */
 }
 
@@ -52,7 +53,7 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 1.5;
-    color: #20114d;
+    color: #130261;
     opacity: 0.9;
 }
 
@@ -89,14 +90,14 @@
 .section-title h2 {
     font-size: 18px;
     font-weight: 600;
-    color: #20114d;
+    color: #130261;
     margin: 16px 0 2px;
 }
 
 .section-subtitle p {
     font-size: 14px;
     font-weight: 500;
-    color: #20114d;
+    color: #130261;
     margin: 0 0 6px;
     opacity: 0.9;
 }
@@ -140,13 +141,13 @@
 .sources h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #1e1542;
+    color: #130261;
     margin: 0 0 2px;
 }
 
 .sources p {
     font-size: 13px;
-    color: #6b7280;
+    color: #130261;
     margin: 0;
 }
 
@@ -162,12 +163,6 @@
 .sources ion-checkbox::part(container) {
     border-color: #8082EF;
     /* viền đồng bộ với màu chủ đạo */
-}
-
-.sources ion-checkbox::part(mark) {
-    transform: scale(0.7);
-    transform-origin: center;
-    /* dấu tích nhỏ hơn hơn */
 }
 
 .sources ion-checkbox::part(label) {

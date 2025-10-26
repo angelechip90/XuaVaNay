@@ -1,11 +1,17 @@
+<app-header></app-header>
+
 <!-- Content -->
 <ion-content fullscreen>
-  <app-date-header class="ion-margin-top ion-padding-top"></app-date-header>
-  <!-- Logo -->
-  <app-section-logo></app-section-logo>
+  <section class="padding-left-20 padding-right-20 margin-bottom-20">
+    <app-date-header></app-date-header>
+    <!-- Logo -->
+  </section>
+  <section class="padding-left-20 padding-right-20 margin-bottom-20">
+    <app-section-logo></app-section-logo>
+  </section>
   <!-- Date header with avatar -->
   <!-- Hero -->
-  <section class="hero ion-padding-horizontal ion-padding-top">
+  <section class="hero ion-padding">
     <h1 class="hero-title">
       Kết nối Quá khứ & Hiện tại<br />Soi chiếu Tương lai
     </h1>
@@ -14,9 +20,10 @@
     </p>
   </section>
 
-  <!-- Search -->
-  <app-search-box (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-search-box>
-
+  <section class="ion-padding-bottom">
+    <!-- Search -->
+    <app-search-box (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-search-box>
+  </section>
   <!-- Data sources -->
   <section class="section ion-padding-horizontal">
     <ion-text class="section-title">
@@ -39,7 +46,7 @@
     <ion-item>
       <ion-checkbox labelPlacement="end" checked="true">
         <ion-label class="checkbox-label">
-          <h3>Tạp chí Xưa và Nay</h3>
+          <h3 class="color-violet">Tạp chí Xưa và Nay</h3>
           <p>The Past and Present Magazine (1994 - present).</p>
         </ion-label>
       </ion-checkbox>
@@ -48,7 +55,7 @@
     <ion-item>
       <ion-checkbox labelPlacement="end" checked="true">
         <ion-label class="checkbox-label">
-          <h3>Sách được cấp phép xuất bản</h3>
+          <h3 class="color-violet">Sách được cấp phép xuất bản</h3>
           <p>Books licensed for publication.</p>
         </ion-label>
       </ion-checkbox>
@@ -57,7 +64,7 @@
     <ion-item>
       <ion-checkbox labelPlacement="end" checked="true">
         <ion-label class="checkbox-label">
-          <h3>Tài liệu có bản quyền</h3>
+          <h3 class="color-violet">Tài liệu có bản quyền</h3>
           <p>Copyrighted documents (videos, images).</p>
         </ion-label>
       </ion-checkbox>

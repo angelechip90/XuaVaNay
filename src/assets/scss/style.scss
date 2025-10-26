@@ -342,7 +342,7 @@ ion-input {
 }
 
 .color-danger {
-    color: #ef4444;
+    color: #DD2A36;
 }
 
 .color-danger-weak {
@@ -367,6 +367,8 @@ ion-input {
 
 .no-background {
     background: none;
+    --background: none;
+    --border-width: 0;
 }
 
 .icon-big {
@@ -379,4 +381,16 @@ ion-input {
 
 .icon-small {
     font-size: 14px;
+}
+
+/* Card content (iOS mode) */
+.card-content-ios {
+    -webkit-padding-start: 20px;
+    padding-inline-start: 15px;
+    -webkit-padding-end: 20px;
+    padding-inline-end: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.4;
 }

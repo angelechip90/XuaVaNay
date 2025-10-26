@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonToolbar,
   IonText,
   IonList,
   IonLabel,
@@ -27,6 +25,7 @@ import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -35,8 +34,6 @@ import { BaseComponent } from 'src/app/core/base/base.component';
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonToolbar,
     IonText,
     IonList,
     IonLabel,
@@ -47,6 +44,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
     SectionLogoComponent,
     DateHeaderComponent,
     SearchBoxComponent,
+    HeaderComponent,
   ],
 })
 export class HomePage extends BaseComponent {
