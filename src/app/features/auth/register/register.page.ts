@@ -15,6 +15,7 @@ import {
   IonInput,
   IonCheckbox,
   IonHeader,
+  IonToolbar,
   ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -46,6 +47,8 @@ import { TranslateService } from '@ngx-translate/core';
     IonIcon,
     IonInput,
     IonCheckbox,
+    IonHeader,
+    IonToolbar,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

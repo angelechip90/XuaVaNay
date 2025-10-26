@@ -1,4 +1,4 @@
-<ion-segment class="language-segment" [value]="currentLang" (ionChange)="changeLang($event.detail.value)">
+<ion-segment class="language-segment no-background" [value]="currentLang" (ionChange)="changeLang($event.detail.value)">
   <ion-segment-button *ngFor="let lang of langs" [value]="lang" class="language-button">
     <ng-container *ngIf="lang === 'vi'">
       <svg width="30px" height="25px" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"

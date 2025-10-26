@@ -10,6 +10,9 @@ import {
   IonList,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
 } from '@ionic/angular/standalone';
 
 // Centralized common imports for standalone components
@@ -27,4 +30,7 @@ export const BASE_IMPORTS = [
   IonList,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
 ];

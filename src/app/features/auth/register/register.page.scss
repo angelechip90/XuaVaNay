@@ -10,3 +10,12 @@ ion-checkbox::part(label) {
     white-space: normal;
     overflow-wrap: break-word;
 }
+
+.title {
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+.custom-checkbox .label-text {
+    margin-right: 10px;
+}

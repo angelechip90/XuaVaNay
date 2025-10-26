@@ -12,6 +12,8 @@ import {
   IonInput,
   ToastController,
   IonButton,
+  IonHeader,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -41,6 +43,8 @@ import { ValidationMessagePipe } from 'src/app/shared/pipes/validation-message.p
     ReactiveFormsModule,
     SectionLogoComponent,
     IonButton,
+    IonHeader,
+    IonToolbar,
     TranslateModule,
     ValidationMessagePipe,
   ],
