@@ -132,6 +132,32 @@
     "suDia": "History & Geography",
     "ebooks": "E-Books",
     "account": "Account"
+  },
+  "landing": {
+    "title": "Connecting the Past and Present<br>Illuminating the Future",
+    "subtitle": "Connecting the Past and Present<br>Illuminating the Future",
+    "start": "START"
+  }
+  ,
+  "fields": {
+    "username": "Username or email",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "captcha": "Security code",
+    "policy": "Privacy policy"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "email": "{{field}} is invalid",
+    "minlength": "{{field}} must be at least {{length}} characters",
+    "maxlength": "{{field}} must be at most {{length}} characters",
+    "pattern": "{{field}} format is invalid",
+    "mismatch": "Confirmation password does not match",
+    "requiredTrue": "You must accept the policy to continue",
+    "captchaInvalid": "Security code is incorrect",
+    "default": "This field is invalid"
   }
 }
 

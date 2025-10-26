@@ -129,6 +129,11 @@
   white-space: break-spaces !important;
 }
 
+/* Ensure newline separation in ion-toast messages */
+ion-toast::part(message) {
+  white-space: pre-line;
+}
+
 .source-ref__list {
   overflow: auto;
   height: auto;

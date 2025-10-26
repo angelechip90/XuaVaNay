@@ -1,7 +1,16 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/services/authguard';
+import { LandingRedirectGuard } from './core/services/landing-redirect.guard';
 
 export const routes: Routes = [
+  {
+    path: '',
+    canActivate: [LandingRedirectGuard],
+    loadComponent: () =>
+      import('./features/home/pages/landing/landing.page').then(
+        (m) => m.LandingPage
+      ),
+  },
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
@@ -50,7 +59,7 @@ export const routes: Routes = [
       ).then((m) => m.PurchaseHistoryPage),
   },
   {
-    path: 'home',
+    path: 'index',
     loadComponent: () =>
       import('./features/home/pages/home/home.page').then((m) => m.HomePage),
   },
@@ -148,5 +157,12 @@ export const routes: Routes = [
       import(
         './features/account/pages/subscription/my-orders/my-orders.page'
       ).then((m) => m.MyOrdersPage),
+  },
+  {
+    path: 'landing',
+    loadComponent: () =>
+      import('./features/home/pages/landing/landing.page').then(
+        (m) => m.LandingPage
+      ),
   },
 ];

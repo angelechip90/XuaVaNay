@@ -45,7 +45,6 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
     IonRadio,
     IonRadioGroup,
     IonItem,
-    IonGrid,
     IonRow,
     IonCol,
     TranslateModule,

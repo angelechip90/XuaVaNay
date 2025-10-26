@@ -132,6 +132,32 @@
     "suDia": "Sử Địa",
     "ebooks": "E-Books",
     "account": "Tài khoản"
+  },
+  "landing": {
+    "title": "Kết nối Quá khứ & Hiện tại<br>Chiếu sáng Tương lai",
+    "subtitle": "Kết nối Quá khứ & Hiện tại<br>Chiếu sáng Tương lai",
+    "start": "BẮT ĐẦU"
+  }
+  ,
+  "fields": {
+    "username": "Tên đăng nhập hoặc email",
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirm": "Xác nhận mật khẩu",
+    "captcha": "Mã bảo mật",
+    "policy": "Chính sách bảo mật"
+  },
+  "validation": {
+    "required": "Vui lòng nhập {{field}}",
+    "email": "{{field}} không hợp lệ",
+    "minlength": "{{field}} phải có ít nhất {{length}} ký tự",
+    "maxlength": "{{field}} không vượt quá {{length}} ký tự",
+    "pattern": "{{field}} không đúng định dạng",
+    "mismatch": "Mật khẩu xác nhận không khớp",
+    "requiredTrue": "Bạn cần đồng ý chính sách để tiếp tục",
+    "captchaInvalid": "Mã bảo mật không đúng",
+    "default": "Trường này không hợp lệ"
   }
 }
 

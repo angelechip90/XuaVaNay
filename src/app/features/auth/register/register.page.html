@@ -35,20 +35,22 @@
     </div>
 
     <!-- Captcha row -->
-    <!-- <div class="captcha-row">
+    <div class="captcha-row">
       <div class="field-card" [class.invalid]="form.controls.captcha.touched && form.controls.captcha.invalid">
         <ion-icon name="shield-checkmark-outline" class="field-icon"></ion-icon>
         <ion-input size="10" formControlName="captcha" type="text" placeholder="Mã bảo mật"
           aria-label="Mã bảo mật"></ion-input>
+        <!-- Optional error message slot if using validation pipe -->
+        <!-- <div class="error" *ngIf="form.controls.captcha.touched && form.controls.captcha.invalid">{{ form.controls.captcha | validationMessage:'captcha' }}</div> -->
       </div>
 
       <div class="captcha-box">
-        <img [src]="captchaUrl()" alt="captcha" />
+        <label class="captcha-code wavy-strikethrough">{{ captchaCode() }}</label>
         <ion-button fill="clear" size="small" (click)="refreshCaptcha()" aria-label="Làm mới CAPTCHA">
           <ion-icon name="refresh-outline"></ion-icon>
         </ion-button>
       </div>
-    </div> -->
+    </div>
 
     <!-- Policy -->
     <div class="form-checkbox">

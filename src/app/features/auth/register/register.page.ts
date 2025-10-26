@@ -5,6 +5,8 @@ import {
   ReactiveFormsModule,
   FormBuilder,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import {
   IonContent,
@@ -30,6 +32,8 @@ import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.c
 import { NavigationService } from 'src/app/core/services/navigation.service';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
+import { generateCaptcha } from 'src/app/shared/utils/utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -38,6 +42,7 @@ import { firstValueFrom } from 'rxjs';
   standalone: true,
   imports: [
     IonContent,
+    IonButton,
     IonIcon,
     IonInput,
     IonCheckbox,
@@ -50,7 +55,7 @@ import { firstValueFrom } from 'rxjs';
 export class RegisterPage extends BaseComponent {
   showPw = false;
   showPw2 = false;
-  captchaUrl = signal('');
+  captchaCode = signal(generateCaptcha());
 
   form = this.fb.group(
     {
@@ -58,7 +63,10 @@ export class RegisterPage extends BaseComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirm: ['', [Validators.required]],
-      // captcha: ['', [Validators.required]],
+      captcha: [
+        '',
+        [Validators.required, (c: AbstractControl) => this.captchaValidator(c)],
+      ],
       policy: [false, [Validators.requiredTrue]],
     },
     { validators: this.passwordMatchValidator }
@@ -68,7 +76,8 @@ export class RegisterPage extends BaseComponent {
     injector: Injector,
     private fb: FormBuilder,
     private toast: ToastController,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private translate: TranslateService
   ) {
     super(injector);
     addIcons({
@@ -93,6 +102,75 @@ export class RegisterPage extends BaseComponent {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  captchaValidator(control: AbstractControl): ValidationErrors | null {
+    const value: string = (control.value || '').toString().trim().toUpperCase();
+    if (!value) return null;
+    const code = (this.captchaCode() || '').toString().trim().toUpperCase();
+    return value === code ? null : { captchaInvalid: true };
+  }
+
+  private collectValidationErrorMessages(): string[] {
+    const messages: string[] = [];
+
+    if (this.form.errors?.['mismatch']) {
+      messages.push(this.translate.instant('validation.mismatch'));
+    }
+
+    const controls: Record<string, any> = this.form.controls as any;
+    Object.keys(controls).forEach((key) => {
+      const control = controls[key];
+      const errors: ValidationErrors | null = control?.errors || null;
+      if (!errors) return;
+      const firstKey = Object.keys(errors)[0];
+      const errVal: any = (errors as any)[firstKey];
+      const fieldLabel = this.translate.instant(`fields.${key}`);
+
+      switch (firstKey) {
+        case 'required':
+          messages.push(
+            this.translate.instant('validation.required', { field: fieldLabel })
+          );
+          break;
+        case 'email':
+          messages.push(
+            this.translate.instant('validation.email', { field: fieldLabel })
+          );
+          break;
+        case 'minlength':
+          messages.push(
+            this.translate.instant('validation.minlength', {
+              field: fieldLabel,
+              length: errVal?.requiredLength,
+            })
+          );
+          break;
+        case 'maxlength':
+          messages.push(
+            this.translate.instant('validation.maxlength', {
+              field: fieldLabel,
+              length: errVal?.requiredLength,
+            })
+          );
+          break;
+        case 'pattern':
+          messages.push(
+            this.translate.instant('validation.pattern', { field: fieldLabel })
+          );
+          break;
+        case 'requiredTrue':
+          messages.push(this.translate.instant('validation.requiredTrue'));
+          break;
+        case 'captchaInvalid':
+          messages.push(this.translate.instant('validation.captchaInvalid'));
+          break;
+        default:
+          messages.push(this.translate.instant('validation.default'));
+      }
+    });
+
+    return Array.from(new Set(messages));
+  }
+
   togglePw() {
     this.showPw = !this.showPw;
   }
@@ -102,11 +180,12 @@ export class RegisterPage extends BaseComponent {
   }
 
   refreshCaptcha() {
-    // Generate a simple captcha URL (you can replace with actual captcha service)
-    const timestamp = Date.now();
-    this.captchaUrl.set(
-      `../../../assets/imgs/1.png?text=${timestamp.toString().slice(-4)}`
-    );
+    this.captchaCode.set(generateCaptcha());
+    const c = this.form.controls.captcha;
+    c.setValue('');
+    c.markAsPristine();
+    c.markAsUntouched();
+    c.updateValueAndValidity();
   }
 
   goLogin() {
@@ -116,9 +195,12 @@ export class RegisterPage extends BaseComponent {
   async submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      const messages = this.collectValidationErrorMessages().map(
+        (m) => `• ${m}`
+      );
       const toast = await this.toast.create({
-        message: 'Vui lòng nhập đầy đủ thông tin và đảm bảo mật khẩu khớp',
-        duration: 2000,
+        message: messages.join('\n'),
+        duration: 3000,
         color: 'warning',
       });
       return toast.present();

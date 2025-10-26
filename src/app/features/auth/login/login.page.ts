@@ -83,8 +83,36 @@ export class LoginPage implements OnInit {
   async submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      const messages: string[] = [];
+      const controls: any = this.form.controls;
+      if (controls.username.errors) {
+        const label = this.translate.instant('fields.username');
+        if (controls.username.errors['required']) {
+          messages.push(
+            this.translate.instant('validation.required', { field: label })
+          );
+        }
+      }
+      if (controls.password.errors) {
+        const label = this.translate.instant('fields.password');
+        if (controls.password.errors['required']) {
+          messages.push(
+            this.translate.instant('validation.required', { field: label })
+          );
+        } else if (controls.password.errors['minlength']) {
+          messages.push(
+            this.translate.instant('validation.minlength', {
+              field: label,
+              length: controls.password.errors['minlength'].requiredLength,
+            })
+          );
+        }
+      }
+      const unique = Array.from(new Set(messages))
+        .map((m) => `• ${m}`)
+        .join('\n');
       await this.showToast(
-        this.translate.instant('login.toast.incomplete'),
+        unique || this.translate.instant('login.toast.incomplete'),
         'warning'
       );
       return;

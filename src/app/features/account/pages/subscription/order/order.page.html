@@ -58,7 +58,7 @@
             <span class="note">{{ 'order.totals.payable' | translate }}</span>
           </ion-col>
           <ion-col size="4" class="ion-text-right">
-            <span class="note">{{order?.TotalAmount | number}}đ</span>
+            <span class="note red">{{order?.TotalAmount | number}}đ</span>
           </ion-col>
         </ion-row>
       </div>
@@ -69,32 +69,18 @@
   <div class="section">
     <h2>{{ 'order.payment.title' | translate }}</h2>
     <ion-radio-group [(ngModel)]="selectedMethod">
-      <ion-item button lines="none" class="payment-option" [class.selected]="selectedMethod === 'VCB'" detail="false">
-        <div class="payment-content">
-          <div class="payment-icon">
-            <ion-icon name="card-outline"></ion-icon>
-          </div>
-          <div class="payment-text">
-            <div class="title">{{ 'order.payment.atm_domestic.title' | translate }}</div>
-            <div class="subtitle">{{ 'order.payment.atm_domestic.subtitle' | translate }}</div>
-          </div>
-        </div>
-        <ion-radio slot="end" value="VCB"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-    <ion-radio-group [(ngModel)]="selectedMethod">
-      <ion-item button lines="none" class="payment-option" [class.selected]="selectedMethod === 'VC'" detail="false">
-        <div class="payment-content">
-          <div class="payment-icon">
-            <ion-icon name="card-outline"></ion-icon>
-          </div>
-          <div class="payment-text">
-            <div class="title">{{ 'order.payment.mastercard.title' | translate }}</div>
-            <div class="subtitle">{{ 'order.payment.mastercard.subtitle' | translate }}</div>
-          </div>
-        </div>
-        <ion-radio slot="end" value="VC"></ion-radio>
-      </ion-item>
+      <div class="payment-grid">
+        <button type="button" class="payment-card" [class.selected]="selectedMethod === 'VCB'"
+          (click)="selectedMethod='VCB'">
+          <ion-radio value="VCB"></ion-radio>
+          <img class="payment-image" [src]="'/assets/image/dedit.png'" alt="ATM" />
+        </button>
+        <button type="button" class="payment-card" [class.selected]="selectedMethod === 'VC'"
+          (click)="selectedMethod='VC'">
+          <ion-radio value="VC"></ion-radio>
+          <img class="payment-image" [src]="'/assets/image/creditcard.png'" alt="Mastercard" />
+        </button>
+      </div>
     </ion-radio-group>
   </div>
 

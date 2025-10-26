@@ -118,11 +118,45 @@
 }
 
 ion-radio {
-    --border-radius: 4px;
-    --inner-border-radius: 4px;
+    --border-radius: 50%;
+    --inner-border-radius: 50%;
 
     --color: #ddd;
-    --color-checked: #6815ec;
+    --color-checked: #fff;
+    --mark-width: 14px;
+    --mark-height: 14px;
+}
+
+/* New layout for two methods side-by-side with radio under image */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.payment-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: #ffffff;
+}
+
+.payment-card.selected {
+    border-color: #3b82f6;
+    background: #f8fbff;
+}
+
+.payment-card .payment-image {
+    width: 96px;
+    height: auto;
+    display: block;
+}
+
+.payment-card ion-radio {
+    margin: 0;
 }
 
 ion-radio.ios::part(container) {
@@ -130,11 +164,37 @@ ion-radio.ios::part(container) {
     height: 20px;
 
     border: 2px solid #ddd;
-    border-radius: 4px;
+    border-radius: 50%;
 }
 
-.radio-checked.ios::part(container) {
-    border-color: #6815ec;
+.radio-checked.ios::part(container),
+.radio-checked.md::part(container) {
+    border-color: #0078FF;
+    background-color: #0078FF;
+}
+
+ion-radio.md::part(container) {
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid #ddd;
+    border-radius: 50%;
+}
+
+/* Use a checkmark icon for the radio's mark when checked */
+ion-radio::part(mark) {
+    background-color: #ffffff;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z'/></svg>");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    border-radius: 0;
+    width: 14px;
+    height: 14px;
 }
 
 .gradient-btn {
@@ -146,4 +206,8 @@ ion-radio.ios::part(container) {
     width: 100%;
     font-weight: 800;
     cursor: pointer;
+}
+
+.red {
+    color: #f81111 !important;
 }
