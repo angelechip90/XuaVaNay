@@ -94,11 +94,13 @@ export class ChatsComponent extends BaseComponent {
   buffer = '';
   scrollTimeout: any;
   isRender: any = false;
-  type: any;
+  type: any = 'conversation';
   bookID: any;
   user: any;
   isLoad: any = true;
   pageNum: any = 1;
+  bookName:any = '';
+  message:any = '';
 
   constructor(
     injector: Injector,
@@ -126,14 +128,18 @@ export class ChatsComponent extends BaseComponent {
   async ionViewWillEnter() {
     let user = await this.authService.getUserInfo();
     if (user) this.user = user;
-    this.conversationId = this.route.snapshot.queryParams['conversationId'];
+    let conversationId = this.route.snapshot.queryParams['conversationId'];
+    if(conversationId) this.conversationId = conversationId;
     let message = this.route.snapshot.queryParams['message'];
-    this.type = this.route.snapshot.queryParams['type'];
-    this.bookID = this.route.snapshot.queryParams['bookID'];
-    if (this.conversationId) {
-      await this.loadItem();
-    }
-    if (message) this.startChat(message);
+    if(message) this.message = message;
+    let type = this.route.snapshot.queryParams['type'];
+    if(type) this.type = type;
+    let bookID = this.route.snapshot.queryParams['bookID'];
+    if(bookID) this.bookID = bookID;
+    let bookName = this.route.snapshot.queryParams['bookName'];
+    if(bookName) this.bookName = bookName;
+    await this.loadItem();
+    
   }
 
   ngAfterViewInit() {
@@ -155,6 +161,10 @@ export class ChatsComponent extends BaseComponent {
 
   async startChat(message: any) {
     this.smoothScroll(100);
+    let validate = await this.checkEligibility();
+    if(!validate) return;
+    await this.createConversation(message);
+    if(!this.conversationId) return;
     if (
       !(
         this.lstConversation?.length > 0 &&
@@ -237,7 +247,10 @@ export class ChatsComponent extends BaseComponent {
 
   loadItem(isScroll: any = false): Promise<any> {
     return new Promise(async (resolve) => {
-      if (!this.isLoad) resolve(false);
+      if(!this.conversationId){
+        this.isLoad = false;
+        resolve(false);
+      }
       let obj: any = {
         ConversationId: this.conversationId,
         PageNumber: this.pageNum,
@@ -258,9 +271,6 @@ export class ChatsComponent extends BaseComponent {
         if (!this.lstConversation) this.lstConversation = [];
         let lstData = result?.Data;
         lstData.reverse();
-        let totalRecord = result?.TotalRecords;
-        if (this.lstConversation?.length == totalRecord) this.isLoad = false;
-        this.changeDetectorRef.detectChanges();
         for (let item of lstData) {
           if (item?.Role === 'user') {
             let newMess = {
@@ -294,17 +304,77 @@ export class ChatsComponent extends BaseComponent {
             }
           }
         }
+        let totalRecord = result?.TotalRecords;
+        if (this.lstConversation?.length == totalRecord){
+          this.smoothScroll(100);
+          this.isLoad = false;
+          if (this.message) this.startChat(this.message);
+        }else{
+          this.pageNum = this.pageNum + 1;
+          this.loadItem();
+        }
+        this.changeDetectorRef.detectChanges();
       }
     });
   }
 
-  async onIonInfinite(event: any) {
-    if (this.isLoad) {
-      this.pageNum = this.pageNum + 1;
-      await this.loadItem(true);
-      setTimeout(() => {
-        (event as InfiniteScrollCustomEvent).target.complete();
-      }, 200);
+  // async onIonInfinite(event: any) {
+  //   if (this.isLoad) {
+  //     this.pageNum = this.pageNum + 1;
+  //     await this.loadItem(true);
+  //     setTimeout(() => {
+  //       (event as InfiniteScrollCustomEvent).target.complete();
+  //     }, 200);
+  //   }
+  // }
+
+  async checkEligibility(){
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'UserSubscription',
+        'check-chat-eligibility',
+        'GET',
+        null,
+        null
+      )
+    );
+    if (result && result?.Data) {
+      let data = result?.Data;
+      if (!data?.CanChat) {
+        this.notificationSV.showError(data?.Reason);
+        return false;
+      }else{
+        return true
+      }
+    }
+    return false;
+  }
+
+  async createConversation(message:any){
+    if (!this.conversationId) {
+      let url = '';
+      let obj:any = {
+        Message: message,
+      }
+      if(this.type == 'conversation'){
+        url = 'create-conversation';
+      }
+      if (this.type == 'book') {
+        url = 'create-book-conversation';
+        obj['BookId'] = this.bookID;
+      }
+      let result = await firstValueFrom(
+        this.api.execApi(
+          'Chat',
+          url,
+          'POST',
+          obj,
+          null,
+        )
+      );
+      if (result && result?.Data) {
+        this.conversationId = result?.Data?.ConversationId;
+      }
     }
   }
 
@@ -492,31 +562,6 @@ export class ChatsComponent extends BaseComponent {
 
   async onSendMessage(message: string) {
     if (this.isRender) return;
-    if (message) {
-      if (!this.conversationId) {
-        if (this.type == 'book') {
-          let obj = {
-            BookId: this.bookID,
-            Message: message,
-          };
-          let result = await firstValueFrom(
-            this.api.execApi(
-              'Chat',
-              'create-book-conversation',
-              'POST',
-              obj,
-              null,
-              true
-            )
-          );
-          if (result && result?.Data) {
-            this.conversationId = result?.Data?.ConversationId;
-          }
-        }
-      }
-      if (!this.conversationId) return;
-      this.smoothScroll(100);
-      this.startChat(message);
-    }
+    this.startChat(message);
   }
 }

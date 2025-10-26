@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ListComponent, PosterItem } from 'src/app/shared/components/list/list.component';
@@ -12,9 +12,15 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, ListComponent]
 })
 export class IndexPage implements OnInit {
+  @ViewChild(ListComponent) listComponent!: ListComponent;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.listComponent.onWillEnter();
   }
 
   onItemClick(item: PosterItem) {

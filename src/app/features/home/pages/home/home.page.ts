@@ -78,46 +78,51 @@ export class HomePage extends BaseComponent {
       this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
       return;
     }
-    let result = await firstValueFrom(
-      this.api.execApi(
-        'UserSubscription',
-        'check-chat-eligibility',
-        'GET',
-        null,
-        null
-      )
-    );
-    if (result && result?.Data) {
-      let data = result?.Data;
-      if (!data?.CanChat) {
-        this.notificationSV.showError(data?.Reason);
-        return;
-      } else {
-        let obj = {
-          Message: message,
-        };
-        let result = await firstValueFrom(
-          this.api.execApi(
-            'Chat',
-            'create-conversation',
-            'POST',
-            obj,
-            null,
-            true
-          )
-        );
-        if (result && result?.Data) {
-          let conversationId = result?.Data?.ConversationId;
-          this.navCtrl.navigateForward('chat', {
-            queryParams: {
-              conversationId: conversationId,
-              message: message,
-              type: 'conversation',
-            },
-          });
-        }
-      }
-    }
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        message: message,
+      },
+    });
+    // let result = await firstValueFrom(
+    //   this.api.execApi(
+    //     'UserSubscription',
+    //     'check-chat-eligibility',
+    //     'GET',
+    //     null,
+    //     null
+    //   )
+    // );
+    // if (result && result?.Data) {
+    //   let data = result?.Data;
+    //   if (!data?.CanChat) {
+    //     this.notificationSV.showError(data?.Reason);
+    //     return;
+    //   } else {
+    //     let obj = {
+    //       Message: message,
+    //     };
+    //     let result = await firstValueFrom(
+    //       this.api.execApi(
+    //         'Chat',
+    //         'create-conversation',
+    //         'POST',
+    //         obj,
+    //         null,
+    //         true
+    //       )
+    //     );
+    //     if (result && result?.Data) {
+    //       let conversationId = result?.Data?.ConversationId;
+    //       this.navCtrl.navigateForward('chat', {
+    //         queryParams: {
+    //           conversationId: conversationId,
+    //           message: message,
+    //           type: 'conversation',
+    //         },
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   onSuggestClick() {

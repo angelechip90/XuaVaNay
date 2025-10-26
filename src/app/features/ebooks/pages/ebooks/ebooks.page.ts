@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon,IonList,IonInfiniteScroll,IonInfiniteScrollContent,
   InfiniteScrollCustomEvent } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,7 @@ import { ListComponent } from 'src/app/shared/components/list/list.component';
   standalone: true
 })
 export class EbooksPage extends BaseComponent{
+  @ViewChild(ListComponent) listComponent!: ListComponent;
   lstData:any;
   isLoad:any = true;
   pageNum: any = 1;
@@ -45,6 +46,10 @@ export class EbooksPage extends BaseComponent{
 
   ngOnInit() {
     this.loadItem();
+  }
+
+  ionViewWillEnter() {
+    this.listComponent.onWillEnter();
   }
   
   loadItem(isScroll: any = false): Promise<any> {

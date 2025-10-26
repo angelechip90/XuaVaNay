@@ -63,7 +63,7 @@ ion-header {
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
-    padding: 0 20px;
+    //padding: 0 20px;
     gap: 14px;
 }
 
@@ -78,7 +78,7 @@ ion-header {
     height: 48px;
     border-radius: 12px;
     background: #fff;
-    box-shadow: var(--shadow);
+    //box-shadow: var(--shadow);
     border: 0;
     display: grid;
     place-items: center;
@@ -102,13 +102,15 @@ ion-header {
     border-radius: 8px;
     background: #fae8ff;
     padding: 10px;
+    text-align: center;
+    min-width: 40px;
 }
 
 .counter {
     display: inline-flex;
     align-items: baseline;
     gap: 4px;
-    padding: 5px 20px;
+    padding: 5px 10px;
     background: #fff;
 
     span {

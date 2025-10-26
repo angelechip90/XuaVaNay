@@ -20,6 +20,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { TimeagoPipe } from 'src/app/shared/pipes/timeago-pipe';
 import { InputChatComponent } from '../input-chat/input-chat.component';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { SearchBoxComponent } from '../../search-box/search-box.component';
 
 type QAItem = {
   question: string;
@@ -40,6 +41,7 @@ type QAItem = {
     TimeagoPipe,
     InputChatComponent,
     HeaderComponent,
+    SearchBoxComponent
   ],
   standalone: true,
 })
@@ -175,46 +177,51 @@ export class ChatHistoriesComponent extends BaseComponent {
       this.notificationSV.showError('Vui lòng nhập nội dụng của bạn');
       return;
     }
-    let result = await firstValueFrom(
-      this.api.execApi(
-        'UserSubscription',
-        'check-chat-eligibility',
-        'GET',
-        null,
-        null
-      )
-    );
-    if (result && result?.Data) {
-      let data = result?.Data;
-      if (!data?.CanChat) {
-        this.notificationSV.showError(data?.Reason);
-        return;
-      } else {
-        let obj = {
-          Message: message,
-        };
-        let result = await firstValueFrom(
-          this.api.execApi(
-            'Chat',
-            'create-conversation',
-            'POST',
-            obj,
-            null,
-            true
-          )
-        );
-        if (result && result?.Data) {
-          let conversationId = result?.Data?.ConversationId;
-          this.navCtrl.navigateForward('chat', {
-            queryParams: {
-              conversationId: conversationId,
-              message: message,
-              type: 'conversation',
-            },
-          });
-        }
-      }
-    }
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        message: message,
+      },
+    });
+    // let result = await firstValueFrom(
+    //   this.api.execApi(
+    //     'UserSubscription',
+    //     'check-chat-eligibility',
+    //     'GET',
+    //     null,
+    //     null
+    //   )
+    // );
+    // if (result && result?.Data) {
+    //   let data = result?.Data;
+    //   if (!data?.CanChat) {
+    //     this.notificationSV.showError(data?.Reason);
+    //     return;
+    //   } else {
+    //     let obj = {
+    //       Message: message,
+    //     };
+    //     let result = await firstValueFrom(
+    //       this.api.execApi(
+    //         'Chat',
+    //         'create-conversation',
+    //         'POST',
+    //         obj,
+    //         null,
+    //         true
+    //       )
+    //     );
+    //     if (result && result?.Data) {
+    //       let conversationId = result?.Data?.ConversationId;
+    //       this.navCtrl.navigateForward('chat', {
+    //         queryParams: {
+    //           conversationId: conversationId,
+    //           message: message,
+    //           type: 'conversation',
+    //         },
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   onValueChange(event: any) {

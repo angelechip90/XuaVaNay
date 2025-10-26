@@ -80,15 +80,16 @@ ion-toolbar {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 20px;
+    padding: 1rem;
     background: linear-gradient(135deg, #6d28d9, #ec4899);
     color: #fff;
     font-weight: 700;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
     border: none;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     border-top-right-radius: 45px;
+    border-bottom-right-radius: 5px;
 }
 
 .ask-btn ion-icon {

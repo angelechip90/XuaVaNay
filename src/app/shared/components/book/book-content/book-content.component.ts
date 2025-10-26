@@ -10,13 +10,14 @@ import {
   NgZone,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent } from '@ionic/angular/standalone';
+import { IonContent ,IonIcon} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   ellipsisHorizontal,
   listOutline,
   chevronForwardOutline,
+  boat,
 } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/core/base/base.component';
@@ -29,7 +30,7 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
   selector: 'app-book-content',
   templateUrl: './book-content.component.html',
   styleUrls: ['./book-content.component.scss'],
-  imports: [IonContent, CommonModule, PdfViewerModule, HeaderComponent],
+  imports: [IonContent, CommonModule, PdfViewerModule, HeaderComponent,IonIcon],
   standalone: true,
 })
 export class BookContentComponent extends BaseComponent {
@@ -41,7 +42,7 @@ export class BookContentComponent extends BaseComponent {
   page: any = 1;
   totalPages = 0;
   observer: IntersectionObserver | null = null;
-
+  isLoadPdf:any = false
   constructor(injector: Injector, private zone: NgZone) {
     super(injector);
     addIcons({
@@ -128,6 +129,7 @@ export class BookContentComponent extends BaseComponent {
       this.creatReadBook();
       this.setupPageObserver();
     }, 500);
+    this.isLoadPdf = true;
     this.changeDetectorRef.detectChanges();
   }
 
@@ -167,48 +169,74 @@ export class BookContentComponent extends BaseComponent {
   }
 
   async chat() {
-    let result = await firstValueFrom(
+    let conversationId = null;
+    let obj = {
+      BookId: this.id,
+    };
+    let result2 = await firstValueFrom(
       this.api.execApi(
-        'UserSubscription',
-        'check-chat-eligibility',
+        'Chat',
+        'get-book-conversations',
         'GET',
         null,
-        null
+        obj,
+        true
       )
     );
-    if (result && result?.Data) {
-      let data = result?.Data;
-      if (!data?.CanChat) {
-        this.notificationSV.showError(data?.Reason);
-        return;
-      } else {
-        let conversationId = null;
-        let obj = {
-          BookId: this.id,
-        };
-        let result2 = await firstValueFrom(
-          this.api.execApi(
-            'Chat',
-            'get-book-conversations',
-            'GET',
-            null,
-            obj,
-            true
-          )
-        );
-        if (result2 && result2?.Data?.length) {
-          let lstData = result2?.Data;
-          conversationId = lstData[0]?.BookConversationId;
-        }
-        this.navCtrl.navigateForward('chat', {
-          queryParams: {
-            conversationId: conversationId,
-            type: 'book',
-            bookID: this.id,
-          },
-        });
-      }
+    if (result2 && result2?.Data?.length) {
+      let lstData = result2?.Data;
+      conversationId = lstData[0]?.BookConversationId;
     }
+    this.navCtrl.navigateForward('chat', {
+      queryParams: {
+        conversationId: conversationId,
+        type: 'book',
+        bookID: this.id,
+        bookName: this.oData?.Title,
+      },
+    });
+    // let result = await firstValueFrom(
+    //   this.api.execApi(
+    //     'UserSubscription',
+    //     'check-chat-eligibility',
+    //     'GET',
+    //     null,
+    //     null
+    //   )
+    // );
+    // if (result && result?.Data) {
+    //   let data = result?.Data;
+    //   if (!data?.CanChat) {
+    //     this.notificationSV.showError(data?.Reason);
+    //     return;
+    //   } else {
+    //     let conversationId = null;
+    //     let obj = {
+    //       BookId: this.id,
+    //     };
+    //     let result2 = await firstValueFrom(
+    //       this.api.execApi(
+    //         'Chat',
+    //         'get-book-conversations',
+    //         'GET',
+    //         null,
+    //         obj,
+    //         true
+    //       )
+    //     );
+    //     if (result2 && result2?.Data?.length) {
+    //       let lstData = result2?.Data;
+    //       conversationId = lstData[0]?.BookConversationId;
+    //     }
+    //     this.navCtrl.navigateForward('chat', {
+    //       queryParams: {
+    //         conversationId: conversationId,
+    //         type: 'book',
+    //         bookID: this.id,
+    //       },
+    //     });
+    //   }
+    // }
   }
 
   // scrollTo(n: number) {

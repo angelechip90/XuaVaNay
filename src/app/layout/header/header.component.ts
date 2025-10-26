@@ -1,4 +1,4 @@
-import { Component, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, Input, CUSTOM_ELEMENTS_SCHEMA, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,6 +16,7 @@ import { arrowBackOutline } from 'ionicons/icons';
 export class HeaderComponent {
   @Input() title: string = 'XuaVaNay';
   @Input() showBackButton: boolean = false;
+  @Input() templateEnd: TemplateRef<any> | null = null;
 
   constructor() {
     addIcons({ arrowBackOutline });
