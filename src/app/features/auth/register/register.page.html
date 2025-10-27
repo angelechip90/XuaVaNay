@@ -4,20 +4,25 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <app-section-logo></app-section-logo>
+  <section class="ion-padding-top">
+    <app-section-logo></app-section-logo>
+  </section>
 
-  <h1 class="title color-violet">Đăng ký hội viên</h1>
+  <h1 class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-20">{{ 'register.title'
+    | translate }}</h1>
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="form padding-top-10">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <!-- Name -->
-    <div class="field-card-2-grid" [class.invalid]="form.controls.name.touched && form.controls.name.invalid">
+    <div class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.name.touched && form.controls.name.invalid">
       <ion-icon name="person-outline" class="field-icon"></ion-icon>
-      <ion-input size="10" formControlName="name" type="text" placeholder="Tên của bạn"
+      <ion-input size="10" formControlName="name" type="text" [placeholder]="'register.namePlaceholder' | translate"
         aria-label="Tên của bạn"></ion-input>
     </div>
 
     <!-- Email -->
-    <div class="field-card-2-grid" [class.invalid]="form.controls.email.touched && form.controls.email.invalid">
+    <div class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.email.touched && form.controls.email.invalid">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M17.5 12.5788C17.5 14.8832 15.9627 16.7562 13.6819 16.7505H6.31811C4.0373 16.7562 2.5 14.8832 2.5 12.5788V7.42779C2.5 5.1259 4.0373 3.25049 6.31811 3.25049H13.6819C15.9627 3.25049 17.5 5.1259 17.5 7.42779V12.5788Z"
@@ -27,31 +32,33 @@
         <path d="M8.30213 9.61816L5.57942 12.5752M14.4213 12.5756L11.7286 9.61858" stroke="#94A3B8" stroke-width="1.5"
           stroke-linecap="round" stroke-linejoin="round" />
       </svg>
-      <ion-input size="10" formControlName="email" type="email" placeholder="Email" aria-label="Email"></ion-input>
+      <ion-input size="10" formControlName="email" type="email" [placeholder]="'register.emailPlaceholder' | translate"
+        aria-label="Email"></ion-input>
     </div>
 
     <!-- Password -->
-    <div class="field-card" [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
+    <div class="field-card margin-bottom-20"
+      [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
-      <ion-input size="10" formControlName="password" [type]="showPw ? 'text' : 'password'" placeholder="Mật khẩu"
-        aria-label="Mật khẩu"></ion-input>
+      <ion-input size="10" formControlName="password" [type]="showPw ? 'text' : 'password'"
+        [placeholder]="'register.passwordPlaceholder' | translate" aria-label="Mật khẩu"></ion-input>
       <ion-icon class="eye-off-outline icon-big" (click)="togglePw()"
         [name]="showPw ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
     </div>
 
     <!-- Confirm Password -->
-    <div class="field-card"
+    <div class="field-card margin-bottom-20"
       [class.invalid]="(form.controls.confirm.touched && form.controls.confirm.invalid) || form.errors?.['mismatch']">
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
       <ion-input size="10" formControlName="confirm" [type]="showPw2 ? 'text' : 'password'"
-        placeholder="Nhập lại mật khẩu" aria-label="Nhập lại mật khẩu"></ion-input>
+        [placeholder]="'register.confirmPasswordPlaceholder' | translate" aria-label="Nhập lại mật khẩu"></ion-input>
       <ion-icon class="eye-off-outline icon-big" (click)="togglePw2()"
         [name]="showPw2 ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
     </div>
 
     <!-- Captcha row -->
-    <div class="captcha-row">
-      <div class="field-card-2-grid" [class.invalid]="form.controls.captcha.touched && form.controls.captcha.invalid">
+    <div class="captcha-row margin-bottom-30">
+      <div class="field-card-2-grid " [class.invalid]="form.controls.captcha.touched && form.controls.captcha.invalid">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M13.1537 7.90311C13.1795 8.73225 13.0162 9.5115 12.7078 10.214L16.6103 14.1164C17.1762 14.6897 17.4995 15.4623 17.4995 16.2707V16.6489C17.4995 17.2431 17.0178 17.7256 16.4228 17.7256H14.4603C13.8653 17.7256 13.3837 17.2431 13.3837 16.6489C13.3837 16.0656 12.9195 15.5889 12.3362 15.5731L12.2695 15.5714C11.6778 15.5547 11.2112 15.0657 11.2228 14.474L11.2378 13.6906L10.3262 12.779C9.29867 13.3298 8.0578 13.5547 6.7628 13.2989C4.6428 12.8814 2.94614 11.1464 2.58114 9.01725C1.99114 5.58643 4.7003 2.61309 8.05363 2.75226C10.797 2.86559 13.067 5.15978 13.1537 7.90311Z"
@@ -61,10 +68,9 @@
             stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
 
-        <ion-input size="10" formControlName="captcha" type="text" placeholder="Mã bảo mật"
-          aria-label="Mã bảo mật"></ion-input>
+        <ion-input size="10" formControlName="captcha" type="text"
+          [placeholder]="'register.captchaPlaceholder' | translate" aria-label="Mã bảo mật"></ion-input>
       </div>
-
       <div class="captcha-box">
         <label class="captcha-code wavy-strikethrough">{{ captchaCode() }}</label>
         <ion-button fill="clear" size="small" (click)="refreshCaptcha()" aria-label="Làm mới CAPTCHA">
@@ -74,21 +80,20 @@
     </div>
 
     <!-- Policy -->
-    <div class="form-checkbox">
-      <ion-checkbox class="custom-checkbox" formControlName="policy" labelPlacement="end">Đồng ý chính sách bảo mật
-        thông tin cá
-        nhân</ion-checkbox>
+    <div class="form-checkbox margin-bottom-20">
+      <ion-checkbox class="custom-checkbox" formControlName="policy" labelPlacement="end">{{ 'register.policy' |
+        translate }}</ion-checkbox>
     </div>
 
     <!-- Submit -->
-    <button class="gradient-btn margin-bottom-10" type="submit" aria-label="Đăng ký">
-      <span>ĐĂNG KÝ</span>
+    <button class="gradient-btn margin-bottom-20" type="submit" [attr.aria-label]="'register.submit' | translate">
+      <span>{{ 'register.submit' | translate }}</span>
     </button>
   </form>
 
   <!-- Register -->
   <div class="register-line">
-    <span>Bạn đã có tài khoản? </span>
-    <button class="link underline" type="button" (click)="goLogin()">Đăng nhập</button>
+    <span>{{ 'register.haveAccount' | translate }} </span>
+    <button class="link underline" type="button" (click)="goLogin()">{{ 'register.login' | translate }}</button>
   </div>
 </ion-content>

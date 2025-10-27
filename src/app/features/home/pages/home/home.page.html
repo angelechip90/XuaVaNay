@@ -1,22 +1,21 @@
 <app-header></app-header>
-
 <!-- Content -->
 <ion-content fullscreen>
-  <section class="padding-left-20 padding-right-20 margin-bottom-20">
+  <section class="padding-horizontal-20 margin-bottom-20">
     <app-date-header></app-date-header>
-    <!-- Logo -->
   </section>
-  <section class="padding-left-20 padding-right-20 margin-bottom-20">
+  <section class="padding-horizontal-20 margin-bottom-20">
     <app-section-logo></app-section-logo>
   </section>
-  <!-- Date header with avatar -->
-  <!-- Hero -->
-  <section class="hero ion-padding">
-    <h1 class="hero-title">
-      Kết nối Quá khứ & Hiện tại<br />Soi chiếu Tương lai
+  <section class="ion-padding">
+    <h1 class="fs-30 color-violet font-style-italic text-center font-weight-300">
+      <label>Kết nối Quá khứ & Hiện tại</label>
+      <label>Soi chiếu Tương lai</label>
     </h1>
-    <p class="hero-subtitle">
-      Connecting the Past and Present<br />Illuminating the Future
+
+    <p class="fs-22 color-violet font-weight-500 text-center ion-no-margin">
+      <label>Connecting the Past and Present</label>
+      <label>Illuminating the Future</label>
     </p>
   </section>
 
@@ -26,48 +25,97 @@
   </section>
   <!-- Data sources -->
   <section class="section ion-padding-horizontal">
-    <ion-text class="section-title">
-      <h2>Ứng dụng khai thác các dữ liệu sau:</h2>
-    </ion-text>
-    <ion-text class="section-subtitle">
-      <p>(This Apps exploits the following data)</p>
-    </ion-text>
+    <h2 class="fs-22 color-violet font-weight-500">Ứng dụng khai thác các dữ liệu sau:</h2>
+    <p class="fs-16 color-violet font-weight-500"> (This Apps exploits the following data)</p>
   </section>
+
   <ion-list class="sources">
-    <ion-item>
-      <ion-checkbox labelPlacement="end" checked="true">
-        <ion-label class="checkbox-label">
-          <h3>Tập san Sử Địa.</h3>
-          <p>The History and Geography Journal (1966 - 1975).</p>
-        </ion-label>
-      </ion-checkbox>
+    <ion-item class="source-item">
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_55021_2104)">
+          <path
+            d="M24 12.1704C24 5.54299 18.6274 0.17041 12 0.17041C5.37258 0.17041 0 5.54299 0 12.1704C0 18.7978 5.37258 24.1704 12 24.1704C18.6274 24.1704 24 18.7978 24 12.1704Z"
+            fill="#8082EF" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.91686 15.9286L6.6747 12.9157C6.31034 12.5771 6.31034 12.0003 6.6747 11.6617C7.00318 11.3564 7.51157 11.3564 7.84005 11.6617L10.5456 14.1759L16.1591 8.73598C16.4861 8.41901 17.0041 8.41359 17.3378 8.72365C17.6975 9.05797 17.7029 9.62575 17.3496 9.96685L11.1743 15.9286C11.0075 16.0835 10.7814 16.1706 10.5456 16.1706C10.3098 16.1706 10.0836 16.0835 9.91686 15.9286Z"
+            fill="white" />
+        </g>
+        <defs>
+          <clipPath id="clip0_55021_2104">
+            <rect width="24" height="25" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+      <div class="checkbox-label">
+        <h3 class="color-violet fs-16">Tập san Sử Địa.</h3>
+        <p class="color-violet fs-16">The History and Geography Journal (1966 - 1975).</p>
+      </div>
+    </ion-item>
+
+    <ion-item class="source-item">
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_55021_2104)">
+          <path
+            d="M24 12.1704C24 5.54299 18.6274 0.17041 12 0.17041C5.37258 0.17041 0 5.54299 0 12.1704C0 18.7978 5.37258 24.1704 12 24.1704C18.6274 24.1704 24 18.7978 24 12.1704Z"
+            fill="#8082EF" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.91686 15.9286L6.6747 12.9157C6.31034 12.5771 6.31034 12.0003 6.6747 11.6617C7.00318 11.3564 7.51157 11.3564 7.84005 11.6617L10.5456 14.1759L16.1591 8.73598C16.4861 8.41901 17.0041 8.41359 17.3378 8.72365C17.6975 9.05797 17.7029 9.62575 17.3496 9.96685L11.1743 15.9286C11.0075 16.0835 10.7814 16.1706 10.5456 16.1706C10.3098 16.1706 10.0836 16.0835 9.91686 15.9286Z"
+            fill="white" />
+        </g>
+        <defs>
+          <clipPath id="clip0_55021_2104">
+            <rect width="24" height="25" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+      <div class="checkbox-label">
+        <h3 class="color-violet fs-16">Tạp chí Xưa và Nay</h3>
+        <p class="color-violet fs-16">The Past and Present Magazine (1994 - present).</p>
+      </div>
     </ion-item>
 
     <ion-item>
-      <ion-checkbox labelPlacement="end" checked="true">
-        <ion-label class="checkbox-label">
-          <h3 class="color-violet">Tạp chí Xưa và Nay</h3>
-          <p>The Past and Present Magazine (1994 - present).</p>
-        </ion-label>
-      </ion-checkbox>
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_55021_2104)">
+          <path
+            d="M24 12.1704C24 5.54299 18.6274 0.17041 12 0.17041C5.37258 0.17041 0 5.54299 0 12.1704C0 18.7978 5.37258 24.1704 12 24.1704C18.6274 24.1704 24 18.7978 24 12.1704Z"
+            fill="#8082EF" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.91686 15.9286L6.6747 12.9157C6.31034 12.5771 6.31034 12.0003 6.6747 11.6617C7.00318 11.3564 7.51157 11.3564 7.84005 11.6617L10.5456 14.1759L16.1591 8.73598C16.4861 8.41901 17.0041 8.41359 17.3378 8.72365C17.6975 9.05797 17.7029 9.62575 17.3496 9.96685L11.1743 15.9286C11.0075 16.0835 10.7814 16.1706 10.5456 16.1706C10.3098 16.1706 10.0836 16.0835 9.91686 15.9286Z"
+            fill="white" />
+        </g>
+        <defs>
+          <clipPath id="clip0_55021_2104">
+            <rect width="24" height="25" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+      <div class="checkbox-label">
+        <h3 class="color-violet fs-16">Sách được cấp phép xuất bản</h3>
+        <p class="color-violet fs-16">Books licensed for publication.</p>
+      </div>
     </ion-item>
 
     <ion-item>
-      <ion-checkbox labelPlacement="end" checked="true">
-        <ion-label class="checkbox-label">
-          <h3 class="color-violet">Sách được cấp phép xuất bản</h3>
-          <p>Books licensed for publication.</p>
-        </ion-label>
-      </ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-checkbox labelPlacement="end" checked="true">
-        <ion-label class="checkbox-label">
-          <h3 class="color-violet">Tài liệu có bản quyền</h3>
-          <p>Copyrighted documents (videos, images).</p>
-        </ion-label>
-      </ion-checkbox>
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_55021_2104)">
+          <path
+            d="M24 12.1704C24 5.54299 18.6274 0.17041 12 0.17041C5.37258 0.17041 0 5.54299 0 12.1704C0 18.7978 5.37258 24.1704 12 24.1704C18.6274 24.1704 24 18.7978 24 12.1704Z"
+            fill="#8082EF" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.91686 15.9286L6.6747 12.9157C6.31034 12.5771 6.31034 12.0003 6.6747 11.6617C7.00318 11.3564 7.51157 11.3564 7.84005 11.6617L10.5456 14.1759L16.1591 8.73598C16.4861 8.41901 17.0041 8.41359 17.3378 8.72365C17.6975 9.05797 17.7029 9.62575 17.3496 9.96685L11.1743 15.9286C11.0075 16.0835 10.7814 16.1706 10.5456 16.1706C10.3098 16.1706 10.0836 16.0835 9.91686 15.9286Z"
+            fill="white" />
+        </g>
+        <defs>
+          <clipPath id="clip0_55021_2104">
+            <rect width="24" height="25" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+      <div class="checkbox-label">
+        <h3 class="color-violet fs-16">Tài liệu có bản quyền</h3>
+        <p class="color-violet fs-16">Copyrighted documents (videos, images).</p>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -2,106 +2,6 @@
     --ion-background-color: #ffffff;
 }
 
-/* Decorative blobs */
-.blob {
-    position: absolute;
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(24px);
-    opacity: 0.35;
-}
-
-.blob-1 {
-    right: -5rem;
-    top: -6rem;
-    width: 18rem;
-    height: 16rem;
-    background: radial-gradient(90% 70% at 40% 40%, #a855f7 0%, #ec4899 40%, transparent 72%);
-}
-
-.blob-2 {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 7rem;
-    width: 15rem;
-    height: 13rem;
-    filter: blur(36px);
-    background: radial-gradient(80% 60% at 50% 50%, #6366f1 0%, #a78bfa 38%, transparent 70%);
-    opacity: 0.25;
-}
-
-
-/* Hero */
-.hero {
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.hero-title {
-    margin: 6px 0 2px;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 1.4;
-    color: #130261;
-    font-style: italic;
-    /* violet-950-ish */
-}
-
-.hero-subtitle {
-    margin: 0;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.5;
-    color: #130261;
-    opacity: 0.9;
-}
-
-/* Search card */
-.search-card {
-    margin: 24px 16px 32px;
-    border-radius: 14px;
-    box-shadow:
-        0 14px 64px -4px rgba(24, 39, 75, 0.12),
-        0 8px 22px -6px rgba(24, 39, 75, 0.12);
-}
-
-.search-card ion-item {
-    --background: #fff;
-    --padding-start: 12px;
-    --inner-padding-end: 8px;
-    border-radius: 14px;
-}
-
-.search-card ion-icon[slot='start'] {
-    opacity: 0.6;
-}
-
-
-.search-card ion-button[slot='end'] ion-icon {
-    font-size: 20px;
-}
-
-/* Section */
-.section {
-    margin-top: 8px;
-}
-
-.section-title h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #130261;
-    margin: 16px 0 2px;
-}
-
-.section-subtitle p {
-    font-size: 14px;
-    font-weight: 500;
-    color: #130261;
-    margin: 0 0 6px;
-    opacity: 0.9;
-}
-
 /* Sources list */
 .sources ion-item {
     --padding-start: 12px;
@@ -110,43 +10,24 @@
     --border-style: none;
     --border-color: transparent;
     border-radius: 24px;
-    margin: 6px 0;
     backdrop-filter: blur(6px);
     border-bottom: none !important;
-    /*border: 1px solid rgba(120, 113, 108, 0.25);
-    stone-500/30 */
+    margin-bottom: 0.625rem;
 }
 
-/* Additional border removal for ion-item */
-.sources ion-item::part(native) {
-    border-bottom: none !important;
+.sources ion-item svg {
+    flex-shrink: 0;
+    margin-top: 4px;
 }
-
-.sources ion-item .item-native {
-    border-bottom: none !important;
-}
-
-.sources ion-checkbox {
-    --color: #8082EF;
-    color: #8082EF;
-    --size: 22px;
-    /* tùy ý */
-}
-
-.sources ion-checkbox::part(container) {
-    border-radius: 50%;
-}
-
 
 .sources h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #130261;
-    margin: 0 0 2px;
+    font-size: 1.0625rem;
+    font-weight: normal;
+    margin: 0;
 }
 
 .sources p {
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: #130261;
     margin: 0;
 }
@@ -157,7 +38,7 @@
     /* màu nền khi checked */
     --checkmark-color: #ffffff;
     /* màu dấu tích */
-    font-size: 16px;
+    font-size: 1.0625rem;
 }
 
 .sources ion-checkbox::part(container) {
@@ -171,7 +52,6 @@
 }
 
 .sources .checkbox-label {
-    margin: 0;
     text-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
@@ -179,94 +59,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     flex-wrap: wrap;
-}
-
-/* Bottom nav (footer version) */
-.safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-.bottom-nav {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    padding: 6px 10px 8px;
-}
-
-.nav-btn {
-    all: unset;
+    margin-left: 10px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 0;
-    opacity: 0.85;
-    cursor: pointer;
-}
-
-.nav-btn ion-icon {
-    font-size: 20px;
-    color: #0f172a;
-    /* slate-900 */
-}
-
-.nav-btn span {
-    font-size: 10px;
-    font-weight: 600;
-    color: #0f172a;
-}
-
-.nav-btn.active ion-icon,
-.nav-btn.active span {
-    color: var(--ion-color-primary);
-}
-
-/* Custom styling for checkmark-circle-outline icons */
-.sources ion-item ion-icon[name="checkmark-circle-outline"] {
-    color: #8082EF !important;
-}
-
-.sources ion-item ion-icon[name="checkmark-circle-outline"] svg {
-    fill: #8082EF !important;
-    stroke: rgb(255 255 255) !important;
-}
-
-.sources ion-item ion-icon[name="checkmark-circle-outline"] .ionicon-fill-none {
-    fill: #8082EF !important;
-}
-
-.sources ion-item ion-icon[name="checkmark-circle-outline"] .ionicon {
-    stroke: rgb(255 255 255) !important;
-}
-
-/* Alternative approach using CSS variables */
-.sources ion-item ion-icon[name="checkmark-circle-outline"] {
-    --color: #8082EF;
-    color: var(--color) !important;
-}
-
-.sources ion-item ion-icon[name="checkmark-circle-outline"] svg {
-    fill: var(--color) !important;
-    stroke: rgb(255 255 255) !important;
-}
-
-/* More specific targeting for Ionic icons */
-ion-icon[name="checkmark-circle-outline"] {
-    color: #8082EF !important;
-}
-
-ion-icon[name="checkmark-circle-outline"] svg {
-    fill: #8082EF !important;
-    stroke: rgb(255 255 255) !important;
-}
-
-/* Target the actual SVG elements */
-ion-icon[name="checkmark-circle-outline"] svg path {
-    fill: #8082EF !important;
-    stroke: rgb(255 255 255) !important;
-}
-
-ion-icon[name="checkmark-circle-outline"] svg circle {
-    fill: #8082EF !important;
-    stroke: rgb(255 255 255) !important;
+    gap: 5px;
 }

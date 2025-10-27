@@ -45,6 +45,27 @@
       "error": "Something went wrong, please try again"
     }
   },
+  "register": {
+    "title": "Create an account",
+    "namePlaceholder": "Full name",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "captchaPlaceholder": "Enter security code",
+    "policy": "I agree to the Privacy Policy",
+    "submit": "REGISTER",
+    "haveAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "forgotPassword": {
+    "title": "Forgot password",
+    "emailPlaceholder": "Email",
+    "captchaPlaceholder": "Security code",
+    "refreshCaptcha": "Refresh CAPTCHA",
+    "submit": "SEND RESET LINK",
+    "haveAccount": "Remember your password?",
+    "login": "Login"
+  },
   "changePassword": {
     "title": "Change Password",
     "current": "Current password",
@@ -109,8 +130,8 @@
   },
   "account": {
     "title": "Member information",
-    "usingPlan": "You are using {{plan}}",
-    "until": ", valid until {{date}}.",
+    "usingPlan": "You are using ",
+    "until": " valid until {{date}}.",
     "upgrade": "Upgrade",
     "email": "Email",
     "readBooks": "Books read",

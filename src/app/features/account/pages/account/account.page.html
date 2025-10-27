@@ -1,5 +1,14 @@
-<app-header [title]="'account.title' | translate" [showBackButton]="true"></app-header>
-
+<ion-header class="ion-no-border">
+  <ion-toolbar class="background-white">
+    <ion-buttons slot="start">
+      <ion-button (click)="goback()">
+        <ion-icon slot="icon-only" name="arrow-back-outline" class="fs-16 color-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <label class="color-violet font-weight-600 fs-26 ion-display-flex justify-content-center">{{ 'account.title' |
+      translate }}</label>
+  </ion-toolbar>
+</ion-header>
 <!-- Content -->
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Avatar + tên + trạng thái -->
@@ -16,7 +25,8 @@
     <div class="title-block">
       <h1>{{ userInfo().FullName }}</h1>
       <p>
-        {{ 'account.usingPlan' | translate:{ plan: (userInfo().ActiveSubscription?.SubscriptionPlan?.Name || '') } }}
+        {{ 'account.usingPlan' | translate }}<b
+          class="color-violet">{{userInfo().ActiveSubscription?.SubscriptionPlan?.Name || ''}},</b>
         {{ 'account.until' | translate:{ date: ((userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy') } }}
       </p>
       <div class="ion-text-center">
@@ -81,12 +91,9 @@
       </div>
     </div>
   </section>
-  <section class="ion-padding">
-    <app-language></app-language>
-  </section>
+  <app-language></app-language>
   <!-- Items -->
   <section class="list">
-    <div class="divider"></div>
     <!-- Email -->
     <div class="row" (click)="openEmail()">
       <div class="icon">

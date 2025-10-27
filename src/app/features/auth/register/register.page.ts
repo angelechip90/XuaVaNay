@@ -34,7 +34,7 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
 import { generateCaptcha } from 'src/app/shared/utils/utils';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -53,6 +53,7 @@ import { TranslateService } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     SectionLogoComponent,
+    TranslateModule,
   ],
 })
 export class RegisterPage extends BaseComponent {

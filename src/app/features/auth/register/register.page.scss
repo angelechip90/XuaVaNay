@@ -1,9 +1,9 @@
 ion-icon.field-icon {
-    font-size: 22px;
+    font-size: 1.375rem;
 }
 
 .field-card .eye ion-icon {
-    font-size: 26px;
+    font-size: 1.625rem;
 }
 
 ion-checkbox::part(label) {
@@ -11,11 +11,6 @@ ion-checkbox::part(label) {
     overflow-wrap: break-word;
 }
 
-.title {
-    font-size: 30px;
-    margin: 20px 0;
-}
-
 .custom-checkbox .label-text {
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }

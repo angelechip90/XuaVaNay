@@ -1,21 +1,16 @@
-<ion-content class="landing-page" [fullscreen]="true">
+<ion-content class="landing-page ion-padding">
+  <div class="padding-statusbar"></div>
   <div class="background-image">
-    <img src="../../../../../assets/image/resources/trongdong 1.png" alt="Background" class="background-image" />
-  </div>
-  <div class="overlay">
     <!-- Logo -->
-    <div class="logo-container">
+    <div class="logo-container ion-padding">
       <img src="../../../../../assets/image/resources/Frame 1707478009.png" alt="Lac Viet" class="logo" />
     </div>
 
-    <swiper-container [slidesPerView]="1" [loop]="true" [pagination]="{ clickable: true }" [autoplay]="{ delay: 3000 }"
-      class="landing-swiper">
+    <swiper-container #swiperEl [init]="false" class="landing-swiper ion-padding">
       <!-- Slide 1 -->
       <swiper-slide>
         <div class="slide-item">
           <img src="../../../../../assets/image/resources/Frame 1707478255.png" alt="Slide 1" />
-          <h2 class="title" [innerHTML]="'landing.title' | translate"></h2>
-          <p class="subtitle" [innerHTML]="'landing.subtitle' | translate"></p>
         </div>
       </swiper-slide>
 
@@ -23,11 +18,15 @@
       <swiper-slide>
         <div class="slide-item">
           <img src="../../../../../assets/image/resources/Bot 2.svg" alt="Slide 2" />
-          <h2 class="title" [innerHTML]="'landing.title' | translate"></h2>
-          <p class="subtitle" [innerHTML]="'landing.subtitle' | translate"></p>
         </div>
       </swiper-slide>
     </swiper-container>
-    <button class="gradient-btn absolute-btn" (click)="start()">{{ 'landing.start' | translate }}</button>
+    <section class="ion-padding">
+      <h2 class="title fs-30 text-center ion-padding-bottom">Kết nối Quá khứ & Hiện tại Chiếu sáng Tương lai</h2>
+      <p class="subtitle fs-22 text-center">Connecting the Past and Present Illuminating the Future</p>
+    </section>
+    <section class="d-flex justify-content-center">
+      <button class="btn-start gradient-btn" (click)="start()">{{ 'landing.start' | translate }}</button>
+    </section>
   </div>
 </ion-content>

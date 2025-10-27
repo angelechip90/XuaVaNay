@@ -5,14 +5,18 @@
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Status bar divider mimic -->
-  <app-section-logo></app-section-logo>
+  <section class="ion-padding-top">
+    <app-section-logo></app-section-logo>
+  </section>
   <!-- Title -->
-  <h1 class="title color-violet">{{ 'login.title' | translate }}</h1>
+  <h1 class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-10">{{ 'login.title' |
+    translate }}</h1>
 
   <!-- Form -->
-  <form [formGroup]="form" (ngSubmit)="submit()" class="form padding-top-10">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <!-- Username -->
-    <div class="field-card-2-grid" [class.invalid]="form.controls.username.touched && form.controls.username.invalid">
+    <div class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.username.touched && form.controls.username.invalid">
       <ion-icon name="person-outline" class="field-icon"></ion-icon>
       <ion-input size="10" formControlName="username" type="text"
         [placeholder]="('login.usernamePlaceholder' | translate)"
@@ -20,7 +24,8 @@
     </div>
 
     <!-- Password -->
-    <div class="field-card" [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
+    <div class="field-card margin-bottom-30"
+      [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
       <ion-input size="10" formControlName="password" [type]="showPw() ? 'text' : 'password'"
         [placeholder]="('login.passwordPlaceholder' | translate)"
@@ -30,7 +35,7 @@
     </div>
 
     <!-- Options row -->
-    <div class="form-checkbox">
+    <div class="form-checkbox margin-bottom-20">
       <ion-checkbox formControlName="remember" labelPlacement="end" class="custom-checkbox">{{ 'login.remember' |
         translate }}</ion-checkbox>
       <button fill="clear" class="link text-dark no-background" type="button" (click)="forgotPw()">
@@ -39,7 +44,7 @@
     </div>
 
     <!-- Submit -->
-    <button class="gradient-btn margin-bottom-10" type="submit" [attr.aria-label]="('login.submit' | translate)"
+    <button class="gradient-btn margin-bottom-20" type="submit" [attr.aria-label]="('login.submit' | translate)"
       [disabled]="isLoading()">
       <span *ngIf="!isLoading()">{{ 'login.submit' | translate }}</span>
       <span *ngIf="isLoading()">{{ 'login.processing' | translate }}</span>
