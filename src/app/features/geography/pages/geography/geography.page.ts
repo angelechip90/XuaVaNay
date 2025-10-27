@@ -19,7 +19,7 @@ import {
   selector: 'app-geography',
   templateUrl: './geography.page.html',
   styleUrls: ['./geography.page.scss'],
-  imports: [CommonModule, ListComponent],
+  imports: [CommonModule, ListComponent,IonContent],
   standalone: true,
 })
 export class GeographyPage implements OnInit {

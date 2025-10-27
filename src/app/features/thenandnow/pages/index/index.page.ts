@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ListComponent, PosterItem } from 'src/app/shared/components/list/list.component';
 import { Router } from '@angular/router';
+import {
+  IonContent,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.page.html',
   styleUrls: ['./index.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ListComponent]
+  imports: [CommonModule, FormsModule, ListComponent,IonContent,]
 })
 export class IndexPage implements OnInit {
   @ViewChild(ListComponent) listComponent!: ListComponent;

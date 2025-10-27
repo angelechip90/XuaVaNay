@@ -32,16 +32,16 @@ ion-header {
     flex-direction: column;
     align-items: center;
     padding: 20px 15px;
-    border-radius: 12px;
+    //border-radius: 12px;
     background-size: cover;
     background-position: center;
     /* làm mờ background */
 }
 
 .cover-card img {
-    width: 160px;
+    width: 14rem;
     height: auto;
-    border-radius: 12px;
+    border-radius: 1.3rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     margin-bottom: 15px;
 }
@@ -52,11 +52,11 @@ ion-header {
 }
 
 .book-title {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 800;
-    color: #1b1464;
+    color: #130261;
     /* xanh đậm */
-    margin: 8px 0;
+    //margin: 8px 0;
 }
 
 .publisher {
@@ -93,7 +93,9 @@ ion-header {
 
 /* Nút gradient ĐỌC SÁCH */
 .gradient-btn {
-    background: linear-gradient(90deg, #fc2d67, #8e1fbb);
+    box-shadow: 14px 17px 40px 4px #7090B01A;
+    background: linear-gradient(225deg, #E3395C 0%, #C72389 48.1%, #741BCF 100%);
+    //background: linear-gradient(90deg, #fc2d67, #8e1fbb);
     color: #fff;
     font-weight: 600;
     font-size: 0.95rem;
@@ -110,7 +112,7 @@ ion-header {
 
 /* ===== SECTION COMMON ===== */
 .section {
-    padding: 16px 10px;
+    padding: 1rem;
 }
 
 .section-head h2,

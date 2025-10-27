@@ -22,6 +22,7 @@ export class HeaderComponent {
   @Input() title: string = '';
   @Input() showBackButton: boolean = false;
   @Input() templateEnd: TemplateRef<any> | null = null;
+  @Input() hasBorder: any = true;
 
   constructor() {
     addIcons({ arrowBackOutline });

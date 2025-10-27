@@ -8,13 +8,13 @@ ion-header {
     --border-width: 0;
 }
 
-ion-content {
-    --background: #ffffff;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --padding-start: 0;
-    --padding-end: 0;
-}
+// ion-content {
+//     --background: #ffffff;
+//     --padding-top: 0;
+//     --padding-bottom: 0;
+//     --padding-start: 0;
+//     --padding-end: 0;
+// }
 
 /* Safe area for devices with notch/Dynamic Island */
 ion-toolbar {
@@ -41,13 +41,13 @@ ion-toolbar {
 }
 
 .title {
-    font-family: 'Roboto Slab', serif;
-    font-size: 24px;
-    line-height: 1.15;
-    color: #1e114d;
+    //font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+    //line-height: 1.15;
+    color: #130261;
     /* violet-950 */
     font-weight: 600;
-    margin: 0 0 6px;
+    //margin: 0 0 6px;
 }
 
 .title-row {
@@ -57,17 +57,17 @@ ion-toolbar {
 }
 
 .with-text {
-    font-family: 'Roboto Slab', serif;
-    font-size: 20px;
-    color: #1e114d;
+    //font-family: 'Roboto Slab', serif;
+    font-size: 1.7rem;
+    color: #130261;
     font-weight: 600;
 }
 
 .brand {
-    font-family: ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, sans-serif;
-    font-size: 24px;
+    //font-family: ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, sans-serif;
+    font-size: 1.7rem;
     font-weight: 700;
-    line-height: 1;
+    //line-height: 1;
     background: linear-gradient(90deg, #7c3aed, #ec4899);
     -webkit-background-clip: text;
     background-clip: text;
@@ -81,7 +81,8 @@ ion-toolbar {
     align-items: center;
     gap: 10px;
     padding: 1rem;
-    background: linear-gradient(135deg, #6d28d9, #ec4899);
+    background: linear-gradient(81.4deg, #881DBF 0%, #DE3564 88.66%);
+    //background: linear-gradient(135deg, #6d28d9, #ec4899);
     color: #fff;
     font-weight: 700;
     //box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
@@ -112,7 +113,7 @@ ion-toolbar {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 12px;
+    padding: 0.8rem 4rem;
     border: 1px solid rgba(255, 255, 255, 0.75);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.25);
@@ -175,7 +176,7 @@ ion-toolbar {
     position: absolute;
     left: 14px;
     bottom: 14px;
-    padding: 6px 10px;
+    padding: 0.5rem 1rem;
     border-radius: 28px;
     border: none;
     display: inline-flex;
