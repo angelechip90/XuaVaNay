@@ -5,10 +5,17 @@ ion-header {
 
         ion-title {
             font-weight: 600;
+            text-align: center;
+            padding-inline-start: 0;
+            padding-inline-end: 0;
         }
 
         ion-button {
             --color: rgb(0, 0, 0);
+        }
+
+        ion-icon {
+            font-size: 1.5rem;
         }
     }
 }

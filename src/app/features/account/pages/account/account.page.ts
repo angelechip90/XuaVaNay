@@ -3,13 +3,13 @@ import {
   IonContent,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonIcon,
+  IonButtons,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { ToastController, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -21,6 +21,8 @@ import {
   logOutOutline,
   diamondOutline,
   cameraOutline,
+  chevronBackOutline,
+  arrowBackOutline,
 } from 'ionicons/icons';
 import { UserInfo } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -40,8 +42,12 @@ import { TranslateModule } from '@ngx-translate/core';
     IonIcon,
     CommonModule,
     LanguageComponent,
-    HeaderComponent,
     TranslateModule,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
   ],
   standalone: true,
 })
@@ -67,6 +73,8 @@ export class AccountPage implements OnInit {
       logOutOutline,
       diamondOutline,
       cameraOutline,
+      chevronBackOutline,
+      arrowBackOutline,
     });
   }
 
@@ -185,5 +193,9 @@ export class AccountPage implements OnInit {
         }
       }
     );
+  }
+
+  goback() {
+    history.back();
   }
 }

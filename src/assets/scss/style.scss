@@ -1,332 +1,170 @@
-.title {
-    margin: 10px 0 14px;
-    text-align: center;
-    color: var(--violet-950);
-    font: 500 28px/1.2 Roboto, system-ui;
+.margin-vertical-10 {
+    margin-top: 0.625rem;
+    margin-bottom: 0.625rem;
 }
 
-/* ===== Form ===== */
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.margin-vertical-20 {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
 }
 
-.field-card {
-    display: grid;
-    grid-template-columns: 24px 1fr 32px;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    background: #fff;
-    margin-bottom: 10px;
+.margin-vertical-30 {
+    margin-top: 1.875rem;
+    margin-bottom: 1.875rem;
 }
 
-.field-card-2-grid {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    align-items: center;
-    gap: 1px;
-    padding: 5px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    background: #fff;
-    margin-bottom: 10px;
+.margin-horizontal-10 {
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
 }
 
-.field-card.invalid {
-    border-color: #ef4444;
+.margin-horizontal-20 {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
 }
 
-.field-icon {
-    color: #94a3b8;
-    font-size: 18px;
-}
-
-.right-pad {
-    width: 24px;
-    height: 1px;
-}
-
-/* chèn khoảng trống giống mockup */
-.eye ion-icon {
-    color: #94a3b8;
-}
-
-ion-input {
-    --padding-start: 0;
-    --padding-end: 0;
-    font-size: 14px;
-}
-
-.err {
-    color: #ef4444;
-    font-size: 12px;
-    margin: -6px 2px 4px;
-}
-
-/* Captcha */
-.captcha-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: center;
-}
-
-.captcha-box img {
-    width: 126px;
-    height: 56px;
-    border-radius: 6px;
-    display: block;
-}
-
-.captcha-box {
-    padding: 6px;
-    // background-image: url('../imgs/asphalt.jpg');
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.captcha-code {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.wavy-strikethrough {
-    position: relative;
-    display: inline-block;
-    font: 500 32px/1 'Segoe UI', system-ui, sans-serif;
-    letter-spacing: 4px;
-    color: #444;
-}
-
-.wavy-strikethrough::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* phủ toàn bộ */
-    pointer-events: none;
-    opacity: .8;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 110% 100%;
-    /* SVG vẽ 1 path cong; có thể chỉnh stroke, tọa độ điểm cong */
-    background-image: url("data:image/svg+xml;utf8,\
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'>\
-    <path d='M -10 50 C 60 10, 140 90, 310 40' stroke='%23888' stroke-width='2' fill='none' stroke-linecap='round'/>\
-  </svg>");
-}
-
-/* Policy */
-.policy {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.policy-text {
-    color: #27272a;
-    font-size: 14px;
-}
-
-/* Submit */
-.gradient-btn {
-    height: 48px;
-    border: 0;
-    border-radius: 12px;
-    cursor: pointer;
-    background-image: linear-gradient(193deg, #E3395C 7%, #C72389 48.1%, #741BCF 100%);
-    box-shadow: 14px 17px 40px 4px rgba(112, 144, 176, .10);
-    color: #fff;
-    font-weight: 600;
-    letter-spacing: .5px;
-}
-
-/* Footer link */
-.footer-line {
-    text-align: center;
-    margin-top: 10px;
-    color: #6b7280;
-}
-
-.footer-line .underline {
-    text-decoration: underline;
-    color: #111;
-    font-weight: 600;
-}
-
-/* Nút tròn phụ */
-.round-btn {
-    background: #fff;
-    border: none;
-    border-radius: 10px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.round-btn:hover {
-    transform: scale(1.05);
-}
-
-.round-btn svg {
-    width: 30px;
-    height: 30px;
-}
-
-.form-checkbox {
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    ion-checkbox {
-        --size: 22px;
-        --checkbox-background-checked: #000;
-    }
-
-    ion-checkbox::part(label) {
-        margin-inline-start: 10px;
-    }
-
-    ion-checkbox::part(container) {
-        border-radius: 6px;
-        border: 2px solid #000;
-    }
-}
-
-.register-line {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-
-    .underline {
-        text-decoration: underline;
-        color: #111;
-        font-weight: 600;
-        margin-left: 5px;
-        font-size: 14px;
-        background: none;
-    }
+.margin-horizontal-30 {
+    margin-left: 1.875rem;
+    margin-right: 1.875rem;
 }
 
 .margin-10 {
-    margin: 10px;
+    margin: 0.625rem;
 }
 
 .margin-20 {
-    margin: 20px;
+    margin: 1.25rem;
 }
 
 .margin-30 {
-    margin: 30px;
+    margin: 1.875rem;
 }
 
 .margin-top-10 {
-    margin-top: 10px;
+    margin-top: 0.625rem;
 }
 
 .margin-top-20 {
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .margin-top-30 {
-    margin-top: 30px;
+    margin-top: 1.875rem;
 }
 
 .margin-bottom-10 {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .margin-bottom-20 {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .margin-bottom-30 {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 }
 
 .margin-left-10 {
-    margin-left: 10px;
+    margin-left: 0.625rem;
 }
 
 .margin-left-20 {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 
 .margin-left-30 {
-    margin-left: 30px;
+    margin-left: 1.875rem;
 }
 
 .margin-right-10 {
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 
 .margin-right-20 {
-    margin-right: 20px;
+    margin-right: 1.25rem;
 }
 
 .margin-right-30 {
-    margin-right: 30px;
+    margin-right: 1.875rem;
+}
+
+
+.padding-horizontal-10 {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+}
+
+.padding-horizontal-20 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.padding-horizontal-30 {
+    padding-left: 1.875rem;
+    padding-right: 1.875rem;
+}
+
+.padding-vertical-10 {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.padding-vertical-20 {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.padding-vertical-30 {
+    padding-top: 1.875rem;
+    padding-bottom: 1.875rem;
 }
 
 .padding-top-10 {
-    padding-top: 10px;
+    padding-top: 0.625rem;
 }
 
 .padding-top-20 {
-    padding-top: 20px;
+    padding-top: 1.25rem;
 }
 
 .padding-top-30 {
-    padding-top: 30px;
+    padding-top: 1.875rem;
 }
 
 .padding-bottom-10 {
-    padding-bottom: 10px;
+    padding-bottom: 0.625rem;
 }
 
 .padding-bottom-20 {
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
 }
 
 .padding-bottom-30 {
-    padding-bottom: 30px;
+    padding-bottom: 1.875rem;
 }
 
 .padding-left-10 {
-    padding-left: 10px;
+    padding-left: 0.625rem;
 }
 
 .padding-left-20 {
-    padding-left: 20px;
+    padding-left: 1.25rem;
 }
 
 .padding-left-30 {
-    padding-left: 30px;
+    padding-left: 1.875rem;
 }
 
 .padding-right-10 {
-    padding-right: 10px;
+    padding-right: 0.625rem;
 }
 
 .padding-right-20 {
-    padding-right: 20px;
+    padding-right: 1.25rem;
 }
 
 .padding-right-30 {
-    padding-right: 30px;
+    padding-right: 1.875rem;
 }
 
 .color-violet {
@@ -372,25 +210,116 @@ ion-input {
 }
 
 .icon-big {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .icon-medium {
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 
 .icon-small {
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 /* Card content (iOS mode) */
 .card-content-ios {
-    -webkit-padding-start: 20px;
-    padding-inline-start: 15px;
-    -webkit-padding-end: 20px;
-    padding-inline-end: 15px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    -webkit-padding-start: 1.25rem;
+    padding-inline-start: 0.9375rem;
+    -webkit-padding-end: 1.25rem;
+    padding-inline-end: 0.9375rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
     font-size: 1rem;
     line-height: 1.4;
+}
+
+.fs-30 {
+    font-size: 1.875rem;
+}
+
+.fs-26 {
+    font-size: 1.625rem;
+}
+
+.fs-22 {
+    font-size: 1.375rem;
+}
+
+.fs-18 {
+    font-size: 1.125rem;
+}
+
+.fs-16 {
+    font-size: 1rem;
+}
+
+.fs-14 {
+    font-size: 0.875rem;
+}
+
+.fs-12 {
+    font-size: 0.75rem;
+}
+
+.font-weight-300 {
+    font-weight: 300;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.font-style-italic {
+    font-style: italic;
+}
+
+.font-style-normal {
+    font-style: normal;
+}
+
+.background-white {
+    background: #fff;
+    --background: #fff;
+}
+
+.background-black {
+    background: #000;
+    --background: #000;
+}
+
+.background-gray {
+    background: #808080;
+    --background: #808080;
+}
+
+.background-light-gray {
+    background: #d3d3d3;
+    --background: #d3d3d3;
+}
+
+.background-violet {
+    background: #130261;
+    --background: #130261;
+}
+
+.background-blue {
+    background: #0b1b3a;
+    --background: #0b1b3a;
+}
+
+.background-stone-500 {
+    background: #6b7280;
+    --background: #6b7280;
 }

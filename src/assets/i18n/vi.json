@@ -45,6 +45,27 @@
       "error": "Có lỗi xảy ra, vui lòng thử lại"
     }
   },
+  "register": {
+    "title": "Đăng ký hội viên",
+    "namePlaceholder": "Tên của bạn",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Mật khẩu",
+    "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+    "captchaPlaceholder": "Mã bảo mật",
+    "policy": "Tôi đồng ý với Chính sách bảo mật",
+    "submit": "ĐĂNG KÝ",
+    "haveAccount": "Bạn đã có tài khoản?",
+    "login": "Đăng nhập"
+  },
+  "forgotPassword": {
+    "title": "Quên mật khẩu",
+    "emailPlaceholder": "Email",
+    "captchaPlaceholder": "Mã bảo mật",
+    "refreshCaptcha": "Làm mới CAPTCHA",
+    "submit": "GỬI LIÊN KẾT ĐẶT LẠI",
+    "haveAccount": "Nhớ mật khẩu?",
+    "login": "Đăng nhập"
+  },
   "changePassword": {
     "title": "Đổi mật khẩu",
     "current": "Mật khẩu hiện tại",
@@ -110,8 +131,8 @@
   },
   "account": {
     "title": "Thông tin hội viên",
-    "usingPlan": "Bạn đang sử dụng {{plan}}",
-    "until": ", thời hạn đến ngày {{date}}.",
+    "usingPlan": "Bạn đang sử dụng ",
+    "until": " thời hạn đến ngày {{date}}.",
     "upgrade": "Nâng cấp",
     "email": "Email",
     "readBooks": "Sách đã đọc",
