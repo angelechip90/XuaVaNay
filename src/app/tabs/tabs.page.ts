@@ -3,7 +3,6 @@ import {
   IonTabs,
   IonTabBar,
   IonTabButton,
-  IonIcon,
   IonLabel,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,14 +23,7 @@ import {
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
-  imports: [
-    IonTabs,
-    IonTabBar,
-    IonTabButton,
-    IonIcon,
-    IonLabel,
-    TranslateModule,
-  ],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonLabel, TranslateModule],
 })
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
@@ -48,5 +40,12 @@ export class TabsPage {
       personOutline,
       flaskOutline,
     });
+  }
+
+  tabWillChange(event: any) {
+    console.log('tabWillChange', event);
+  }
+  tabDidChange(event: any) {
+    console.log('tabDidChange', event);
   }
 }
