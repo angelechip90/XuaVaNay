@@ -16,6 +16,7 @@ import {
   IonList,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonTitle,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -83,7 +84,7 @@ interface ThinkingStep {
       ]),
     ]),
   ],
-  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent],
+  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent,IonTitle,],
   standalone: true,
 })
 export class ChatsComponent extends BaseComponent {

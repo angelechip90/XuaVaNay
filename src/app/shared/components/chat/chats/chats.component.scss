@@ -569,3 +569,9 @@ ion-header {
 .tab .active-text {
     color: var(--violet-950);
 }
+
+.title-ai{
+    background: linear-gradient(180deg, #D8316D 0%, #991EAF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;color: transparent;
+}
