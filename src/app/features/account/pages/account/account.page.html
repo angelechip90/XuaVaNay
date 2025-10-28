@@ -24,7 +24,7 @@
 
     <div class="title-block">
       <h1>{{ userInfo().FullName }}</h1>
-      <p>
+      <p class="fs-14 color-light-gray font-weight-400 padding-bottom-20">
         {{ 'account.usingPlan' | translate }}<b
           class="color-violet">{{userInfo().ActiveSubscription?.SubscriptionPlan?.Name || ''}},</b>
         {{ 'account.until' | translate:{ date: ((userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy') } }}
@@ -84,9 +84,9 @@
           <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}</div>
         </div>
         <ng-template #upgrade>
-          <div class="plan-badge" (click)="openUpgrade()">
-            <div class="badge-text">{{ 'account.upgrade' | translate }}</div>
-          </div>
+          <button class="gradient-btn padding-horizontal-30 width-50" (click)="openUpgrade()">{{ 'account.upgrade' |
+            translate }}
+          </button>
         </ng-template>
       </div>
     </div>

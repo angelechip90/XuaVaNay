@@ -4,32 +4,32 @@
 
   <!-- Tóm tắt đơn hàng -->
   <div class="section">
-    <h2>{{ 'order.summary.title' | translate }}</h2>
+    <h2 class="fs-24 font-weight-600 color-violet">{{ 'order.summary.title' | translate }}</h2>
 
     <div class="order-info">
       <ion-row class="ion-align-items-center">
         <ion-col size="12">
-          <span class="note">{{ 'order.summary.note' | translate }}</span>
+          <span class="color-violet fs-16 font-weight-500">{{ 'order.summary.note' | translate }}</span>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
         <ion-col size="8">
-          {{ 'order.summary.package' | translate }}
-          <span class="highlight">{{order?.OrderDetails?.[0]?.ProductName}}</span>
+          <span class="color-violet fs-16 font-weight-500">{{ 'order.summary.package' | translate }} </span>
+          <span class="color-pink fs-16 font-weight-700">{{order?.OrderDetails?.[0]?.ProductName}}</span>
         </ion-col>
         <ion-col size="4" class="ion-text-right">
-          <span class="note">{{order?.OrderDetails?.[0]?.TotalPrice | number}}đ</span>
+          <span class="fs-16 font-weight-500 color-violet">{{order?.OrderDetails?.[0]?.TotalPrice | number}}đ</span>
         </ion-col>
       </ion-row>
 
       <!-- Nhập mã khuyến mãi -->
-      <div class="promo">
+      <div class="promo margin-top-30 margin-bottom-20">
         <label>{{ 'order.promo.label' | translate }}</label>
         <div class="promo-box">
           <ion-input [(ngModel)]="promoCode" [placeholder]="('order.promo.placeholder' | translate)"></ion-input>
-          <ion-button fill="outline" class="promo-btn" size="medium" (click)="applyPromo()">{{ 'order.promo.apply' |
+          <button class="promo-btn" (click)="applyPromo()">{{ 'order.promo.apply' |
             translate
-            }}</ion-button>
+            }}</button>
         </div>
       </div>
 
@@ -38,27 +38,27 @@
         <!-- Tổng cộng -->
         <ion-row class="ion-align-items-center ion-padding-vertical">
           <ion-col size="8">
-            <span class="note">{{ 'order.totals.total' | translate }}</span>
+            <span class="color-violet fs-16 font-weight-500">{{ 'order.totals.total' | translate }}</span>
           </ion-col>
           <ion-col size="4" class="ion-text-right">
-            <span class="note">{{ order?.TotalAmount | number }}đ</span>
+            <span class="color-violet fs-16 font-weight-500">{{ order?.TotalAmount | number }}đ</span>
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center ion-padding-bottom">
           <ion-col size="8">
-            {{ 'order.totals.discount' | translate }}
+            <span class="color-light-gray fs-16 font-weight-500">{{ 'order.totals.discount' | translate }}</span>
           </ion-col>
           <ion-col size="4" class="ion-text-right">
-            <span class="note">{{ order?.DiscountAmount | number }}đ</span>
+            <span class="color-violet fs-16 font-weight-500">{{ order?.DiscountAmount | number }}đ</span>
           </ion-col>
         </ion-row>
         <div class="thin-divider"></div>
         <ion-row class="ion-align-items-center ion-padding-vertical">
           <ion-col size="8">
-            <span class="note">{{ 'order.totals.payable' | translate }}</span>
+            <span class="color-violet fs-18 font-weight-500">{{ 'order.totals.payable' | translate }}</span>
           </ion-col>
           <ion-col size="4" class="ion-text-right">
-            <span class="note red">{{order?.TotalAmount | number}}đ</span>
+            <span class="color-light-red fs-20 font-weight-500">{{order?.TotalAmount | number}}đ</span>
           </ion-col>
         </ion-row>
       </div>
@@ -83,8 +83,9 @@
       </div>
     </ion-radio-group>
   </div>
-
-  <button class="gradient-btn" (click)="checkout()">
-    {{ 'order.pay' | translate }}
-  </button>
+  <section class="ion-display-flex ion-justify-content-center">
+    <button class="gradient-btn padding-horizontal-30 width-90" (click)="checkout()">
+      {{ 'order.pay' | translate }}
+    </button>
+  </section>
 </ion-content>
