@@ -1,13 +1,13 @@
-<app-header></app-header>
 <!-- Content -->
-<ion-content fullscreen>
+<ion-content class="ion-padding">
+  <div class="padding-statusbar"></div>
   <section class="padding-horizontal-20 margin-bottom-20">
     <app-date-header></app-date-header>
   </section>
   <section class="padding-horizontal-20 margin-bottom-20">
     <app-section-logo></app-section-logo>
   </section>
-  <section class="ion-padding">
+  <section>
     <h1 class="fs-30 color-violet font-style-italic text-center font-weight-300">
       <label>Kết nối Quá khứ & Hiện tại</label>
       <label>Soi chiếu Tương lai</label>
@@ -24,7 +24,7 @@
     <app-search-box (valueChange)="onValueChange($event)" (sendMessage)="onSendMessage($event)"></app-search-box>
   </section>
   <!-- Data sources -->
-  <section class="section ion-padding-horizontal">
+  <section class="section">
     <h2 class="fs-22 color-violet font-weight-500">Ứng dụng khai thác các dữ liệu sau:</h2>
     <p class="fs-16 color-violet font-weight-500"> (This Apps exploits the following data)</p>
   </section>
