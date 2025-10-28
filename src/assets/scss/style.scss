@@ -183,6 +183,10 @@
     color: #DD2A36;
 }
 
+.color-pink {
+    color: #D42D75;
+}
+
 .color-danger-weak {
     color: #991b1b;
 }
@@ -199,8 +203,13 @@
     color: #808080;
 }
 
+
 .color-light-gray {
-    color: #d3d3d3;
+    color: #545454;
+}
+
+.color-light-red {
+    color: #FF2E00;
 }
 
 .no-background {
@@ -322,4 +331,24 @@
 .background-stone-500 {
     background: #6b7280;
     --background: #6b7280;
+}
+
+.width-90 {
+    width: 90%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-70 {
+    width: 70%;
+}
+
+.width-80 {
+    width: 80%;
 }

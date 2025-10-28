@@ -5,14 +5,14 @@
   <div class="container">
     <!-- Greeting + Main title -->
     <section class="intro">
-      <p class="hello">
+      <p class="fs-16 color-violet">
         {{ 'purchaseHistory.hello' | translate }} <strong>{{ userInfo().FullName }}</strong>,
       </p>
-      <h1>{{ 'purchaseHistory.heading' | translate }}</h1>
+      <h1 class="fs-28 font-weight-700 color-violet">{{ 'purchaseHistory.heading' | translate }}</h1>
     </section>
 
     <!-- Cards -->
-    <section class="cards">
+    <section class="margin-top-30">
       <ng-container *ngFor="let e of entries(); let i = index; trackBy: trackById">
         <div class="sub-card" (click)="goToOrderDetail(e.UserSubscriptionId)">
           <div class="left">
@@ -135,30 +135,31 @@
             </div>
             }
             }
-
-
             <!-- Text block -->
             <div class="text">
-              <div class="plan-title">{{ e.SubscriptionPlan.Name }}</div>
+              <div class="fs-18 font-weight-500 color-violet">{{ e.SubscriptionPlan.Name }}</div>
               <div class="line">
-                <span class="muted">{{ (e.SubscriptionPlan.PlanType===0 ? 'purchaseHistory.plan.free' :
+                <span class="color-light-gray fs-14 font-weight-400">{{ (e.SubscriptionPlan.PlanType===0 ?
+                  'purchaseHistory.plan.free' :
                   'purchaseHistory.plan.member') | translate }}:</span>
-                <strong>{{ e.SubscriptionPlan.PlanType===0 ? '30 ngày' : '1 năm' }}</strong>
+                <span class="color-violet fs-14 font-weight-500"> {{ e.SubscriptionPlan.PlanType===0 ? '30 ngày' : '1
+                  năm' }}</span>
               </div>
               <div class="line">
-                <span class="muted">{{ 'purchaseHistory.startDate' | translate }}:</span>
-                <strong>{{ e.StartDate | date:'dd/MM/yyyy' }}</strong>
+                <span class="color-light-gray fs-14 font-weight-400">{{ 'purchaseHistory.startDate' | translate
+                  }}:</span>
+                <span class="color-violet fs-14 font-weight-500"> {{ e.StartDate | date:'dd/MM/yyyy' }}</span>
               </div>
               <div class="line">
-                <span class="muted">{{ 'purchaseHistory.endDate' | translate }}:</span>
-                <strong>{{ e.EndDate | date:'dd/MM/yyyy' }}</strong>
+                <span class="color-light-gray fs-14 font-weight-400">{{ 'purchaseHistory.endDate' | translate }}:</span>
+                <span class="color-violet fs-14 font-weight-500"> {{ e.EndDate | date:'dd/MM/yyyy' }}</span>
               </div>
             </div>
           </div>
 
           <!-- Status pill -->
-          <div class="status" [class.expired]="e.IsActive===false" [class.active]="e.IsActive===true">
-            {{ (e.IsActive===false ? 'purchaseHistory.status.expired' : 'purchaseHistory.status.active') | translate }}
+          <div class="status {{e.IsActive ? 'active' : 'expired'}}">
+            {{ (e.IsActive ? 'purchaseHistory.status.active' : 'purchaseHistory.status.expired') | translate }}
           </div>
         </div>
 
