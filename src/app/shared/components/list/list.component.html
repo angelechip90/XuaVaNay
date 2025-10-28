@@ -1,13 +1,71 @@
-<ion-header translucent="true" class="ion-no-border">
+<div class="padding-statusbar"></div>
+<div class="w-100 mb-2">
+  <app-date-header></app-date-header>
+</div>
+<div class="w-100 mb-2">
+  <span class="title">{{ 'list.title' | translate }}</span>
+  <!-- <h1 style="text-align: start;font-size: 2rem !important;" class="title text-xuavanay">{{ 'list.title' | translate }}</h1> -->
+</div>
+<div class="w-100 d-flex justify-content-between align-items-center mb-5">
+  <div class="d-flex gap-2 align-items-center">
+    <span class="with-text">{{ 'list.with' | translate }}</span>
+    <span class="brand">{{ 'list.nameLogo' | translate }}</span>
+  </div>
+  <div>
+    <button class="ask-btn" (click)="ask()" [attr.aria-label]="('list.ask' | translate)">
+      <ion-icon name="add-outline" aria-hidden="true"></ion-icon>
+      <span>{{ 'list.ask' | translate }}</span>
+    </button>
+  </div>
+</div>
+<div class="w-100 mb-3">
+  <app-search-box *ngIf="showSearchBox" (sendMessage)="onSendMessage($event)"></app-search-box>
+</div>
+<div class="w-100 mb-3">
+  <div class="ion-padding-horizontal filters" *ngIf="showYearFilter && isLoadYear">
+    <button class="year-chip" (click)="chooseYear()">
+      <ng-container *ngIf="year == null">
+        <span class="text-xuavanay">{{ 'list.yearLabel' | translate: { year: '' } }}</span>
+      </ng-container>
+      <ng-container *ngIf="year != null">
+        <span class="text-xuavanay">{{ 'list.yearLabel' | translate: { year: year } }}</span>
+      </ng-container>
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </button>
+  </div>
+</div>
+<div class="w-100">
+  <ng-container *ngIf="lstData && lstData?.length">
+    <ion-list class="ion-bg-color-none">
+      <div class="grid-container" style="padding-bottom: 0 !important;">
+        <ng-container *ngFor="let item of lstData; trackBy: trackByFn">
+          <div class="grid-item" (click)="onItemClick(item)">
+            <ion-img [src]="item?.AvatarPath" [alt]="item.Title" (ionError)="onImageError($event)"
+              (ionImgDidLoad)="onImageLoad($event)">
+            </ion-img>
+            <button class="floating-btn" (click)="bookmark(item); $event.stopPropagation()" aria-label="Lưu">
+              <!-- <ion-icon name="arrow-forward-outline"></ion-icon> -->
+               <img src="../../../../assets/image/forward-book.png" alt="">
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  <ng-container *ngIf="!lstData || lstData?.length == 0">
+  </ng-container>
+</div>
+<!-- <ion-header translucent="true" class="ion-no-border">
   <ion-toolbar>
-    <!-- Empty header - chỉ để tạo safe area -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
   <div class="padding-statusbar"></div>
   <app-date-header class="ion-margin-top ion-padding-top"></app-date-header>
-  <!-- Hero -->
   <section class="hero ion-padding">
     <h1 style="text-align: start;font-size: 2rem !important;" class="title text-xuavanay">{{ 'list.title' | translate }}</h1>
 
@@ -22,10 +80,8 @@
     </div>
   </section>
 
-  <!-- Search -->
   <app-search-box *ngIf="showSearchBox" (valueChange)="onValueChange($event)"></app-search-box>
 
-  <!-- Filter row -->
   <div class="ion-padding-horizontal filters" *ngIf="showYearFilter && isLoadYear">
     <button class="year-chip" (click)="chooseYear()">
       <ng-container *ngIf="year == null">
@@ -38,7 +94,6 @@
     </button>
   </div>
 
-  <!-- Grid with equal height columns -->
   <div style="padding-bottom: 80px;">
     <ng-container *ngIf="lstData && lstData?.length">
       <ion-list class="ion-bg-color-none">
@@ -60,7 +115,6 @@
       </ion-infinite-scroll>
     </ng-container>
     <ng-container *ngIf="!lstData || lstData?.length == 0">
-      <!-- de tam neu du lieu ko co se hien thi cai gi -->
     </ng-container>
   </div>
-</ion-content>
+</ion-content> -->

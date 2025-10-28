@@ -149,12 +149,12 @@ export class ListComponent extends BaseComponent {
     }
   }
 
-  onValueChange(query: string) {
-    this.query = query;
-    this.searchInput.emit(query);
+  onSendMessage(message: string) {
+    this.query = message;
+    this.searchInput.emit(message);
     this.navCtrl.navigateForward('chat', {
       queryParams: {
-        message: query,
+        message: message,
       },
     });
   }

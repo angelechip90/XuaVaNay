@@ -110,7 +110,6 @@ export class BookContentComponent extends BaseComponent {
     firstValueFrom(
       this.api.execApi('ReadBook', 'create', 'POST', obj, null)
     ).then((res: any) => {
-      console.log(res);
     });
   }
 

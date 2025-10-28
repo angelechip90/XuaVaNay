@@ -91,6 +91,7 @@ ion-header {
 
 .btn.wide {
     padding: 10px;
+    box-shadow: 0px 10px 10px 0px #0000001A;
 }
 
 .btn.wide ion-icon {
@@ -101,7 +102,7 @@ ion-header {
 .chip {
     border-radius: 8px;
     background: #fae8ff;
-    padding: 10px;
+    padding: 0.5rem;
     text-align: center;
     min-width: 40px;
 }
@@ -112,9 +113,10 @@ ion-header {
     gap: 4px;
     padding: 5px 10px;
     background: #fff;
+    border-radius: 0.8rem;
 
     span {
-        font-size: 14px;
+        font-size: 0.9rem;
         font-weight: 500;
         color: #111827;
         opacity: .8;
@@ -127,4 +129,10 @@ ion-header {
     height: 28px;
     border-radius: 6px;
     background-image: linear-gradient(225deg, #ef4444, #c026d3);
+}
+
+.hidden-scrollbar-pdf{
+    .ng2-pdf-viewer-container::-webkit-scrollbar{
+        display: none !important;
+    }
 }

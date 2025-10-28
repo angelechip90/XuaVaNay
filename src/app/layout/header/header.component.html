@@ -1,11 +1,16 @@
-<ion-header class="ion-no-border no-background">
+<ion-header class="no-background" [ngClass]="hasBorder ? '' : 'ion-no-border '">
     <ion-toolbar class="no-background">
         <ion-buttons slot="start" *ngIf="showBackButton">
             <ion-button (click)="goBack()">
                 <ion-icon name="arrow-back-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>{{ title }}</ion-title>
+        <ng-container *ngIf="titleTemplate;else tempTitle">
+            <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+        </ng-container>
+        <ng-template #tempTitle>
+            <ion-title>{{ title }}</ion-title>
+        </ng-template>
         <ng-container *ngIf="templateEnd">
             <ng-container *ngTemplateOutlet="templateEnd"></ng-container>
         </ng-container>

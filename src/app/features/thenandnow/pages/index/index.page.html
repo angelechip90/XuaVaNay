@@ -1,4 +1,6 @@
-<app-list [title]="'Xưa và Nay'" [showSearchBox]="true" [showYearFilter]="true"
-    (itemClick)="onItemClick($event)" (bookmarkClick)="onBookmarkClick($event)" (searchInput)="onSearchInput($event)"
-    (yearChange)="onYearChange($event)" (askClick)="onAskClick()">
-</app-list>
+<ion-content class="ion-padding ion-bg-color-white">
+    <app-list [title]="'Xưa và Nay'" [showSearchBox]="true" [showYearFilter]="true" (itemClick)="onItemClick($event)"
+        (bookmarkClick)="onBookmarkClick($event)" (searchInput)="onSearchInput($event)"
+        (yearChange)="onYearChange($event)" (askClick)="onAskClick()">
+    </app-list>
+</ion-content>

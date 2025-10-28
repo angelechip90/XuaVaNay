@@ -269,3 +269,11 @@ ion-segment.language-segment::part(indicator) {
 .text-xuavanay {
   color: #130261 !important;
 }
+
+.ion-bg-color-white{
+    --background:white !important;
+}
+
+.hidden-scrollbar::-webkit-scrollbar{
+    display: none;
+}

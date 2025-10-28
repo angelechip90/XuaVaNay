@@ -118,7 +118,6 @@ export class BookDetailComponent extends BaseComponent {
   async ionViewWillEnter() {
     let user = await this.authService.getUserInfo();
     if (user) this.user = user;
-    console.log(user);
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
       this.loadData();
@@ -162,7 +161,6 @@ export class BookDetailComponent extends BaseComponent {
     //   this.fullSummary.set(this.oData?.Description);
     //   this.changeDetectorRef.detectChanges();
     // }
-    console.log(result);
   }
 
   goBack() {
