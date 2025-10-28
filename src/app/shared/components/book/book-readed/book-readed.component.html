@@ -1,4 +1,69 @@
-<app-header [title]="'Sách đã đọc'" [showBackButton]="true"></app-header>
+<app-header [title]="'Sách đã đọc'" [showBackButton]="true" [templateEnd]="tmpToolbarEnd">
+  <ng-template #tmpToolbarEnd>
+    <img class="me-3" slot="end" src="../../../../../assets/image/more_vert.png" alt="">
+  </ng-template>
+</app-header>
+<ion-content class="ion-bg-color-white ion-padding">
+  <!-- <div class="w-100 mb-3">
+    <ion-segment [scrollable]="true" [value]="selectedBookType.toString()" (ionChange)="onSegmentChange($event)"
+      class="book-type-segment">
+      @for (type of bookTypes; track type.BookTypeId) {
+      @if (type.IsActive) {
+      <ion-segment-button [value]="type.BookTypeId.toString()">
+        <div class="w-100 d-flex align-items-center gap-2">
+          <ng-container *ngIf="type?.BookTypeId == 1">
+            <img src="../../../../../assets/image/Tapchi.png" alt="">
+          </ng-container>
+          <ng-container *ngIf="type?.BookTypeId == 2">
+            <img src="../../../../../assets/image/SuDia.png" alt="">
+          </ng-container>
+          <ng-container *ngIf="type?.BookTypeId == 3">
+            <img src="../../../../../assets/image/sach.png" alt="">
+          </ng-container>
+          <span class="text-nowrap">{{ type.Title }}</span>
+        </div>
+  
+      </ion-segment-button>
+      }
+      }
+    </ion-segment>
+  </div> -->
+  <ng-container *ngIf="lstData && lstData?.length">
+    <ion-list class="ion-bg-color-none">
+      <div class="book-list">
+        <ng-container *ngFor="let item of lstData">
+          <div class="book-item" (click)="onBookClick(item)">
+            <div class="book-image">
+              <img [src]="severUrl+'File/avatar/'+item?.Book?.AvatarPath"/>
+            </div>
+            <div class="book-info">
+              <div class="category-badge">
+                <span class="category-text">{{getBookTitle(item?.Book.BookType)}}</span>
+              </div>
+
+              <div class="book-details">
+                <h3 class="book-title">{{ item?.Book?.Title }}</h3>
+                <p class="book-description">{{ item?.Book?.Description }}</p>
+                <!-- <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="badge text-bg-primary">Đã đọc</span>
+                  <span>Trang {{item?.CurrentPage}}</span>
+                </div>
+                <p class="book-description">Đọc lúc: {{ item?.CreatedDate | date : 'hh:mm dd/MM/yyyy' }}</p> -->
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"
+        loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  <ng-container *ngIf="!lstData || lstData?.length == 0">
+  </ng-container>
+</ion-content>
+<!-- <app-header [title]="'Sách đã đọc'" [showBackButton]="true"></app-header>
 
 <ion-content class="book-readed-content">
   <ng-container *ngIf="lstData && lstData?.length">
@@ -34,51 +99,5 @@
     </ion-infinite-scroll>
   </ng-container>
   <ng-container *ngIf="!lstData || lstData?.length == 0">
-    <!-- de tam neu du lieu ko co se hien thi cai gi -->
   </ng-container>
-  <!-- Tabs/Segment -->
-  <!-- <ion-segment [scrollable]="true" [value]="selectedBookType.toString()" (ionChange)="onSegmentChange($event)"
-    class="book-type-segment">
-    @for (type of bookTypes; track type.BookTypeId) {
-    @if (type.IsActive) {
-    <ion-segment-button [value]="type.BookTypeId.toString()">
-      <ion-label>{{ type.Title }}</ion-label>
-    </ion-segment-button>
-    }
-    }
-  </ion-segment> -->
-
-  <!-- Book List -->
-  <!-- <div class="book-list">
-    @for (book of filteredBooks; track book.BookId) {
-    <div class="book-item" (click)="onBookClick(book)">
-
-      <div class="book-image">
-        <img [src]="'https://api.xuavanay.ai/File/avatar/' + book.Book.AvatarPath" [alt]="book.Book.Title" />
-      </div>
-
-      <div class="book-info">
-        <div class="category-badge">
-          <span class="category-text">{{ book.Book.BookTypeAsString }}</span>
-        </div>
-
-        <div class="book-details">
-          <h3 class="book-title">{{ book.Book.Title }}</h3>
-          <p class="book-description">{{ book.Book.Description }}</p>
-        </div>
-      </div>
-    </div>
-    }
-  </div>
-
-  @if (filteredBooks.length === 0) {
-  <div class="empty-state">
-    <ion-icon name="book-outline" size="large"></ion-icon>
-    <p>{{ selectedBookType === 0 ? 'Chưa có sách nào được đọc' : 'Không có sách trong danh mục này' }}</p>
-  </div>
-  } -->
-
-  <!-- <ion-infinite-scroll [disabled]="isEnd || isLoading" (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
-</ion-content>
+</ion-content> -->

@@ -238,6 +238,10 @@
 </ng-container>
 <!-- <div class="bottom-spacer"></div> -->
 </ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <app-search-box placeholder="Câu hỏi của bạn..." (sendMessage)="onSendMessage($event)" [hideBtnSent]="true" [hasBtnOutSide]="true"></app-search-box>
+</ion-footer>
+
 <!-- <div class="ion-page">
   <app-header [title]="type == 'conversation' ? 'LACVIETAI' : bookName" [showBackButton]="true"></app-header>
 

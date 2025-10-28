@@ -277,3 +277,8 @@ ion-segment.language-segment::part(indicator) {
 .hidden-scrollbar::-webkit-scrollbar{
     display: none;
 }
+
+ion-modal#modal-dialog-voice {
+    --height: 13rem;
+    --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
