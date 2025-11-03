@@ -62,6 +62,7 @@
     "@angular/cli": "^20.3.4",
     "@angular/compiler-cli": "^20.3.3",
     "@angular/language-service": "^20.0.0",
+    "@ionic/cli": "^7.0.0",
     "@capacitor-community/speech-recognition": "^7.0.1",
     "@capacitor/assets": "^3.0.5",
     "@capacitor/camera": "^7.0.2",

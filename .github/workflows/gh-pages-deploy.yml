@@ -33,12 +33,13 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          npm install -g @angular/cli@latest
+          npm install -g @ionic/cli@7 @angular/cli@20
           
       - name: Debug environment
         run: |
           node --version
           npm --version
+          ionic --version
           ng version
           
       - name: Build Angular app for production
