@@ -43,7 +43,7 @@ jobs:
           ng version
           
       - name: Build Angular app for production
-        run: npm run build:gh-pages --verbose
+        run: npm run build:gh-pages -- --verbose
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
