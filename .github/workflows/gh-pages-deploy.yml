@@ -40,11 +40,19 @@ jobs:
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
           
-      - name: Install dependencies
-        run: npm install
+      # Xóa sạch để tránh bị lỗi cache/lockfile
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
 
-      - name: Fix Angular builder (force install)
-        run: npm i -D @angular-devkit/build-angular@^20.0.0
+      # Ép cài Angular DevKit + CLI đúng version
+      - name: Ensure Angular DevKit exists
+        run: |
+          npm install --save-dev \
+            @angular-devkit/build-angular@^20.0.0 \
+            @angular/cli@^20.0.0 \
+            @angular/compiler-cli@^20.0.0
           
       - name: Build Angular/Ionic App
         run: npm run build:prod
