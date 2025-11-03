@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">XuaVaNay</string>
-    <string name="title_activity_main">XuaVaNay</string>
-    <string name="package_name">com.xuavanay.app</string>
-    <string name="custom_url_scheme">com.xuavanay.app</string>
+    <string name="app_name">Xưa và Nay</string>
+    <string name="title_activity_main">Xưa và Nay</string>
+    <string name="package_name">ai.xuavanay.app</string>
+    <string name="custom_url_scheme">ai.xuavanay.app</string>
 </resources>

@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.xuavanay.app',
-  appName: 'XuaVaNay',
+  appId: 'ai.xuavanay.app',
+  appName: 'Xưa và Nay',
   webDir: 'www'
 };
 
