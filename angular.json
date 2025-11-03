@@ -16,16 +16,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-							"downloadjs"
-						],
-            "outputPath": {
-              "base": "www",
-              "browser": ""
-            },
+            "outputPath": "www",
             "index": "src/index.html",
+            "main": "src/main.ts",
             "polyfills": [
               "src/polyfills.ts"
             ],
@@ -63,8 +58,7 @@
               "src/global.scss",
               "src/theme/variables.scss"
             ],
-            "scripts": [],
-            "browser": "src/main.ts"
+            "scripts": []
           },
           "configurations": {
             "production": {
