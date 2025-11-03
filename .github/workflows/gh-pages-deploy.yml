@@ -32,7 +32,7 @@ jobs:
           
       - name: Install dependencies
         run: |
-          npm ci
+          npm ci --verbose
           npm install -g @ionic/cli@7 @angular/cli@20
           
       - name: Debug environment
@@ -43,7 +43,7 @@ jobs:
           ng version
           
       - name: Build Angular app for production
-        run: npm run build:gh-pages
+        run: npm run build:gh-pages --verbose
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
