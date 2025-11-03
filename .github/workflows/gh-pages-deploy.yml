@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # cache: 'npm'
+          cache: 'npm'
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
@@ -43,8 +43,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Đảm bảo có Angular builder
-        run: npm install --save-dev @angular-devkit/build-angular
+      - name: Fix Angular builder (force install)
+        run: npm i -D @angular-devkit/build-angular@^20.0.0
           
       - name: Build Angular/Ionic App
         run: npm run build:prod
