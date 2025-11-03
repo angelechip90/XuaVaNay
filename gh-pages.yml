@@ -23,10 +23,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      # Xóa sạch để tránh bị lỗi cache/lockfile
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm uninstall -g @angular/cli
+          npm uninstall -g @ionic/cli
+          npm install
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli@20
@@ -34,8 +38,19 @@ jobs:
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli@7
 
+      # Ép cài Angular DevKit + CLI đúng version
+      - name: Ensure Angular DevKit exists
+        run: |
+          npm install --save-dev \
+            @angular-devkit/build-angular@^20.0.0 \
+            @angular/cli@^20.0.0 \
+            @ionic/cli@^7 \
+            @angular/compiler-cli@^20.0.0
+
+      # Build Angular/Ionic project
       - name: Build app
         run: npm run build:prod
+        # output sẽ nằm ở thư mục: www (theo angular.json)
 
       - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
