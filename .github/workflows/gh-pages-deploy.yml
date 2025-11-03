@@ -39,27 +39,19 @@ jobs:
           echo "Installing dependencies..."
           npm install
           
-      - name: Install CLI tools globally
-        run: |
-          npm install -g @angular/cli@latest @ionic/cli@latest
-          
       - name: Verify environment
         run: |
           node --version
           npm --version
-          echo "Global CLI versions:"
-          ng version
-          ionic --version
           echo "Local Angular CLI version:"
           npx ng version
+          echo "Checking build-angular package:"
+          npm list @angular-devkit/build-angular || echo "build-angular not found in local"
           
       - name: Build application
         run: |
-          echo "Building with production configuration using npm script..."
-          npm run build:gh-pages || {
-            echo "npm script failed, trying npx..."
-            npx ng build --configuration=production --base-href="/XuaVaNay/"
-          }
+          echo "Building with local CLI using node_modules/.bin..."
+          ./node_modules/.bin/ng build --configuration=production --base-href="/XuaVaNay/"
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
