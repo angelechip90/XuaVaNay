@@ -34,16 +34,19 @@ jobs:
           node-version: '20'
           # cache: 'npm'
 
-      - name: Install Ionic CLI
-        run: npm install -g @ionic/cli
-
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
           
       - name: Install dependencies
         run: npm install
+
+      - name: Đảm bảo có Angular builder
+        run: npm install --save-dev @angular-devkit/build-angular
           
-      - name: Build Ionic App
+      - name: Build Angular/Ionic App
         run: ionic build --configuration production
         
       - name: Setup Pages
