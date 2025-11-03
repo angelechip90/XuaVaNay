@@ -2,7 +2,7 @@ name: Deploy Angular Ionic App to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["autobuild"]
   workflow_dispatch:
 
 permissions:
