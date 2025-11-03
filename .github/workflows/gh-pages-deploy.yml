@@ -47,7 +47,8 @@ jobs:
         run: npm install --save-dev @angular-devkit/build-angular
           
       - name: Build Angular/Ionic App
-        run: ionic build --configuration production
+        # run: ionic build --configuration production
+        run: ng build --configuration production
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
