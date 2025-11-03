@@ -37,8 +37,8 @@ jobs:
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
 
-      # - name: Install Angular CLI
-      #   run: npm install -g @angular/cli
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
           
       - name: Install dependencies
         run: npm install
