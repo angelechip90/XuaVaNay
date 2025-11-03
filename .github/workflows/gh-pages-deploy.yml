@@ -21,8 +21,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: --max_old_space_size=4096
-      CI: false
+      NODE_OPTIONS: --max_old_space_size=6144
+      CI: true
+      NODE_ENV: production
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,56 +34,25 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
-      - name: Clean and install dependencies
-        run: |
-          echo "Cleaning npm cache..."
-          npm cache clean --force
-          echo "Installing dependencies with ci..."
-          npm ci --verbose --no-optional
-          echo "Installing global CLI tools..."
-          npm install -g @ionic/cli@7 @angular/cli@20
-          echo "Verifying installations..."
-          which ng
-          which ionic
+      - name: Install dependencies
+        run: npm ci
           
-      - name: Debug environment
+      - name: Install Angular CLI latest
+        run: npm install -g @angular/cli@latest
+          
+      - name: Install Iconic CLI latest
+        run: npm install -g @ionic/cli@latest
+          
+      - name: Verify environment
         run: |
           node --version
           npm --version
-          ionic --version
-          ng version
+          ng version --skip-update-check
           
-      - name: Check package.json scripts
+      - name: Build application
         run: |
-          echo "Available scripts:"
-          npm run
-          echo "Build script content:"
-          cat package.json | grep -A 5 -B 5 "build:gh-pages"
-          
-      - name: Test build without verbose first
-        run: |
-          echo "Testing basic build command..."
-          npm run build:gh-pages
-        continue-on-error: true
-        
-      - name: Build Angular app for production (with error handling)
-        run: |
-          echo "Starting build with verbose logging..."
-          npm run build:gh-pages -- --verbose || {
-            echo "Build failed, trying direct ng build..."
-            ng build --configuration production --base-href "/XuaVaNay/" --verbose || {
-              echo "Direct ng build also failed, checking environment..."
-              echo "Node modules size:"
-              du -sh node_modules/ || echo "Cannot check node_modules size"
-              echo "Available disk space:"
-              df -h || echo "Cannot check disk space"
-              echo "Memory info:"
-              free -h || echo "Cannot check memory"
-              echo "Angular config:"
-              cat angular.json | head -20
-              exit 1
-            }
-          }
+          echo "Building with production configuration using global CLI latest..."
+          ng build --configuration=production --base-href="/XuaVaNay/"
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
