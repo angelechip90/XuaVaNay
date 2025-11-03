@@ -47,6 +47,16 @@
 								"input": "src/assets/.well-known/",
 								"output": "/.well-known"
 							},
+							{
+								"glob": ".nojekyll",
+								"input": "src/",
+								"output": "/"
+							},
+							{
+								"glob": "404.html",
+								"input": "src/",
+								"output": "/"
+							},
 							"src/manifest.webmanifest"
             ],
             "styles": [
@@ -98,9 +108,6 @@
             },
             "development": {
               "buildTarget": "app:build:development"
-            },
-            "ci": {
-              "progress": false
             }
           },
           "defaultConfiguration": "development"

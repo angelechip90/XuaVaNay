@@ -1,12 +1,14 @@
 {
-  "name": "XuaVaNay",
+  "name": "xuavannay-app",
   "version": "0.0.1",
   "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "homepage": "https://lacviet-surelrn.github.io/XuaVaNay-APP/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "build:gh-pages": "ng build --configuration production --base-href \"/XuaVaNay-APP/\"",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
