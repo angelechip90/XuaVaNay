@@ -34,12 +34,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
+      - name: Clear npm cache
+        run: npm cache clean --force
+          
       - name: Install dependencies
         run: |
-          echo "Installing dependencies..."
+          echo "Installing dependencies with clean install..."
+          rm -rf node_modules package-lock.json
           npm install
-          echo "Installing Angular CLI if not present..."
-          npm install @angular/cli@latest --save-dev
+          echo "Verifying critical packages..."
+          npm install @angular/cli@^20.3.4 @angular-devkit/build-angular@^20.3.5 --save-dev --no-save
           
       - name: Verify environment
         run: |
@@ -52,12 +56,16 @@ jobs:
           
       - name: Build application
         run: |
-          echo "Building with local CLI using node_modules/.bin..."
+          echo "Verifying ng CLI is available..."
           if [ -x "./node_modules/.bin/ng" ]; then
+            echo "Using local ng CLI..."
+            ./node_modules/.bin/ng version
             ./node_modules/.bin/ng build --configuration=production --base-href="/XuaVaNay/"
           else
-            echo "ng executable not found, trying npx..."
-            npx --yes @angular/cli@latest build --configuration=production --base-href="/XuaVaNay/"
+            echo "Local ng CLI not found, installing globally..."
+            npm install -g @angular/cli@^20.3.4
+            ng version
+            ng build --configuration=production --base-href="/XuaVaNay/"
           fi
         
       - name: Setup Pages
