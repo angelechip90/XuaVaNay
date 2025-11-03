@@ -56,18 +56,18 @@
 }
 
 /* Nút send tách riêng, tròn + gradient */
-.send-button {
-    --background: linear-gradient(228.67deg, #E3395C 0%, #C72389 50%, #741BCF 100%);
-    --color: #fff;
-    --border-radius: 9999px;
-    --box-shadow: 0 6px 16px rgba(116, 27, 207, 0.35);
-    height: 36px;
-    width: 36px;
-    min-width: 36px;
-    padding: 0;
-}
+// .send-button {
+//     --background: linear-gradient(228.67deg, #E3395C 0%, #C72389 50%, #741BCF 100%);
+//     --color: #fff;
+//     --border-radius: 9999px;
+//     --box-shadow: 0 6px 16px rgba(116, 27, 207, 0.35);
+//     height: 36px;
+//     width: 36px;
+//     min-width: 36px;
+//     padding: 0;
+// }
 
-.send-button[disabled] {
-    --background: linear-gradient(228.67deg, #e3395ccc 0%, #c72389cc 50%, #741bcfcc 100%);
-    opacity: 0.6;
-}
+// .send-button[disabled] {
+//     --background: linear-gradient(228.67deg, #e3395ccc 0%, #c72389cc 50%, #741bcfcc 100%);
+//     opacity: 0.6;
+// }

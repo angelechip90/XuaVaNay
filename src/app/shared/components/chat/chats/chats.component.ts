@@ -9,15 +9,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonIcon,
-  IonContent,
-  ToastController,
-  IonList,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonTitle,
-} from '@ionic/angular/standalone';
+import { IonIcon, IonContent, ToastController, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonTitle, IonFooter } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
@@ -43,6 +35,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
+import { SearchBoxComponent } from '../../search-box/search-box.component';
 
 interface QuickTopic {
   label: string;
@@ -84,7 +77,7 @@ interface ThinkingStep {
       ]),
     ]),
   ],
-  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent,IonTitle,],
+  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent, IonTitle, SearchBoxComponent, IonFooter],
   standalone: true,
 })
 export class ChatsComponent extends BaseComponent {

@@ -50,6 +50,8 @@ interface BookReaded {
     CommonModule,
     IonList,
     HeaderComponent,
+    IonSegment,
+    IonSegmentButton 
   ],
   standalone: true,
 })
@@ -67,13 +69,7 @@ export class BookReadedComponent extends BaseComponent {
   isLoad: any = true;
   pageNum: any = 1;
 
-  bookTypes = [
-    { BookTypeId: 0, Title: 'Tất cả', IsActive: true },
-    { BookTypeId: 1, Title: 'Tạp Chí Xưa và Nay', IsActive: true },
-    { BookTypeId: 2, Title: 'Tập san Sử Địa', IsActive: true },
-    { BookTypeId: 3, Title: 'E-Books', IsActive: true },
-  ];
-
+  bookTypes :any;
   constructor(injector: Injector) {
     super(injector);
     addIcons({
@@ -97,6 +93,7 @@ export class BookReadedComponent extends BaseComponent {
       .execApi('Book', 'get-types', 'GET', null, null)
       .subscribe((result: any) => {
         this.bookTypes = result?.Data || [];
+        console.log(this.bookTypes);
         if (!this.bookTypes.length) this.sampleBookTypes();
         if (this.bookTypes && this.bookTypes?.length) {
           // let first = this.bookTypes[0];

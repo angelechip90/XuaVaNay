@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { IonCard, IonItem, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
+import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
+import { IonCard, IonItem, IonIcon, IonInput, IonButton,IonModal } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { micOffOutline, micOutline, sendOutline } from 'ionicons/icons';
@@ -10,9 +10,13 @@ import { addIcons } from 'ionicons';
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss'],
   standalone: true,
-  imports: [IonCard, IonItem, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
+  imports: [IonCard, IonItem, IonIcon, IonInput, IonButton, CommonModule, FormsModule,IonModal]
 })
 export class SearchBoxComponent implements OnInit, OnDestroy {
+  @Input() placeholder: any = 'Bạn cần hỏi về vấn đề gì ?';
+  @Input() hasBtnOutSide: any = false;
+  @Input() hideBtnSent: any = false;
+  
   @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 
@@ -89,6 +93,16 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     if (this.searchText.trim()) {
       this.sendMessage.emit(this.searchText);
       this.searchText = '';
+    }
+  }
+
+  cancel(){
+    if (this.isRecording) {
+      this.recognition.stop();
+      this.isRecording = false;
+    } else {
+      this.recognition.start();
+      this.isRecording = true;
     }
   }
 }

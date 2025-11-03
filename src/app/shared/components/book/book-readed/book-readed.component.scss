@@ -5,21 +5,34 @@
 // Header styling handled by Ionic components
 
 .book-type-segment {
-    padding: 16px;
-    padding-bottom: 8px;
+    //padding: 16px;
+    //padding-bottom: 8px;
     background-color: transparent;
+    --background: white !important;
+    --offset-bottom: auto !important;
+    --overflow: hidden;
+    overflow: auto;
+    color: var(--ion-color-medium-tint) !important;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     /* Let Ionic handle the horizontal scroll internally */
     ion-segment-button {
 
-        font-size: 14px;
+        font-size: 0.9rem;
         min-height: 40px;
         min-width: fit-content;
         text-transform: none;
-        box-shadow: 0 2px 8px #638CF333;
+        //border: 1.07px solid #FFFFFF;
+        box-shadow: 0px 4.27px 12.82px -4.27px #638CF333;
+        //box-shadow: 0 2px 8px #638CF333;
         border-radius: 12px;
-        margin-right: 10px;
+        margin-right: 1rem;
         flex-shrink: 0;
+        width: 100%;
+        //padding: 0.5rem;
 
         ion-label {
             font-weight: 500;
@@ -37,18 +50,18 @@
 }
 
 .book-list {
-    padding: 16px;
+    //padding: 16px;
 }
 
 .book-item {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    padding: 12px;
-    margin-bottom: 16px;
+    //padding: 0.5rem;
+    margin-bottom: 1rem;
     border-radius: 12px;
     background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -60,10 +73,10 @@
 
 .book-image {
     img {
-        width: 56px;
-        height: 80px;
+        width: 5rem;
+        height: 6rem;
         object-fit: cover;
-        border-radius: 8px;
+        //border-radius: 8px;
     }
 }
 
@@ -79,8 +92,8 @@
 
     .category-text {
         padding: 3px 10px;
-        background: #fef3c7;
-        color: #f59e0b;
+        background: #FFEFE8;
+        color: #E58D57;
         font-size: 12px;
         font-weight: 400;
         border-radius: 30px;
@@ -91,9 +104,9 @@
 .book-details {
     .book-title {
         margin: 0;
-        font-size: 14px;
+        font-size: 0.9rem;
         font-weight: 500;
-        color: #4c1d95;
+        color: #130261;
         line-height: 1.3;
         margin-bottom: 4px;
     }

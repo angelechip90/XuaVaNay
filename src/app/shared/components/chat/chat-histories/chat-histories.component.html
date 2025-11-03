@@ -1,8 +1,39 @@
-<app-header [title]="'Lịch sử Hỏi Đáp'" [showBackButton]="true"></app-header>
+<app-header [title]="'Lịch sử Hỏi Đáp'" [showBackButton]="true" [templateEnd]="tmpToolbarEnd">
+  <ng-template #tmpToolbarEnd>
+    <img class="me-3" slot="end" src="../../../../../assets/image/more_vert.png" alt="">
+  </ng-template>
+</app-header>
+<ion-content class="ion-bg-color-white ion-padding">
+  <div class="w-100 p-3">
+    <app-search-box (valueChange)="send($event)"></app-search-box>
+  </div>
+  <div class="w-100">
+    <ng-container *ngIf="lstData && lstData?.length">
+      <ion-list class="ion-bg-color-none">
+        <div class="row mt-3">
+          <ng-container *ngFor="let item of lstData">
+            <div class="col-6 mb-3" (click)="goConversation(item)">
+              <div class="qa-card">
+                <div class="q text-xuavanay">{{ item.Title }}</div>
+                <!-- <div class="t">Ngày tạo: {{ item.CreatedDate | date : 'dd/MM/yyyy' }}</div> -->
+                <div class="t">{{ item.CreatedDate | timeago }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ion-list>
+      <ion-infinite-scroll *ngIf="isLoad" (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent"
+          loadingText="Đang tải thêm..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+    <ng-container *ngIf="!lstData || lstData?.length == 0">
 
-<!-- Content -->
+    </ng-container>
+  </div>
+</ion-content>
+<!-- <app-header [title]="'Lịch sử Hỏi Đáp'" [showBackButton]="true"></app-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!-- <app-input-chat [placeholder]="'Bạn cần hỏi về vấn đề gì ?'" (sendMessage)="send($event)"></app-input-chat> -->
   <app-search-box (valueChange)="send($event)"></app-search-box>
   <ng-container *ngIf="lstData && lstData?.length">
     <ion-list class="ion-bg-color-none">
@@ -11,7 +42,6 @@
           <div class="col-6 mb-3" (click)="goConversation(item)">
             <div class="qa-card">
               <div class="q text-xuavanay">{{ item.Title }}</div>
-              <!-- <div class="a">{{ item.answer }}</div> -->
               <div class="t">Ngày tạo: {{ item.CreatedDate | date : 'dd/MM/yyyy' }}</div>
               <div class="t">{{ item.CreatedDate | timeago }}</div>
             </div>
@@ -25,42 +55,6 @@
     </ion-infinite-scroll>
   </ng-container>
   <ng-container *ngIf="!lstData || lstData?.length == 0">
-    <!-- de tam neu du lieu ko co se hien thi cai gi -->
-  </ng-container>
-  <!-- <div class="container">
-    <div class="thin-divider"></div>
-    <div class="ask-card">
-      <div class="placeholder">Bạn cần hỏi về vấn đề gì ?</div>
-      <div class="placeholder">Bạn cần hỏi về vấn đề gì ?</div>
-      <div class="actions">
-        <button class="icon-btn" aria-label="Ghi âm" (click)="voice()">
-          <ion-icon name="mic-outline"></ion-icon>
-        </button>
-        <button class="icon-btn send" aria-label="Gửi câu hỏi" (click)="send()">
-          <ion-icon name="send-outline"></ion-icon>
-        </button>
-      </div>
-      <input class="ask-input" [value]="query()" (input)="query.set(($any($event.target).value || '').toString())"
-        placeholder="Bạn cần hỏi về vấn đề gì ?" aria-label="Nhập câu hỏi" />
-        
-    </div>
-    <div class="grid">
-      <div class="qa-card" *ngFor="let item of conversations()">
-        <div class="q">{{ item.Title }}</div>
-        <div class="a">{{ item.CreatedDate }}</div>
-        <div class="t">{{ item.TotalMessages }}</div>
-      </div>
 
-      <div class="col">
-        <div class="qa-card" *ngFor="let item of rightCol()">
-          <div class="q">{{ item.question }}</div>
-          <div class="a">{{ item.answer }}</div>
-          <div class="t">{{ item.time }}</div>
-        </div>
-      </div>
-    </div>
-    <div class="hello">
-      <span>Xin chào </span><strong>MiddleKien,</strong>
-    </div>
-  </div> -->
-</ion-content>
+  </ng-container>
+</ion-content> -->
