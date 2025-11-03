@@ -35,7 +35,7 @@ jobs:
         run: npm install -g @ionic/cli@7
 
       - name: Build app
-        run: npm run build:prod
+        run: npm run build:gh-pages
 
       - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
