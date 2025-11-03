@@ -14,7 +14,7 @@ Dự án này đã được cấu hình để tự động triển khai lên Git
 
 Workflow GitHub Actions sẽ tự động chạy khi push vào branch `autobuild`:
 - Build ứng dụng Angular/Ionic với production configuration
-- Set base-href đúng cho GitHub Pages (`/XuaVaNay-APP/`)
+- Set base-href đúng cho GitHub Pages (`/XuaVaNay/`)
 - Deploy lên GitHub Pages
 
 **Quy trình làm việc khuyến nghị:**
@@ -31,7 +31,7 @@ Workflow GitHub Actions sẽ tự động chạy khi push vào branch `autobuild
 
 Sau khi deploy thành công, ứng dụng sẽ có thể truy cập tại:
 ```
-https://lacviet-surelrn.github.io/XuaVaNay-APP/
+https://angelechip90.github.io/XuaVaNay/
 ```
 
 ### 4. Scripts có sẵn
@@ -41,7 +41,7 @@ Trong `package.json` đã có các scripts sau:
 ```json
 {
   "build:prod": "ng build --configuration production",
-  "build:gh-pages": "ng build --configuration production --base-href \"/XuaVaNay-APP/\""
+  "build:gh-pages": "ng build --configuration production --base-href \"/XuaVaNay/\""
 }
 ```
 
@@ -113,12 +113,6 @@ git push --force origin autobuild
 ```
 
 ### 9. Customization
-
-### 10. Repository Information
-
-**Repository:** `https://github.com/LACVIET-SureLRN/XuaVaNay-APP.git`  
-**Owner:** LACVIET-SureLRN  
-**GitHub Pages URL:** `https://lacviet-surelrn.github.io/XuaVaNay-APP/`
 
 Để thay đổi base URL hoặc tên repository:
 
