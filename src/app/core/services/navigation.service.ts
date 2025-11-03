@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   constructor(private router: Router) {}
@@ -29,6 +29,10 @@ export class NavigationService {
 
   navigateToProfile(): void {
     this.router.navigateByUrl('/profile');
+  }
+
+  navigateToAccount(): void {
+    this.router.navigateByUrl('/tabs/tab5');
   }
 
   goBack(): void {

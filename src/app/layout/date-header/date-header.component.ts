@@ -5,6 +5,7 @@ import { addIcons } from 'ionicons';
 import { chevronDownOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserInfo } from 'src/app/models/User.model';
+import { NavigationService } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-date-header',
@@ -16,7 +17,10 @@ import { UserInfo } from 'src/app/models/User.model';
 export class DateHeaderComponent implements OnInit {
   todayText: string = '';
   userProfile: UserInfo | null = null;
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private navigationService: NavigationService
+  ) {
     addIcons({ chevronDownOutline });
   }
 
@@ -56,5 +60,8 @@ export class DateHeaderComponent implements OnInit {
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const yyyy = date.getFullYear();
     return `${dd}/${mm}/${yyyy}`;
+  }
+  navigateToAccount() {
+    this.navigationService.navigateToAccount();
   }
 }

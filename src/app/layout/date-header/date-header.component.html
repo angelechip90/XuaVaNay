@@ -1,9 +1,9 @@
 <div class="date-header">
     <div class="date-text">{{ todayText }}</div>
     <div class="profile">
-        <ion-avatar class="avatar">
+        <ion-avatar class="avatar" (click)="navigateToAccount()">
             <img [src]="userProfile?.Avatar || '/assets/image/default-avatar.png'" alt="avatar" />
         </ion-avatar>
-        <ion-icon name="chevron-down-outline" class="chev"></ion-icon>
+        <ion-icon name="chevron-down-outline" class="chev" (click)="navigateToAccount()"></ion-icon>
     </div>
 </div>
