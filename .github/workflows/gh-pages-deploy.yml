@@ -38,20 +38,27 @@ jobs:
         run: |
           echo "Installing dependencies..."
           npm install
+          echo "Installing Angular CLI if not present..."
+          npm install @angular/cli@latest --save-dev
           
       - name: Verify environment
         run: |
           node --version
           npm --version
-          echo "Local Angular CLI version:"
-          npx ng version
-          echo "Checking build-angular package:"
-          npm list @angular-devkit/build-angular || echo "build-angular not found in local"
+          echo "Checking installed packages:"
+          npm list @angular/cli @angular-devkit/build-angular || echo "Some packages not found"
+          echo "Checking ng executable:"
+          ls -la ./node_modules/.bin/ng || echo "ng executable not found"
           
       - name: Build application
         run: |
           echo "Building with local CLI using node_modules/.bin..."
-          ./node_modules/.bin/ng build --configuration=production --base-href="/XuaVaNay/"
+          if [ -x "./node_modules/.bin/ng" ]; then
+            ./node_modules/.bin/ng build --configuration=production --base-href="/XuaVaNay/"
+          else
+            echo "ng executable not found, trying npx..."
+            npx --yes @angular/cli@latest build --configuration=production --base-href="/XuaVaNay/"
+          fi
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
