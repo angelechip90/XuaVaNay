@@ -1,5 +1,5 @@
 <div class="w-100" [ngClass]="hasBtnOutSide ? 'd-flex align-items-center justify-content-center gap-3' : ''">
-  <ion-card class="search-card m-0" mode="ios">
+  <ion-card class="search-card m-0" [ngClass]="hasBtnOutSide ? 'w-90' : 'w-100'" mode="ios">
     <ion-item lines="none">
       <ion-input [placeholder]="placeholder" clear-input="true" inputmode="search" [(ngModel)]="searchText"
         (ionInput)="onValueChange($event)">

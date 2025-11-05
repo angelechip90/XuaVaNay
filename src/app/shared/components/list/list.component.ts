@@ -116,12 +116,12 @@ export class ListComponent extends BaseComponent {
   loadItem(isScroll: any = false): Promise<any> {
     return new Promise(async (resolve) => {
       if (!this.isLoad) resolve(false);
-      let obj = {
-      BookType: this.bookTypeID,
-        Year: this.year,
+      let obj:any = {
+        BookType: this.bookTypeID,
         PageNumber: this.pageNum,
-        SortYearDesc:true
+        SortYearDesc: true
       };
+      if(this.year != undefined) obj['Year'] = this.year;
       let result = await firstValueFrom(
         this.api.execApi('Book', 'get-paging', 'GET', null, obj)
       );

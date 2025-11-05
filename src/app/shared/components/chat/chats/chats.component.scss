@@ -7,6 +7,7 @@
     --indigo-500: #6366f1;
     --chip-outline: 1px solid var(--indigo-500);
     --shadow-card: 0 14px 64px -4px rgba(24, 39, 75, .12), 0 8px 22px -6px rgba(24, 39, 75, .12);
+    --card-border: rgba(120, 113, 108, .30);
 }
 
 ion-header {
@@ -574,4 +575,45 @@ ion-header {
     background: linear-gradient(180deg, #D8316D 0%, #991EAF 100%);
     -webkit-background-clip: text;
     background-clip: text;color: transparent;
+}
+
+.qa-card {
+    border-radius: 36px;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(8px);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 188px;
+    overflow: hidden;
+}
+
+.q {
+    color: var(--ink);
+    font: 600 16px "SF Pro Rounded", system-ui;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.a {
+    color: #6b7280;
+    font: 400 16px "SF Pro Rounded", system-ui;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.t {
+    color: #6b7280;
+    opacity: .7;
+    font: 400 13px "SF Pro Rounded", system-ui;
+    line-height: 1;
 }

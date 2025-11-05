@@ -160,8 +160,7 @@
     "title": "Kết nối Quá khứ & Hiện tại<br>Chiếu sáng Tương lai",
     "subtitle": "Kết nối Quá khứ & Hiện tại<br>Chiếu sáng Tương lai",
     "start": "BẮT ĐẦU"
-  }
-  ,
+  },
   "fields": {
     "username": "Tên đăng nhập hoặc email",
     "name": "Họ và tên",
@@ -181,6 +180,13 @@
     "requiredTrue": "Bạn cần đồng ý chính sách để tiếp tục",
     "captchaInvalid": "Mã bảo mật không đúng",
     "default": "Trường này không hợp lệ"
+  },
+  "chat": {
+    "greeting": "Chào ngày mới, tôi có thể giúp gì cho bạn ? 😊️",
+    "find": "Tìm kiếm sâu",
+    "source": "nguồn",
+    "questionRelateds": "Câu hỏi liên quan",
+    "sourceRead": "Nguồn đọc"
   }
 }
 
