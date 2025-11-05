@@ -84,7 +84,7 @@ interface ThinkingStep {
 export class ChatsComponent extends BaseComponent {
   @ViewChild(IonContent) chatContent!: IonContent;
   conversationId: any;
-  lstConversation: any = [];
+  lstConversation: any;
   decoder = new TextDecoder();
   buffer = '';
   scrollTimeout: any;
