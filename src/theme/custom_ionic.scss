@@ -1,0 +1,29 @@
+.ion-modal-auto {
+    --width: auto;
+    --max-width: 100%;
+    --height: auto;
+    --max-height: 100%;
+    --overflow: auto;
+    --border-radius: 1.25rem;
+    --ion-backdrop-color: rgba(0, 0, 0, 0.4);
+    --backdrop-opacity: 1 !important;
+    visibility: visible;
+}
+
+.ion-modal-top {
+    align-items: flex-start;
+    --border-radius: 0 0 1.25rem 1.25rem;
+}
+
+.ion-modal-bottom {
+    align-items: flex-end;
+    --border-radius: 1.25rem 1.25rem 0 0;
+}
+
+.ion-modal-left {
+    justify-content: start;
+}
+
+.ion-modal-right {
+    justify-content: end;
+}
