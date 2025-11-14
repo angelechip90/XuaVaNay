@@ -6,6 +6,7 @@ import {
   IonIcon,
   IonButtons,
   IonButton,
+  IonTitle
 } from '@ionic/angular/standalone';
 import { ToastController, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -32,6 +33,7 @@ import { firstValueFrom } from 'rxjs';
 import { APP_GetPhoto } from 'src/app/utils/appGetPhoto';
 import { ModalPhotoCropperComponent } from 'src/app/modals/modal-photo-cropper/modal-photo-cropper.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-account',
@@ -43,11 +45,13 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     LanguageComponent,
     TranslateModule,
+    HeaderComponent,
     IonHeader,
     IonToolbar,
     IonButtons,
     IonButton,
     IonIcon,
+    IonTitle
   ],
   standalone: true,
 })

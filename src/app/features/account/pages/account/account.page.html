@@ -1,14 +1,9 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="background-white">
-    <ion-buttons slot="start">
-      <ion-button (click)="goback()">
-        <ion-icon slot="icon-only" name="arrow-back-outline" class="fs-16 color-black"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <label class="color-violet font-weight-600 fs-26 ion-display-flex justify-content-center">{{ 'account.title' |
-      translate }}</label>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'account.title' | translate" [showBackButton]="true">
+  <ng-template #tmpToolbarEnd>
+    <img class="me-3" slot="end" src="../../../../../assets/image/bookmark.png" alt="">
+  </ng-template>
+</app-header>
+
 <!-- Content -->
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Avatar + tên + trạng thái -->
