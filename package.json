@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "generate-icon": "npm install --save-dev @capacitor/assets && npx @capacitor/assets generate"
+    "generate-icon": "npm install --save-dev @capacitor/assets && npx @capacitor/assets generate",
+    "build-app": "npm install && ionic build --prod && npx cap sync"
   },
   "private": true,
   "dependencies": {
