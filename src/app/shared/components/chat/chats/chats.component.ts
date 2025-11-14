@@ -163,6 +163,7 @@ export class ChatsComponent extends BaseComponent {
     if(!validate) return;
     await this.createConversation(message);
     if(!this.conversationId) return;
+    if(!this.lstConversation) this.lstConversation = [];
     if (
       !(
         this.lstConversation?.length > 0 &&
