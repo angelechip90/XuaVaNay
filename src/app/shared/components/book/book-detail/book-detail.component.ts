@@ -145,7 +145,9 @@ export class BookDetailComponent extends BaseComponent {
     if (result) {
       if (result?.books) {
         this.oData = result?.books?.Data;
-        this.fullSummary.set(this.oData?.Description);
+        if(this.oData?.Description) this.fullSummary.set(this.oData?.Description);
+        else this.fullSummary.set('');
+        
       }
       if (result?.comments) {
         this.comments = result?.comments?.Data;

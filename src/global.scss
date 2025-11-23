@@ -37,7 +37,8 @@
 // @import '@ionic/angular/css/palettes/dark.system.css';
 
 //style
-@import "theme/font_custom.scss";
+@import "theme/custom_font.scss";
+@import "theme/custom_ionic.scss";
 
 /* Import custom styles */
 @import 'assets/scss/style.scss';
@@ -50,6 +51,10 @@ html.plt-android {
 
 .padding-statusbar {
   padding-top: var(--ion-safe-area-top, 0) !important;
+}
+
+.padding-statusbar-bottom {
+  padding-bottom: var(--ion-safe-area-bottom, 0) !important;
 }
 
 .gradient-spinner {
@@ -281,4 +286,12 @@ ion-segment.language-segment::part(indicator) {
 ion-modal#modal-dialog-voice {
     --height: 13rem;
     --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.w-80 {
+    width: 80% !important;
+}
+
+.text-greeting{
+  color: #5D1078 !important;
 }

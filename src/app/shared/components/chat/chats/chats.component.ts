@@ -36,6 +36,7 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 import { SearchBoxComponent } from '../../search-box/search-box.component';
+import { TimeagoPipe } from 'src/app/shared/pipes/timeago-pipe';
 
 interface QuickTopic {
   label: string;
@@ -77,13 +78,13 @@ interface ThinkingStep {
       ]),
     ]),
   ],
-  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent, IonTitle, SearchBoxComponent, IonFooter],
+  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent, IonTitle, SearchBoxComponent, IonFooter,TimeagoPipe,],
   standalone: true,
 })
 export class ChatsComponent extends BaseComponent {
   @ViewChild(IonContent) chatContent!: IonContent;
   conversationId: any;
-  lstConversation: any = [];
+  lstConversation: any;
   decoder = new TextDecoder();
   buffer = '';
   scrollTimeout: any;
@@ -95,6 +96,7 @@ export class ChatsComponent extends BaseComponent {
   pageNum: any = 1;
   bookName:any = '';
   message:any = '';
+  listHistory:any;
 
   constructor(
     injector: Injector,
@@ -133,7 +135,9 @@ export class ChatsComponent extends BaseComponent {
     let bookName = this.route.snapshot.queryParams['bookName'];
     if(bookName) this.bookName = bookName;
     await this.loadItem();
-    
+    if (this.lstConversation && this.lstConversation?.length == 0) {
+      this.loadHistoryChat();
+    }
   }
 
   ngAfterViewInit() {
@@ -159,6 +163,7 @@ export class ChatsComponent extends BaseComponent {
     if(!validate) return;
     await this.createConversation(message);
     if(!this.conversationId) return;
+    if(!this.lstConversation) this.lstConversation = [];
     if (
       !(
         this.lstConversation?.length > 0 &&
@@ -243,6 +248,7 @@ export class ChatsComponent extends BaseComponent {
     return new Promise(async (resolve) => {
       if(!this.conversationId){
         this.isLoad = false;
+        if (this.message) this.startChat(this.message);
         resolve(false);
       }
       let obj: any = {
@@ -557,5 +563,34 @@ export class ChatsComponent extends BaseComponent {
   async onSendMessage(message: string) {
     if (this.isRender) return;
     this.startChat(message);
+  }
+
+  async loadHistoryChat() {
+    let obj = {
+      PageNumber: 1,
+    };
+    let result = await firstValueFrom(
+      this.api.execApi(
+        'Chat',
+        'get-conversations',
+        'GET',
+        null,
+        obj,
+        false
+      )
+    );
+    if (result && result?.Data && result?.Data?.length) {
+      if (!this.listHistory) this.listHistory = [];
+      this.listHistory = result?.Data;
+      this.listHistory = this.listHistory.slice(0, 3);
+      console.log(this.listHistory);
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  goConversation(item:any){
+    if (!item) return;
+    this.conversationId = item?.ConversationId;
+    this.loadItem();
   }
 }

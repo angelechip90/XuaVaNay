@@ -48,9 +48,9 @@
                       <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseResearch" aria-expanded="true" aria-controls="collapseResearch">
                         <div class="w-100 d-flex align-items-center justify-content-between">
-                          <span class="text-dark me-2">Tìm kiếm sâu</span>
+                          <span class="text-dark me-2">{{ 'chat.find' | translate }}</span>
                           <span class="text-dark me-2" *ngIf="item?.resourceRefs && item?.resourceRefs?.length">
-                            ({{item?.resourceRefs?.length}}) nguồn
+                            ({{item?.resourceRefs?.length}}) {{ 'chat.source' | translate }}
                           </span>
                         </div>
                       </button>
@@ -165,7 +165,7 @@
                           d="M16.0799 4.39998H17.9999V6.31993H19.9201V8.23993H17.9999V10.16H16.0799V8.23993H14.1601V6.31993H16.0799V4.39998Z M3.60001 6.31993H12.24V8.23993H3.60001V6.31993Z M12.24 12.08H20.8799V14H12.2399L12.24 12.08Z M12.24 12.08H3.60001V10.16H12.24V12.08Z M12.2399 15.92H3.60001V14H12.2399V15.92Z M12.2399 15.92L20.8799 15.9199V17.8399H12.2399V15.92Z">
                         </path>
                       </svg>
-                      Câu hỏi liên quan:
+                      {{ 'chat.questionRelateds' | translate }}:
                     </h3>
                   </div>
                   <div class="mt-3">
@@ -182,7 +182,7 @@
                     <div class="source-ref__pannel">
                       <div class="d-flex justify-content-between align-items-center pb-3"
                         style="border-bottom: 1px solid #e5e7eb;">
-                        <h3 class="m-0">Nguồn đọc <span
+                        <h3 class="m-0">{{ 'chat.sourceRead' | translate }} <span
                             class="source-ref__counter-number">({{item?.resourceRefs?.length}})</span>
                         </h3>
                       </div>
@@ -234,6 +234,38 @@
   </ion-list>
 </ng-container>
 <ng-container *ngIf="!lstConversation || lstConversation?.length == 0">
+  <div class="d-flex w-100 h-100 align-items-center justify-content-center" style="flex-direction: column;gap: 1rem;">
+    <span class="text-greeting mb-3">{{ 'chat.greeting' | translate }}</span>
+    <ng-container *ngIf="listHistory || listHistory?.length > 0">
+      <div style="flex-direction: column;gap: 1rem;" class="w-100 d-flex align-items-center">
+        <ng-container *ngFor="let item of listHistory">
+          <div class="w-80 qa-card" (click)="goConversation(item)">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div class="q text-xuavanay">{{ item.Title }}</div>
+              <div>
+                <img src="../../../../assets/image/forward-book.png" alt="">
+              </div>
+            </div>
+            
+            <div class="t">{{ item.CreatedDate | timeago }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <!-- Greeting -->
+
+    <!-- Gợi ý hỏi nhanh -->
+    <!-- <div class="suggestions">
+        <div class="sugg-card" *ngFor="let s of suggestions()" (click)="useSuggestion(s)">
+          <div class="sugg-text">
+            <div class="sugg-title">{{ s.title }}</div>
+            <div class="sugg-sub">{{ s.subtitle }}</div>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="chev"></ion-icon>
+        </div>
+      </div> -->
+
 </ng-container>
 <!-- <div class="bottom-spacer"></div> -->
 </ion-content>

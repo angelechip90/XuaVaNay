@@ -180,6 +180,13 @@
     "requiredTrue": "You must accept the policy to continue",
     "captchaInvalid": "Security code is incorrect",
     "default": "This field is invalid"
+  },
+  "chat": {
+    "greeting": "Good morning, how can I assist you today? 😊️",
+    "find": "Deep search",
+    "source": "source",
+    "questionRelateds": "Related questions",
+    "sourceRead": "Reading source"
   }
 }
 

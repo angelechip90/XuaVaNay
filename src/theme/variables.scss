@@ -22,3 +22,21 @@
 // ion-label {
 //     font-family: 'Roboto', system-ui, -apple-system, sans-serif;
 // }
+
+:root {
+  --ion-color-transparent: transparent;
+  --ion-color-transparent-rgb: 255, 255, 255;
+  --ion-color-transparent-contrast: #000000;
+  --ion-color-transparent-contrast-rgb: 0, 0, 0;
+  --ion-color-transparent-shade: transparent;
+  --ion-color-transparent-tint: transparent;
+}
+
+.ion-color-transparent {
+  --ion-color-base: var(--ion-color-transparent);
+  --ion-color-base-rgb: var(--ion-color-transparent-rgb);
+  --ion-color-contrast: var(--ion-color-transparent-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-transparent-contrast-rgb);
+  --ion-color-shade: var(--ion-color-transparent-shade);
+  --ion-color-tint: var(--ion-color-transparent-tint);
+}
