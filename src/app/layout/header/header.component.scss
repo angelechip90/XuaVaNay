@@ -1,21 +1,37 @@
 ion-header {
-    ion-toolbar {
-        --background: #fff;
-        --color: rgb(0, 0, 0);
+  ion-toolbar {
+    --background: #fff;
+    --color: #000;
 
-        ion-title {
-            font-weight: 600;
-            text-align: center;
-            padding-inline-start: 0;
-            padding-inline-end: 0;
-        }
+    ion-title {
+      display: block;
+      width: 100%;
+      text-align: center;
 
-        ion-button {
-            --color: rgb(0, 0, 0);
-        }
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
-        ion-icon {
-            font-size: 1.5rem;
-        }
+      padding-inline: 48px; /* chừa chỗ hai bên */
+      box-sizing: border-box;
     }
+
+    .title-container {
+      flex: 1;
+      min-width: 0; /* QUAN TRỌNG */
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      * {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+      }
+    }
+  }
 }

@@ -64,7 +64,7 @@ ion-header {
     grid-template-columns: 1fr auto auto;
     align-items: center;
     padding: 0 0.5rem;
-    gap: 0px;
+    gap: 8px;
 }
 
 .left {
@@ -130,8 +130,56 @@ ion-header {
     background-image: linear-gradient(225deg, #ef4444, #c026d3);
 }
 
+.center {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 10px 0px #0000001A;
+}
+
+.btn-zoom {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff;
+    border: 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background: #f5f5f5;
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    ion-icon {
+        font-size: 20px;
+        color: var(--ink);
+    }
+}
+
 .hidden-scrollbar-pdf {
     .ng2-pdf-viewer-container::-webkit-scrollbar {
         display: none !important;
     }
+}
+:host ::ng-deep .pdf-container #viewer.pdfViewer .page {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+:host ::ng-deep .pdf-container .viewerContainer,
+:host ::ng-deep .pdf-container #viewerContainer,
+:host ::ng-deep ngx-extended-pdf-viewer .pdfViewer {
+  background-color: #ffffff !important;
 }
