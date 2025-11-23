@@ -6,7 +6,9 @@
             </ion-button>
         </ion-buttons>
         <ng-container *ngIf="titleTemplate;else tempTitle">
-            <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+            <div class="title-container">
+                <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+            </div>
         </ng-container>
         <ng-template #tempTitle>
             <ion-title>{{ title }}</ion-title>

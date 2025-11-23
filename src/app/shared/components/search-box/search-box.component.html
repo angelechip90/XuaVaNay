@@ -1,4 +1,4 @@
-<div class="w-100" [ngClass]="hasBtnOutSide ? 'd-flex align-items-center justify-content-center gap-3' : ''">
+<div class="w-100" [ngClass]="hasBtnOutSide ? 'd-flex align-items-center justify-content-center gap-2' : ''">
   <ion-card class="search-card m-0" mode="ios">
     <ion-item lines="none">
       <ion-input [placeholder]="placeholder" clear-input="true" inputmode="search" [(ngModel)]="searchText"
@@ -23,32 +23,17 @@
             </defs>
           </svg>
         </div>
-        <!-- <ion-button fill="clear" (click)="toggleVoiceInput()" [class.recording]="isRecording" class="m-0">
-        
-      </ion-button> -->
-        <!-- <ion-button fill="clear" class="send-button" (click)="onSend()" [disabled]="!searchText" class="m-0">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M18.9639 9.96362L4.70388 9.96362M18.9639 9.96362L1.46298 18.39L4.70388 9.96362M18.9639 9.96362L1.46298 1.53727L4.70388 9.96362"
-            [attr.stroke]="'url(#' + svgId + ')'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          <defs>
-            <linearGradient [attr.id]="svgId" x1="12.4821" y1="3.48181" x2="-0.481567" y2="16.4454"
-              gradientUnits="userSpaceOnUse">
-              <stop stop-color="#ED1C24" />
-              <stop offset="1" stop-color="#821EFB" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </ion-button> -->
       </div>
     </ion-item>
   </ion-card>
   <ng-container *ngIf="hasBtnOutSide">
-    <ion-button size="large" fill="solid" class="send-button-outside" (click)="onSend()" [disabled]="!searchText"
-      aria-label="Send">
-      <!-- <ion-icon slot="icon-only" name="send-outline"></ion-icon> -->
-      <img src="../../../../assets/image/icon-sent.png" alt="">
-    </ion-button>
+    <button class="send-button-outside" (click)="onSend()" [disabled]="!searchText" aria-label="Send">
+      <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M18.2507 9.17651L3.99075 9.17651M18.2507 9.17651L0.749841 17.6029L3.99075 9.17651M18.2507 9.17651L0.749841 0.750159L3.99075 9.17651"
+          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
   </ng-container>
 </div>
 <ion-modal id="modal-dialog-voice" style="--background:white !important" (willDismiss)="cancel()" [isOpen]="isRecording"
