@@ -92,7 +92,7 @@ export class BookContentComponent
     if (result && result?.Data) {
       this.oData = result?.Data;
       this.linkPDF = this.oData?.Link;
-      if (this.linkPDF) this.api.isLoad(true);
+      //if (this.linkPDF) this.api.isLoad(true);
     }
     this.changeDetectorRef.detectChanges();
     console.log(result);
@@ -112,7 +112,7 @@ export class BookContentComponent
   onPagesLoaded(event: { pagesCount: number }) {
     this.totalPages = event.pagesCount;
     this.isLoadPdf = true;
-    this.api.isLoad(false);
+    //this.api.isLoad(false);
     this.changeDetectorRef.detectChanges();
   }
 
