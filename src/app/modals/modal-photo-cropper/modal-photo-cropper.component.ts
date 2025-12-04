@@ -46,7 +46,11 @@ export class ModalPhotoCropperComponent implements OnInit {
 					this.close();
 				}
 			});
-		} else {
+		} 
+		else if (this.file) {
+			this.modalController.dismiss(this.file, 'submit');
+		}
+		else {
 			this.close();
 		}
 	}

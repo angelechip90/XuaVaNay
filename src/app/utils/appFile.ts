@@ -378,12 +378,12 @@ export const urlToFile = (
 			mimeType = getMimeType(fileExt);
 		} else if (APP_MATCH_Base64(url)) {
 			mimeType = (url.match(/^data:([^;]+);base64,/i) ?? [])[1] ?? '';
+			
 			fileExt = format || getMimeExtension(mimeType);
 		}			if (!mimeType || !fileExt) {
 				if (callback) callback();
 				return;
 			}
-
 			return new File(
 				[buffer],
 				`${Math.round(Math.random() * 999999999)}.${fileExt}`,

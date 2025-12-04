@@ -167,7 +167,6 @@ export class AccountPage implements OnInit {
           modal.onDidDismiss().then(async (e) => {
             if (e.role == 'submit' && e.data) {
               var file = e.data;
-
               const formData = new FormData();
               const fileName = (file && (file.name || 'avatar.png')) as string;
               formData.append('File', file as Blob, fileName);
