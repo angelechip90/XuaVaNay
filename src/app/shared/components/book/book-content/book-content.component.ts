@@ -23,7 +23,7 @@ import {
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { NgxExtendedPdfViewerComponent, NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @Component({
   selector: 'app-book-content',
@@ -43,6 +43,7 @@ export class BookContentComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @ViewChild(IonContent) content!: IonContent;
+  @ViewChild('pdf') pdf: NgxExtendedPdfViewerComponent;
   @ViewChildren('pageEl') pageEls!: QueryList<HTMLElement>;
   id: any;
   oData: any;
@@ -110,6 +111,7 @@ export class BookContentComponent
   }
 
   onPagesLoaded(event: { pagesCount: number }) {
+    console.log(this.pdf);
     this.totalPages = event.pagesCount;
     this.isLoadPdf = true;
     this.api.isLoad(false);

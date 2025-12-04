@@ -11,8 +11,11 @@
   <ng-container *ngIf="oData">
     <div class="w-100 h-100 hidden-scrollbar-pdf pdf-container">
       <ngx-extended-pdf-viewer
+        #pdf
+        [showBorders]="false"
         [showToolbar]="false"
         [showSidebarButton]="false"
+        [sidebarVisible]="false"
         [showFindButton]="false"
         [showPagingButtons]="false"
         [showZoomButtons]="false"

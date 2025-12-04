@@ -172,14 +172,23 @@ ion-header {
         display: none !important;
     }
 }
+
 :host ::ng-deep .pdf-container #viewer.pdfViewer .page {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 :host ::ng-deep .pdf-container .viewerContainer,
 :host ::ng-deep .pdf-container #viewerContainer,
 :host ::ng-deep ngx-extended-pdf-viewer .pdfViewer {
-  background-color: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+:host ::ng-deep .pdf-container #sidebarContainer,
+:host ::ng-deep .pdf-container #sidebarContent,
+:host ::ng-deep ngx-extended-pdf-viewer #sidebarContainer {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
 }
