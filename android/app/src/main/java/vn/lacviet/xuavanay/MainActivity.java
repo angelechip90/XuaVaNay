@@ -1,4 +1,4 @@
-package ai.xuavanay.app;
+package vn.lacviet.xuavanay;
 
 import com.getcapacitor.BridgeActivity;
 

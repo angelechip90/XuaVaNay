@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Xưa và Nay</string>
     <string name="title_activity_main">Xưa và Nay</string>
-    <string name="package_name">ai.xuavanay.app</string>
-    <string name="custom_url_scheme">ai.xuavanay.app</string>
+    <string name="package_name">vn.lacviet.xuavanay</string>
+    <string name="custom_url_scheme">vn.lacviet.xuavanay</string>
 </resources>

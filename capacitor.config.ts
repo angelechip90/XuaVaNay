@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
-  appId: 'ai.xuavanay.app',
+  appId: 'vn.lacviet.xuavanay',
   appName: 'Xưa và Nay',
   webDir: 'www',
   plugins: {

@@ -9,10 +9,10 @@ android {
             keyPassword 'LacVietXuaVaNay@123'
         }
     }
-    namespace "ai.xuavanay.app"
+    namespace "vn.lacviet.xuavanay"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ai.xuavanay.app"
+        applicationId "vn.lacviet.xuavanay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
