@@ -1,4 +1,5 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'ai.xuavanay.app',
@@ -21,6 +22,18 @@ const config: CapacitorConfig = {
       persist: false,
       autoClear: false,
     },
+		Keyboard: {
+			resize: KeyboardResize.Native,
+      resizeOnFullScreen: false
+		},
+		StatusBar: {
+			style: 'Light',
+			backgroundColor: '#ffffff',
+			overlaysWebView: false
+		},
+		EdgeToEdge: {
+			backgroundColor: "#ffffff"
+		},
   },
   server: {
     androidScheme: 'https',
