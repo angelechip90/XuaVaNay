@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/ntkien/Library/CloudStorage/OneDrive-LACVIETCOMPUTINGCORPORATION/_APP/vn.lacviet.xuavanay/vn.lacviet.xuavanay.jks')
+            storePassword 'LacVietXuaVaNay@12#'
+            keyAlias 'LacVietXuaVaNay'
+            keyPassword 'LacVietXuaVaNay@123'
+        }
+    }
     namespace "ai.xuavanay.app"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {

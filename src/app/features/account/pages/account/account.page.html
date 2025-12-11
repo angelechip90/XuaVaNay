@@ -21,8 +21,8 @@
       <h1>{{ userInfo().FullName }}</h1>
       <p class="fs-14 color-light-gray font-weight-400 padding-bottom-20">
         {{ 'account.usingPlan' | translate }}<b
-          class="color-violet">{{userInfo().ActiveSubscription?.SubscriptionPlan?.Name || ''}},</b>
-        {{ 'account.until' | translate:{ date: ((userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy') } }}
+          class="color-violet">{{userInfo().ActiveSubscription?.SubscriptionPlan?.Name || '---'}},</b>
+        {{ 'account.until' | translate:{ date: ((userInfo().ActiveSubscription?.EndDate) | date:'dd/MM/yyyy') ?? '---' } }}
       </p>
       <div class="ion-text-center">
         <div class="plan-badge" *ngIf="userInfo().ActiveSubscription?.SubscriptionPlan?.PlanType !== 0; else upgrade">
@@ -76,7 +76,7 @@
             </svg>
             }
           </div>
-          <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name }}</div>
+          <div class="badge-text">{{ userInfo().ActiveSubscription?.SubscriptionPlan?.Name ?? '---' }}</div>
         </div>
         <ng-template #upgrade>
           <button class="gradient-btn padding-horizontal-30 width-50" (click)="openUpgrade()">{{ 'account.upgrade' |

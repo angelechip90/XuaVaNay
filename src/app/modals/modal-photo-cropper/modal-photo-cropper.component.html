@@ -11,16 +11,18 @@
 </ion-content>
 
 <ion-footer>
-  <div class="container px-2 py-3 d-flex align-items-stretch justify-content-around">
-    <div class="flex-grow-1 mx-1">
-      <ion-button color="medium" shape="round" fill="outline" expand="block" (click)="close()">
-        <ion-label>{{'Cancel'|translate}}</ion-label>
-      </ion-button>
+  <ion-toolbar>
+    <div class="container px-2 py-3 d-flex align-items-stretch justify-content-around">
+      <div class="flex-grow-1 mx-1">
+        <ion-button color="medium" shape="round" fill="outline" expand="block" (click)="close()">
+          <ion-label>{{'photo.cancel'|translate}}</ion-label>
+        </ion-button>
+      </div>
+      <div class="flex-grow-1 mx-1">
+        <ion-button color="primary" shape="round" expand="block" (click)="submit()">
+          <ion-label>{{'photo.finish'|translate}}</ion-label>
+        </ion-button>
+      </div>
     </div>
-    <div class="flex-grow-1 mx-1">
-      <ion-button color="primary" shape="round" expand="block" (click)="submit()">
-        <ion-label>{{'Finish'|translate}}</ion-label>
-      </ion-button>
-    </div>
-  </div>
+  </ion-toolbar>
 </ion-footer>

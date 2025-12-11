@@ -1,7 +1,7 @@
 <div class="px-3 pt-3 pb-4">
 	<div class="d-flex align-items-center justify-content-between">
 		<div class="flex-grow-1 text-center">
-			<b>{{ 'SearchByVoice' | translate }}</b>
+			<b>{{ 'voice.placeholder' | translate }}</b>
 		</div>
 		<ion-icon
 			class="fs-24 cursor-pointer"
@@ -29,7 +29,7 @@
 				shape="round"
 				fill="outline"
 				(click)="tryAgain()">
-				{{ 'TryAgain' | translate }}
+				{{ 'voice.cancel' | translate }}
 			</ion-button>
 			<ion-button
 				mode="ios"
@@ -37,7 +37,7 @@
 				size="small"
 				shape="round"
 				(click)="modalSubmit()">
-				{{ 'Finish' | translate }}
+				{{ 'voice.finish' | translate }}
 			</ion-button>
 		</div>
 	</div>

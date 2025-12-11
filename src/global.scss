@@ -81,11 +81,13 @@ html.plt-android {
 }
 
 .ai_typing_dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   background-color: #000;
   border-radius: 50%;
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
   animation: blink-dot 1.5s infinite;
 }
 

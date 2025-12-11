@@ -3,13 +3,13 @@
     @if(['ios','android'].includes(platform)){
     <ion-item button (click)="submit('camera')">
       <ion-icon slot="start" color="primary" name="camera-outline"></ion-icon>
-      <ion-label>{{'TakePhoto'|translate}}</ion-label>
+      <ion-label>{{'photo.takePhoto'|translate}}</ion-label>
     </ion-item>
     }
     @if(['web','ios','android'].includes(platform)){
     <ion-item button (click)="submit('library')">
       <ion-icon slot="start" color="primary" name="images-outline"></ion-icon>
-      <ion-label>{{'ChooseFromLibrary'|translate}}</ion-label>
+      <ion-label>{{'photo.chooseFromGallery'|translate}}</ion-label>
     </ion-item>
     }
   </ion-list>

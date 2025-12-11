@@ -1,5 +1,4 @@
-<app-header [title]="type == 'conversation' ? 'LACVIETAI' : bookName" [showBackButton]="true" [titleTemplate]="titleTemplate"
-[templateEnd]="type == 'conversation' ? null : tempEndBook">
+<app-header [title]="type == 'conversation' ? 'LACVIETAI' : bookName" [showBackButton]="true" [titleTemplate]="titleTemplate">
   <ng-template #titleTemplate>
     <ng-container *ngIf="type == 'conversation';else tempTitleBook">
       <ion-title mode="md">
@@ -12,9 +11,6 @@
     <ng-template #tempTitleBook>
       <ion-title mode="ios">{{ bookName }}</ion-title>
     </ng-template>
-  </ng-template>
-  <ng-template #tempEndBook>
-    <img slot="end" class="me-2" src="../../../../../assets/image/notichat.png" alt="">
   </ng-template>
 </app-header>
 <ion-content class="ion-bg-color-white" #chatContent>
@@ -269,8 +265,12 @@
 </ng-container>
 <!-- <div class="bottom-spacer"></div> -->
 </ion-content>
-<ion-footer class="ion-no-border ion-padding">
-  <app-search-box placeholder="Câu hỏi của bạn..." (sendMessage)="onSendMessage($event)" [hideBtnSent]="true" [hasBtnOutSide]="true"></app-search-box>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-padding">
+      <app-search-box placeholder="Câu hỏi của bạn..." (sendMessage)="onSendMessage($event)" [hideBtnSent]="true" [hasBtnOutSide]="true"></app-search-box>
+    </div>
+  </ion-toolbar>
 </ion-footer>
 
 <!-- <div class="ion-page">
