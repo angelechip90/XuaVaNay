@@ -40,8 +40,8 @@ import { NgxExtendedPdfViewerComponent, NgxExtendedPdfViewerModule } from 'ngx-e
 })
 export class BookContentComponent
   extends BaseComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
+
   @ViewChild(IonContent) content!: IonContent;
   @ViewChild('pdf') pdf: NgxExtendedPdfViewerComponent;
   @ViewChildren('pageEl') pageEls!: QueryList<HTMLElement>;
@@ -93,7 +93,7 @@ export class BookContentComponent
     if (result && result?.Data) {
       this.oData = result?.Data;
       this.linkPDF = this.oData?.Link;
-      //if (this.linkPDF) this.api.isLoad(true);
+      if (this.linkPDF) this.api.isLoad(true);
     }
     this.changeDetectorRef.detectChanges();
     console.log(result);
@@ -107,14 +107,13 @@ export class BookContentComponent
     };
     firstValueFrom(
       this.api.execApi('ReadBook', 'create', 'POST', obj, null)
-    ).then((res: any) => {});
+    ).then((res: any) => { });
   }
 
   onPagesLoaded(event: { pagesCount: number }) {
-    console.log(this.pdf);
     this.totalPages = event.pagesCount;
     this.isLoadPdf = true;
-    //this.api.isLoad(false);
+    this.api.isLoad(false);
     this.changeDetectorRef.detectChanges();
   }
 

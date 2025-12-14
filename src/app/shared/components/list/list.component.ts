@@ -47,13 +47,20 @@ export interface PosterItem {
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  imports: [...BASE_IMPORTS, IonImg, SearchBoxComponent, IonHeader, IonToolbar,DateHeaderComponent,],
+  imports: [
+    ...BASE_IMPORTS,
+    IonImg,
+    SearchBoxComponent,
+    IonHeader,
+    IonToolbar,
+    DateHeaderComponent,
+  ],
   standalone: true,
 })
 export class ListComponent extends BaseComponent {
   @Input() items: PosterItem[] = [];
   @Input() title: string = 'Xưa và Nay';
-  @Input() year:any = null;
+  @Input() year: any = null;
   @Input() showSearchBox: boolean = true;
   @Input() showYearFilter: boolean = true;
   @Input() bookTypeID: any = 1;
@@ -69,8 +76,8 @@ export class ListComponent extends BaseComponent {
   lstData: any;
   isLoad: any = true;
   pageNum: any = 1;
-  isLoadYear:any = false;
-  yearOptions:any;
+  isLoadYear: any = false;
+  yearOptions: any;
 
   constructor(
     injector: Injector,
@@ -97,16 +104,24 @@ export class ListComponent extends BaseComponent {
     this.year = null;
     this.lstData = null;
     this.yearOptions = null;
-    this.isLoadYear = false; 
+    this.isLoadYear = false;
+    this.pageNum = 1;
+    this.isLoad = true;
     this.loadYear();
     this.loadItem();
   }
 
-  async loadYear(){
+  async loadYear() {
     let result = await firstValueFrom(
-      this.api.execApi('Book', `get-filter-year/${this.bookTypeID}`, 'GET', null,null)
+      this.api.execApi(
+        'Book',
+        `get-filter-year/${this.bookTypeID}`,
+        'GET',
+        null,
+        null
+      )
     );
-    if(result && result?.Data && result?.Data?.length){
+    if (result && result?.Data && result?.Data?.length) {
       this.yearOptions = result?.Data;
       this.yearOptions.unshift('');
       this.isLoadYear = true;
@@ -115,13 +130,16 @@ export class ListComponent extends BaseComponent {
 
   loadItem(isScroll: any = false): Promise<any> {
     return new Promise(async (resolve) => {
-      if (!this.isLoad) resolve(false);
-      let obj:any = {
+      if (!this.isLoad) {
+        resolve(false);
+        return;
+      }
+      let obj: any = {
         BookType: this.bookTypeID,
         PageNumber: this.pageNum,
-        SortYearDesc: true
+        SortYearDesc: true,
       };
-      if(this.year != undefined) obj['Year'] = this.year;
+      if (this.year != undefined) obj['Year'] = this.year;
       let result = await firstValueFrom(
         this.api.execApi('Book', 'get-paging', 'GET', null, obj)
       );
@@ -130,23 +148,37 @@ export class ListComponent extends BaseComponent {
         if (!isScroll) this.lstData = result?.Data;
         else this.lstData = [...this.lstData, ...result?.Data];
         let totalRecord = result?.TotalRecords;
-        if (this.lstData?.length == totalRecord) this.isLoad = false;
+        if (this.lstData?.length >= totalRecord) {
+          this.isLoad = false;
+        }
         this.changeDetectorRef.detectChanges();
-      }else{
-        this.lstData = [];
+        resolve(true);
+      } else {
+        if (!isScroll) {
+          this.lstData = [];
+        }
         this.isLoad = false;
+        this.changeDetectorRef.detectChanges();
+        resolve(false);
       }
     });
   }
 
   async onIonInfinite(event: any) {
+    console.log(
+      'onIonInfinite called, isLoad:',
+      this.isLoad,
+      'pageNum:',
+      this.pageNum
+    );
     if (this.isLoad) {
       this.pageNum = this.pageNum + 1;
       await this.loadItem(true);
-      setTimeout(() => {
-        (event as InfiniteScrollCustomEvent).target.complete();
-      }, 200);
     }
+    // Luôn gọi complete() để tránh infinite scroll bị kẹt
+    setTimeout(() => {
+      (event as InfiniteScrollCustomEvent).target.complete();
+    }, 200);
   }
 
   onSendMessage(message: string) {
@@ -162,11 +194,13 @@ export class ListComponent extends BaseComponent {
   async chooseYear() {
     if (this.yearOptions && this.yearOptions?.length) {
       const years = this.yearOptions;
-      const buttons: any[] = years.map((y:any) => ({
+      const buttons: any[] = years.map((y: any) => ({
         text: this.translate.instant('list.yearOption', { year: y }),
         handler: () => {
           this.year = y;
           this.yearChange.emit(y);
+          this.pageNum = 1;
+          this.isLoad = true;
           this.loadItem();
           return true;
         },

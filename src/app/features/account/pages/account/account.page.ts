@@ -25,7 +25,7 @@ import {
   chevronBackOutline,
   arrowBackOutline,
 } from 'ionicons/icons';
-import { UserInfo } from 'src/app/models/User.model';
+import { UserInfo, UserSubscription } from 'src/app/models/User.model';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { LanguageComponent } from 'src/app/shared/components/language/language.component';
@@ -59,6 +59,7 @@ export class AccountPage implements OnInit {
   userInfo = signal<UserInfo>({} as UserInfo);
   totalBookRead: any = 0;
   totalHistory: any = 0;
+  subScription = signal<UserSubscription>({} as UserSubscription);
 
   constructor(
     private router: Router,
@@ -91,9 +92,17 @@ export class AccountPage implements OnInit {
   }
 
   async loadUserInfo() {
-    let result = await this.authService.getUserInfo().then((result) => {
+    await this.authService.getUserInfo().then((result) => {
       if (result) {
-        this.userInfo.set(result as unknown as UserInfo);
+        let user =result as unknown as UserInfo;
+        this.api.execApi("UserSubscription","user","GET").subscribe(res=>{
+          if(res && res.StatusCode == 200 && res.Succeeded)
+          {
+            let subs = res.Data;
+            user.ActiveSubscription = subs;
+          }
+            this.userInfo.set(user);
+        })
       }
     });
   }
