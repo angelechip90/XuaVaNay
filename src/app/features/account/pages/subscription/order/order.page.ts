@@ -12,6 +12,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonThumbnail,
+  IonLabel
 } from '@ionic/angular/standalone';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -51,7 +53,9 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
     CommonModule,
     FormsModule,
     HeaderComponent,
-  ],
+    IonThumbnail,
+    IonLabel
+],
 })
 export class OrderPage implements OnInit {
   promoCode: string = '';
