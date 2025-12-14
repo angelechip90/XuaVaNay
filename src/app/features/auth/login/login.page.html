@@ -1,51 +1,81 @@
 <!-- Header (iOS style) -->
 <ion-header class="ion-no-border no-background">
-  <ion-toolbar class="no-background">
-  </ion-toolbar>
+  <ion-toolbar class="no-background"> </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding no-swipe-back">
   <!-- Status bar divider mimic -->
   <section class="ion-padding-top">
     <app-section-logo></app-section-logo>
   </section>
   <!-- Title -->
-  <h1 class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-10">{{ 'login.title' |
-    translate }}</h1>
+  <h1
+    class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-10"
+  >
+    {{ 'login.title' | translate }}
+  </h1>
 
   <!-- Form -->
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <!-- Username -->
-    <div class="field-card-2-grid margin-bottom-20"
-      [class.invalid]="form.controls.username.touched && form.controls.username.invalid">
+    <div
+      class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.username.touched && form.controls.username.invalid"
+    >
       <ion-icon name="person-outline" class="field-icon"></ion-icon>
-      <ion-input size="10" formControlName="username" type="text"
+      <ion-input
+        size="10"
+        formControlName="username"
+        type="text"
         [placeholder]="('login.usernamePlaceholder' | translate)"
-        [attr.aria-label]="('login.usernamePlaceholder' | translate)"></ion-input>
+        [attr.aria-label]="('login.usernamePlaceholder' | translate)"
+      ></ion-input>
     </div>
 
     <!-- Password -->
-    <div class="field-card margin-bottom-30"
-      [class.invalid]="form.controls.password.touched && form.controls.password.invalid">
+    <div
+      class="field-card margin-bottom-30"
+      [class.invalid]="form.controls.password.touched && form.controls.password.invalid"
+    >
       <ion-icon name="lock-closed-outline" class="field-icon"></ion-icon>
-      <ion-input size="10" formControlName="password" [type]="showPw() ? 'text' : 'password'"
+      <ion-input
+        size="10"
+        formControlName="password"
+        [type]="showPw() ? 'text' : 'password'"
         [placeholder]="('login.passwordPlaceholder' | translate)"
-        [attr.aria-label]="('login.passwordPlaceholder' | translate)"></ion-input>
-      <ion-icon class="eye-off-outline icon-big" (click)="togglePw()"
-        [name]="showPw() ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+        [attr.aria-label]="('login.passwordPlaceholder' | translate)"
+      ></ion-input>
+      <ion-icon
+        class="eye-off-outline icon-big"
+        (click)="togglePw()"
+        [name]="showPw() ? 'eye-outline' : 'eye-off-outline'"
+      ></ion-icon>
     </div>
 
     <!-- Options row -->
     <div class="form-checkbox margin-bottom-20">
-      <ion-checkbox formControlName="remember" labelPlacement="end" class="custom-checkbox">{{ 'login.remember' |
-        translate }}</ion-checkbox>
-      <button fill="clear" class="link text-dark no-background" type="button" (click)="forgotPw()">
+      <ion-checkbox
+        formControlName="remember"
+        labelPlacement="end"
+        class="custom-checkbox"
+        >{{ 'login.remember' | translate }}</ion-checkbox
+      >
+      <button
+        fill="clear"
+        class="link text-dark no-background"
+        type="button"
+        (click)="forgotPw()"
+      >
         {{ 'login.forgot' | translate }}
       </button>
     </div>
 
     <!-- Submit -->
-    <button class="gradient-btn margin-bottom-20" type="submit" [attr.aria-label]="('login.submit' | translate)"
-      [disabled]="isLoading()">
+    <button
+      class="gradient-btn margin-bottom-20"
+      type="submit"
+      [attr.aria-label]="('login.submit' | translate)"
+      [disabled]="isLoading()"
+    >
       <span *ngIf="!isLoading()">{{ 'login.submit' | translate }}</span>
       <span *ngIf="isLoading()">{{ 'login.processing' | translate }}</span>
     </button>
@@ -54,7 +84,9 @@
   <!-- Register -->
   <div class="register-line">
     <span>{{ 'login.noAccount' | translate }} </span>
-    <button class="underline" type="button" (click)="register()">{{ 'login.register' | translate }}</button>
+    <button class="underline" type="button" (click)="register()">
+      {{ 'login.register' | translate }}
+    </button>
   </div>
   <app-language></app-language>
 </ion-content>

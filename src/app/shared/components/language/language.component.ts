@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import {
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
-} from '@ionic/angular/standalone';
+import { IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
   styleUrls: ['./language.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonSegment, IonSegmentButton, IonLabel],
+  imports: [CommonModule, IonSegment, IonSegmentButton],
 })
 export class LanguageComponent implements OnInit {
   langs = ['vi', 'en'];

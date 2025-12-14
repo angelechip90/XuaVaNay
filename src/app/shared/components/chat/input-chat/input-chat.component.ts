@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { IonCard, IonItem, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonCard } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { micOffOutline, micOutline, sendOutline } from 'ionicons/icons';
@@ -10,11 +10,11 @@ import { addIcons } from 'ionicons';
   templateUrl: './input-chat.component.html',
   styleUrls: ['./input-chat.component.scss'],
   standalone: true,
-  imports: [IonCard, IonIcon, IonInput, IonButton, CommonModule, FormsModule]
+  imports: [IonCard, CommonModule, FormsModule],
 })
 export class InputChatComponent implements OnInit {
   @Input() placeholder: any = 'Câu hỏi của bạn...';
-  
+
   @Output() valueChange = new EventEmitter<string>();
   @Output() sendMessage = new EventEmitter<string>();
 
@@ -26,7 +26,7 @@ export class InputChatComponent implements OnInit {
     addIcons({
       micOutline,
       micOffOutline,
-      sendOutline
+      sendOutline,
     });
   }
 

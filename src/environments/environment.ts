@@ -9,7 +9,9 @@ export const environment = {
   severImg: 'https://xuavanay.ai/',
   appName: 'XuaVaNay',
   keyToken: 'tokenID',
-  version: '1.0.0'
+  version: '1.0.0',
+  TermsofUse: 'https://xuavanay.ai/terms-of-use',
+  PrivacyPolicy: 'https://xuavanay.ai/privacy-policy',
 };
 
 /*

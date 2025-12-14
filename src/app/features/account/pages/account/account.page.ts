@@ -6,7 +6,7 @@ import {
   IonIcon,
   IonButtons,
   IonButton,
-  IonTitle
+  IonTitle,
 } from '@ionic/angular/standalone';
 import { ToastController, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -51,7 +51,7 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
     IonButtons,
     IonButton,
     IonIcon,
-    IonTitle
+    IonTitle,
   ],
   standalone: true,
 })
@@ -94,15 +94,14 @@ export class AccountPage implements OnInit {
   async loadUserInfo() {
     await this.authService.getUserInfo().then((result) => {
       if (result) {
-        let user =result as unknown as UserInfo;
-        this.api.execApi("UserSubscription","user","GET").subscribe(res=>{
-          if(res && res.StatusCode == 200 && res.Succeeded)
-          {
+        let user = result as unknown as UserInfo;
+        this.api.execApi('UserSubscription', 'user', 'GET').subscribe((res) => {
+          if (res && res.StatusCode == 200 && res.Succeeded) {
             let subs = res.Data;
             user.ActiveSubscription = subs;
           }
-            this.userInfo.set(user);
-        })
+          this.userInfo.set(user);
+        });
       }
     });
   }
@@ -129,6 +128,9 @@ export class AccountPage implements OnInit {
 
   openEmail() {
     this.router.navigateByUrl('/tabs/tab5/email');
+  }
+  openAccountInfo() {
+    this.router.navigateByUrl('/account-info');
   }
   openReadBooks() {
     this.router.navigateByUrl('/book-readed');

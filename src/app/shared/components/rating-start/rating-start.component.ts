@@ -1,20 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IonCol, IonGrid, IonRow,IonIcon } from '@ionic/angular/standalone';
+import { IonGrid, IonRow, IonIcon } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rating-start',
   templateUrl: './rating-start.component.html',
   styleUrls: ['./rating-start.component.scss'],
-  imports: [CommonModule,IonCol, IonGrid, IonRow,IonIcon ],
+  imports: [CommonModule, IonGrid, IonRow, IonIcon],
 })
-export class RatingStartComponent  implements OnInit {
-  @Input() max = 5;               // tổng số sao
-  @Input() value = 0;             // số sao hiện tại
-  @Input() readonly = false;      // nếu true thì không cho click
+export class RatingStartComponent implements OnInit {
+  @Input() max = 5; // tổng số sao
+  @Input() value = 0; // số sao hiện tại
+  @Input() readonly = false; // nếu true thì không cho click
   @Input() disabled = false;
   @Output() valueChange = new EventEmitter<number>();
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
 
@@ -32,7 +32,8 @@ export class RatingStartComponent  implements OnInit {
   }
 
   getStars() {
-    return Array(this.max).fill(0).map((_, i) => i + 1);
+    return Array(this.max)
+      .fill(0)
+      .map((_, i) => i + 1);
   }
-
 }

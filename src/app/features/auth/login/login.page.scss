@@ -3,3 +3,15 @@
     /* Thêm margin phải cho nhãn */
     /* Đổi màu cho nhãn */
 }
+
+:host {
+    // Disable swipe back gesture
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+ion-content.no-swipe-back {
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
+    -webkit-overflow-scrolling: touch;
+}

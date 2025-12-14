@@ -1,0 +1,46 @@
+<!-- Header (iOS style) -->
+<ion-header class="ion-no-border no-background">
+  <ion-toolbar class="no-background"> </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Status bar divider mimic -->
+  <section class="ion-padding-top">
+    <app-section-logo></app-section-logo>
+  </section>
+
+  <!-- Title -->
+  <h1
+    class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-10"
+  >
+    {{ 'deleteAccount.title' | translate }}
+  </h1>
+
+  <!-- Form -->
+  <form (ngSubmit)="submit()" class="form padding-top-10">
+    <!-- Reason -->
+    <div class="field-card-textarea margin-bottom-20">
+      <ion-icon name="document-text-outline" class="field-icon"></ion-icon>
+      <ion-textarea
+        rows="4"
+        [placeholder]="'deleteAccount.reasonPlaceholder' | translate"
+        [attr.aria-label]="'deleteAccount.reasonPlaceholder' | translate"
+      ></ion-textarea>
+    </div>
+    <!-- Submit -->
+    <button
+      class="gradient-btn margin-bottom-20"
+      type="submit"
+      [attr.aria-label]="'deleteAccount.submit' | translate"
+    >
+      <span>{{ 'deleteAccount.submit' | translate }}</span>
+    </button>
+  </form>
+
+  <!-- Back to account -->
+  <div class="register-line">
+    <span>{{ 'deleteAccount.backToAccount' | translate }} </span>
+    <button class="underline" type="button" (click)="goBack()">
+      {{ 'deleteAccount.back' | translate }}
+    </button>
+  </div>
+</ion-content>

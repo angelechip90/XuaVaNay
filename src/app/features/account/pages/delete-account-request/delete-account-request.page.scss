@@ -1,0 +1,30 @@
+.title {
+    font-size: 1.875rem;
+    margin: 1.25rem 0;
+}
+
+.field-card-textarea {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    align-items: start;
+    gap: 0.0625rem;
+    padding: 0.3125rem 0.75rem;
+    border: 0.0625rem solid #cbd5e1;
+    border-radius: 0.625rem;
+    background: #fff;
+
+    .field-icon {
+        margin-top: 0.75rem;
+    }
+
+    ion-textarea {
+        --padding-start: 0;
+        --padding-end: 0;
+        font-size: 0.875rem;
+        min-height: 6rem;
+    }
+}
+
+.field-card-textarea.invalid {
+    border-color: #ef4444;
+}

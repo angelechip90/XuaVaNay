@@ -32,7 +32,7 @@ import {
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { firstValueFrom } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 import { DateHeaderComponent } from 'src/app/layout/date-header/date-header.component';
 
@@ -47,14 +47,7 @@ export interface PosterItem {
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  imports: [
-    ...BASE_IMPORTS,
-    IonImg,
-    SearchBoxComponent,
-    IonHeader,
-    IonToolbar,
-    DateHeaderComponent,
-  ],
+  imports: [...BASE_IMPORTS, IonImg, SearchBoxComponent, DateHeaderComponent],
   standalone: true,
 })
 export class ListComponent extends BaseComponent {

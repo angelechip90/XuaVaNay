@@ -135,11 +135,52 @@
     "until": " thời hạn đến ngày {{date}}.",
     "upgrade": "Nâng cấp",
     "email": "Email",
+    "accountInfo": "Thông tin tài khoản",
     "readBooks": "Sách đã đọc",
     "qaHistory": "Lịch sử Hỏi Đáp",
     "purchaseHistory": "Lịch sử mua gói đọc",
     "changePassword": "Đổi mật khẩu",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "editAccount": "Chỉnh sửa thông tin",
+    "info": {
+      "title": "Thông tin tài khoản",
+      "fullName": "Họ và tên",
+      "userName": "Tên đăng nhập",
+      "email": "Email",
+      "phoneNumber": "Số điện thoại",
+      "address": "Địa chỉ",
+      "createdDate": "Ngày tạo",
+      "emailConfirmed": "Xác thực email",
+      "userId": "Mã người dùng",
+      "confirmed": "Đã xác thực",
+      "notConfirmed": "Chưa xác thực"
+    },
+    "removeAccount": "Xóa tài khoản"
+  },
+  "deleteAccount": {
+    "title": "Yêu cầu xóa tài khoản",
+    "reason": "Lý do",
+    "reasonPlaceholder": "Vui lòng nhập lý do bạn muốn xóa tài khoản (tối thiểu 10 ký tự)",
+    "captchaPlaceholder": "Nhập mã bảo mật",
+    "refreshCaptcha": "Làm mới CAPTCHA",
+    "submit": "GỬI YÊU CẦU",
+    "backToAccount": "Quay lại trang tài khoản?",
+    "back": "Quay lại",
+    "success": "Yêu cầu xóa tài khoản đã được gửi thành công!"
+  },
+  "editAccount": {
+    "title": "Cập nhật thông tin",
+    "fullName": "Họ và tên",
+    "fullNamePlaceholder": "Nhập họ và tên",
+    "address": "Địa chỉ",
+    "addressPlaceholder": "Nhập địa chỉ",
+    "phoneNumber": "Số điện thoại",
+    "phoneNumberPlaceholder": "Nhập số điện thoại",
+    "submit": "CẬP NHẬT",
+    "processing": "ĐANG XỬ LÝ...",
+    "back": "Quay lại?",
+    "backToAccount": "Thông tin tài khoản",
+    "success": "Cập nhật thông tin thành công!"
   },
   "upgrade": {
     "title": "Nâng cấp tài khoản",

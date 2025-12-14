@@ -23,7 +23,7 @@ export class ApiService {
   execApi(
     controller: string,
     router: string,
-    method: 'GET' | 'POST' = 'POST',
+    method: 'GET' | 'POST' | 'PUT' = 'POST',
     data: any = null,
     queryParams: any = null,
     showLoad: boolean = false
@@ -52,6 +52,12 @@ export class ApiService {
     let request$;
     if (method === 'POST') {
       request$ = this.httpClient.post(
+        environment.severUrl + 'api/' + controller + '/' + router,
+        data,
+        { headers, params }
+      );
+    } else if (method === 'PUT') {
+      request$ = this.httpClient.put(
         environment.severUrl + 'api/' + controller + '/' + router,
         data,
         { headers, params }

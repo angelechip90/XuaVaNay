@@ -1,14 +1,7 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonText,
-  IonList,
-  IonLabel,
-  IonItem,
-  IonCheckbox,
-} from '@ionic/angular/standalone';
+import { IonContent, IonList, IonItem } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   searchOutline,
@@ -22,10 +15,7 @@ import {
 import { SectionLogoComponent } from 'src/app/layout/section-logo/section-logo.component';
 import { DateHeaderComponent } from 'src/app/layout/date-header/date-header.component';
 import { SearchBoxComponent } from 'src/app/shared/components/search-box/search-box.component';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -34,17 +24,13 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
   standalone: true,
   imports: [
     IonContent,
-    IonText,
     IonList,
-    IonLabel,
     IonItem,
-    IonCheckbox,
     CommonModule,
     FormsModule,
     SectionLogoComponent,
     DateHeaderComponent,
     SearchBoxComponent,
-    HeaderComponent,
   ],
 })
 export class HomePage extends BaseComponent {

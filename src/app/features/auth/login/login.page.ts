@@ -1,20 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
-import {
-  IonContent,
-  IonButton,
-  IonIcon,
-  IonInput,
-  IonCheckbox,
-  ToastController,
-  LoadingController,
-} from '@ionic/angular/standalone';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
@@ -28,9 +14,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
 import { LanguageComponent } from 'src/app/shared/components/language/language.component';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
-
+import { IonRouterOutlet } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -38,7 +24,7 @@ import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
   standalone: true,
   imports: [...BASE_IMPORTS, SectionLogoComponent, LanguageComponent],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   showPw = signal(false);
   isLoading = signal(false);
 
@@ -54,7 +40,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private loadingService: LoadingService,
     private navigationService: NavigationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private routerOutlet: IonRouterOutlet
   ) {
     addIcons({
       chevronBackOutline,
@@ -66,6 +53,9 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.routerOutlet) {
+      this.routerOutlet.swipeGesture = false;
+    }
     // Subscribe to loading state
     this.loadingService.loading$.subscribe((loading) => {
       this.isLoading.set(loading);
@@ -158,9 +148,23 @@ export class LoginPage implements OnInit {
     const toast = await this.toast.create({
       message,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       color,
     });
     await toast.present();
+  }
+
+  ionViewWillLeave() {
+    if (this.routerOutlet) {
+      this.routerOutlet.swipeGesture = true;
+    }
+    // Optional: Re-enable side menu swipe if needed
+    // this.menuController.swipeEnable(true);
+  }
+
+  ngOnDestroy() {
+    if (this.routerOutlet) {
+      this.routerOutlet.swipeGesture = true;
+    }
   }
 }

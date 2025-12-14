@@ -19,6 +19,7 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () =>
       import('./features/auth/login/login.page').then((m) => m.LoginPage),
+    data: { canSwipeBack: false },
   },
   {
     path: 'forgot-password',
@@ -43,6 +44,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'delete-account-request',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import(
+        './features/account/pages/delete-account-request/delete-account-request.page'
+      ).then((m) => m.DeleteAccountRequestPage),
+  },
+  {
     path: 'upgrade',
     canActivate: [AuthGuard],
     loadComponent: () =>
@@ -57,6 +66,22 @@ export const routes: Routes = [
       import(
         './features/account/pages/subscription/purchase-history/purchase-history.page'
       ).then((m) => m.PurchaseHistoryPage),
+  },
+  {
+    path: 'account-info',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./features/account/pages/account-info/account-info.page').then(
+        (m) => m.AccountInfoPage
+      ),
+  },
+  {
+    path: 'edit-account-info',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import(
+        './features/account/pages/edit-account-info/edit-account-info.page'
+      ).then((m) => m.EditAccountInfoPage),
   },
   {
     path: 'index',

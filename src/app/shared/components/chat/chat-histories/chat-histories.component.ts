@@ -18,7 +18,6 @@ import { firstValueFrom } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { TimeagoPipe } from 'src/app/shared/pipes/timeago-pipe';
-import { InputChatComponent } from '../input-chat/input-chat.component';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { SearchBoxComponent } from '../../search-box/search-box.component';
 
@@ -39,9 +38,8 @@ type QAItem = {
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     TimeagoPipe,
-    InputChatComponent,
     HeaderComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
   ],
   standalone: true,
 })

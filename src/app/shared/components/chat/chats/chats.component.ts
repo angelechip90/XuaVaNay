@@ -2,14 +2,15 @@ import {
   Component,
   ElementRef,
   Injector,
-  OnInit,
   Renderer2,
-  signal,
   ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonIcon, IonContent, ToastController, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonTitle, IonFooter } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  ToastController,
+  IonTitle,
+  IonFooter,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
@@ -19,21 +20,17 @@ import {
   libraryOutline,
   bookOutline,
   personOutline,
-  settings,
 } from 'ionicons/icons';
-import { InputChatComponent } from '../input-chat/input-chat.component';
 import { BaseComponent } from 'src/app/core/base/base.component';
-import { firstValueFrom, retry } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { AuthStorageService } from 'src/app/core/services/auth.storeage.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { v4 as uuidv4 } from 'uuid';
-import { environment } from 'src/environments/environment';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { InfiniteScrollCustomEvent } from '@ionic/core';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BASE_IMPORTS } from 'src/app/core/base/base-imports';
 import { SearchBoxComponent } from '../../search-box/search-box.component';
 import { TimeagoPipe } from 'src/app/shared/pipes/timeago-pipe';
@@ -78,7 +75,14 @@ interface ThinkingStep {
       ]),
     ]),
   ],
-  imports: [...BASE_IMPORTS, InputChatComponent, HeaderComponent, IonTitle, SearchBoxComponent, IonFooter,TimeagoPipe,],
+  imports: [
+    ...BASE_IMPORTS,
+    HeaderComponent,
+    IonTitle,
+    SearchBoxComponent,
+    IonFooter,
+    TimeagoPipe,
+  ],
   standalone: true,
 })
 export class ChatsComponent extends BaseComponent {
@@ -94,9 +98,9 @@ export class ChatsComponent extends BaseComponent {
   user: any;
   isLoad: any = true;
   pageNum: any = 1;
-  bookName:any = '';
-  message:any = '';
-  listHistory:any;
+  bookName: any = '';
+  message: any = '';
+  listHistory: any;
 
   constructor(
     injector: Injector,
@@ -125,15 +129,15 @@ export class ChatsComponent extends BaseComponent {
     let user = await this.authService.getUserInfo();
     if (user) this.user = user;
     let conversationId = this.route.snapshot.queryParams['conversationId'];
-    if(conversationId) this.conversationId = conversationId;
+    if (conversationId) this.conversationId = conversationId;
     let message = this.route.snapshot.queryParams['message'];
-    if(message) this.message = message;
+    if (message) this.message = message;
     let type = this.route.snapshot.queryParams['type'];
-    if(type) this.type = type;
+    if (type) this.type = type;
     let bookID = this.route.snapshot.queryParams['bookID'];
-    if(bookID) this.bookID = bookID;
+    if (bookID) this.bookID = bookID;
     let bookName = this.route.snapshot.queryParams['bookName'];
-    if(bookName) this.bookName = bookName;
+    if (bookName) this.bookName = bookName;
     await this.loadItem();
     if (this.lstConversation && this.lstConversation?.length == 0) {
       this.loadHistoryChat();
@@ -160,10 +164,10 @@ export class ChatsComponent extends BaseComponent {
   async startChat(message: any) {
     this.smoothScroll(100);
     let validate = await this.checkEligibility();
-    if(!validate) return;
+    if (!validate) return;
     await this.createConversation(message);
-    if(!this.conversationId) return;
-    if(!this.lstConversation) this.lstConversation = [];
+    if (!this.conversationId) return;
+    if (!this.lstConversation) this.lstConversation = [];
     if (
       !(
         this.lstConversation?.length > 0 &&
@@ -246,7 +250,7 @@ export class ChatsComponent extends BaseComponent {
 
   loadItem(isScroll: any = false): Promise<any> {
     return new Promise(async (resolve) => {
-      if(!this.conversationId){
+      if (!this.conversationId) {
         this.isLoad = false;
         if (this.message) this.startChat(this.message);
         resolve(false);
@@ -305,11 +309,11 @@ export class ChatsComponent extends BaseComponent {
           }
         }
         let totalRecord = result?.TotalRecords;
-        if (this.lstConversation?.length == totalRecord){
+        if (this.lstConversation?.length == totalRecord) {
           this.smoothScroll(100);
           this.isLoad = false;
           if (this.message) this.startChat(this.message);
-        }else{
+        } else {
           this.pageNum = this.pageNum + 1;
           this.loadItem();
         }
@@ -328,7 +332,7 @@ export class ChatsComponent extends BaseComponent {
   //   }
   // }
 
-  async checkEligibility(){
+  async checkEligibility() {
     let result = await firstValueFrom(
       this.api.execApi(
         'UserSubscription',
@@ -343,20 +347,20 @@ export class ChatsComponent extends BaseComponent {
       if (!data?.CanChat) {
         this.notificationSV.showError(data?.Reason);
         return false;
-      }else{
-        return true
+      } else {
+        return true;
       }
     }
     return false;
   }
 
-  async createConversation(message:any){
+  async createConversation(message: any) {
     if (!this.conversationId) {
       let url = '';
-      let obj:any = {
+      let obj: any = {
         Message: message,
-      }
-      if(this.type == 'conversation'){
+      };
+      if (this.type == 'conversation') {
         url = 'create-conversation';
       }
       if (this.type == 'book') {
@@ -364,13 +368,7 @@ export class ChatsComponent extends BaseComponent {
         obj['BookId'] = this.bookID;
       }
       let result = await firstValueFrom(
-        this.api.execApi(
-          'Chat',
-          url,
-          'POST',
-          obj,
-          null,
-        )
+        this.api.execApi('Chat', url, 'POST', obj, null)
       );
       if (result && result?.Data) {
         this.conversationId = result?.Data?.ConversationId;
@@ -570,14 +568,7 @@ export class ChatsComponent extends BaseComponent {
       PageNumber: 1,
     };
     let result = await firstValueFrom(
-      this.api.execApi(
-        'Chat',
-        'get-conversations',
-        'GET',
-        null,
-        obj,
-        false
-      )
+      this.api.execApi('Chat', 'get-conversations', 'GET', null, obj, false)
     );
     if (result && result?.Data && result?.Data?.length) {
       if (!this.listHistory) this.listHistory = [];
@@ -588,7 +579,7 @@ export class ChatsComponent extends BaseComponent {
     }
   }
 
-  goConversation(item:any){
+  goConversation(item: any) {
     if (!item) return;
     this.conversationId = item?.ConversationId;
     this.loadItem();

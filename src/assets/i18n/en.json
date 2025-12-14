@@ -134,11 +134,52 @@
     "until": " valid until {{date}}.",
     "upgrade": "Upgrade",
     "email": "Email",
+    "accountInfo": "Account Information",
     "readBooks": "Books read",
     "qaHistory": "Q&A history",
     "purchaseHistory": "Reading package purchase history",
     "changePassword": "Change password",
-    "logout": "Log out"
+    "logout": "Log out",
+    "editAccount": "Edit Information",
+    "info": {
+      "title": "Account Information",
+      "fullName": "Full Name",
+      "userName": "Username",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "address": "Address",
+      "createdDate": "Created Date",
+      "emailConfirmed": "Email Confirmed",
+      "userId": "User ID",
+      "confirmed": "Confirmed",
+      "notConfirmed": "Not Confirmed"
+    },
+    "removeAccount": "Remove Account"
+  },
+  "deleteAccount": {
+    "title": "Delete Account Request",
+    "reason": "Reason",
+    "reasonPlaceholder": "Please enter the reason you want to delete your account (minimum 10 characters)",
+    "captchaPlaceholder": "Enter security code",
+    "refreshCaptcha": "Refresh CAPTCHA",
+    "submit": "SUBMIT REQUEST",
+    "backToAccount": "Back to account page?",
+    "back": "Back",
+    "success": "Account deletion request has been sent successfully!"
+  },
+  "editAccount": {
+    "title": "Edit Account Information",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter full name",
+    "address": "Address",
+    "addressPlaceholder": "Enter address",
+    "phoneNumber": "Phone Number",
+    "phoneNumberPlaceholder": "Enter phone number",
+    "submit": "UPDATE",
+    "processing": "PROCESSING...",
+    "back": "Back?",
+    "backToAccount": "Account Information",
+    "success": "Account information updated successfully!"
   },
   "upgrade": {
     "title": "Upgrade account",

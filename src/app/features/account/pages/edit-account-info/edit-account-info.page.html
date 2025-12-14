@@ -1,0 +1,84 @@
+<!-- Header (iOS style) -->
+<ion-header class="ion-no-border no-background">
+  <ion-toolbar class="no-background"> </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Status bar divider mimic -->
+  <app-section-logo></app-section-logo>
+
+  <!-- Title -->
+  <h1
+    class="fs-30 text-center font-weight-500 padding-vertical-30 color-violet margin-vertical-10"
+  >
+    {{ 'editAccount.title' | translate }}
+  </h1>
+
+  <!-- Form -->
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form padding-top-10">
+    <!-- Full Name -->
+    <div
+      class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.fullName.touched && form.controls.fullName.invalid"
+    >
+      <ion-icon name="person-outline" class="field-icon"></ion-icon>
+      <ion-input
+        size="10"
+        formControlName="fullName"
+        type="text"
+        [placeholder]="'editAccount.fullNamePlaceholder' | translate"
+        [attr.aria-label]="'editAccount.fullNamePlaceholder' | translate"
+      ></ion-input>
+    </div>
+
+    <!-- Address -->
+    <div
+      class="field-card-2-grid margin-bottom-20"
+      [class.invalid]="form.controls.address.touched && form.controls.address.invalid"
+    >
+      <ion-icon name="location-outline" class="field-icon"></ion-icon>
+      <ion-input
+        size="10"
+        formControlName="address"
+        type="text"
+        [placeholder]="'editAccount.addressPlaceholder' | translate"
+        [attr.aria-label]="'editAccount.addressPlaceholder' | translate"
+      ></ion-input>
+    </div>
+
+    <!-- Phone Number -->
+    <div
+      class="field-card-2-grid margin-bottom-30"
+      [class.invalid]="form.controls.phoneNumber.touched && form.controls.phoneNumber.invalid"
+    >
+      <ion-icon name="call-outline" class="field-icon"></ion-icon>
+      <ion-input
+        size="10"
+        formControlName="phoneNumber"
+        type="tel"
+        [placeholder]="'editAccount.phoneNumberPlaceholder' | translate"
+        [attr.aria-label]="'editAccount.phoneNumberPlaceholder' | translate"
+      ></ion-input>
+    </div>
+
+    <!-- Submit -->
+    <button
+      class="gradient-btn margin-bottom-20"
+      type="submit"
+      [attr.aria-label]="'editAccount.submit' | translate"
+      [disabled]="isLoading()"
+    >
+      <span *ngIf="!isLoading()">{{ 'editAccount.submit' | translate }}</span>
+      <span *ngIf="isLoading()"
+        >{{ 'editAccount.processing' | translate }}</span
+      >
+    </button>
+  </form>
+
+  <!-- Back to account info -->
+  <div class="register-line">
+    <span>{{ 'editAccount.back' | translate }} </span>
+    <button class="underline" type="button" (click)="goBack()">
+      {{ 'editAccount.backToAccount' | translate }}
+    </button>
+  </div>
+</ion-content>
