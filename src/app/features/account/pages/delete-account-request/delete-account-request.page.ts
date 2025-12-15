@@ -57,7 +57,7 @@ export class DeleteAccountRequestPage {
 
   async submit() {
     this.authService.logout().then(() => {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login', { replaceUrl: true });
     });
   }
 }

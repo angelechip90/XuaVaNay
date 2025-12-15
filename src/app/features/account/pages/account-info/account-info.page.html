@@ -98,9 +98,9 @@
     </div>
   </section>
   <section class="ion-display-flex ion-justify-content-center margin-top-20">
-    <button class="gradient-btn padding-horizontal-30 width-90" id="open-modal">
+    <ion-button mode="ios" color="danger" fill="outline" class="ion-no-margin padding-horizontal-30 width-90" id="open-modal">
       {{ 'account.removeAccount' | translate }}
-    </button>
+    </ion-button>
   </section>
 
   <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.6">
@@ -119,7 +119,7 @@
           <!-- Body -->
           <div class="sheet__body">
             <p class="sheet__p">
-              Rất tiếc, vì bạn chọn xóa tài khoản của mình trên PHR, vui lòng
+              Rất tiếc, vì bạn chọn xóa tài khoản của mình trên XuaVaNay, vui lòng
               đọc kĩ các
               <a class="sheet__link" (click)="openTerms()"
                 >Điều khoản sử dụng</a
@@ -135,17 +135,17 @@
 
             <ul class="sheet__list">
               <li>
-                Việc xóa/hủy tài khoản PHR là vĩnh viễn và không thể khôi phục.
+                Việc xóa/hủy tài khoản XuaVaNay là vĩnh viễn và không thể khôi phục.
                 Đồng nghĩa bạn không thể đăng nhập hoặc xem lại các thông báo
                 trong ứng dụng sau khi tài khoản đã bị xóa.
               </li>
               <li>
-                Việc yêu cầu xóa/hủy tài khoản PHR cần phải được PHR chấp thuận.
-                Để đảm bảo yêu cầu xóa/hủy tài khoản PHR của bạn được chấp
+                Việc yêu cầu xóa/hủy tài khoản XuaVaNay cần phải được XuaVaNay chấp thuận.
+                Để đảm bảo yêu cầu xóa/hủy tài khoản XuaVaNay của bạn được chấp
                 thuận.
               </li>
               <li>
-                Sau khi bạn đã hủy tài khoản PHR hiện tại, PHR có quyền từ chối
+                Sau khi bạn đã hủy tài khoản XuaVaNay hiện tại, XuaVaNay có quyền từ chối
                 những yêu cầu thiết lập tài khoản mới của bạn trong tương lai.
               </li>
             </ul>

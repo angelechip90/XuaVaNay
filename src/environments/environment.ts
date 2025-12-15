@@ -10,8 +10,8 @@ export const environment = {
   appName: 'XuaVaNay',
   keyToken: 'tokenID',
   version: '1.0.0',
-  TermsofUse: 'https://xuavanay.ai/terms-of-use',
-  PrivacyPolicy: 'https://xuavanay.ai/privacy-policy',
+  TermsofUse: 'https://lacviet.vn/chinh-sach-bao-ve-du-lieu-ca-nhan',
+  PrivacyPolicy: 'https://lacviet.vn/chinh-sach-bao-ve-du-lieu-ca-nhan',
 };
 
 /*

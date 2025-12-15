@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, ViewChild } from '@angular/core';
-import { IonContent, IonIcon, IonModal } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonModal, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
@@ -30,7 +30,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-account-info',
   templateUrl: './account-info.page.html',
   styleUrls: ['./account-info.page.scss'],
-  imports: [
+  imports: [IonButton, 
     IonContent,
     IonIcon,
     CommonModule,

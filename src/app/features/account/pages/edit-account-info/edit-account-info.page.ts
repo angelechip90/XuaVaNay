@@ -141,7 +141,7 @@ export class EditAccountInfoPage implements OnInit {
             });
             await toast.present();
             setTimeout(() => {
-              this.router.navigateByUrl('/account-info');
+              this.router.navigateByUrl('/account-info', { replaceUrl: true });
             }, 1500);
           } else {
             const toast = await this.toast.create({
