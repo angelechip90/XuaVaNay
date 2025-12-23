@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Output,
   Input,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   IonCard,
@@ -17,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { micOffOutline, micOutline, sendOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { SpeechRecognition } from '@capacitor-community/speech-recognition';
+import { SpeechService } from 'src/app/core/services/speech.service';
 
 @Component({
   selector: 'app-search-box',
@@ -45,8 +48,14 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   isRecording: boolean = false;
   private recognition: any;
   svgId: string = `send-gradient-${Math.random().toString(36).substr(2, 9)}`;
+  finalText:any = '';
+  previewText:any = '';
+  isListening:any = false;
+  constructor(
+    private speech: SpeechService,
+    private changeDetectorRef:ChangeDetectorRef
 
-  constructor() {
+  ) {
     addIcons({
       micOutline,
       micOffOutline,
@@ -55,7 +64,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initializeSpeechRecognition();
+    //this.initializeSpeechRecognition();
   }
 
   ngOnDestroy() {
@@ -93,6 +102,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     const value = event.target.value;
     this.searchText = value;
     this.valueChange.emit(value);
+    this.changeDetectorRef.detectChanges();
   }
 
   toggleVoiceInput() {
@@ -110,6 +120,16 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
   }
 
+  openModalVoice() {
+    this.isRecording = true;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  cancelModalVoice(){
+    this.isRecording = false;
+    this.changeDetectorRef.detectChanges();
+  }
+
   onSend() {
     if (this.searchText.trim()) {
       this.sendMessage.emit(this.searchText);
@@ -124,6 +144,38 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     } else {
       this.recognition.start();
       this.isRecording = true;
+    }
+  }
+
+  async startVoice() {
+    try {
+      SpeechRecognition.addListener('listeningState', (state) => {
+        switch(state.status) {
+          case 'started':
+            this.isListening = true;
+            break;
+          case 'stopped':
+            if(this.isListening){
+              this.isListening = false;
+              this.searchText = this.previewText;
+              this.previewText = '';
+              this.cancelModalVoice();
+              this.changeDetectorRef.detectChanges();
+            }
+            break;
+        }
+        this.changeDetectorRef.detectChanges();
+      });
+
+      SpeechRecognition.addListener('partialResults', (data) => {
+        this.previewText = data.matches[0];
+        this.changeDetectorRef.detectChanges();
+      });
+      this.previewText = '';
+      await this.speech.startListening();
+      this.speech.stopListening();
+    } catch (err) {
+      console.error(err);
     }
   }
 }

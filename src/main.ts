@@ -31,6 +31,7 @@ import {
   provideTranslateHttpLoader,
   TRANSLATE_HTTP_LOADER_CONFIG,
 } from '@ngx-translate/http-loader';
+import { SpeechService } from './app/core/services/speech.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader();
@@ -59,6 +60,7 @@ bootstrapApplication(AppComponent, {
     AuthService,
     LoadingService,
     NavigationService,
+    SpeechService,
     importProvidersFrom(IonicStorageModule.forRoot()),
     importProvidersFrom(MarkdownModule.forRoot()),
     importProvidersFrom(
